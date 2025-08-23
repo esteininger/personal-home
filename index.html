@@ -446,6 +446,43 @@
 
                 galleryImages = await response.json();
 
+                // Deduplicate by filename (case-insensitive, ignoring extension)
+                const byKey = new Map();
+                const parseDate = (v) => {
+                    if (!v) return NaN;
+                    const t = Date.parse(v);
+                    if (!Number.isNaN(t)) return t;
+                    const m = /^([0-9]{4}):([0-9]{2}):([0-9]{2})/.exec(String(v));
+                    return m ? Date.parse(`${m[1]}-${m[2]}-${m[3]}`) : NaN;
+                };
+                for (const img of galleryImages) {
+                    try {
+                        const fname = (img.url || '').split('/').pop() || '';
+                        const key = fname.replace(/\.[^.]+$/, '').toLowerCase();
+                        const existing = byKey.get(key);
+                        if (!existing) {
+                            byKey.set(key, img);
+                        } else {
+                            const ta = parseDate(existing.date_taken);
+                            const tb = parseDate(img.date_taken);
+                            const existingHasDate = !Number.isNaN(ta);
+                            const newHasDate = !Number.isNaN(tb);
+                            const existingHasCoords = (typeof existing.lat === 'number' && typeof existing.lng === 'number');
+                            const newHasCoords = (typeof img.lat === 'number' && typeof img.lng === 'number');
+
+                            let preferNew = false;
+                            if (newHasDate && !existingHasDate) preferNew = true;
+                            else if (newHasDate && existingHasDate && tb > ta) preferNew = true;
+                            else if (!newHasDate && !existingHasDate && newHasCoords && !existingHasCoords) preferNew = true;
+
+                            if (preferNew) byKey.set(key, img);
+                        }
+                    } catch (_) {
+                        // fall through; keep existing
+                    }
+                }
+                galleryImages = Array.from(byKey.values());
+
                 // Initialize sort controls
                 const sortFieldEl = document.getElementById('gallery-sort-field');
                 const sortOrderEl = document.getElementById('gallery-sort-order');

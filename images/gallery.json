@@ -146,13 +146,6 @@
     "date_taken": "2025-01-14"
   },
   {
-    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_9693.JPG",
-    "name": "IMG 9693",
-    "lat": 45.921322,
-    "lng": -123.976081,
-    "date_taken": "2025-01-14"
-  },
-  {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_2090.JPG",
     "name": "IMG 2090",
     "lat": 40.463072,
@@ -474,13 +467,6 @@
     "date_taken": "2025-07-26"
   },
   {
-    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_9828.JPG",
-    "name": "IMG 9828",
-    "lat": 43.586594,
-    "lng": -124.191422,
-    "date_taken": "2025-01-15"
-  },
-  {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_9975.JPG",
     "name": "IMG 9975",
     "lat": 42.311839,
@@ -694,5 +680,37 @@
     "lat": 37.130389,
     "lng": -118.506194,
     "date_taken": "2025-07-28"
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_6029.jpg",
+    "name": "IMG 6029",
+    "date_taken": "2021-08-01"
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_5848.JPG",
+    "name": "IMG 5848",
+    "date_taken": "2021-07-29"
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_5928.JPG",
+    "name": "IMG 5928",
+    "date_taken": "2021-07-31"
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_5895.JPG",
+    "name": "IMG 5895",
+    "date_taken": "2021-07-30"
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_58310.png",
+    "name": "IMG 58310",
+    "lat": 46.804025,
+    "lng": -121.729294,
+    "date_taken": "2024-07-02"
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_7536.JPG",
+    "name": "IMG 7536",
+    "date_taken": "2024-07-03"
   }
 ]
