@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Name - Personal Site</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+</head>
+
+<body>
+    <div class="container">
+        <nav>
+            <ul>
+                <li><a href="/about" class="nav-link active">About</a></li>
+                <li><a href="/articles" class="nav-link">Articles</a></li>
+                <li><a href="/album" class="nav-link">Album</a></li>
+            </ul>
+        </nav>
+
+        <!-- About Page -->
+        <div id="about" class="page active">
+            <div class="bio-layout">
+                <!-- Left Column -->
+                <div class="profile-section">
+                    <img src="https://placehold.co/200x200/1a1a2e/888888?text=Profile" alt="Profile"
+                        class="profile-img">
+                    <h3>tikun olam</h3>
+
+                    <div class="social-links">
+                        <a href="https://github.com" target="_blank">
+                            <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                                <path
+                                    d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+                            </svg>
+                        </a>
+                        <a href="https://linkedin.com" target="_blank">
+                            <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                                <path
+                                    d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
+                            </svg>
+                        </a>
+                        <a href="https://twitter.com" target="_blank">
+                            <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                                <path
+                                    d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z" />
+                            </svg>
+                        </a>
+                        <a href="https://instagram.com" target="_blank">
+                            <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                                <path
+                                    d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zM5.838 12a6.162 6.162 0 1112.324 0 6.162 6.162 0 01-12.324 0zM12 16a4 4 0 110-8 4 4 0 010 8zm4.965-10.405a1.44 1.44 0 112.881.001 1.44 1.44 0 01-2.881-.001z" />
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Right Column -->
+                <div class="bio-content">
+                    <div class="bio-section">
+                        <h1>About Me</h1>
+
+                        <p>Hi, I’m Ethan — founder, builder, and explorer. I’m currently focused on <a
+                                href="https://mixpeek.com" target="_blank">Mixpeek</a>, a platform that makes video,
+                            image, audio, and text searchable and actionable. In the past, I’ve worked across startups
+                            in <a href="#infrastructure">infrastructure</a>, <a href="#automation">automation</a>, and
+                            <a href="#machine-learning">machine learning</a>.</p>
+
+                        <p>When I’m not building, you’ll find me outdoors — living out of my <a
+                                target="_blank" href="https://vanlifecoder.com">camper van</a>, paddle boarding on alpine
+                            lakes, or hiking with my dog.</p>   
+
+                        <p>This site is where I share projects, ideas, and experiments — from systems design to big
+                            questions to documenting the journey.</p>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer">
+                me (at) ethan (dot) dev
+            </div>
+        </div>
+
+        <!-- Articles Page -->
+        <div id="articles" class="page">
+            <!-- <h1>Articles</h1> -->
+            <div id="blog-list" class="blog-list">
+                <!-- Blog list will be rendered here -->
+            </div>
+            <div id="blog-post-view" style="display: none;">
+                <!-- Individual blog post will be rendered here -->
+            </div>
+        </div>
+
+        <!-- Adventures Page -->
+        <div id="album" class="page">
+            <!-- <h1>Album</h1> -->
+            <div class="map-section" id="map-section">
+                <!-- Map will be rendered here -->
+            </div>
+            <div class="gallery" id="gallery">
+                <!-- Gallery items will be rendered here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox" onclick="closeLightbox()">
+        <button class="lightbox-close" aria-label="Close" onclick="closeLightbox(); event.stopPropagation();">×</button>
+        <img src="" alt="Full size image" id="lightbox-img">
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script>
+        // Determine base path for project pages (e.g., GitHub Pages project sites)
+        const basePath = (() => {
+            const parts = window.location.pathname.split('/').filter(Boolean);
+            // If first segment is a repo name (project site), treat it as base
+            // Heuristic: if first segment is not one of our app routes
+            const first = parts[0] || '';
+            const appRoots = new Set(['about', 'articles', 'album', 'posts', 'images']);
+            return first && !appRoots.has(first) ? ('/' + first) : '';
+        })();
+
+        // Blog posts data - will be loaded from markdown files
+        let blogPosts = [];
+
+        // Function to parse frontmatter from markdown content
+        function parseFrontmatter(content) {
+            const frontmatterRegex = /^---\n([\s\S]*?)\n---\n([\s\S]*)$/;
+            const match = content.match(frontmatterRegex);
+
+            if (!match) {
+                return { content: content, metadata: {} };
+            }
+
+            const frontmatter = match[1];
+            const markdownContent = match[2];
+
+            const metadata = {};
+            frontmatter.split('\n').forEach(line => {
+                const colonIndex = line.indexOf(':');
+                if (colonIndex > 0) {
+                    const key = line.substring(0, colonIndex).trim();
+                    let value = line.substring(colonIndex + 1).trim();
+
+                    // Remove quotes if present
+                    if ((value.startsWith('"') && value.endsWith('"')) ||
+                        (value.startsWith("'") && value.endsWith("'"))) {
+                        value = value.slice(1, -1);
+                    }
+
+                    metadata[key] = value;
+                }
+            });
+
+            return { content: markdownContent, metadata };
+        }
+
+        // Function to load blog posts from markdown files
+        async function loadBlogPosts() {
+            const postFiles = [
+                'posts/grief-to-resilience.md',
+                'posts/van-life-lessons.md',
+                'posts/indexing-the-world.md'
+            ];
+
+            blogPosts = [];
+
+            for (const file of postFiles) {
+                try {
+                    const response = await fetch(file);
+                    if (!response.ok) {
+                        console.warn(`Failed to load ${file}: ${response.status}`);
+                        continue;
+                    }
+
+                    const content = await response.text();
+                    const { content: markdownContent, metadata } = parseFrontmatter(content);
+
+                    // Extract ID from filename
+                    const id = file.replace('posts/', '').replace('.md', '');
+
+                    blogPosts.push({
+                        id: id,
+                        title: metadata.title || 'Untitled',
+                        date: metadata.date || 'Unknown Date',
+                        description: metadata.description || '',
+                        markdown: markdownContent
+                    });
+                } catch (error) {
+                    console.error(`Error loading ${file}:`, error);
+                }
+            }
+
+            // Sort posts by date (newest first)
+            blogPosts.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+            // Render the blog list after loading
+            renderBlogList();
+        }
+
+        // Navigation and routing
+        const navLinks = document.querySelectorAll('.nav-link');
+        const pages = document.querySelectorAll('.page');
+
+        // Handle navigation clicks (History API)
+        navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const rawPath = new URL(link.getAttribute('href'), window.location.origin).pathname;
+                const path = (basePath ? basePath : '') + rawPath;
+                navigateToPath(path);
+            });
+        });
+
+        // Navigate to a specific path using History API
+        function navigateToPath(path, options) {
+            const opts = options || {};
+            const shouldPush = opts.push === undefined ? true : !!opts.push;
+            if (!path || path === '/' || path === basePath + '/') path = (basePath + '/about');
+
+            if (shouldPush && window.location.pathname !== path) {
+                window.history.pushState({}, '', path);
+            }
+
+            const pageId = path.replace(basePath, '').replace(/^\/+/, '');
+
+            // Update active states
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                const linkPath = new URL(link.getAttribute('href'), window.location.origin).pathname.replace(/^\/+/, '');
+                if (linkPath === pageId) {
+                    link.classList.add('active');
+                }
+            });
+
+            // Show/hide pages
+            pages.forEach(page => {
+                page.classList.remove('active');
+                if (page.id === pageId) {
+                    page.classList.add('active');
+                }
+            });
+
+            // Reset articles view when navigating to articles
+            if (pageId === 'articles') {
+                const blogListEl = document.getElementById('blog-list');
+                const blogPostView = document.getElementById('blog-post-view');
+                const blogTitle = document.querySelector('#articles h1');
+
+                if (blogListEl) blogListEl.style.display = 'block';
+                if (blogPostView) blogPostView.style.display = 'none';
+                if (blogTitle) blogTitle.style.display = 'block';
+            }
+
+            // Ensure Leaflet map sizes correctly when the Album page becomes visible
+            if (pageId === 'album') {
+                // Create map if it hasn't been created yet
+                if (!leafletMap) {
+                    renderMap();
+                }
+                // Defer invalidation until layout settles
+                setTimeout(() => {
+                    if (leafletMap) {
+                        leafletMap.invalidateSize(true);
+                    }
+                }, 50);
+            }
+
+            // Scroll to top with smooth animation
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        // Handle browser back/forward buttons and deep linking (History API)
+        window.addEventListener('popstate', () => {
+            routeFromLocation();
+        });
+
+        function routeFromLocation() {
+            const path = window.location.pathname;
+            const basePages = ['/about', '/articles', '/album', '/'];
+
+            if (path.startsWith(basePath + '/articles/')) {
+                navigateToPath(basePath + '/articles');
+                const postId = path.replace(basePath + '/articles/', '');
+                setTimeout(() => {
+                    renderPostById(postId);
+                }, 100);
+            } else if (!basePages.map(p => basePath + p).includes(path)) {
+                // Treat as baseline article slug at root
+                const postId = path.replace(basePath, '').replace(/^\//, '');
+                navigateToPath(basePath + '/articles');
+                setTimeout(() => {
+                    renderPostById(postId);
+                }, 100);
+            } else {
+                navigateToPath(path);
+            }
+        }
+
+        function renderPostById(postId) {
+            const post = blogPosts.find(p => p.id === postId);
+            if (!post) return;
+            // ensure URL reflects article slug at /articles/<id>
+            const desiredPath = (basePath + '/articles/' + postId);
+            if (window.location.pathname !== desiredPath) {
+                window.history.pushState({}, '', desiredPath);
+                // do not recurse; just update URL
+            }
+            const blogListEl = document.getElementById('blog-list');
+            const blogPostView = document.getElementById('blog-post-view');
+            const blogTitle = document.querySelector('#articles h1');
+            if (blogListEl) blogListEl.style.display = 'none';
+            if (blogTitle) blogTitle.style.display = 'none';
+            if (blogPostView) {
+                blogPostView.style.display = 'block';
+                blogPostView.innerHTML = `
+                    <div class="blog-post">
+                        <a href="/articles" class="back-link" onclick="navigateToPath('/articles'); event.preventDefault();">← Back to articles</a>
+                        <div class="post-header">
+                            <h1>${post.title}</h1>
+                            <div class="post-date">${new Date(post.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</div>
+                        </div>
+                        <div class="post-content">${parseMarkdown(post.markdown)}</div>
+                    </div>`;
+            }
+        }
+
+        // Handle initial page load
+        window.addEventListener('load', async () => {
+            // Load blog posts and gallery images
+            await Promise.all([
+                loadBlogPosts(),
+                loadGalleryImages()
+            ]);
+            // Handle SPA redirect param from 404 fallback
+            const params = new URLSearchParams(window.location.search);
+            const redirected = params.get('redirect');
+            if (redirected) {
+                window.history.replaceState({}, '', redirected);
+            }
+            routeFromLocation();
+        });
+
+        // Simple Markdown parser
+        function parseMarkdown(markdown) {
+            let html = markdown
+                // Headers
+                .replace(/^### (.*$)/gim, '<h3>$1</h3>')
+                .replace(/^## (.*$)/gim, '<h3>$1</h3>')
+                .replace(/^# (.*$)/gim, '<h2>$1</h2>')
+                // Bold
+                .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+                // Italic  
+                .replace(/\*(.+?)\*/g, '<em>$1</em>')
+                // Code blocks
+                .replace(/```(.*?)```/gs, '<pre><code>$1</code></pre>')
+                // Inline code
+                .replace(/`(.+?)`/g, '<code>$1</code>')
+                // Lists
+                .replace(/^\d+\. (.+)$/gim, '<li>$1</li>')
+                .replace(/^\* (.+)$/gim, '<li>$1</li>')
+                .replace(/^- (.+)$/gim, '<li>$1</li>')
+                // Line breaks
+                .replace(/\n/g, '\n')
+                // Paragraphs
+                .split('\n\n')
+                .map(para => {
+                    para = para.trim();
+                    if (!para) return '';
+                    if (para.match(/^<[h|l|p|u|o]/)) {
+                        return para;
+                    }
+                    return `<p>${para}</p>`;
+                })
+                .join('\n');
+
+            // Wrap list items in appropriate list tags
+            html = html.replace(/(<li>.*<\/li>\n?)+/g, match => {
+                if (match.includes('<li>1.')) {
+                    return `<ol>${match}</ol>`;
+                }
+                return `<ul>${match}</ul>`;
+            });
+
+            return html;
+        }
+
+        // Gallery data - will be loaded from JSON file
+        let galleryImages = [];
+        let leafletMap = null;
+        let leafletMarkers = [];
+
+        // Function to load gallery images from JSON file
+        async function loadGalleryImages() {
+            try {
+                const response = await fetch('images/gallery.json');
+                if (!response.ok) {
+                    console.warn('Failed to load gallery images:', response.status);
+                    return;
+                }
+
+                galleryImages = await response.json();
+
+                // Render gallery after loading
+                renderGallery();
+            } catch (error) {
+                console.error('Error loading gallery images:', error);
+            }
+        }
+
+        // Render map
+        function renderMap() {
+            const mapSection = document.getElementById('map-section');
+            if (!mapSection || !galleryImages.length) return;
+
+            // Create/replace map container
+            mapSection.innerHTML = '<div id="leaflet-map" class="map-container"></div>';
+            const mapEl = document.getElementById('leaflet-map');
+
+            // Initialize or reset map
+            if (!leafletMap) {
+                leafletMap = L.map(mapEl, { zoomControl: true });
+                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    attribution: '&copy; OpenStreetMap contributors'
+                }).addTo(leafletMap);
+                // Default view: continental US
+                leafletMap.setView([39.5, -98.35], 4);
+            } else {
+                leafletMap.remove();
+                leafletMap = L.map(mapEl, { zoomControl: true });
+                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    attribution: '&copy; OpenStreetMap contributors'
+                }).addTo(leafletMap);
+                // Default view: continental US
+                leafletMap.setView([39.5, -98.35], 4);
+            }
+
+            // Clear old markers
+            leafletMarkers = [];
+            const bounds = L.latLngBounds();
+
+            galleryImages.forEach((image, index) => {
+                const marker = L.circleMarker([image.lat, image.lng], {
+                    radius: 5,
+                    color: '#ffffff',
+                    weight: 2,
+                    fillColor: '#ffffff',
+                    fillOpacity: 1
+                });
+                marker.addTo(leafletMap).bindPopup(image.name);
+                marker.on('click', () => {
+                    const galleryItems = document.querySelectorAll('.gallery-item');
+                    if (galleryItems[index]) {
+                        galleryItems[index].scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        galleryItems.forEach(item => item.style.opacity = '0.5');
+                        galleryItems[index].style.opacity = '1';
+                        setTimeout(() => { galleryItems.forEach(item => item.style.opacity = '1'); }, 2000);
+                    }
+                });
+                leafletMarkers[index] = marker;
+                bounds.extend([image.lat, image.lng]);
+            });
+
+            // If there are many markers outside the default US view, fit to bounds
+            if (bounds.isValid()) {
+                // Only fit if bounds are outside the US view notably
+                const usBounds = L.latLngBounds([24.396308, -124.848974], [49.384358, -66.885444]);
+                if (!usBounds.contains(bounds)) {
+                    leafletMap.fitBounds(bounds.pad(0.1));
+                }
+            }
+        }
+
+        // Focus a map point and scroll to the map
+        function focusMapPoint(index) {
+            const mapSection = document.getElementById('map-section');
+            if (mapSection) {
+                mapSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+            const marker = leafletMarkers[index];
+            if (leafletMap && marker) {
+                leafletMap.setView(marker.getLatLng(), Math.max(leafletMap.getZoom(), 8), { animate: true });
+                marker.openPopup();
+            }
+        }
+
+        // Render gallery
+        function renderGallery() {
+            const gallery = document.getElementById('gallery');
+            if (!gallery || !galleryImages.length) return;
+
+            gallery.innerHTML = '';
+
+            galleryImages.forEach((image, index) => {
+                const item = document.createElement('div');
+                item.className = 'gallery-item';
+                item.dataset.index = index;
+
+                item.innerHTML = `
+                    <img src="${image.url}" alt="${image.name}" onclick="openLightbox('${image.url}')">
+                    <div class="location-info">
+                        <div class="location-name">${image.name}</div>
+                        <a href="/album" 
+                           class="location-coords"
+                           onclick="focusMapPoint(${index}); navigateToPath('/album'); event.preventDefault(); event.stopPropagation();">
+                            ${image.lat.toFixed(4)}°, ${image.lng.toFixed(4)}°
+                        </a>
+                    </div>
+                `;
+
+                gallery.appendChild(item);
+            });
+
+            // Render map after gallery is created; then fix size after mount
+            renderMap();
+            setTimeout(() => {
+                if (leafletMap) {
+                    leafletMap.invalidateSize(true);
+                }
+            }, 50);
+        }
+
+
+
+        // Render blog list
+        function renderBlogList() {
+            const blogList = document.getElementById('blog-list');
+            if (!blogList) return;
+
+            blogList.innerHTML = '';
+
+            blogPosts.forEach(post => {
+                const listItem = document.createElement('div');
+                listItem.className = 'blog-list-item';
+                listItem.onclick = (e) => {
+                    e.preventDefault();
+                    window.history.pushState({}, '', '/articles/' + post.id);
+                    routeFromLocation();
+                };
+
+                listItem.innerHTML = `
+                    <h2>${post.title}</h2>
+                    <div class="date">${new Date(post.date).toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                })}</div>
+                    <div class="description">${post.description}</div>
+                `;
+
+                blogList.appendChild(listItem);
+            });
+        }
+
+        // Show individual blog post
+        function showBlogPost(postId) {
+            const post = blogPosts.find(p => p.id === postId);
+            if (!post) return;
+
+            // Update URL to /articles/<id>
+            const desiredPath = (basePath + '/articles/' + postId);
+            if (window.location.pathname !== desiredPath) {
+                window.history.pushState({}, '', desiredPath);
+            }
+
+            const blogListEl = document.getElementById('blog-list');
+            const blogPostView = document.getElementById('blog-post-view');
+            const blogTitle = document.querySelector('#blog h1');
+
+            // Hide list and title, show post
+            blogListEl.style.display = 'none';
+            blogTitle.style.display = 'none';
+            blogPostView.style.display = 'block';
+
+            // Render the post
+            blogPostView.innerHTML = `
+                <div class="blog-post">
+                    <a href="/articles" class="back-link" onclick="navigateToPath(basePath + '/articles'); event.preventDefault();">← Back to articles</a>
+                    <div class="post-header">
+                        <h1>${post.title}</h1>
+                        <div class="post-date">${new Date(post.date).toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            })}</div>
+                    </div>
+                    <div class="post-content">
+                        ${parseMarkdown(post.markdown)}
+                    </div>
+                </div>
+            `;
+
+            // Scroll to top with smooth animation
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        // Back to articles list
+        function backToBlogList(event) {
+            if (event) event.preventDefault();
+
+            const blogListEl = document.getElementById('blog-list');
+            const blogPostView = document.getElementById('blog-post-view');
+            const blogTitle = document.querySelector('#articles h1');
+
+            // Show list and title, hide post
+            blogListEl.style.display = 'block';
+            blogTitle.style.display = 'block';
+            blogPostView.style.display = 'none';
+
+            // Scroll to top with smooth animation
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        // Lightbox functionality
+        function openLightbox(src) {
+            document.getElementById('lightbox-img').src = src;
+            document.getElementById('lightbox').classList.add('active');
+            document.body.classList.add('lightbox-open');
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightbox').classList.remove('active');
+            document.body.classList.remove('lightbox-open');
+        }
+
+        // ESC key to close lightbox
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeLightbox();
+            }
+        });
+    </script>
+</body>
+
+</html>
