@@ -109,7 +109,7 @@
     <!-- Lightbox -->
     <div class="lightbox" id="lightbox" onclick="closeLightbox()">
         <button class="lightbox-close" aria-label="Close" onclick="closeLightbox(); event.stopPropagation();">×</button>
-        <img src="" alt="Full size image" id="lightbox-img">
+        <img src="" alt="Full size image" id="lightbox-img" onclick="toggleZoom(event)">
     </div>
 
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
@@ -451,7 +451,7 @@
             galleryImages.forEach((image, index) => {
                 const marker = L.circleMarker([image.lat, image.lng], {
                     radius: 5,
-                    color: '#ffffff',
+                    color: '#ff2d2d',
                     weight: 2,
                     fillColor: '#ffffff',
                     fillOpacity: 1
@@ -633,11 +633,22 @@
             document.getElementById('lightbox-img').src = src;
             document.getElementById('lightbox').classList.add('active');
             document.body.classList.add('lightbox-open');
+            // reset any zoom state
+            const img = document.getElementById('lightbox-img');
+            img.classList.remove('zoomed');
         }
 
         function closeLightbox() {
             document.getElementById('lightbox').classList.remove('active');
             document.body.classList.remove('lightbox-open');
+        }
+
+        // Toggle zoom on lightbox image click
+        function toggleZoom(event) {
+            event.stopPropagation();
+            const img = document.getElementById('lightbox-img');
+            if (!img) return;
+            img.classList.toggle('zoomed');
         }
 
         // ESC key to close lightbox
