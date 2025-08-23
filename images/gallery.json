@@ -1,80 +1,698 @@
 [
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_2296.JPG",
-    "name": "Maple Pass, WA",
+    "name": "IMG 2296",
     "lat": 48.511253,
     "lng": -120.745469,
-    "journal": "",
-    "miles": null,
-    "elevation_gain_ft": null
-  },
-  {
-    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_2547.JPG",
-    "name": "Mt. Baker, WA",
-    "lat": 48.945847,
-    "lng": -121.682717,
-    "journal": "",
-    "miles": null,
-    "elevation_gain_ft": null
-  },
-  {
-    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_2613.JPG",
-    "name": "Artist Point, WA",
-    "lat": 48.845828,
-    "lng": -121.692878,
-    "journal": "",
-    "miles": null,
-    "elevation_gain_ft": null
-  },
-  {
-    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_1611.JPG",
-    "name": "Yosemite Valley, CA",
-    "lat": 37.778789,
-    "lng": -119.551658,
-    "journal": "",
-    "miles": null,
-    "elevation_gain_ft": null
-  },
-  {
-    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_1740.JPG",
-    "name": "Box Lake, CA",
-    "lat": 37.414117,
-    "lng": -118.755608,
-    "journal": "",
-    "miles": null,
-    "elevation_gain_ft": null
-  },
-  {
-    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_1730.JPG",
-    "name": "",
-    "lat": 37.390097,
-    "lng": -118.7574,
-    "journal": "",
-    "miles": null,
-    "elevation_gain_ft": null
-  },
-  {
-    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_2569.JPG",
-    "name": "",
-    "lat": 48.948203,
-    "lng": -121.686944,
-    "journal": "",
-    "miles": null,
-    "elevation_gain_ft": null
-  },
-  {
-    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_1710.JPG",
-    "name": "",
-    "lat": 37.392556,
-    "lng": -118.754722,
-    "journal": "",
-    "miles": null,
-    "elevation_gain_ft": null
+    "date_taken": "2025-08-05",
+    "featured": true
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_0025.JPG",
-    "name": "",
+    "name": "IMG_0025",
     "lat": 41.778775,
     "lng": -124.101281
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_0067.JPG",
+    "name": "IMG_0067",
+    "lat": 39.305417,
+    "lng": -123.810128
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_0125.JPG",
+    "name": "IMG_0125",
+    "lat": 36.632664,
+    "lng": -121.938583
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_0233.JPG",
+    "name": "IMG_0233",
+    "lat": 33.989286,
+    "lng": -116.132797
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_0283.JPG",
+    "name": "",
+    "lat": 33.503272,
+    "lng": -115.916358
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_0360.JPG",
+    "name": "IMG_0360",
+    "lat": 34.117481,
+    "lng": -116.106042
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_0363.JPG",
+    "name": "IMG_0363",
+    "lat": 34.106522,
+    "lng": -116.105636
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_0410.JPG",
+    "name": "IMG_0410",
+    "lat": 33.999572,
+    "lng": -116.146003
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_1607.JPG",
+    "name": "IMG_1607",
+    "lat": 37.776314,
+    "lng": -119.554244
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_9971.JPG",
+    "name": "IMG 9971",
+    "lat": 42.592539,
+    "lng": -124.39685,
+    "date_taken": "2025-01-16"
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_9757.JPG",
+    "name": "IMG 9757",
+    "lat": 45.894353,
+    "lng": -123.964653,
+    "date_taken": "2025-01-14"
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_9958.JPG",
+    "name": "IMG 9958",
+    "lat": 43.113031,
+    "lng": -124.433814,
+    "date_taken": "2025-01-16"
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_9966.JPG",
+    "name": "IMG 9966",
+    "lat": 42.691422,
+    "lng": -124.449019,
+    "date_taken": "2025-01-16"
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_1731.JPG",
+    "name": "IMG 1731",
+    "lat": 37.390103,
+    "lng": -118.7574,
+    "date_taken": "2025-07-26"
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_9797.JPG",
+    "name": "IMG 9797",
+    "lat": 44.277642,
+    "lng": -124.112236,
+    "date_taken": "2025-01-14"
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_1694.JPG",
+    "name": "IMG 1694",
+    "lat": 37.412614,
+    "lng": -118.75615,
+    "date_taken": "2025-07-26"
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_9828.JPG",
+    "name": "IMG 9828",
+    "lat": 43.586594,
+    "lng": -124.191422,
+    "date_taken": "2025-01-15"
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_9975.JPG",
+    "name": "IMG 9975",
+    "lat": 42.311839,
+    "lng": -124.414703,
+    "date_taken": "2025-01-16"
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_1626.JPG",
+    "name": "IMG 1626",
+    "lat": 37.782325,
+    "lng": -119.550758,
+    "date_taken": "2025-07-26"
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_9900.JPG",
+    "name": "IMG 9900",
+    "lat": 43.114503,
+    "lng": -124.436828,
+    "date_taken": "2025-01-16"
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_9726.JPG",
+    "name": "IMG 9726",
+    "lat": 45.918147,
+    "lng": -123.975394,
+    "date_taken": "2025-01-14"
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_9693.JPG",
+    "name": "IMG 9693",
+    "lat": 45.921322,
+    "lng": -123.976081,
+    "date_taken": "2025-01-14"
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_2090.JPG",
+    "name": "IMG 2090",
+    "lat": 40.463072,
+    "lng": -121.509033,
+    "date_taken": "2025-07-31"
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_1611.JPG",
+    "name": "IMG 1611",
+    "lat": 37.778789,
+    "lng": -119.551658,
+    "date_taken": "2025-07-26"
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_9703.JPG",
+    "name": "IMG 9703",
+    "lat": 45.921283,
+    "lng": -123.976106,
+    "date_taken": "2025-01-14"
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_9925.JPG",
+    "name": "IMG 9925",
+    "lat": 43.114144,
+    "lng": -124.436347,
+    "date_taken": "2025-01-16"
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_1819.JPG",
+    "name": "IMG 1819",
+    "lat": 37.125939,
+    "lng": -118.486947,
+    "date_taken": "2025-07-28"
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_1993.JPG",
+    "name": "IMG 1993",
+    "lat": 37.131436,
+    "lng": -118.493819,
+    "date_taken": "2025-07-29"
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_1615.JPG",
+    "name": "IMG 1615",
+    "lat": 37.780369,
+    "lng": -119.550872,
+    "date_taken": "2025-07-26"
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_1991.JPG",
+    "name": "IMG 1991",
+    "lat": 37.1293,
+    "lng": -118.500731,
+    "date_taken": "2025-07-29"
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_7847.JPG",
+    "name": "IMG 7847",
+    "lat": 51.673142,
+    "lng": -116.450142,
+    "date_taken": "2024-07-07"
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_7884.JPG",
+    "name": "IMG 7884",
+    "lat": 51.440792,
+    "lng": -116.542106,
+    "date_taken": "2024-07-08"
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_2144.JPG",
+    "name": "IMG 2144",
+    "lat": 44.018578,
+    "lng": -121.741303,
+    "date_taken": "2025-08-02"
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_2018.JPG",
+    "name": "IMG 2018",
+    "lat": 37.1315,
+    "lng": -118.485903,
+    "date_taken": "2025-07-29"
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_8078.JPG",
+    "name": "IMG 8078",
+    "lat": 47.470736,
+    "lng": -121.4542,
+    "date_taken": "2024-07-10"
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_2421.JPG",
+    "name": "IMG 2421",
+    "lat": 47.807961,
+    "lng": -120.727692,
+    "date_taken": "2025-08-06"
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_8052.JPG",
+    "name": "IMG 8052",
+    "lat": 47.476111,
+    "lng": -121.464789,
+    "date_taken": "2024-07-10"
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_1671.JPG",
+    "name": "IMG 1671",
+    "lat": 37.420453,
+    "lng": -118.754831,
+    "date_taken": "2025-07-26"
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_9991.JPG",
+    "name": "IMG 9991",
+    "lat": 42.186783,
+    "lng": -124.362922,
+    "date_taken": "2025-01-17"
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_7990.JPG",
+    "name": "IMG 7990",
+    "lat": 47.466989,
+    "lng": -121.448022,
+    "date_taken": "2024-07-10"
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_1932.JPG",
+    "name": "IMG 1932",
+    "lat": 37.130389,
+    "lng": -118.506194,
+    "date_taken": "2025-07-28"
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_9980.JPG",
+    "name": "IMG 9980",
+    "lat": 42.189403,
+    "lng": -124.366019,
+    "date_taken": "2025-01-17"
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_8041.JPG",
+    "name": "IMG 8041",
+    "lat": 47.477925,
+    "lng": -121.464669,
+    "date_taken": "2024-07-10"
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_1703.JPG",
+    "name": "IMG 1703",
+    "lat": 37.408817,
+    "lng": -118.7575,
+    "date_taken": "2025-07-26"
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_8082.JPG",
+    "name": "IMG 8082",
+    "lat": 47.469475,
+    "lng": -121.451622,
+    "date_taken": "2024-07-10"
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_9767.JPG",
+    "name": "IMG 9767",
+    "lat": 45.828656,
+    "lng": -123.962044,
+    "date_taken": "2025-01-14"
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_7546.JPG",
+    "name": "IMG 7546",
+    "date_taken": "2024-07-03"
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_1730.JPG",
+    "name": "IMG 1730",
+    "lat": 37.390097,
+    "lng": -118.7574,
+    "date_taken": "2025-07-26"
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_7597.JPG",
+    "name": "IMG 7597",
+    "date_taken": "2024-07-03"
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_2613.JPG",
+    "name": "IMG 2613",
+    "lat": 48.845828,
+    "lng": -121.692878,
+    "date_taken": "2025-08-12"
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_7690.JPG",
+    "name": "IMG 7690",
+    "date_taken": "2024-07-05"
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_7735.JPG",
+    "name": "IMG 7735",
+    "date_taken": "2024-07-06"
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_1740.JPG",
+    "name": "IMG 1740",
+    "lat": 37.414117,
+    "lng": -118.755608,
+    "date_taken": "2025-07-26"
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_7665.JPG",
+    "name": "IMG 7665",
+    "date_taken": "2024-07-05"
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_1611.JPG",
+    "name": "IMG 1611",
+    "lat": 37.778789,
+    "lng": -119.551658,
+    "date_taken": "2025-07-26"
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_7570.JPG",
+    "name": "IMG 7570",
+    "date_taken": "2024-07-03"
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_2569.JPG",
+    "name": "IMG 2569",
+    "lat": 48.948203,
+    "lng": -121.686944,
+    "date_taken": "2025-08-12"
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_7767.JPG",
+    "name": "IMG 7767",
+    "date_taken": "2024-07-06"
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_1710.JPG",
+    "name": "IMG 1710",
+    "lat": 37.392556,
+    "lng": -118.754722,
+    "date_taken": "2025-07-26"
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_7599.JPG",
+    "name": "IMG 7599",
+    "date_taken": "2024-07-03"
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_2547.JPG",
+    "name": "IMG 2547",
+    "lat": 48.945847,
+    "lng": -121.682717,
+    "date_taken": "2025-08-12"
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_7761.JPG",
+    "name": "IMG 7761",
+    "date_taken": "2024-07-06"
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_7775.JPG",
+    "name": "IMG 7775",
+    "date_taken": "2024-07-07"
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_7602.JPG",
+    "name": "IMG 7602",
+    "date_taken": "2024-07-03"
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_9971.JPG",
+    "name": "IMG 9971",
+    "lat": 42.592539,
+    "lng": -124.39685,
+    "date_taken": "2025-01-16"
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_9757.JPG",
+    "name": "IMG 9757",
+    "lat": 45.894353,
+    "lng": -123.964653,
+    "date_taken": "2025-01-14"
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_9958.JPG",
+    "name": "IMG 9958",
+    "lat": 43.113031,
+    "lng": -124.433814,
+    "date_taken": "2025-01-16"
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_9966.JPG",
+    "name": "IMG 9966",
+    "lat": 42.691422,
+    "lng": -124.449019,
+    "date_taken": "2025-01-16"
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_1731.JPG",
+    "name": "IMG 1731",
+    "lat": 37.390103,
+    "lng": -118.7574,
+    "date_taken": "2025-07-26"
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_9797.JPG",
+    "name": "IMG 9797",
+    "lat": 44.277642,
+    "lng": -124.112236,
+    "date_taken": "2025-01-14"
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_1694.JPG",
+    "name": "IMG 1694",
+    "lat": 37.412614,
+    "lng": -118.75615,
+    "date_taken": "2025-07-26"
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_9828.JPG",
+    "name": "IMG 9828",
+    "lat": 43.586594,
+    "lng": -124.191422,
+    "date_taken": "2025-01-15"
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_9975.JPG",
+    "name": "IMG 9975",
+    "lat": 42.311839,
+    "lng": -124.414703,
+    "date_taken": "2025-01-16"
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_1626.JPG",
+    "name": "IMG 1626",
+    "lat": 37.782325,
+    "lng": -119.550758,
+    "date_taken": "2025-07-26"
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_9900.JPG",
+    "name": "IMG 9900",
+    "lat": 43.114503,
+    "lng": -124.436828,
+    "date_taken": "2025-01-16"
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_9726.JPG",
+    "name": "IMG 9726",
+    "lat": 45.918147,
+    "lng": -123.975394,
+    "date_taken": "2025-01-14"
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_9693.JPG",
+    "name": "IMG 9693",
+    "lat": 45.921322,
+    "lng": -123.976081,
+    "date_taken": "2025-01-14"
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_2090.JPG",
+    "name": "IMG 2090",
+    "lat": 40.463072,
+    "lng": -121.509033,
+    "date_taken": "2025-07-31"
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_1611.JPG",
+    "name": "IMG 1611",
+    "lat": 37.778789,
+    "lng": -119.551658,
+    "date_taken": "2025-07-26"
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_9703.JPG",
+    "name": "IMG 9703",
+    "lat": 45.921283,
+    "lng": -123.976106,
+    "date_taken": "2025-01-14"
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_9925.JPG",
+    "name": "IMG 9925",
+    "lat": 43.114144,
+    "lng": -124.436347,
+    "date_taken": "2025-01-16"
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_1819.JPG",
+    "name": "IMG 1819",
+    "lat": 37.125939,
+    "lng": -118.486947,
+    "date_taken": "2025-07-28"
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_1993.JPG",
+    "name": "IMG 1993",
+    "lat": 37.131436,
+    "lng": -118.493819,
+    "date_taken": "2025-07-29"
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_1615.JPG",
+    "name": "IMG 1615",
+    "lat": 37.780369,
+    "lng": -119.550872,
+    "date_taken": "2025-07-26"
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_2613.jpg",
+    "name": "IMG 2613",
+    "lat": 48.845828,
+    "lng": -121.692878,
+    "date_taken": "2025-08-12"
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_2933.JPG",
+    "name": "IMG 2933",
+    "lat": 48.866058,
+    "lng": -121.677681,
+    "date_taken": "2025-08-19"
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_2921.JPG",
+    "name": "IMG 2921",
+    "lat": 48.845564,
+    "lng": -121.690919,
+    "date_taken": "2025-08-19"
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_2895.JPG",
+    "name": "IMG 2895",
+    "lat": 48.855694,
+    "lng": -121.721619,
+    "date_taken": "2025-08-18"
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_2866.JPG",
+    "name": "IMG 2866",
+    "lat": 48.846219,
+    "lng": -121.70755,
+    "date_taken": "2025-08-18"
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_2723.JPG",
+    "name": "IMG 2723",
+    "lat": 48.486011,
+    "lng": -121.044289,
+    "date_taken": "2025-08-14"
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_2861.JPG",
+    "name": "IMG 2861",
+    "lat": 48.8465,
+    "lng": -121.695961,
+    "date_taken": "2025-08-18"
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_3002.JPG",
+    "name": "IMG 3002",
+    "lat": 48.025836,
+    "lng": -121.363106,
+    "date_taken": "2025-08-21"
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_8079.JPG",
+    "name": "IMG 8079",
+    "date_taken": "2021-09-29"
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_2976.JPG",
+    "name": "IMG 2976",
+    "lat": 48.021,
+    "lng": -121.351883,
+    "date_taken": "2025-08-21"
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_1691.jpg",
+    "name": "IMG 1691",
+    "lat": 37.412606,
+    "lng": -118.756156,
+    "date_taken": "2025-07-26"
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_2574.jpg",
+    "name": "IMG 2574",
+    "lat": 48.947833,
+    "lng": -121.6848,
+    "date_taken": "2025-08-12"
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_1860.jpg",
+    "name": "IMG 1860",
+    "lat": 37.130494,
+    "lng": -118.505897,
+    "date_taken": "2025-07-28"
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_1723.jpg",
+    "name": "IMG 1723",
+    "lat": 37.389994,
+    "lng": -118.757597,
+    "date_taken": "2025-07-26"
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_1988.jpg",
+    "name": "IMG 1988",
+    "lat": 37.130406,
+    "lng": -118.506278,
+    "date_taken": "2025-07-29"
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_1975.jpg",
+    "name": "IMG 1975",
+    "lat": 37.130403,
+    "lng": -118.505958,
+    "date_taken": "2025-07-28"
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_2568.jpg",
+    "name": "IMG 2568",
+    "lat": 48.948203,
+    "lng": -121.68695,
+    "date_taken": "2025-08-12"
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_1674.jpg",
+    "name": "IMG 1674",
+    "lat": 37.419489,
+    "lng": -118.755097,
+    "date_taken": "2025-07-26"
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_1931.jpg",
+    "name": "IMG 1931",
+    "lat": 37.130389,
+    "lng": -118.506194,
+    "date_taken": "2025-07-28"
   }
 ]

@@ -1,3 +1,25 @@
+## Bulk add gallery images
+
+Drop images into `album_inbox/` (create it at repo root if it doesn't exist), then run:
+
+```bash
+python scripts/python/bulk_add_to_gallery.py
+```
+
+Options:
+
+```bash
+python scripts/python/bulk_add_to_gallery.py \
+  --dir /abs/path/to/folder \
+  --bucket ethan.dev \
+  --cf-domain diyjmz7hrjx3w.cloudfront.net \
+  --prefix album/ \
+  --name-empty \
+  --no-move
+```
+
+Successful files are moved to `<dir>/processed` by default.
+
 # Personal Website
 
 A minimal personal website with blog functionality built with HTML, CSS, and JavaScript.

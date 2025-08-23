@@ -93,6 +93,18 @@
             <div class="map-section" id="map-section">
                 <!-- Map will be rendered here -->
             </div>
+            <div class="gallery-controls">
+                <label for="gallery-sort-field">Sort by:</label>
+                <select id="gallery-sort-field">
+                    <option value="date">date</option>
+                    <option value="name">name</option>
+                </select>
+                <label for="gallery-sort-order" style="margin-left:8px;">Order:</label>
+                <select id="gallery-sort-order">
+                    <option value="desc">desc</option>
+                    <option value="asc">asc</option>
+                </select>
+            </div>
             <div class="gallery" id="gallery">
                 <!-- Gallery items will be rendered here -->
             </div>
@@ -102,7 +114,9 @@
     <!-- Lightbox -->
     <div class="lightbox" id="lightbox" onclick="closeLightbox()">
         <button class="lightbox-close" aria-label="Close" onclick="closeLightbox(); event.stopPropagation();">×</button>
+        <button class="lightbox-nav lightbox-prev" aria-label="Previous" onclick="navigateLightbox(-1); event.stopPropagation();">‹</button>
         <img src="" alt="Full size image" id="lightbox-img" onclick="toggleZoom(event)">
+        <button class="lightbox-nav lightbox-next" aria-label="Next" onclick="navigateLightbox(1); event.stopPropagation();">›</button>
         <div id="lightbox-caption" onclick="event.stopPropagation();"></div>
     </div>
 
@@ -265,6 +279,8 @@
                 setTimeout(() => {
                     if (leafletMap) {
                         leafletMap.invalidateSize(true);
+                        // Ensure we fit to all pins when album becomes visible
+                        fitMapToAllPins();
                     }
                 }, 50);
             }
@@ -274,6 +290,19 @@
                 top: 0,
                 behavior: 'smooth'
             });
+        }
+        // Fit map view to include all valid pins
+        function fitMapToAllPins() {
+            if (!leafletMap || !Array.isArray(galleryImages)) return;
+            const b = L.latLngBounds();
+            for (const img of galleryImages) {
+                if (typeof img.lat === 'number' && typeof img.lng === 'number') {
+                    b.extend([img.lat, img.lng]);
+                }
+            }
+            if (b.isValid()) {
+                leafletMap.fitBounds(b.pad(0.1));
+            }
         }
 
         // Handle browser back/forward buttons and deep linking (History API)
@@ -401,6 +430,10 @@
         let galleryImages = [];
         let leafletMap = null;
         let leafletMarkers = [];
+        let currentLightboxIndex = -1;
+        let lightboxLoading = false;
+        let gallerySortField = 'date';
+        let gallerySortOrder = 'desc';
 
         // Function to load gallery images from JSON file
         async function loadGalleryImages() {
@@ -412,6 +445,24 @@
                 }
 
                 galleryImages = await response.json();
+
+                // Initialize sort controls
+                const sortFieldEl = document.getElementById('gallery-sort-field');
+                const sortOrderEl = document.getElementById('gallery-sort-order');
+                if (sortFieldEl && !sortFieldEl.dataset.bound) {
+                    sortFieldEl.dataset.bound = '1';
+                    sortFieldEl.addEventListener('change', () => {
+                        gallerySortField = sortFieldEl.value;
+                        renderGallery();
+                    });
+                }
+                if (sortOrderEl && !sortOrderEl.dataset.bound) {
+                    sortOrderEl.dataset.bound = '1';
+                    sortOrderEl.addEventListener('change', () => {
+                        gallerySortOrder = sortOrderEl.value;
+                        renderGallery();
+                    });
+                }
 
                 // Render gallery after loading
                 renderGallery();
@@ -435,16 +486,12 @@
                 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                     attribution: '&copy; OpenStreetMap contributors'
                 }).addTo(leafletMap);
-                // Default view: continental US
-                leafletMap.setView([39.5, -98.35], 4);
             } else {
                 leafletMap.remove();
                 leafletMap = L.map(mapEl, { zoomControl: true });
                 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                     attribution: '&copy; OpenStreetMap contributors'
                 }).addTo(leafletMap);
-                // Default view: continental US
-                leafletMap.setView([39.5, -98.35], 4);
             }
 
             // Clear old markers
@@ -452,6 +499,10 @@
             const bounds = L.latLngBounds();
 
             galleryImages.forEach((image, index) => {
+                if (typeof image.lat !== 'number' || typeof image.lng !== 'number') {
+                    leafletMarkers[index] = null;
+                    return;
+                }
                 const marker = L.circleMarker([image.lat, image.lng], {
                     radius: 5,
                     color: '#ff2d2d',
@@ -459,27 +510,23 @@
                     fillColor: '#ffffff',
                     fillOpacity: 1
                 });
-                marker.addTo(leafletMap).bindPopup(`<a href="/album" class="map-popup-link" onclick="openLightbox('${image.url}'); event.preventDefault(); event.stopPropagation();">${image.name}</a>`);
-                marker.on('click', () => {
-                    const galleryItems = document.querySelectorAll('.gallery-item');
-                    if (galleryItems[index]) {
-                        galleryItems[index].scrollIntoView({ behavior: 'smooth', block: 'center' });
-                        galleryItems.forEach(item => item.style.opacity = '0.5');
-                        galleryItems[index].style.opacity = '1';
-                        setTimeout(() => { galleryItems.forEach(item => item.style.opacity = '1'); }, 2000);
-                    }
-                });
+                const titleText = (image.name && image.name.trim()) ? image.name : '';
+                const popupHtml = `
+                    <div class="map-popup">
+                        ${titleText ? `<div class=\"map-popup-title\" onclick=\"openLightbox('${image.url}'); event.preventDefault(); event.stopPropagation();\">${titleText}</div>` : ''}
+                        <img src="${image.url}" alt="${titleText || 'Photo'}" class="map-popup-thumb" onclick="openLightbox('${image.url}'); event.preventDefault(); event.stopPropagation();">
+                    </div>
+                `;
+                marker.addTo(leafletMap).bindPopup(popupHtml);
                 leafletMarkers[index] = marker;
                 bounds.extend([image.lat, image.lng]);
             });
 
-            // If there are many markers outside the default US view, fit to bounds
+            // Fit to all markers by default; fallback to a world view if none
             if (bounds.isValid()) {
-                // Only fit if bounds are outside the US view notably
-                const usBounds = L.latLngBounds([24.396308, -124.848974], [49.384358, -66.885444]);
-                if (!usBounds.contains(bounds)) {
-                    leafletMap.fitBounds(bounds.pad(0.1));
-                }
+                leafletMap.fitBounds(bounds.pad(0.1));
+            } else {
+                leafletMap.setView([20, 0], 2);
             }
         }
 
@@ -503,20 +550,61 @@
 
             gallery.innerHTML = '';
 
-            galleryImages.forEach((image, index) => {
+            // Helper to parse various date formats into ms since epoch
+            function parseDateMs(val) {
+                if (!val) return NaN;
+                const direct = Date.parse(val);
+                if (!Number.isNaN(direct)) return direct;
+                const m = /^([0-9]{4}):([0-9]{2}):([0-9]{2})(?:[ T].*)?$/.exec(String(val));
+                if (m) {
+                    const iso = `${m[1]}-${m[2]}-${m[3]}`;
+                    const t = Date.parse(iso);
+                    if (!Number.isNaN(t)) return t;
+                }
+                return NaN;
+            }
+
+            // Apply sorting (keep featured item at top)
+            const featured = galleryImages.find(g => g.featured);
+            const rest = galleryImages.filter(g => !g.featured);
+            const orderFactor = (gallerySortOrder === 'asc') ? 1 : -1;
+            if (gallerySortField === 'date') {
+                rest.sort((a, b) => {
+                    const ta = parseDateMs(a.date_taken);
+                    const tb = parseDateMs(b.date_taken);
+                    const aMissing = Number.isNaN(ta);
+                    const bMissing = Number.isNaN(tb);
+                    if (aMissing && bMissing) return 0;
+                    if (aMissing) return 1; // missing dates go to bottom
+                    if (bMissing) return -1;
+                    return (ta - tb) * orderFactor;
+                });
+            } else if (gallerySortField === 'name') {
+                rest.sort((a, b) => {
+                    const na = (a.name || '').toLocaleLowerCase();
+                    const nb = (b.name || '').toLocaleLowerCase();
+                    if (!na && !nb) return 0;
+                    if (!na) return 1; // blanks last by default before applying order
+                    if (!nb) return -1;
+                    return na.localeCompare(nb) * orderFactor;
+                });
+            }
+            const toRender = featured ? [featured, ...rest] : rest;
+
+            toRender.forEach((image, index) => {
                 const item = document.createElement('div');
                 item.className = 'gallery-item';
                 item.dataset.index = index;
+
+                const coordsHtml = (typeof image.lat === 'number' && typeof image.lng === 'number')
+                    ? `<a href="/album" class="location-coords" onclick="focusMapPoint(${index}); navigateToPath('/album'); event.preventDefault(); event.stopPropagation();">${image.lat.toFixed(4)}°, ${image.lng.toFixed(4)}°</a>`
+                    : '';
 
                 item.innerHTML = `
                     <img src="${image.url}" alt="${image.name}" loading="lazy" decoding="async" onclick="openLightbox('${image.url}')">
                     <div class="location-info">
                         <div class="location-name">${image.name}</div>
-                        <a href="/album" 
-                           class="location-coords"
-                           onclick="focusMapPoint(${index}); navigateToPath('/album'); event.preventDefault(); event.stopPropagation();">
-                            ${image.lat.toFixed(4)}°, ${image.lng.toFixed(4)}°
-                        </a>
+                        ${coordsHtml}
                     </div>
                 `;
 
@@ -645,18 +733,57 @@
 
             // Populate caption from galleryImages
             if (caption && Array.isArray(galleryImages)) {
-                const entry = galleryImages.find(g => g.url === src);
+                const entryIndex = galleryImages.findIndex(g => g.url === src);
+                const entry = entryIndex >= 0 ? galleryImages[entryIndex] : null;
+                if (entryIndex >= 0) {
+                    currentLightboxIndex = entryIndex;
+                }
                 if (entry) {
                     const title = entry.name && entry.name.trim() ? entry.name : '';
+                    const date = entry.date_taken ? new Date(entry.date_taken).toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' }) : '';
                     const statsParts = [];
                     if (entry.miles != null) statsParts.push(`${entry.miles} mi`);
                     if (entry.elevation_gain_ft != null) statsParts.push(`${entry.elevation_gain_ft.toLocaleString()} ft gain`);
                     const stats = statsParts.length ? `<div class="caption-stats">${statsParts.join(' · ')}</div>` : '';
                     const journal = entry.journal ? `<div class="caption-journal">${entry.journal}</div>` : '';
-                    caption.innerHTML = `${title ? `<div class="caption-title">${title}</div>` : ''}${stats}${journal}`;
+                    const dateHtml = date ? `<div class="caption-date">${date}</div>` : '';
+                    const coordsHtml = (typeof entry.lat === 'number' && typeof entry.lng === 'number') ? `<div class=\"caption-coords\">${entry.lat.toFixed(4)}°, ${entry.lng.toFixed(4)}°</div>` : '';
+                    caption.innerHTML = `${title ? `<div class="caption-title">${title}</div>` : ''}${coordsHtml}${dateHtml}${stats}${journal}`;
                 } else if (caption) {
                     caption.innerHTML = '';
                 }
+            }
+        }
+
+        // Preload helper – resolves when the image has fully loaded
+        function preloadImage(url) {
+            return new Promise((resolve) => {
+                const i = new Image();
+                i.onload = () => resolve();
+                i.onerror = () => resolve();
+                i.src = url;
+            });
+        }
+
+        // Navigate lightbox left/right with wrap-around; wait for image to load
+        async function navigateLightbox(delta) {
+            if (lightboxLoading) return;
+            if (!Array.isArray(galleryImages) || galleryImages.length === 0) return;
+            if (currentLightboxIndex < 0) {
+                currentLightboxIndex = 0;
+            }
+            const total = galleryImages.length;
+            let next = (currentLightboxIndex + delta) % total;
+            if (next < 0) next += total;
+            const nextEntry = galleryImages[next];
+            if (!(nextEntry && nextEntry.url)) return;
+            try {
+                lightboxLoading = true;
+                await preloadImage(nextEntry.url);
+                currentLightboxIndex = next;
+                openLightbox(nextEntry.url);
+            } finally {
+                lightboxLoading = false;
             }
         }
 
@@ -681,6 +808,16 @@
                 const overlay = document.getElementById('map-overlay');
                 if (overlay && overlay.classList.contains('active')) {
                     toggleMapFullscreen(false);
+                }
+            } else if (e.key === 'ArrowRight') {
+                const lb = document.getElementById('lightbox');
+                if (lb && lb.classList.contains('active')) {
+                    navigateLightbox(1);
+                }
+            } else if (e.key === 'ArrowLeft') {
+                const lb = document.getElementById('lightbox');
+                if (lb && lb.classList.contains('active')) {
+                    navigateLightbox(-1);
                 }
             }
         });

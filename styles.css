@@ -493,6 +493,28 @@ nav a.active::after {
     margin-top: 2rem;
 }
 
+.gallery-controls {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+    justify-content: flex-end;
+}
+
+.gallery-controls label {
+    color: var(--text-dim);
+    font-size: 0.9rem;
+}
+
+.gallery-controls select {
+    background: #111218;
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 6px 8px;
+}
+
 .gallery-item {
     position: relative;
     break-inside: avoid;
@@ -619,11 +641,80 @@ nav a.active::after {
     margin-bottom: 6px;
 }
 
+#lightbox-caption .caption-date {
+    color: #e8e8e8;
+    font-size: 0.9rem;
+    opacity: 0.9;
+    margin-bottom: 6px;
+}
+
+#lightbox-caption .caption-coords {
+    color: #a7ffde;
+    font-size: 0.9rem;
+    margin-bottom: 6px;
+}
+
+/* Lightbox navigation arrows */
+.lightbox-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 40px;
+    height: 60px;
+    border: none;
+    background: rgba(0, 0, 0, 0.35);
+    color: rgba(255, 255, 255, 0.85);
+    font-size: 34px;
+    line-height: 60px;
+    text-align: center;
+    cursor: pointer;
+    z-index: 10001;
+    transition: color 0.15s ease-in-out, transform 0.06s ease-in-out;
+}
+
+.lightbox-prev { left: 10px; }
+.lightbox-next { right: 10px; }
+
+.lightbox-nav:hover { color: #ffffff; }
+.lightbox-nav:active { transform: translateY(-50%) scale(0.96); }
+
 /* Hide Leaflet UI when lightbox is open */
 body.lightbox-open .leaflet-control-container,
 body.lightbox-open .leaflet-popup-pane,
 body.lightbox-open .leaflet-tooltip-pane {
     display: none !important;
+}
+
+/* Map popup preview */
+.map-popup {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+}
+
+.map-popup-thumb {
+    width: 220px;
+    height: 140px;
+    object-fit: cover;
+    border-radius: 6px;
+    cursor: pointer;
+    border: 1px solid rgba(0,0,0,0.3);
+    box-shadow: 0 1px 6px rgba(0,0,0,0.25);
+}
+
+.map-popup-title {
+    color: #2b6cb0; /* dark blue */
+    text-decoration: underline;
+    text-decoration-color: rgba(43,108,176,0.5);
+    text-underline-offset: 2px;
+    font-size: 0.98rem;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.map-popup-title:hover {
+    text-decoration-color: #2b6cb0;
 }
 
 /* Mobile responsiveness */

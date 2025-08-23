@@ -17,6 +17,8 @@ import os
 import sys
 import time
 from typing import Optional, Tuple
+from datetime import datetime
+import re
 
 import boto3
 from PIL import Image, ExifTags
@@ -69,6 +71,66 @@ def extract_lat_lng(path: str) -> Optional[Tuple[float, float]]:
     return round(lat_dd, 6), round(lng_dd, 6)
 
 
+def extract_date_taken(path: str) -> Optional[str]:
+    """Return 'content created' date as YYYY-MM-DD.
+
+    Preference order:
+      1) XMP: <xmp:CreateDate> or <photoshop:DateCreated>
+      2) EXIF: DateTimeOriginal
+
+    We intentionally avoid generic EXIF DateTime (file modified) and filesystem timestamps.
+    """
+    # Helper to normalize various date formats to YYYY-MM-DD
+    def _norm(s: str) -> Optional[str]:
+        s = s.strip()
+        # ISO 8601, optionally with timezone: 2023-10-24T12:34:56Z or 2023-10-24T12:34:56-07:00
+        m = re.match(r"^(\d{4}-\d{2}-\d{2})[T ]?", s)
+        if m:
+            return m.group(1)
+        # EXIF: 2023:10:24 12:34:56
+        m = re.match(r"^(\d{4}):(\d{2}):(\d{2})[ T]", s)
+        if m:
+            return f"{m.group(1)}-{m.group(2)}-{m.group(3)}"
+        # Fallback: take first 10 chars if they look like a date-ish token
+        if len(s) >= 10 and s[4] in "-:" and s[7] in "-:":
+            return s[:10].replace(":", "-", 2)
+        return None
+
+    # Try XMP packet first
+    try:
+        with open(path, "rb") as f:
+            data = f.read()
+        # Extract the XMP packet between <x:xmpmeta ...> ... </x:xmpmeta>
+        m = re.search(br"<x:xmpmeta[\s\S]*?</x:xmpmeta>", data)
+        if m:
+            xmp = m.group(0).decode(errors="ignore")
+            # xmp:CreateDate or photoshop:DateCreated or exif:DateTimeOriginal inside XMP
+            for tag in ("xmp:CreateDate", "photoshop:DateCreated", "exif:DateTimeOriginal"):
+                m2 = re.search(rf"<{tag}>([^<]+)</{tag}>", xmp)
+                if m2:
+                    norm = _norm(m2.group(1))
+                    if norm:
+                        return norm
+    except Exception:
+        pass
+
+    # Fallback to EXIF DateTimeOriginal only
+    try:
+        img = Image.open(path)
+        exif = img._getexif()
+        if exif:
+            exif_data = {ExifTags.TAGS.get(k, k): v for k, v in exif.items()}
+            raw = exif_data.get("DateTimeOriginal")
+            if raw:
+                norm = _norm(str(raw))
+                if norm:
+                    return norm
+    except Exception:
+        pass
+
+    return None
+
+
 def detect_content_type(path_: str) -> str:
     ct, _ = mimetypes.guess_type(path_)
     return ct or "application/octet-stream"
@@ -85,13 +147,19 @@ def upload_to_s3(file_path: str, bucket: str, key: str, region: Optional[str] = 
     s3.upload_file(file_path, bucket, key, ExtraArgs=extra)
 
 
-def append_to_gallery(repo_root: str, url: str, name: str, lat: float, lng: float):
+def append_to_gallery(repo_root: str, url: str, name: str, lat: Optional[float], lng: Optional[float], date_taken: Optional[str] = None):
     gallery_path = os.path.join(repo_root, "images", "gallery.json")
     with open(gallery_path, "r", encoding="utf-8") as f:
         data = json.load(f)
     if not isinstance(data, list):
         raise SystemExit("images/gallery.json must contain a top-level array")
-    data.append({"url": url, "name": name, "lat": lat, "lng": lng})
+    entry = {"url": url, "name": name}
+    if lat is not None and lng is not None:
+        entry["lat"] = lat
+        entry["lng"] = lng
+    if date_taken:
+        entry["date_taken"] = date_taken
+    data.append(entry)
     with open(gallery_path, "w", encoding="utf-8") as f:
         json.dump(data, f, indent=2)
         f.write("\n")
@@ -128,10 +196,13 @@ def main():
     lat, lng = args.lat, args.lng
     if lat is None or lng is None:
         gps = extract_lat_lng(args.file)
-        if not gps:
-            print("No EXIF GPS found and no --lat/--lng provided", file=sys.stderr)
-            sys.exit(1)
-        lat, lng = gps
+        if gps:
+            lat, lng = gps
+        else:
+            # Proceed without coordinates
+            lat, lng = None, None
+
+    date_taken = extract_date_taken(args.file)
 
     prefix = args.prefix.strip("/")
     if prefix:
@@ -143,7 +214,7 @@ def main():
 
     # repo root = two levels up from this script
     repo_root = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
-    append_to_gallery(repo_root, url, args.name or "", lat, lng)
+    append_to_gallery(repo_root, url, args.name or "", lat, lng, date_taken)
 
     print("\n✅ Done")
     print("URL:", url)
