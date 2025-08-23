@@ -1,56 +1,8 @@
 [
   {
-    "url": "https://placehold.co/400x300/2a4858/ffffff?text=Yosemite+Valley",
-    "name": "Yosemite Valley",
-    "lat": 37.7456,
-    "lng": -119.5936
-  },
-  {
-    "url": "https://placehold.co/400x300/3d5a6c/ffffff?text=Big+Sur+Coast",
-    "name": "Big Sur Coastline",
-    "lat": 36.2704,
-    "lng": -121.8081
-  },
-  {
-    "url": "https://placehold.co/400x300/4a6670/ffffff?text=Death+Valley",
-    "name": "Death Valley Dunes",
-    "lat": 36.5323,
-    "lng": -116.9325
-  },
-  {
-    "url": "https://placehold.co/400x300/5c7080/ffffff?text=Joshua+Tree",
-    "name": "Joshua Tree NP",
-    "lat": 33.8734,
-    "lng": -115.9010
-  },
-  {
-    "url": "https://placehold.co/400x300/6e7a8a/ffffff?text=Mt+Rainier",
-    "name": "Mount Rainier",
-    "lat": 46.8523,
-    "lng": -121.7603
-  },
-  {
-    "url": "https://placehold.co/400x300/808a94/ffffff?text=Crater+Lake",
-    "name": "Crater Lake",
-    "lat": 42.9446,
-    "lng": -122.1090
-  },
-  {
-    "url": "https://placehold.co/400x300/3a4e5c/ffffff?text=Redwood+Forest",
-    "name": "Redwood National Park",
-    "lat": 41.2132,
-    "lng": -124.0046
-  },
-  {
-    "url": "https://placehold.co/400x300/4f6374/ffffff?text=Grand+Canyon",
-    "name": "Grand Canyon South Rim",
-    "lat": 36.0544,
-    "lng": -112.1401
-  },
-  {
-    "url": "https://placehold.co/400x300/647888/ffffff?text=Zion+Canyon",
-    "name": "Zion National Park",
-    "lat": 37.2982,
-    "lng": -113.0263
+    "url": "https://s3.us-east-2.amazonaws.com/ethan.dev/album/IMG_2547.JPG",
+    "name": "Mt. Baker",
+    "lat": 48.945847, 
+    "lng": -121.682717
   }
 ]

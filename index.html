@@ -308,9 +308,11 @@
             const post = blogPosts.find(p => p.id === postId);
             if (!post) return;
             // ensure URL reflects article slug at /articles/<id>
-            const desiredPath = (basePath + '/articles/' + postId);
-            if (window.location.pathname !== desiredPath) {
-                window.history.pushState({}, '', desiredPath);
+            const desiredArticles = (basePath + '/articles/' + postId);
+            const desiredRoot = (basePath + '/' + postId);
+            if (window.location.pathname !== desiredArticles && window.location.pathname !== desiredRoot) {
+                // Prefer short root slug when programmatically navigating
+                window.history.pushState({}, '', desiredRoot);
                 // do not recurse; just update URL
             }
             const blogListEl = document.getElementById('blog-list');
@@ -565,9 +567,11 @@
             if (!post) return;
 
             // Update URL to /articles/<id>
-            const desiredPath = (basePath + '/articles/' + postId);
-            if (window.location.pathname !== desiredPath) {
-                window.history.pushState({}, '', desiredPath);
+            const desiredArticles2 = (basePath + '/articles/' + postId);
+            const desiredRoot2 = (basePath + '/' + postId);
+            if (window.location.pathname !== desiredArticles2 && window.location.pathname !== desiredRoot2) {
+                // Prefer short root slug when opening via list/hash
+                window.history.pushState({}, '', desiredRoot2);
             }
 
             const blogListEl = document.getElementById('blog-list');
