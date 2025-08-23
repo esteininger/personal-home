@@ -1,14 +1,50 @@
 [
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_2296.JPG",
-    "name": "Maple Pass",
-    "lat": 48.511253, 
+    "name": "Maple Pass, WA",
+    "lat": 48.511253,
     "lng": -120.745469
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_2547.JPG",
-    "name": "Mt. Baker",
-    "lat": 48.945847, 
+    "name": "Mt. Baker, WA",
+    "lat": 48.945847,
     "lng": -121.682717
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_2613.JPG",
+    "name": "Artist Point, WA",
+    "lat": 48.845828,
+    "lng": -121.692878
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_1611.JPG",
+    "name": "Yosemite Valley, CA",
+    "lat": 37.778789,
+    "lng": -119.551658
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_1740.JPG",
+    "name": "Box Lake, CA",
+    "lat": 37.414117,
+    "lng": -118.755608
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_1730.JPG",
+    "name": "",
+    "lat": 37.390097,
+    "lng": -118.7574
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_2569.JPG",
+    "name": "",
+    "lat": 48.948203,
+    "lng": -121.686944
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_1710.JPG",
+    "name": "",
+    "lat": 37.392556,
+    "lng": -118.754722
   }
 ]
