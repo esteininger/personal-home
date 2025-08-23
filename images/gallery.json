@@ -3,48 +3,78 @@
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_2296.JPG",
     "name": "Maple Pass, WA",
     "lat": 48.511253,
-    "lng": -120.745469
+    "lng": -120.745469,
+    "journal": "",
+    "miles": null,
+    "elevation_gain_ft": null
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_2547.JPG",
     "name": "Mt. Baker, WA",
     "lat": 48.945847,
-    "lng": -121.682717
+    "lng": -121.682717,
+    "journal": "",
+    "miles": null,
+    "elevation_gain_ft": null
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_2613.JPG",
     "name": "Artist Point, WA",
     "lat": 48.845828,
-    "lng": -121.692878
+    "lng": -121.692878,
+    "journal": "",
+    "miles": null,
+    "elevation_gain_ft": null
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_1611.JPG",
     "name": "Yosemite Valley, CA",
     "lat": 37.778789,
-    "lng": -119.551658
+    "lng": -119.551658,
+    "journal": "",
+    "miles": null,
+    "elevation_gain_ft": null
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_1740.JPG",
     "name": "Box Lake, CA",
     "lat": 37.414117,
-    "lng": -118.755608
+    "lng": -118.755608,
+    "journal": "",
+    "miles": null,
+    "elevation_gain_ft": null
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_1730.JPG",
     "name": "",
     "lat": 37.390097,
-    "lng": -118.7574
+    "lng": -118.7574,
+    "journal": "",
+    "miles": null,
+    "elevation_gain_ft": null
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_2569.JPG",
     "name": "",
     "lat": 48.948203,
-    "lng": -121.686944
+    "lng": -121.686944,
+    "journal": "",
+    "miles": null,
+    "elevation_gain_ft": null
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_1710.JPG",
     "name": "",
     "lat": 37.392556,
-    "lng": -118.754722
+    "lng": -118.754722,
+    "journal": "",
+    "miles": null,
+    "elevation_gain_ft": null
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_0025.JPG",
+    "name": "",
+    "lat": 41.778775,
+    "lng": -124.101281
   }
 ]

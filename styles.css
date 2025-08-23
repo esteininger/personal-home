@@ -342,6 +342,29 @@ nav a.active::after {
     font-style: italic;
 }
 
+/* Blog content links - improve contrast on dark background */
+.blog-post .post-content a {
+    color: #8ec7ff;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    text-decoration-color: rgba(142, 199, 255, 0.6);
+    transition: color 0.2s ease, text-decoration-color 0.2s ease;
+}
+
+.blog-post .post-content a:hover {
+    color: #cbe3ff;
+    text-decoration-color: currentColor;
+}
+
+.blog-post .post-content a:visited {
+    color: #c6a9ff;
+}
+
+.blog-post .post-content a:focus-visible {
+    outline: 2px solid #8ec7ff;
+    outline-offset: 2px;
+}
+
 /* Map section */
 .map-section {
     width: 100%;
@@ -354,6 +377,11 @@ nav a.active::after {
     overflow: hidden;
 }
 
+/* Position Leaflet controls lower to avoid overlap with expand button */
+.map-section .leaflet-top.leaflet-left {
+    margin-top: 48px;
+}
+
 .map-container {
     width: 100%;
     height: 100%;
@@ -362,6 +390,55 @@ nav a.active::after {
         radial-gradient(circle at 25% 25%, rgba(255,255,255,0.02) 1px, transparent 1px),
         radial-gradient(circle at 75% 75%, rgba(255,255,255,0.02) 1px, transparent 1px);
     background-size: 50px 50px;
+}
+
+/* Map expand button (top-left) */
+.map-expand-btn {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    padding: 0;
+    width: 28px;
+    height: 28px;
+    border: none;
+    background: rgba(0, 0, 0, 0.35);
+    color: rgba(255, 255, 255, 0.75);
+    font-size: 18px;
+    line-height: 28px;
+    text-align: center;
+    border-radius: 4px;
+    cursor: pointer;
+    z-index: 1001;
+    transition: color 0.15s ease-in-out, transform 0.06s ease-in-out;
+}
+
+.map-expand-btn:hover {
+    color: #ffffff;
+}
+
+.map-expand-btn:active {
+    transform: scale(0.96);
+}
+
+/* Fullscreen map overlay */
+.map-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--bg);
+    z-index: 10000;
+}
+
+.map-overlay.active {
+    display: block;
+}
+
+.map-overlay .map-container {
+    width: 100%;
+    height: 100%;
 }
 
 .map-point {
@@ -409,21 +486,23 @@ nav a.active::after {
 }
 
 /* Gallery page */
+/* Masonry-style gallery using CSS columns */
 .gallery {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 1.5rem;
+    column-count: 3;
+    column-gap: 1.5rem;
     margin-top: 2rem;
 }
 
 .gallery-item {
     position: relative;
+    break-inside: avoid;
+    -webkit-column-break-inside: avoid;
+    margin-bottom: 1.5rem;
 }
 
 .gallery-item img {
     width: 100%;
-    height: 200px;
-    object-fit: cover;
+    height: auto;
     border-radius: 8px;
     cursor: pointer;
     transition: transform 0.3s, opacity 0.3s;
@@ -478,7 +557,7 @@ nav a.active::after {
     width: 32px;
     height: 32px;
     border: none;
-    background: transparent;
+    background: rgba(0, 0, 0, 0.35);
     color: rgba(255, 255, 255, 0.7);
     font-size: 26px;
     line-height: 28px;
@@ -513,6 +592,33 @@ nav a.active::after {
     transform: scale(1.6);
 }
 
+/* Lightbox caption */
+#lightbox-caption {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 16px 20px;
+    background: linear-gradient(to top, rgba(0,0,0,0.75), rgba(0,0,0,0.0));
+    color: #eaeaea;
+    font-size: 0.95rem;
+    line-height: 1.4;
+    max-height: 30vh;
+    overflow-y: auto;
+}
+
+#lightbox-caption .caption-title {
+    color: #ffffff;
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+#lightbox-caption .caption-stats {
+    color: #c7dfff;
+    font-size: 0.9rem;
+    margin-bottom: 6px;
+}
+
 /* Hide Leaflet UI when lightbox is open */
 body.lightbox-open .leaflet-control-container,
 body.lightbox-open .leaflet-popup-pane,
@@ -521,6 +627,12 @@ body.lightbox-open .leaflet-tooltip-pane {
 }
 
 /* Mobile responsiveness */
+@media (max-width: 1024px) {
+    .gallery {
+        column-count: 2;
+    }
+}
+
 @media (max-width: 768px) {
     body {
         padding: 2rem 1rem;
@@ -546,7 +658,7 @@ body.lightbox-open .leaflet-tooltip-pane {
     }
 
     .gallery {
-        grid-template-columns: 1fr;
+        column-count: 1;
     }
 
             .profile-img {

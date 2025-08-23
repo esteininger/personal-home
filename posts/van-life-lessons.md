@@ -4,8 +4,6 @@ date: "2024-09-20"
 description: "After six months of van life with my Australian Shepherd, I've learned more about minimalism and freedom than any book could teach."
 ---
 
-# Living in a Camper Van: Lessons from the Road
-
 After six months of van life with my Australian Shepherd, I've learned more about minimalism and freedom than any book could teach.
 
 ## The Reality vs. The Instagram
@@ -20,8 +18,7 @@ But these challenges make the freedom even sweeter.
 
 ## Essential Gear
 
-```
-Solar: 400W panels + 200Ah battery
+```Solar: 400W panels + 200Ah battery
 Water: 20 gallon tank + filtration
 Tech: Starlink + portable workstation
 Dog: One very good boy
