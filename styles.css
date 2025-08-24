@@ -502,6 +502,23 @@ nav a.active::after {
     justify-content: flex-end;
 }
 
+.icon-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+    background: #111218;
+    color: var(--text);
+    cursor: pointer;
+    transition: transform 0.06s ease-in-out, background 0.15s ease-in-out;
+}
+
+.icon-button:hover { background: #141520; }
+.icon-button:active { transform: scale(0.96); }
+
 .gallery-controls label {
     color: var(--text-dim);
     font-size: 0.9rem;
