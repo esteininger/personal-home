@@ -302,9 +302,9 @@
         }
         // Fit map view to include all valid pins
         function fitMapToAllPins() {
-            if (!leafletMap || !Array.isArray(galleryImages)) return;
+            if (!leafletMap || !Array.isArray(galleryAll)) return;
             const b = L.latLngBounds();
-            for (const img of galleryImages) {
+            for (const img of galleryAll) {
                 if (typeof img.lat === 'number' && typeof img.lng === 'number') {
                     b.extend([img.lat, img.lng]);
                 }
@@ -437,6 +437,10 @@
 
         // Gallery data - will be loaded from JSON file
         let galleryImages = [];
+        // Master list of all images (deduped)
+        let galleryAll = [];
+        // Current gallery view (filtered by map bounds and sorted/shuffled)
+        let galleryView = [];
         let leafletMap = null;
         let leafletMarkers = [];
         let urlToMarker = {};
@@ -492,7 +496,8 @@
                         // fall through; keep existing
                     }
                 }
-                galleryImages = Array.from(byKey.values());
+                galleryAll = Array.from(byKey.values());
+                galleryView = galleryAll.slice();
 
                 // Initialize sort controls
                 const sortFieldEl = document.getElementById('gallery-sort-field');
@@ -517,14 +522,14 @@
                 if (shuffleBtn && !shuffleBtn.dataset.bound) {
                     shuffleBtn.dataset.bound = '1';
                     shuffleBtn.addEventListener('click', () => {
-                        // Fisher–Yates shuffle of non-featured items only
-                        const featured = galleryImages.find(g => g.featured);
-                        const rest = galleryImages.filter(g => !g.featured);
+                        // Fisher–Yates shuffle of non-featured items only, within current view
+                        const featured = galleryView.find(g => g.featured);
+                        const rest = galleryView.filter(g => !g.featured);
                         for (let i = rest.length - 1; i > 0; i--) {
                             const j = Math.floor(Math.random() * (i + 1));
                             [rest[i], rest[j]] = [rest[j], rest[i]];
                         }
-                        galleryImages = featured ? [featured, ...rest] : rest;
+                        galleryView = featured ? [featured, ...rest] : rest;
                         galleryShuffled = true;
                         renderGallery();
                     });
@@ -540,7 +545,7 @@
         // Render map
         function renderMap() {
             const mapSection = document.getElementById('map-section');
-            if (!mapSection || !galleryImages.length) return;
+            if (!mapSection || !galleryAll.length) return;
 
             // Create/replace map container
             mapSection.innerHTML = '<button class="map-expand-btn" aria-label="Expand map" onclick="toggleMapFullscreen(true); event.stopPropagation();">⤢</button><div id="leaflet-map" class="map-container"></div>';
@@ -565,7 +570,7 @@
             urlToMarker = {};
             const bounds = L.latLngBounds();
 
-            galleryImages.forEach((image, index) => {
+            galleryAll.forEach((image, index) => {
                 if (typeof image.lat !== 'number' || typeof image.lng !== 'number') {
                     leafletMarkers[index] = null;
                     return;
@@ -598,6 +603,25 @@
             } else {
                 leafletMap.setView([20, 0], 2);
             }
+
+            // Update gallery when map viewport changes
+            leafletMap.on('moveend zoomend', () => {
+                filterGalleryByMapBounds();
+            });
+
+            // Initialize gallery filter based on current bounds
+            filterGalleryByMapBounds();
+        }
+
+        // Filter current gallery by visible map bounds
+        function filterGalleryByMapBounds() {
+            if (!leafletMap || !Array.isArray(galleryAll)) return;
+            const b = leafletMap.getBounds();
+            galleryView = galleryAll.filter(img =>
+                typeof img.lat === 'number' && typeof img.lng === 'number' && b.contains([img.lat, img.lng])
+            );
+            galleryShuffled = false;
+            renderGallery();
         }
 
         // Focus a map point and scroll to the map
@@ -633,7 +657,7 @@
         // Render gallery
         function renderGallery() {
             const gallery = document.getElementById('gallery');
-            if (!gallery || !galleryImages.length) return;
+            if (!gallery || !Array.isArray(galleryView)) return;
 
             gallery.innerHTML = '';
 
@@ -651,9 +675,9 @@
                 return NaN;
             }
 
-            // Apply sorting (keep featured item at top)
-            const featured = galleryImages.find(g => g.featured);
-            const rest = galleryImages.filter(g => !g.featured);
+            // Apply sorting (keep featured item at top) within the current view
+            const featured = galleryView.find(g => g.featured);
+            const rest = galleryView.filter(g => !g.featured);
             const orderFactor = (gallerySortOrder === 'asc') ? 1 : -1;
             if (!galleryShuffled && gallerySortField === 'date') {
                 rest.sort((a, b) => {
@@ -698,8 +722,7 @@
                 gallery.appendChild(item);
             });
 
-            // Render map after gallery is created; then fix size after mount
-            renderMap();
+            // Ensure map sizes correctly after DOM changes
             setTimeout(() => {
                 if (leafletMap) {
                     leafletMap.invalidateSize(true);
@@ -818,10 +841,10 @@
             // reset any zoom state
             img.classList.remove('zoomed');
 
-            // Populate caption from galleryImages
-            if (caption && Array.isArray(galleryImages)) {
-                const entryIndex = galleryImages.findIndex(g => g.url === src);
-                const entry = entryIndex >= 0 ? galleryImages[entryIndex] : null;
+            // Populate caption from current gallery view
+            if (caption && Array.isArray(galleryView)) {
+                const entryIndex = galleryView.findIndex(g => g.url === src);
+                const entry = entryIndex >= 0 ? galleryView[entryIndex] : null;
                 if (entryIndex >= 0) {
                     currentLightboxIndex = entryIndex;
                 }
@@ -855,14 +878,14 @@
         // Navigate lightbox left/right with wrap-around; wait for image to load
         async function navigateLightbox(delta) {
             if (lightboxLoading) return;
-            if (!Array.isArray(galleryImages) || galleryImages.length === 0) return;
+            if (!Array.isArray(galleryView) || galleryView.length === 0) return;
             if (currentLightboxIndex < 0) {
                 currentLightboxIndex = 0;
             }
-            const total = galleryImages.length;
+            const total = galleryView.length;
             let next = (currentLightboxIndex + delta) % total;
             if (next < 0) next += total;
-            const nextEntry = galleryImages[next];
+            const nextEntry = galleryView[next];
             if (!(nextEntry && nextEntry.url)) return;
             try {
                 lightboxLoading = true;
