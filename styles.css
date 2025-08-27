@@ -486,10 +486,11 @@ nav a.active::after {
 }
 
 /* Gallery page */
-/* Masonry-style gallery using CSS columns */
+/* Grid-based gallery to preserve DOM (row-major) order */
 .gallery {
-    column-count: 3;
-    column-gap: 1.5rem;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
     margin-top: 2rem;
 }
 
@@ -536,7 +537,7 @@ nav a.active::after {
     position: relative;
     break-inside: avoid;
     -webkit-column-break-inside: avoid;
-    margin-bottom: 1.5rem;
+    margin-bottom: 0;
 }
 
 .gallery-item img {
@@ -737,7 +738,7 @@ body.lightbox-open .leaflet-tooltip-pane {
 /* Mobile responsiveness */
 @media (max-width: 1024px) {
     .gallery {
-        column-count: 2;
+        grid-template-columns: repeat(2, 1fr);
     }
 }
 
@@ -766,7 +767,7 @@ body.lightbox-open .leaflet-tooltip-pane {
     }
 
     .gallery {
-        column-count: 1;
+        grid-template-columns: 1fr;
     }
 
             .profile-img {
