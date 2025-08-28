@@ -1,5 +1,5 @@
 ---
-title: "Freedom on Four Wheels"
+title: freedom
 date: "2025-08-20"
 description: When I first got my Ford Transit rigged for vanlife, I wasn’t just building a camper—I was carving out a different relationship with freedom.
 ---

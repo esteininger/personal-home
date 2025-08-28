@@ -4,6 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ethan - about</title>
+    <meta name="twitter:card" content="summary">
+    <meta property="og:type" content="website">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
@@ -153,6 +156,44 @@
             const appRoots = new Set(['about', 'articles', 'album', 'posts', 'images']);
             return first && !appRoots.has(first) ? ('/' + first) : '';
         })();
+
+        // Meta helpers: keep social previews text-only and remove images
+        function removeMeta(selector) {
+            const el = document.head.querySelector(selector);
+            if (el && el.parentNode) el.parentNode.removeChild(el);
+        }
+
+        function upsertMeta(attrName, attrValue, content) {
+            let el = document.head.querySelector(`meta[${attrName}="${attrValue}"]`);
+            if (!el) {
+                el = document.createElement('meta');
+                el.setAttribute(attrName, attrValue);
+                document.head.appendChild(el);
+            }
+            el.setAttribute('content', content);
+        }
+
+        function updatePageMeta(titleText) {
+            try {
+                if (typeof titleText === 'string' && titleText.trim()) {
+                    document.title = titleText;
+                    upsertMeta('property', 'og:title', titleText);
+                    upsertMeta('name', 'twitter:title', titleText);
+                }
+                // Ensure no image previews
+                removeMeta('meta[property="og:image"]');
+                removeMeta('meta[name="twitter:image"]');
+                // Prefer text-only summary card
+                upsertMeta('name', 'twitter:card', 'summary');
+            } catch (_) { /* noop */ }
+        }
+
+        function titleForPageId(pageId) {
+            if (pageId === 'articles') return 'ethan - articles';
+            if (pageId === 'album') return 'ethan - albums';
+            // default/about
+            return 'ethan - about';
+        }
 
         // Blog posts data - will be loaded from markdown files
         let blogPosts = [];
@@ -305,6 +346,8 @@
                 top: 0,
                 behavior: 'smooth'
             });
+            // Update meta/title for the current page (article pages will override later)
+            updatePageMeta(titleForPageId(pageId));
         }
         // Fit map view to include all valid pins
         function fitMapToAllPins() {
@@ -374,6 +417,8 @@
                         </div>
                         <div class="post-content">${parseMarkdown(post.markdown)}</div>
                     </div>`;
+                // Article pages should use the article title only
+                updatePageMeta(post.title);
             }
         }
 
