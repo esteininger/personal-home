@@ -772,11 +772,15 @@
                     : '';
 
                 const nameHtml = (image.name && String(image.name).trim()) ? `<div class="location-name">${image.name}</div>` : '';
+                const dateHtml = (image.date_taken && !Number.isNaN(Date.parse(image.date_taken)))
+                    ? `<div class=\"location-date\">${new Date(image.date_taken).toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' })}</div>`
+                    : '';
 
                 item.innerHTML = `
                     <img src="${image.url}" alt="${image.name || ''}" loading="lazy" decoding="async" onclick="openLightbox('${image.url}')">
                     <div class="location-info">
                         ${nameHtml}
+                        ${dateHtml}
                         ${coordsHtml}
                     </div>
                 `;
