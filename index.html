@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 </head>
@@ -96,13 +97,7 @@
             <div class="gallery-controls">
                 <label for="gallery-shuffle">Shuffle:</label>
                 <button id="gallery-shuffle" class="icon-button" aria-label="Shuffle" title="Shuffle">
-                    <svg viewBox="0 0 24 24" width="18" height="18" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                        <polyline points="16 3 21 3 21 8"></polyline>
-                        <line x1="4" y1="20" x2="21" y2="3"></line>
-                        <polyline points="21 16 21 21 16 21"></polyline>
-                        <line x1="15" y1="15" x2="21" y2="21"></line>
-                        <line x1="4" y1="4" x2="9" y2="9"></line>
-                    </svg>
+                    <i class="fa-solid fa-shuffle" aria-hidden="true"></i>
                 </button>
                 <label for="gallery-sort-field">Sort by:</label>
                 <select id="gallery-sort-field">
@@ -123,16 +118,27 @@
 
     <!-- Lightbox -->
     <div class="lightbox" id="lightbox" onclick="closeLightbox()">
-        <button class="lightbox-close" aria-label="Close" onclick="closeLightbox(); event.stopPropagation();">×</button>
-        <button class="lightbox-nav lightbox-prev" aria-label="Previous" onclick="navigateLightbox(-1); event.stopPropagation();">‹</button>
+        <button class="lightbox-download" aria-label="Download" title="Download" onclick="downloadCurrentImage(); event.stopPropagation();">
+            <i class="fa-solid fa-floppy-disk" aria-hidden="true"></i>
+        </button>
+        <button class="lightbox-close" aria-label="Close" onclick="closeLightbox(); event.stopPropagation();">
+            <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+        </button>
+        <button class="lightbox-nav lightbox-prev" aria-label="Previous" onclick="navigateLightbox(-1); event.stopPropagation();">
+            <i class="fa-solid fa-chevron-left" aria-hidden="true"></i>
+        </button>
         <img src="" alt="Full size image" id="lightbox-img" onclick="toggleZoom(event)">
-        <button class="lightbox-nav lightbox-next" aria-label="Next" onclick="navigateLightbox(1); event.stopPropagation();">›</button>
+        <button class="lightbox-nav lightbox-next" aria-label="Next" onclick="navigateLightbox(1); event.stopPropagation();">
+            <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
+        </button>
         <div id="lightbox-caption" onclick="event.stopPropagation();"></div>
     </div>
 
     <!-- Fullscreen Map Overlay -->
     <div class="map-overlay" id="map-overlay" aria-hidden="true">
-        <button class="lightbox-close" aria-label="Close fullscreen map" onclick="toggleMapFullscreen(false); event.stopPropagation();">×</button>
+        <button class="lightbox-close" aria-label="Close fullscreen map" onclick="toggleMapFullscreen(false); event.stopPropagation();">
+            <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+        </button>
         <div id="map-overlay-container" class="map-container"></div>
     </div>
 
@@ -548,7 +554,7 @@
             if (!mapSection || !galleryAll.length) return;
 
             // Create/replace map container
-            mapSection.innerHTML = '<button class="map-expand-btn" aria-label="Expand map" onclick="toggleMapFullscreen(true); event.stopPropagation();">⤢</button><div id="leaflet-map" class="map-container"></div>';
+            mapSection.innerHTML = '<button class="map-expand-btn" aria-label="Expand map" onclick="toggleMapFullscreen(true); event.stopPropagation();"><i class="fa-solid fa-up-right-and-down-left-from-center" aria-hidden="true"></i></button><div id="leaflet-map" class="map-container"></div>';
             const mapEl = document.getElementById('leaflet-map');
 
             // Initialize or reset map
@@ -557,12 +563,45 @@
                 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                     attribution: '&copy; OpenStreetMap contributors'
                 }).addTo(leafletMap);
+                // Add reset view control below default zoom controls
+                const ResetControl = L.Control.extend({
+                    options: { position: 'topleft' },
+                    onAdd: function() {
+                        const container = L.DomUtil.create('div', 'leaflet-control leaflet-bar');
+                        const link = L.DomUtil.create('a', 'leaflet-control-reset', container);
+                        link.href = '#';
+                        link.title = 'Reset view';
+                        link.innerHTML = '⟲';
+                        L.DomEvent.on(link, 'click', (e) => {
+                            L.DomEvent.stop(e);
+                            resetMapView();
+                        });
+                        return container;
+                    }
+                });
+                new ResetControl().addTo(leafletMap);
             } else {
                 leafletMap.remove();
                 leafletMap = L.map(mapEl, { zoomControl: true });
                 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                     attribution: '&copy; OpenStreetMap contributors'
                 }).addTo(leafletMap);
+                const ResetControl = L.Control.extend({
+                    options: { position: 'topleft' },
+                    onAdd: function() {
+                        const container = L.DomUtil.create('div', 'leaflet-control leaflet-bar');
+                        const link = L.DomUtil.create('a', 'leaflet-control-reset', container);
+                        link.href = '#';
+                        link.title = 'Reset view';
+                        link.innerHTML = '⟲';
+                        L.DomEvent.on(link, 'click', (e) => {
+                            L.DomEvent.stop(e);
+                            resetMapView();
+                        });
+                        return container;
+                    }
+                });
+                new ResetControl().addTo(leafletMap);
             }
 
             // Clear old markers
@@ -850,6 +889,8 @@
             document.body.classList.add('lightbox-open');
             // reset any zoom state
             img.classList.remove('zoomed');
+            // sync caption width to image width once the image dimensions are known
+            setTimeout(() => syncCaptionWidthToImage(), 0);
 
             // Populate caption from current gallery view
             if (caption && Array.isArray(galleryView)) {
@@ -866,9 +907,10 @@
                     if (entry.elevation_gain_ft != null) statsParts.push(`${entry.elevation_gain_ft.toLocaleString()} ft gain`);
                     const stats = statsParts.length ? `<div class="caption-stats">${statsParts.join(' · ')}</div>` : '';
                     const journal = entry.journal ? `<div class="caption-journal">${entry.journal}</div>` : '';
+                    const description = entry.description ? `<div class="caption-description">${entry.description}</div>` : '';
                     const dateHtml = date ? `<div class="caption-date">${date}</div>` : '';
-                    const coordsHtml = (typeof entry.lat === 'number' && typeof entry.lng === 'number') ? `<div class=\"caption-coords\">${entry.lat.toFixed(4)}°, ${entry.lng.toFixed(4)}°</div>` : '';
-                    caption.innerHTML = `${title ? `<div class="caption-title">${title}</div>` : ''}${coordsHtml}${dateHtml}${stats}${journal}`;
+                    const coordsHtml = (typeof entry.lat === 'number' && typeof entry.lng === 'number') ? `<a href=\"/album\" class=\"caption-coords\" onclick=\"closeLightbox(); navigateAndFocus('${src}'); event.preventDefault(); event.stopPropagation();\">${entry.lat.toFixed(4)}°, ${entry.lng.toFixed(4)}°</a>` : '';
+                    caption.innerHTML = `${title ? `<div class="caption-title">${title}</div>` : ''}${coordsHtml}${dateHtml}${stats}${description}${journal}`;
                 } else if (caption) {
                     caption.innerHTML = '';
                 }
@@ -918,6 +960,49 @@
             const img = document.getElementById('lightbox-img');
             if (!img) return;
             img.classList.toggle('zoomed');
+        }
+
+        function syncCaptionWidthToImage() {
+            const img = document.getElementById('lightbox-img');
+            const caption = document.getElementById('lightbox-caption');
+            if (!img || !caption) return;
+            // Use the rendered width of the image element
+            const w = img.getBoundingClientRect().width;
+            if (w && isFinite(w)) {
+                caption.style.width = Math.min(w, window.innerWidth * 0.9) + 'px';
+            }
+        }
+
+        // keep caption aligned with image width on resize
+        window.addEventListener('resize', syncCaptionWidthToImage);
+
+        // Download the currently open image by URL
+        function downloadCurrentImage() {
+            const img = document.getElementById('lightbox-img');
+            if (!img || !img.src) return;
+            try {
+                const url = img.src;
+                const fileNameFromUrl = (() => {
+                    try {
+                        const u = new URL(url);
+                        const path = u.pathname.split('/').filter(Boolean);
+                        return path[path.length - 1] || 'image.jpg';
+                    } catch (_) {
+                        const parts = String(url).split('?')[0].split('/');
+                        return parts[parts.length - 1] || 'image.jpg';
+                    }
+                })();
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = fileNameFromUrl;
+                a.rel = 'noopener';
+                document.body.appendChild(a);
+                a.click();
+                a.remove();
+            } catch (_) {
+                // Fallback: open in new tab if download attribute is blocked
+                window.open(img.src, '_blank', 'noopener');
+            }
         }
 
         // ESC key to close lightbox
@@ -971,6 +1056,13 @@
                     }
                 }, 30);
             }
+        }
+
+        // Reset map to default view (fit all pins)
+        function resetMapView() {
+            if (!leafletMap) return;
+            leafletMap.closePopup();
+            fitMapToAllPins();
         }
 
     </script>

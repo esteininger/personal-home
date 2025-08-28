@@ -382,6 +382,23 @@ nav a.active::after {
     margin-top: 48px;
 }
 
+/* Style for custom reset control to match Leaflet controls */
+.leaflet-control-reset {
+    display: block;
+    text-align: center;
+    width: 26px;
+    height: 26px;
+    line-height: 26px;
+    background: #fff;
+    color: #000;
+    text-decoration: none;
+    border-bottom: 1px solid #ccc;
+}
+
+.leaflet-control-reset:hover {
+    background: #f4f4f4;
+}
+
 .map-container {
     width: 100%;
     height: 100%;
@@ -620,6 +637,28 @@ nav a.active::after {
     transform: scale(0.96);
 }
 
+.lightbox-download {
+    position: absolute;
+    top: 16px;
+    right: 56px; /* to the left of the close button */
+    padding: 0;
+    width: 32px;
+    height: 32px;
+    border: none;
+    background: rgba(0, 0, 0, 0.35);
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 18px;
+    line-height: 32px;
+    text-align: center;
+    cursor: pointer;
+    z-index: 10001;
+    border-radius: 0;
+    transition: color 0.15s ease-in-out, transform 0.06s ease-in-out;
+}
+
+.lightbox-download:hover { color: #ffffff; }
+.lightbox-download:active { transform: scale(0.96); }
+
 .lightbox.active {
     display: flex;
 }
@@ -640,8 +679,8 @@ nav a.active::after {
 /* Lightbox caption */
 #lightbox-caption {
     position: absolute;
-    left: 0;
-    right: 0;
+    left: 50%;
+    transform: translateX(-50%);
     bottom: 0;
     padding: 16px 20px;
     background: linear-gradient(to top, rgba(0,0,0,0.75), rgba(0,0,0,0.0));
@@ -650,6 +689,7 @@ nav a.active::after {
     line-height: 1.4;
     max-height: 30vh;
     overflow-y: auto;
+    max-width: 90vw; /* safety cap; actual width set via JS to image width */
 }
 
 #lightbox-caption .caption-title {
@@ -675,6 +715,13 @@ nav a.active::after {
     color: #a7ffde;
     font-size: 0.9rem;
     margin-bottom: 6px;
+}
+
+#lightbox-caption .caption-description {
+    color: #dcdcdc;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    margin-top: 6px;
 }
 
 /* Lightbox navigation arrows */
