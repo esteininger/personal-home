@@ -345,7 +345,9 @@
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_7735.JPG",
     "name": "IMG 7735",
-    "date_taken": "2024-07-06"
+    "date_taken": "2024-07-06",
+    "lat": 52.8733,
+    "lng": -118.0823
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_1740.JPG",
@@ -1116,11 +1118,15 @@
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_8337.JPG",
     "name": "IMG 8337",
-    "date_taken": "2021-10-02"
+    "date_taken": "2021-10-02",
+    "lat": 44.083779084745814,
+    "lng": -121.95158831783004
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_8492.JPG",
     "name": "IMG 8492",
-    "date_taken": "2021-10-03"
+    "date_taken": "2021-10-03",
+    "lat": 43.97901364151483,
+    "lng": -121.80836017360481
   }
 ]
