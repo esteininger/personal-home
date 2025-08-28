@@ -542,10 +542,14 @@ nav a.active::after {
 
 .gallery-item img {
     width: 100%;
+    /* Enforce a consistent card height so rows don't leave large gaps */
+    aspect-ratio: 3 / 2;
     height: auto;
+    object-fit: cover;
     border-radius: 8px;
     cursor: pointer;
     transition: transform 0.3s, opacity 0.3s;
+    display: block;
 }
 
 .gallery-item img:hover {
@@ -583,7 +587,8 @@ nav a.active::after {
     right: 0;
     bottom: 0;
     background: rgba(0, 0, 0, 0.95);
-    z-index: 10000;
+    /* Ensure the lightbox is always above the map and overlays */
+    z-index: 20000;
     align-items: center;
     justify-content: center;
     cursor: pointer;

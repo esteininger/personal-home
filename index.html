@@ -632,7 +632,12 @@
             }
             const marker = leafletMarkers[index];
             if (leafletMap && marker) {
-                leafletMap.setView(marker.getLatLng(), Math.max(leafletMap.getZoom(), 8), { animate: true });
+                const targetZoom = 12;
+                leafletMap.setView(
+                    marker.getLatLng(),
+                    Math.max(leafletMap.getZoom(), targetZoom),
+                    { animate: true }
+                );
                 marker.openPopup();
             }
         }
@@ -644,7 +649,12 @@
             }
             const marker = urlToMarker[url];
             if (leafletMap && marker) {
-                leafletMap.setView(marker.getLatLng(), Math.max(leafletMap.getZoom(), 8), { animate: true });
+                const targetZoom = 12;
+                leafletMap.setView(
+                    marker.getLatLng(),
+                    Math.max(leafletMap.getZoom(), targetZoom),
+                    { animate: true }
+                );
                 marker.openPopup();
             }
         }
@@ -962,6 +972,7 @@
                 }, 30);
             }
         }
+
     </script>
 </body>
 
