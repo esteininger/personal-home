@@ -467,6 +467,17 @@
 
                 galleryImages = await response.json();
 
+                // Remove default camera names like "IMG 1234", "IMG_1234", "IMG-1234"
+                try {
+                    galleryImages.forEach(img => {
+                        if (!img || typeof img.name !== 'string') return;
+                        const n = img.name.trim();
+                        if (/^img[\s_-]*\d+$/i.test(n)) {
+                            delete img.name;
+                        }
+                    });
+                } catch (_) { /* ignore */ }
+
                 // Deduplicate by filename (case-insensitive, ignoring extension)
                 const byKey = new Map();
                 const parseDate = (v) => {
@@ -760,10 +771,12 @@
                     ? `<a href="/album" class="location-coords" onclick="navigateAndFocus('${image.url}'); event.preventDefault(); event.stopPropagation();">${image.lat.toFixed(4)}°, ${image.lng.toFixed(4)}°</a>`
                     : '';
 
+                const nameHtml = (image.name && String(image.name).trim()) ? `<div class="location-name">${image.name}</div>` : '';
+
                 item.innerHTML = `
-                    <img src="${image.url}" alt="${image.name}" loading="lazy" decoding="async" onclick="openLightbox('${image.url}')">
+                    <img src="${image.url}" alt="${image.name || ''}" loading="lazy" decoding="async" onclick="openLightbox('${image.url}')">
                     <div class="location-info">
-                        <div class="location-name">${image.name}</div>
+                        ${nameHtml}
                         ${coordsHtml}
                     </div>
                 `;
