@@ -433,7 +433,16 @@
             const params = new URLSearchParams(window.location.search);
             const redirected = params.get('redirect');
             if (redirected) {
-                window.history.replaceState({}, '', redirected);
+                // Sanitize to prevent nested redirect chains
+                let clean = redirected;
+                try {
+                    // Trim any nested ?redirect=... from the end
+                    const idx = clean.indexOf('?redirect=');
+                    if (idx >= 0) clean = clean.slice(0, idx);
+                    // Ensure it starts with a single leading slash
+                    clean = '/' + clean.replace(/^\/+/, '');
+                } catch (_) { /* noop */ }
+                window.history.replaceState({}, '', clean);
             }
             routeFromLocation();
         });
