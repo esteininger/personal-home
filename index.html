@@ -417,8 +417,8 @@
                         </div>
                         <div class="post-content">${parseMarkdown(post.markdown)}</div>
                     </div>`;
-                // Article pages should use the article title only
-                updatePageMeta(post.title);
+                // Article pages should use the "ethan - <title>" format
+                updatePageMeta('ethan - ' + post.title);
             }
         }
 
@@ -912,6 +912,9 @@
                     </div>
                 </div>
             `;
+
+            // Article pages should set head title
+            updatePageMeta('ethan - ' + post.title);
 
             // Scroll to top with smooth animation
             window.scrollTo({
