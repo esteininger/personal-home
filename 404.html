@@ -3,15 +3,23 @@
   <head>
     <meta charset="utf-8" />
     <title>Redirecting...</title>
-    <meta http-equiv="refresh" content="0; URL='/'" />
     <script>
       // For GitHub Pages style SPA redirect handling
       (function() {
         var l = window.location;
-        if (l.pathname !== '/' && !l.pathname.endsWith('/index.html')) {
-          // Preserve path; hand back to index.html via query
-          var newUrl = '/' + '?redirect=' + encodeURIComponent(l.pathname + l.search + l.hash);
+        // Heuristic to detect project pages base path (first segment not an app route)
+        var parts = l.pathname.split('/').filter(Boolean);
+        var appRoots = { about: 1, articles: 1, album: 1, posts: 1, images: 1 };
+        var basePath = (parts[0] && !appRoots[parts[0]]) ? ('/' + parts[0]) : '';
+
+        if (!l.pathname.endsWith('/index.html')) {
+          // Preserve path and hand back to index.html via query on correct base
+          var target = l.pathname + l.search + l.hash;
+          var newUrl = basePath + '/?redirect=' + encodeURIComponent(target);
           window.location.replace(newUrl);
+        } else {
+          // If we somehow hit /index.html directly under a nested base, normalize to base root
+          window.location.replace(basePath + '/');
         }
       })();
     </script>
