@@ -4,22 +4,15 @@
     <meta charset="utf-8" />
     <title>Redirecting...</title>
     <script>
-      // For GitHub Pages style SPA redirect handling
+      // For GitHub Pages style SPA redirect handling (rooted custom domain)
       (function() {
         var l = window.location;
-        // Heuristic to detect project pages base path (first segment not an app route)
-        var parts = l.pathname.split('/').filter(Boolean);
-        var appRoots = { about: 1, articles: 1, album: 1, posts: 1, images: 1 };
-        var basePath = (parts[0] && !appRoots[parts[0]]) ? ('/' + parts[0]) : '';
-
         if (!l.pathname.endsWith('/index.html')) {
-          // Preserve path and hand back to index.html via query on correct base
           var target = l.pathname + l.search + l.hash;
-          var newUrl = basePath + '/?redirect=' + encodeURIComponent(target);
+          var newUrl = '/?redirect=' + encodeURIComponent(target);
           window.location.replace(newUrl);
         } else {
-          // If we somehow hit /index.html directly under a nested base, normalize to base root
-          window.location.replace(basePath + '/');
+          window.location.replace('/');
         }
       })();
     </script>
