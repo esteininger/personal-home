@@ -10,6 +10,11 @@
       // For GitHub Pages style SPA redirect handling (rooted custom domain)
       (function() {
         var l = window.location;
+        // Break any potential loops: if we already have a redirect param, go home
+        if (/^[?#].*redirect=/.test(l.search)) {
+          window.location.replace('/');
+          return;
+        }
         if (!l.pathname.endsWith('/index.html')) {
           var target = l.pathname + l.search + l.hash;
           var newUrl = '/?redirect=' + encodeURIComponent(target);
