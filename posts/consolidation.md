@@ -4,8 +4,6 @@ date: "2025-09-15"
 description: the democratic party isn’t just drifting left on healthcare, climate, and social issues—it’s also consolidating ideologically, becoming more homogeneous and unified than in the past.
 ---
 
-# the democratic party: moving left and consolidating
-
 over the past decade, the democratic party has undergone two big shifts: it’s moved further left on policy, and it’s become more ideologically homogeneous.
 
 ---
