@@ -8,12 +8,16 @@ over the past decade, the democratic party has undergone two big shifts: it’s 
 
 ## moving further left on policy
 
-democrats today are staking out positions that would’ve been fringe just a generation ago.
+democrats today are staking out positions that would’ve been fringe just a generation ago. even in just the last five years, the shift is visible.
 
-* **healthcare:** in the 1990s, democrats like clinton were pushing market-based reforms. even obama’s aca relied heavily on private insurers. now, ideas like a public option or even medicare for all are mainstream among democrats, thanks to sanders and warren. ([gallup](https://news.gallup.com/poll/246806/understanding-shifts-democratic-party-ideology.aspx?utm_source=chatgpt.com))
-* **climate:** democrats once pushed cap-and-trade or “all of the above” energy. today, the party embraces net-zero pledges and massive subsidies for clean energy through the inflation reduction act.
-* **social issues:** clinton signed doma in 1996, obama campaigned in 2008 still opposing gay marriage. now, support for lgbtq rights and abortion access is absolute bedrock for the party. ([americansurveycenter](https://www.americansurveycenter.org/research/the-democratic-partys-transformation-more-diverse-educated-and-liberal-but-less-religious/?utm_source=chatgpt.com))
-* **immigration:** democrats in the 1990s and 2000s emphasized border enforcement and deportations. today, mainstream democrats defend daca, oppose mass deportations, and frame immigration in humanitarian terms.
+| issue | 2020 baseline | 2025 baseline |
+|-------|---------------|---------------|
+| **healthcare** | public option as ceiling; medicare for all lost in primaries | drug price negotiation passed in ira; medicare for all still alive in primaries; public option mainstream |
+| **climate** | rejoin paris, push clean power standard; green new deal rhetoric only | ira (2022) = $370b in climate spending, industrial policy normalized |
+| **social issues** | roe still law; abortion rights defended but not absolute litmus | post-dobbs, abortion rights central non-negotiable; same-sex marriage codified (2022) |
+| **immigration** | reverse trump policies, defend daca, but deportations still part of plan | defend daca, oppose mass deportations, rhetoric more humanitarian; progressives push decriminalization |
+| **labor & wages** | $15/hr seen as progressive demand; biden cautious | $15/hr mainstream; pro-union stance celebrated (“most pro-union president”) |
+| **foreign policy** | pro-nato, hawkish on russia, unified israel support | more debate on israel/palestine, skepticism of endless foreign aid, left wing voices louder |
 
 polling backs this up: the american national election studies (anes) show democrats shifting left on nearly every major issue since 2012. ([center for politics](https://centerforpolitics.org/crystalball/both-white-and-nonwhite-democrats-are-moving-left/?utm_source=chatgpt.com))
 
