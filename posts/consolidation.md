@@ -17,8 +17,6 @@ democrats today are staking out positions that would’ve been fringe just a gen
 
 polling backs this up: the american national election studies (anes) show democrats shifting left on nearly every major issue since 2012. ([center for politics](https://centerforpolitics.org/crystalball/both-white-and-nonwhite-democrats-are-moving-left/?utm_source=chatgpt.com))
 
----
-
 ## consolidating ideologically
 
 it’s not just that democrats have moved left — they’re also less ideologically diverse than before.
@@ -27,19 +25,15 @@ it’s not just that democrats have moved left — they’re also less ideologic
 * **voter alignment:** surveys show democratic voters are more consistent in their ideological self-identification. fewer democrats call themselves “moderate” or “conservative” compared to the 1990s. the share identifying as liberal has grown steadily and now dominates the party. ([americansurveycenter](https://www.americansurveycenter.org/research/the-democratic-partys-transformation-more-diverse-educated-and-liberal-but-less-religious/?utm_source=chatgpt.com))
 * **geographic uniformity:** research finds democratic-leaning districts across the country now look more alike in their policy preferences. once there were big differences between, say, southern and northern democrats — now those gaps have largely collapsed. ([new america](https://newamerica.org/political-reform/reports/understanding-the-partisan-divide/?utm_source=chatgpt.com))
 
----
-
 ## endorsements as evidence
 
 endorsements highlight this consolidation. governor kathy hochul, a centrist, endorsed zohran mamdani, a democratic socialist, after his primary win in new york city. on paper they couldn’t be further apart, but her endorsement reflects the reality: democrats consolidate around their nominee, even when the party’s center has moved left.
 
 contrast that with 2021, when hochul declined to endorse india walton in buffalo after she beat the incumbent byron brown in the democratic primary. at that time, the party wasn’t ready to consolidate around someone from the far left. today, with figures like mamdani, it’s harder to say no — a sign of where the base has shifted.
 
----
-
 ## bottom line
 
-the democratic party is not just drifting left — it’s also tightening around that new ideological center. the evidence shows:
+the democratic party is not just drifting left, it’s also tightening around that new ideological center. the evidence shows:
 
 * policy positions on healthcare, climate, social issues, and immigration have all moved left.
 * congressional voting records and voter surveys show less internal diversity, more clustering.
