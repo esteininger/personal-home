@@ -6,8 +6,6 @@ description: the democratic party isn’t just drifting left on healthcare, clim
 
 over the past decade, the democratic party has undergone two big shifts: it’s moved further left on policy, and it’s become more ideologically homogeneous.
 
----
-
 ## moving further left on policy
 
 democrats today are staking out positions that would’ve been fringe just a generation ago.
