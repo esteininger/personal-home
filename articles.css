@@ -1,0 +1,171 @@
+/* Articles (Markdown) styles - theme-aware using CSS variables from styles.css */
+
+:root {
+    /* uses variables from styles.css; these are fallbacks if loaded standalone */
+    --bg: #0a0a0f;
+    --text: #e0e0e0;
+    --text-dim: #888;
+    --accent: #fff;
+    --border: #333;
+    --font-body: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+.theme-light {
+    --bg: #fafafa;
+    --text: #151515;
+    --text-dim: #555555;
+    --accent: #000000;
+    --border: #e2e2e2;
+    --font-body: Georgia, 'Times New Roman', Times, serif;
+}
+
+#articles {
+    /* container-specific adjustments */
+}
+
+#articles .blog-post {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* Headings */
+#articles .blog-post h1,
+#articles .blog-post h2,
+#articles .blog-post h3,
+#articles .blog-post h4,
+#articles .blog-post h5,
+#articles .blog-post h6 {
+    color: var(--text);
+    line-height: 1.25;
+}
+
+#articles .blog-post h1 { font-size: 2.2rem; margin: 2rem 0 1rem; }
+#articles .blog-post h2 { font-size: 1.8rem; margin: 1.75rem 0 0.9rem; }
+#articles .blog-post h3 { font-size: 1.4rem; margin: 1.5rem 0 0.8rem; }
+#articles .blog-post h4 { font-size: 1.2rem; margin: 1.2rem 0 0.6rem; }
+#articles .blog-post h5 { font-size: 1.05rem; margin: 1rem 0 0.5rem; }
+#articles .blog-post h6 { font-size: 0.95rem; margin: 0.8rem 0 0.4rem; letter-spacing: 0.02em; }
+
+/* Paragraphs */
+#articles .blog-post p {
+    color: var(--text-dim);
+    margin: 1rem 0;
+}
+
+/* Links */
+#articles .blog-post a {
+    color: #2b6cb0;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    text-decoration-color: rgba(43,108,176,0.5);
+}
+
+#articles .blog-post a:hover {
+    text-decoration-color: #2b6cb0;
+}
+
+/* Lists */
+#articles .blog-post ul,
+#articles .blog-post ol {
+    margin: 1rem 0 1rem 1.25rem;
+    color: var(--text-dim);
+}
+
+#articles .blog-post li { margin: 0.4rem 0; }
+
+/* Blockquote */
+#articles .blog-post blockquote {
+    margin: 1rem 0;
+    padding: 0.8rem 1rem;
+    border-left: 3px solid var(--border);
+    color: var(--text);
+    background: rgba(255,255,255,0.03);
+}
+
+/* Code */
+#articles .blog-post code {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+    background: rgba(255, 255, 255, 0.06);
+    color: var(--text);
+    padding: 0.15rem 0.35rem;
+    border-radius: 4px;
+    font-size: 0.92rem;
+}
+
+#articles .blog-post pre {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border);
+    padding: 1rem 1.1rem;
+    border-radius: 6px;
+    overflow: auto;
+    margin: 1rem 0;
+}
+
+#articles .blog-post pre code {
+    background: transparent;
+    padding: 0;
+    color: var(--text);
+}
+
+/* Prism tweaks to keep theme consistent */
+#articles .blog-post pre[class*="language-"] {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--border);
+}
+
+#articles .blog-post code[class*="language-"] {
+    text-shadow: none;
+}
+
+/* Tables */
+#articles .blog-post table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1rem 0;
+    font-size: 0.95rem;
+}
+
+#articles .blog-post th,
+#articles .blog-post td {
+    border: 1px solid var(--border);
+    padding: 0.6rem 0.75rem;
+    text-align: left;
+}
+
+#articles .blog-post th {
+    color: var(--text);
+    background: rgba(255,255,255,0.04);
+}
+
+/* Images */
+#articles .blog-post img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+    margin: 1rem 0;
+}
+
+/* Horizontal rule */
+#articles .blog-post hr {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 2rem 0;
+}
+
+/* Inline callouts (e.g., Jekyll notes) */
+#articles .blog-post .note,
+#articles .blog-post .warning,
+#articles .blog-post .tip {
+    padding: 0.8rem 1rem;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+    margin: 1rem 0;
+}
+
+#articles .blog-post .note { background: rgba(80, 80, 255, 0.06); }
+#articles .blog-post .warning { background: rgba(255, 200, 0, 0.08); }
+#articles .blog-post .tip { background: rgba(0, 200, 120, 0.06); }
+
+

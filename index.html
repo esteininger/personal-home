@@ -9,17 +9,40 @@
     <meta property="og:type" content="website">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="articles.css">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css">
+    <script>
+        (function() {
+            try {
+                var saved = localStorage.getItem('theme');
+                var root = document.documentElement;
+                root.classList.remove('theme-light', 'theme-dark');
+                if (saved === 'light' || saved === 'dark') {
+                    root.classList.add('theme-' + saved);
+                }
+            } catch (e) { /* noop */ }
+        })();
+    </script>
 </head>
 
 <body>
     <div class="container">
         <nav>
-            <ul>
-                <li><a href="/about" class="nav-link active">About</a></li>
-                <li><a href="/articles" class="nav-link">Articles</a></li>
-                <li><a href="/album" class="nav-link">Album</a></li>
-            </ul>
+            <div class="nav-row">
+                <ul>
+                    <li><a href="/about" class="nav-link active">About</a></li>
+                    <li><a href="/articles" class="nav-link">Articles</a></li>
+                    <li><a href="/album" class="nav-link">Album</a></li>
+                </ul>
+                <div class="theme-toggle">
+                    <div id="theme-toggle" class="theme-switch" role="button" tabindex="0" aria-label="Toggle theme" title="Toggle theme">
+                        <i class="fa-solid fa-sun switch-icon sun" aria-hidden="true"></i>
+                        <span class="switch-thumb"></span>
+                        <i class="fa-solid fa-moon switch-icon moon" aria-hidden="true"></i>
+                    </div>
+                </div>
+            </div>
         </nav>
 
         <!-- About Page -->
@@ -48,11 +71,17 @@
                                 <path d="M18.244 2H21l-7.5 8.574L22 22h-6.828l-5.33-6.364L3.756 22H1l8.04-9.196L2 2h6.828l5.046 6.02L18.244 2zM16.83 20h1.885L7.29 4H5.41l11.42 16z"/>
                             </svg>
                         </a>
-                        <a href="https://www.instagram.com/ethan.codes/" target="_blank">
+                        <a href="https://www.instagram.com/vanlifecoder/" target="_blank">
                             <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
                                 <path
                                     d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zM5.838 12a6.162 6.162 0 1112.324 0 6.162 6.162 0 01-12.324 0zM12 16a4 4 0 110-8 4 4 0 010 8zm4.965-10.405a1.44 1.44 0 112.881.001 1.44 1.44 0 01-2.881-.001z" />
                             </svg>
+                        </a>
+                        <a href="https://www.youtube.com/@vanlifecoder" target="_blank" aria-label="YouTube">
+                            <i class="fa-brands fa-youtube" aria-hidden="true"></i>
+                        </a>
+                        <a href="https://www.tiktok.com/@vanlifecoder" target="_blank" aria-label="TikTok">
+                            <i class="fa-brands fa-tiktok" aria-hidden="true"></i>
                         </a>
                     </div>
                 </div>
@@ -146,7 +175,73 @@
     </div>
 
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-core.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+    <script>try { Prism.plugins.autoloader.languages_path = 'https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/'; } catch (_) {}</script>
     <script>
+        // Theme handling
+        (function() {
+            const root = document.documentElement;
+            const prefersLight = window.matchMedia('(prefers-color-scheme: light)');
+
+            function currentExplicitTheme() {
+                try { return localStorage.getItem('theme'); } catch (_) { return null; }
+            }
+
+            function applyTheme(theme) {
+                root.classList.remove('theme-light', 'theme-dark');
+                if (theme === 'light' || theme === 'dark') {
+                    root.classList.add('theme-' + theme);
+                }
+                updateThemeToggleState();
+            }
+
+            function updateThemeToggleState() {
+                const sw = document.getElementById('theme-toggle');
+                if (!sw) return;
+                const isLight = root.classList.contains('theme-light') || (!root.classList.contains('theme-dark') && prefersLight.matches);
+                sw.setAttribute('aria-pressed', String(isLight));
+            }
+
+            function toggleTheme() {
+                const explicit = currentExplicitTheme();
+                let next;
+                if (explicit) {
+                    next = explicit === 'light' ? 'dark' : 'light';
+                } else {
+                    // No explicit choice yet; flip from system preference
+                    next = prefersLight.matches ? 'dark' : 'light';
+                }
+                try { localStorage.setItem('theme', next); } catch (_) {}
+                applyTheme(next);
+            }
+
+            // Bind button after DOM is ready
+            window.addEventListener('DOMContentLoaded', () => {
+                const btn = document.getElementById('theme-toggle');
+                if (btn && !btn.dataset.bound) {
+                    btn.dataset.bound = '1';
+                    btn.addEventListener('click', toggleTheme);
+                    btn.addEventListener('keydown', (e) => {
+                        if (e.key === 'Enter' || e.key === ' ') {
+                            e.preventDefault();
+                            toggleTheme();
+                        }
+                    });
+                    updateThemeToggleState();
+                }
+            });
+
+            // React to system changes only if user hasn't chosen
+            try {
+                prefersLight.addEventListener('change', () => {
+                    if (!currentExplicitTheme()) {
+                        applyTheme(null);
+                    }
+                });
+            } catch (_) {}
+        })();
+
         // Determine base path for project pages (e.g., GitHub Pages project sites)
         const basePath = (() => {
             const parts = window.location.pathname.split('/').filter(Boolean);
@@ -258,7 +353,8 @@
                         title: metadata.title || 'Untitled',
                         date: metadata.date || 'Unknown Date',
                         description: metadata.description || '',
-                        markdown: markdownContent
+                        markdown: markdownContent,
+                        metadata: metadata
                     });
                 } catch (error) {
                     console.error(`Error loading ${file}:`, error);
@@ -324,6 +420,8 @@
                 if (blogListEl) blogListEl.style.display = 'block';
                 if (blogPostView) blogPostView.style.display = 'none';
                 if (blogTitle) blogTitle.style.display = 'block';
+                // Remove any per-post assets when returning to list
+                removePostAssets();
             }
 
             // Ensure Leaflet map sizes correctly when the Album page becomes visible
@@ -420,6 +518,9 @@
                     </div>`;
                 // Article pages should use the "ethan - <title>" format
                 updatePageMeta('ethan - ' + post.title);
+                try { if (window.Prism && blogPostView) Prism.highlightAllUnder(blogPostView); } catch (_) {}
+                // Load per-post assets
+                addPostAssets(post.metadata);
             }
         }
 
@@ -448,9 +549,23 @@
             routeFromLocation();
         });
 
-        // Simple Markdown parser
+        // Simple Markdown parser with fenced code language support
         function parseMarkdown(markdown) {
-            let html = markdown
+            function escapeHtml(s) {
+                return String(s)
+                    .replace(/&/g, '&amp;')
+                    .replace(/</g, '&lt;')
+                    .replace(/>/g, '&gt;');
+            }
+
+            // Fenced code blocks: ```lang\ncode```
+            let html = markdown.replace(/```([\w#+-]*)\n([\s\S]*?)```/g, (m, lang, code) => {
+                const language = (lang || '').trim().toLowerCase();
+                const cls = language ? ` class="language-${language}"` : '';
+                return `<pre${cls}><code${cls}>${escapeHtml(code)}</code></pre>`;
+            });
+
+            html = html
                 // Remove leading arrow emoji markers
                 .replace(/➡️\s*/g, '')
                 // Headers
@@ -461,10 +576,8 @@
                 .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
                 // Italic  
                 .replace(/\*(.+?)\*/g, '<em>$1</em>')
-                // Code blocks
-                .replace(/```(.*?)```/gs, '<pre><code>$1</code></pre>')
                 // Inline code
-                .replace(/`(.+?)`/g, '<code>$1</code>')
+                .replace(/`(.+?)`/g, (m, code) => `<code>${escapeHtml(code)}</code>`)
                 // Markdown links [text](url)
                 .replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1<\/a>')
                 // Lists
@@ -926,6 +1039,8 @@
             // Article pages should set head title
             updatePageMeta('ethan - ' + post.title);
 
+            try { if (window.Prism && blogPostView) Prism.highlightAllUnder(blogPostView); } catch (_) {}
+
             // Scroll to top with smooth animation
             window.scrollTo({
                 top: 0,
@@ -1138,6 +1253,50 @@
             if (!leafletMap) return;
             leafletMap.closePopup();
             fitMapToAllPins();
+        }
+
+        // Per-post assets: load and cleanup CSS/JS referenced in frontmatter
+        function parseAssetList(val) {
+            if (!val) return [];
+            return String(val)
+                .split(/[\s,]+/)
+                .map(s => s.trim())
+                .filter(Boolean);
+        }
+
+        function addPostAssets(metadata) {
+            try {
+                removePostAssets();
+                if (!metadata || typeof metadata !== 'object') return;
+                const head = document.head || document.getElementsByTagName('head')[0];
+                const cssList = parseAssetList(metadata.css || metadata.style || metadata.styles);
+                const jsList = parseAssetList(metadata.js || metadata.script || metadata.scripts);
+
+                cssList.forEach(href => {
+                    const link = document.createElement('link');
+                    link.rel = 'stylesheet';
+                    link.href = href;
+                    link.setAttribute('data-post-asset', 'css');
+                    link.setAttribute('data-asset-url', href);
+                    head.appendChild(link);
+                });
+                jsList.forEach(src => {
+                    const s = document.createElement('script');
+                    s.src = src;
+                    s.defer = true;
+                    s.setAttribute('data-post-asset', 'js');
+                    s.setAttribute('data-asset-url', src);
+                    head.appendChild(s);
+                });
+            } catch (_) { /* noop */ }
+        }
+
+        function removePostAssets() {
+            try {
+                const head = document.head || document.getElementsByTagName('head')[0];
+                const toRemove = head.querySelectorAll('[data-post-asset]');
+                toRemove.forEach(el => el.parentNode && el.parentNode.removeChild(el));
+            } catch (_) { /* noop */ }
         }
 
     </script>
