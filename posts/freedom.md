@@ -1,19 +1,11 @@
 ---
 title: freedom
 date: "2025-08-20"
-description: When I first got my Ford Transit rigged for vanlife, I wasn’t just building a camper—I was carving out a different relationship with freedom.
+description: when i built out my ford transit during covid, i wasn’t just making a camper. i was creating a rolling cabin with a kitchen, office, bathroom, and all my gear. now i fly out with my dog, pick it up from a driveway i rent, and roam—paddleboarding one morning, biking the next, always with a new backyard. it’s the best travel hack i’ve found and a balance to manhattan life.
 ---
 
-Freedom isn’t about how far I can drive in a day. It’s the small things: brewing coffee with the back doors open to the Cascade air, knowing I can point my wheels toward Leavenworth or Mammoth without clearing it with anyone, and watching Dany hop out of the van like every patch of dirt is a new backyard.
+during covid i decided to build out a camper van. i wanted something that wasn’t just a car with a bed thrown in the back, but a real little home and office on wheels. i put in a kitchen, a sink, a spot to work with internet, even a small bathroom setup. then came the fun stuff—mountain bike, stand-up paddleboard, backpacking gear, hiking gear. basically everything i’d need to live, work, and play without relying on hotels, restaurants, or rentals.
 
-It’s also fixing solar panels on a hot roof in Oregon, or lugging water jugs through a sleepy Washington town at midnight. Those moments don’t show up on Instagram, but they’re part of what makes the freedom real—it’s earned.
+the way i use it now is simple: i fly out to wherever the van is parked—usually tucked away in someone’s driveway that i pay monthly rent for—grab my dog, and hit the road. i’ll spend a stretch exploring trails, lakes, and mountains, then drop it back off in the driveway and fly home. the only real expense is the flight. no hotel bills, no car rentals, no daily eating out. just my gear, my dog, and the open road.
 
-## The Trade
-
-I traded stability for motion, square footage for horizons. My Manhattan apartment never gave me the Waldo Lake paddleboard mornings, or the quiet stargazing outside Bend. The freedom of vanlife isn’t free—it costs convenience, predictability, sometimes even comfort—but the return is waking up each morning with a choice: stay, or roll.
-
-## Why It Matters
-
-For me, freedom is less about escape and more about alignment. The road forces minimalism, demands resourcefulness, and rewards curiosity. Each day asks: where do you want to be, Ethan? And each day, I get to answer.
-
-That’s freedom.
+what’s cool is every day i get a new backyard. one morning i can paddleboard on a quiet lake, the next i’m mountain biking in the woods, or heading up a trail with my pack. it’s a constant switch-up that balances perfectly with the chaos of manhattan. it feels like the best travel hack i’ve ever pulled off.

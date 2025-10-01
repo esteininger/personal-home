@@ -16,6 +16,6 @@ fast forward to today: the left in the west has its own rigidity. step outside t
 
 that’s why they can converge tactically. the left hates capitalism, the u.s., and western “imperialism.” islamists hate israel, the u.s., and western influence. so they share enemies, even if their end goals are worlds apart. you see the alliance in protests, joint statements, blending narratives about “apartheid,” “colonialism,” and “racism.”
 
-the payoff: leftists get bigger rallies, more credibility on anti-racism and anti-imperialism, sharper moral attacks on america. islamists get cover and legitimacy inside mainstream policy debates. each thinks they’re using the other.
+the payoff: leftists get bigger rallies, more credibility on anti  racism and anti  imperialism, sharper moral attacks on america. islamists get cover and legitimacy inside mainstream policy debates. each thinks they’re using the other.
 
 but in the long run, the left dreams of dismantling capitalism and reshaping america into a socialist system, while islamists look for more influence, political power, and cultural acceptance of islam, even hints of sharia, in the west. the alliance is about convergence against common enemies, not convergence of final visions.
