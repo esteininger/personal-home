@@ -7,7 +7,8 @@
     --text-dim: #888;
     --accent: #fff;
     --border: #333;
-    --font-body: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    --font-body: 'Lora', Georgia, 'Times New Roman', Times, serif;
+    --font-headings: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
 }
 
 .theme-light {
@@ -16,7 +17,8 @@
     --text-dim: #555555;
     --accent: #000000;
     --border: #e2e2e2;
-    --font-body: Georgia, 'Times New Roman', Times, serif;
+    --font-body: 'Lora', Georgia, 'Times New Roman', Times, serif;
+    --font-headings: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
 }
 
 #articles {
@@ -37,6 +39,7 @@
 #articles .blog-post h6 {
     color: var(--text);
     line-height: 1.25;
+    font-family: var(--font-headings);
 }
 
 #articles .blog-post h1 { font-size: 2.2rem; margin: 2rem 0 1rem; }

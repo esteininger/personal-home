@@ -10,7 +10,8 @@
     --text-dim: #888;
     --accent: #fff;
     --border: #333;
-    --font-body: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    --font-body: 'Lora', Georgia, 'Times New Roman', Times, serif;
+    --font-headings: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
 }
 
 /* Respect system preference by default */
@@ -21,7 +22,8 @@
         --text-dim: #555555;
         --accent: #000000;
         --border: #e2e2e2;
-        --font-body: Georgia, 'Times New Roman', Times, serif;
+        --font-body: 'Lora', Georgia, 'Times New Roman', Times, serif;
+        --font-headings: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
     }
 }
 
@@ -32,7 +34,8 @@
     --text-dim: #888;
     --accent: #fff;
     --border: #333;
-    --font-body: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    --font-body: 'Lora', Georgia, 'Times New Roman', Times, serif;
+    --font-headings: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
 }
 
 .theme-light {
@@ -41,7 +44,8 @@
     --text-dim: #555555;
     --accent: #000000;
     --border: #e2e2e2;
-    --font-body: Georgia, 'Times New Roman', Times, serif;
+    --font-body: 'Lora', Georgia, 'Times New Roman', Times, serif;
+    --font-headings: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
 }
 
 body {
@@ -390,6 +394,7 @@ html.theme-dark .theme-switch { background: #111218; }
 .blog-post h1 {
     margin-bottom: 0.5rem;
     font-size: 2rem;
+    font-family: var(--font-headings);
 }
 
 .blog-post .post-date {
@@ -400,11 +405,13 @@ html.theme-dark .theme-switch { background: #111218; }
 .blog-post h2 {
     margin: 2rem 0 1rem;
     font-size: 1.5rem;
+    font-family: var(--font-headings);
 }
 
 .blog-post h3 {
     margin: 1.5rem 0 1rem;
     font-size: 1.1rem;
+    font-family: var(--font-headings);
 }
 
 .blog-post p {
