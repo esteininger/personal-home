@@ -1,6 +1,6 @@
 ---
 
-title: 2023 geopolitics tl;dr
+title: geopolitics
 date: "2023-11-09"
 description: an attempt at a neutral, fact-based breakdown of october 7th and what it means for the world moving forward
 

@@ -334,7 +334,7 @@
                 'posts/freedom.md',
                 'posts/consolidation.md',
                 'posts/convergence.md',
-                'posts/2023.md'
+                'posts/geopolitics.md'
             ];
 
             blogPosts = [];
@@ -353,10 +353,22 @@
                     // Extract ID from filename
                     const id = file.replace('posts/', '').replace('.md', '');
 
+                    // Determine last edited time from frontmatter or HTTP headers
+                    const lastModifiedHeader = response.headers.get('last-modified');
+                    const lastEdited = metadata.lastEdited
+                        || metadata.lastedited
+                        || metadata.updated
+                        || metadata.last_updated
+                        || metadata.modified
+                        || metadata['last-edited']
+                        || lastModifiedHeader
+                        || metadata.date;
+
                     blogPosts.push({
                         id: id,
                         title: metadata.title || 'Untitled',
                         date: metadata.date || 'Unknown Date',
+                        lastEdited: lastEdited || '',
                         description: metadata.description || '',
                         markdown: markdownContent,
                         metadata: metadata
@@ -512,12 +524,15 @@
             if (blogTitle) blogTitle.style.display = 'none';
             if (blogPostView) {
                 blogPostView.style.display = 'block';
+                const lastEditedDisplay = (post.lastEdited && !Number.isNaN(Date.parse(post.lastEdited)))
+                    ? new Date(post.lastEdited).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
+                    : '';
                 blogPostView.innerHTML = `
                     <div class="blog-post">
-                        <a href="/articles" class="back-link" onclick="navigateToPath('/articles'); event.preventDefault();">← Back to articles</a>
                         <div class="post-header">
                             <h1>${post.title}</h1>
                             <div class="post-date">${new Date(post.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</div>
+                            ${lastEditedDisplay ? `<div class="post-last-edited">Last edited: ${lastEditedDisplay}</div>` : ''}
                         </div>
                         <div class="post-content">${parseMarkdown(post.markdown)}</div>
                     </div>`;
@@ -1024,9 +1039,11 @@
             blogPostView.style.display = 'block';
 
             // Render the post
+            const lastEditedDisplay2 = (post.lastEdited && !Number.isNaN(Date.parse(post.lastEdited)))
+                ? new Date(post.lastEdited).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
+                : '';
             blogPostView.innerHTML = `
                 <div class="blog-post">
-                    <a href="/articles" class="back-link" onclick="navigateToPath(basePath + '/articles'); event.preventDefault();">← Back to articles</a>
                     <div class="post-header">
                         <h1>${post.title}</h1>
                         <div class="post-date">${new Date(post.date).toLocaleDateString('en-US', {
@@ -1034,6 +1051,7 @@
                 month: 'long',
                 day: 'numeric'
             })}</div>
+                        ${lastEditedDisplay2 ? `<div class="post-last-edited">Last edited: ${lastEditedDisplay2}</div>` : ''}
                     </div>
                     <div class="post-content">
                         ${parseMarkdown(post.markdown)}

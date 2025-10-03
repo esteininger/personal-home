@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ethan - articles</title>
+    <meta name="twitter:card" content="summary">
+    <meta property="og:type" content="website">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="articles.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css">
+    <script>
+        (function() {
+            try {
+                var saved = localStorage.getItem('theme');
+                var root = document.documentElement;
+                root.classList.remove('theme-light', 'theme-dark');
+                if (saved === 'light' || saved === 'dark') {
+                    root.classList.add('theme-' + saved);
+                }
+            } catch (e) { /* noop */ }
+        })();
+    </script>
+</head>
+
+<body>
+    <div class="container">
+        <nav>
+            <div class="nav-row">
+                <ul>
+                    <li><a href="/about" class="nav-link">About</a></li>
+                    <li><a href="/articles.html" class="nav-link active">Articles</a></li>
+                    <li><a href="/album" class="nav-link">Album</a></li>
+                </ul>
+                <div class="theme-toggle">
+                    <div id="theme-toggle" class="theme-switch" role="button" tabindex="0" aria-label="Toggle theme" title="Toggle theme">
+                        <i class="fa-solid fa-sun switch-icon sun" aria-hidden="true"></i>
+                        <span class="switch-thumb"></span>
+                        <i class="fa-solid fa-moon switch-icon moon" aria-hidden="true"></i>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <div id="articles" class="page active">
+            <div id="blog-list" class="blog-list"></div>
+            <div id="blog-post-view" style="display:none;"></div>
+        </div>
+
+        <div class="footer">me (at) ethan (dot) dev</div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-core.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+    <script>try { Prism.plugins.autoloader.languages_path = 'https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/'; } catch (_) {}</script>
+    <script>
+        // Theme toggle binding
+        (function() {
+            const root = document.documentElement;
+            const prefersLight = window.matchMedia('(prefers-color-scheme: light)');
+            function currentExplicitTheme() {
+                try { return localStorage.getItem('theme'); } catch (_) { return null; }
+            }
+            function applyTheme(theme) {
+                root.classList.remove('theme-light', 'theme-dark');
+                if (theme === 'light' || theme === 'dark') {
+                    root.classList.add('theme-' + theme);
+                }
+                updateThemeToggleState();
+            }
+            function updateThemeToggleState() {
+                const sw = document.getElementById('theme-toggle');
+                if (!sw) return;
+                const isLight = root.classList.contains('theme-light') || (!root.classList.contains('theme-dark') && prefersLight.matches);
+                sw.setAttribute('aria-pressed', String(isLight));
+            }
+            function toggleTheme() {
+                const explicit = currentExplicitTheme();
+                let next;
+                if (explicit) {
+                    next = explicit === 'light' ? 'dark' : 'light';
+                } else {
+                    next = prefersLight.matches ? 'dark' : 'light';
+                }
+                try { localStorage.setItem('theme', next); } catch (_) {}
+                applyTheme(next);
+            }
+            window.addEventListener('DOMContentLoaded', () => {
+                const btn = document.getElementById('theme-toggle');
+                if (btn && !btn.dataset.bound) {
+                    btn.dataset.bound = '1';
+                    btn.addEventListener('click', toggleTheme);
+                    btn.addEventListener('keydown', (e) => {
+                        if (e.key === 'Enter' || e.key === ' ') {
+                            e.preventDefault();
+                            toggleTheme();
+                        }
+                    });
+                    updateThemeToggleState();
+                }
+            });
+        })();
+
+        // Meta helpers
+        function removeMeta(selector) {
+            const el = document.head.querySelector(selector);
+            if (el && el.parentNode) el.parentNode.removeChild(el);
+        }
+        function upsertMeta(attrName, attrValue, content) {
+            let el = document.head.querySelector(`meta[${attrName}="${attrValue}"]`);
+            if (!el) {
+                el = document.createElement('meta');
+                el.setAttribute(attrName, attrValue);
+                document.head.appendChild(el);
+            }
+            el.setAttribute('content', content);
+        }
+        function updatePageMeta(titleText) {
+            try {
+                if (typeof titleText === 'string' && titleText.trim()) {
+                    document.title = titleText;
+                    upsertMeta('property', 'og:title', titleText);
+                    upsertMeta('name', 'twitter:title', titleText);
+                }
+                removeMeta('meta[property="og:image"]');
+                removeMeta('meta[name="twitter:image"]');
+                upsertMeta('name', 'twitter:card', 'summary');
+            } catch (_) {}
+        }
+
+        // Markdown + frontmatter
+        function parseFrontmatter(content) {
+            const frontmatterRegex = /^---\n([\s\S]*?)\n---\n([\s\S]*)$/;
+            const match = content.match(frontmatterRegex);
+            if (!match) return { content: content, metadata: {} };
+            const metadata = {};
+            match[1].split('\n').forEach(line => {
+                const idx = line.indexOf(':');
+                if (idx > 0) {
+                    const key = line.substring(0, idx).trim();
+                    let value = line.substring(idx + 1).trim();
+                    if ((value.startsWith('"') && value.endsWith('"')) || (value.startsWith('\'') && value.endsWith('\''))) {
+                        value = value.slice(1, -1);
+                    }
+                    metadata[key] = value;
+                }
+            });
+            return { content: match[2], metadata };
+        }
+
+        function parseMarkdown(markdown) {
+            function escapeHtml(s) {
+                return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+            }
+            let html = markdown.replace(/```([\w#\+-]*)\n([\s\S]*?)```/g, (m, lang, code) => {
+                const language = (lang || '').trim().toLowerCase();
+                const cls = language ? ` class="language-${language}"` : '';
+                return `<pre${cls}><code${cls}>${escapeHtml(code)}</code></pre>`;
+            });
+            html = html
+                .replace(/➡️\s*/g, '')
+                .replace(/^### (.*$)/gim, '<h3>$1</h3>')
+                .replace(/^## (.*$)/gim, '<h3>$1</h3>')
+                .replace(/^# (.*$)/gim, '<h2>$1</h2>')
+                .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+                .replace(/\*(.+?)\*/g, '<em>$1</em>')
+                .replace(/`(.+?)`/g, (m, code) => `<code>${escapeHtml(code)}</code>`)
+                .replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1<\/a>')
+                .replace(/^\d+\. (.+)$/gim, '<li>$1<\/li>')
+                .replace(/^\* (.+)$/gim, '<li>$1<\/li>')
+                .replace(/^- (.+)$/gim, '<li>$1<\/li>')
+                .replace(/\n/g, '\n')
+                .split('\n\n')
+                .map(para => {
+                    para = para.trim();
+                    if (!para) return '';
+                    if (para.match(/^<[h|l|p|u|o]/)) return para;
+                    return `<p>${para}</p>`;
+                })
+                .join('\n');
+            html = html.replace(/(<li>.*<\/li>\n?)+/g, match => {
+                if (match.includes('<li>1.')) return `<ol>${match}</ol>`;
+                return `<ul>${match}</ul>`;
+            });
+            return html;
+        }
+
+        // Blog data
+        let blogPosts = [];
+
+        async function loadBlogPosts() {
+            const postFiles = [
+                'posts/freedom.md',
+                'posts/consolidation.md',
+                'posts/convergence.md',
+                'posts/geopolitics.md'
+            ];
+            blogPosts = [];
+            for (const file of postFiles) {
+                try {
+                    const response = await fetch(file);
+                    if (!response.ok) continue;
+                    const raw = await response.text();
+                    const { content, metadata } = parseFrontmatter(raw);
+                    const id = file.replace('posts/', '').replace('.md', '');
+                    const lastModifiedHeader = response.headers.get('last-modified');
+                    const lastEdited = metadata.lastEdited
+                        || metadata.lastedited
+                        || metadata.updated
+                        || metadata.last_updated
+                        || metadata.modified
+                        || metadata['last-edited']
+                        || lastModifiedHeader
+                        || metadata.date;
+                    blogPosts.push({
+                        id,
+                        title: metadata.title || 'Untitled',
+                        date: metadata.date || 'Unknown Date',
+                        lastEdited: lastEdited || '',
+                        description: metadata.description || '',
+                        markdown: content,
+                        metadata
+                    });
+                } catch (_) {}
+            }
+            blogPosts.sort((a, b) => new Date(b.date) - new Date(a.date));
+        }
+
+        function renderBlogList() {
+            const blogList = document.getElementById('blog-list');
+            const blogPostView = document.getElementById('blog-post-view');
+            if (!blogList || !blogPostView) return;
+            blogList.style.display = 'block';
+            blogPostView.style.display = 'none';
+            blogList.innerHTML = '';
+            blogPosts.forEach(post => {
+                const el = document.createElement('div');
+                el.className = 'blog-list-item';
+                el.onclick = (e) => {
+                    e.preventDefault();
+                    window.location.hash = '/' + post.id;
+                };
+                el.innerHTML = `
+                    <h2>${post.title}</h2>
+                    <div class="date">${new Date(post.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</div>
+                    <div class="description">${post.description}</div>
+                `;
+                blogList.appendChild(el);
+            });
+            updatePageMeta('ethan - articles');
+        }
+
+        function addPostAssets(metadata) {
+            try {
+                removePostAssets();
+                if (!metadata || typeof metadata !== 'object') return;
+                const head = document.head || document.getElementsByTagName('head')[0];
+                const cssList = String(metadata.css || metadata.style || metadata.styles || '').split(/[\s,]+/).map(s => s.trim()).filter(Boolean);
+                const jsList = String(metadata.js || metadata.script || metadata.scripts || '').split(/[\s,]+/).map(s => s.trim()).filter(Boolean);
+                cssList.forEach(href => {
+                    const link = document.createElement('link');
+                    link.rel = 'stylesheet';
+                    link.href = href;
+                    link.setAttribute('data-post-asset', 'css');
+                    link.setAttribute('data-asset-url', href);
+                    head.appendChild(link);
+                });
+                jsList.forEach(src => {
+                    const s = document.createElement('script');
+                    s.src = src;
+                    s.defer = true;
+                    s.setAttribute('data-post-asset', 'js');
+                    s.setAttribute('data-asset-url', src);
+                    head.appendChild(s);
+                });
+            } catch (_) {}
+        }
+
+        function removePostAssets() {
+            try {
+                const head = document.head || document.getElementsByTagName('head')[0];
+                const toRemove = head.querySelectorAll('[data-post-asset]');
+                toRemove.forEach(el => el.parentNode && el.parentNode.removeChild(el));
+            } catch (_) {}
+        }
+
+        function renderPostById(postId) {
+            const blogList = document.getElementById('blog-list');
+            const blogPostView = document.getElementById('blog-post-view');
+            const post = blogPosts.find(p => p.id === postId);
+            if (!post || !blogList || !blogPostView) return;
+            blogList.style.display = 'none';
+            blogPostView.style.display = 'block';
+            const lastEditedDisplay = (post.lastEdited && !Number.isNaN(Date.parse(post.lastEdited)))
+                ? new Date(post.lastEdited).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
+                : '';
+            blogPostView.innerHTML = `
+                <div class="blog-post">
+                    <div class="post-header">
+                        <h1>${post.title}</h1>
+                        <div class="post-date">${new Date(post.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</div>
+                        ${lastEditedDisplay ? `<div class="post-last-edited">Last edited: ${lastEditedDisplay}</div>` : ''}
+                    </div>
+                    <div class="post-content">${parseMarkdown(post.markdown)}</div>
+                </div>
+            `;
+            updatePageMeta('ethan - ' + post.title);
+            try { if (window.Prism && blogPostView) Prism.highlightAllUnder(blogPostView); } catch (_) {}
+            addPostAssets(post.metadata);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function routeFromHash() {
+            const hash = window.location.hash.replace(/^#/, '');
+            if (hash.startsWith('/')) {
+                const postId = hash.replace(/^\//, '');
+                renderPostById(postId);
+            } else {
+                removePostAssets();
+                renderBlogList();
+            }
+        }
+
+        window.addEventListener('load', async () => {
+            await loadBlogPosts();
+            routeFromHash();
+        });
+        window.addEventListener('hashchange', routeFromHash);
+    </script>
+</body>
+
+</html>
+
+

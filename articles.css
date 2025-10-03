@@ -49,6 +49,17 @@
 #articles .blog-post h5 { font-size: 1.05rem; margin: 1rem 0 0.5rem; }
 #articles .blog-post h6 { font-size: 0.95rem; margin: 0.8rem 0 0.4rem; letter-spacing: 0.02em; }
 
+/* Post meta */
+#articles .blog-post .post-date {
+    color: var(--text-dim);
+}
+
+#articles .blog-post .post-last-edited {
+    color: var(--text-dim);
+    font-size: 0.95rem;
+    margin-top: 0.25rem;
+}
+
 /* Paragraphs */
 #articles .blog-post p {
     color: var(--text-dim);
