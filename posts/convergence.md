@@ -46,18 +46,20 @@ both texts are rigid. both can be read as incompatible with modern liberalism. b
 
 ## the data
 
-i ran a [semantic analysis](https://github.com/esteininger/semantic-clustering) comparing the bible, torah, and quran across conceptual dimensions. some findings:
+i ran a [semantic analysis](https://github.com/esteininger/semantic-clustering) comparing the bible, torah, and quran across 11 conceptual dimensions. the patterns are striking:
 
-**individualism vs collectivism:** the bible scores highest on individualism (0.513), while the quran leans most collective (0.441). the torah sits between (0.481).
+**individualism:** the bible scores highest on individualism (64.8% individualistic chunks), emphasizing personal salvation and direct relationship with god. the quran (61.6%) and torah (56.0%) are less individualistic, though all three show surprising emphasis on personal accountability.
 
 ![Individualism vs Collectivism Analysis](https://raw.githubusercontent.com/esteininger/semantic-clustering/main/examples/religious/output/individualism_vs_collectivism/tsne_visualization.png)
 
-**authority vs autonomy:** the quran shows the strongest authority orientation (0.523 vs 0.467 autonomy). the bible tilts toward autonomy (0.476 vs 0.514).
-
-**dogmatism vs pluralism:** the quran scores highest on dogmatism (0.529), the bible most pluralistic (0.482). the torah again sits between (0.501).
+**dogmatism:** all texts are overwhelmingly dogmatic, but the torah ranks highest (95.7% dogmatic), followed by the bible (92.8%) and quran (88.4%). ironically, the quran shows the most pluralistic language (11.6%) despite being the most doctrinally rigid in practice.
 
 ![Dogmatism vs Pluralism Analysis](https://raw.githubusercontent.com/esteininger/semantic-clustering/main/examples/religious/output/dogmatism_vs_pluralism/tsne_visualization.png)
 
-**reform vs tradition:** the bible leans reform (0.508), the quran tradition (0.468). consistent with the fracture vs unity pattern.
+**authority structures:** the quran emphasizes fear of god (64.4% fear vs 35.6% love) and conservative authority (0.233 similarity score, highest of the three). the torah and bible lean more toward love (70.7% and 58.4% respectively) and show weaker authority emphasis.
 
-these aren't subjective readings—they're measurable patterns in the text itself. the numbers align with the political outcomes: texts that embedded pluralism, individual conscience, and reform capacity produced cultures that could evolve toward liberalism. texts that prioritized unity, authority, and tradition produced cultures where those structures persisted.
+**mystical vs legalistic:** surprisingly, the torah is most mystical (75.9%), while the quran is most balanced (58.2% mystical, 41.8% legalistic). this matters because mysticism creates interpretive flexibility, legalism creates rigid application.
+
+**reform capacity:** the bible shows the strongest reform orientation, the quran the strongest tradition orientation. this aligns perfectly with actual historical trajectories.
+
+these aren't subjective readings—they're measurable linguistic patterns. the texts that embedded interpretive flexibility, individual conscience, and mystical ambiguity produced cultures that could evolve around their scripture. the texts that prioritized literal clarity, collective unity, and legal precision produced cultures that worked within their scripture's constraints.
