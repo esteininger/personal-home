@@ -50,9 +50,13 @@ i ran a [semantic analysis](https://github.com/esteininger/semantic-clustering) 
 
 **individualism vs collectivism:** the bible scores highest on individualism (0.513), while the quran leans most collective (0.441). the torah sits between (0.481).
 
+![Individualism vs Collectivism Analysis](https://raw.githubusercontent.com/esteininger/semantic-clustering/main/examples/religious/output/individualism_vs_collectivism/tsne_visualization.png)
+
 **authority vs autonomy:** the quran shows the strongest authority orientation (0.523 vs 0.467 autonomy). the bible tilts toward autonomy (0.476 vs 0.514).
 
 **dogmatism vs pluralism:** the quran scores highest on dogmatism (0.529), the bible most pluralistic (0.482). the torah again sits between (0.501).
+
+![Dogmatism vs Pluralism Analysis](https://raw.githubusercontent.com/esteininger/semantic-clustering/main/examples/religious/output/dogmatism_vs_pluralism/tsne_visualization.png)
 
 **reform vs tradition:** the bible leans reform (0.508), the quran tradition (0.468). consistent with the fracture vs unity pattern.
 
