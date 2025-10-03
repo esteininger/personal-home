@@ -26,9 +26,11 @@ A minimal personal website with blog functionality built with HTML, CSS, and Jav
 
 ## Structure
 
-- `index.html` - Main HTML file
+- `index.html` - Main SPA (single page application)
+- `articles.html` - Articles page
 - `styles.css` - All CSS styles
-- `posts/` - Directory containing blog posts in Markdown format
+- `posts/` - Directory containing blog posts in Markdown format (source files)
+- `articles/` - Directory containing generated HTML article pages
 - `images/` - Directory containing image data and assets
 
 ## Adding New Blog Posts
@@ -49,13 +51,20 @@ description: "Brief description of your post"
 Your content here...
 ```
 
-4. Add the new file to the `postFiles` array in `index.html`:
+4. Run the conversion script to generate HTML:
+
+```bash
+python3 scripts/python/convert_markdown_to_html.py
+```
+
+5. Add the new file to the `postFiles` array in `index.html`:
 
 ```javascript
 const postFiles = [
-    'posts/grief-to-resilience.md',
-    'posts/van-life-lessons.md',
-    'posts/indexing-the-world.md',
+    'posts/freedom.md',
+    'posts/consolidation.md',
+    'posts/convergence.md',
+    'posts/geopolitics.md',
     'posts/my-new-post.md'  // Add your new post here
 ];
 ```
@@ -98,14 +107,27 @@ const postFiles = [
 
 ```
 .
-├── index.html          # Main HTML file
-├── styles.css          # CSS styles
-├── posts/              # Blog posts directory
-│   ├── _template.md    # Template for new posts
-│   ├── grief-to-resilience.md
-│   ├── van-life-lessons.md
-│   └── indexing-the-world.md
-├── images/             # Images directory
-│   └── gallery.json    # Gallery images data
-└── README.md           # This file
+├── index.html                 # Main SPA
+├── articles.html              # Articles page
+├── styles.css                 # CSS styles
+├── articles.css               # Article-specific styles
+├── posts/                     # Blog posts (markdown source)
+│   ├── _template.md           # Template for new posts
+│   ├── freedom.md
+│   ├── consolidation.md
+│   ├── convergence.md
+│   └── geopolitics.md
+├── articles/                  # Generated HTML articles
+│   ├── freedom.html
+│   ├── consolidation.html
+│   ├── convergence.html
+│   └── geopolitics.html
+├── images/                    # Images directory
+│   └── gallery.json           # Gallery images data
+├── scripts/                   # Utility scripts
+│   └── python/
+│       ├── convert_markdown_to_html.py
+│       ├── bulk_add_to_gallery.py
+│       └── ...
+└── README.md                  # This file
 ```
