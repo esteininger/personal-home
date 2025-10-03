@@ -650,13 +650,16 @@ html.theme-dark .theme-switch { background: #111218; }
     height: 32px;
     border-radius: 6px;
     border: 1px solid var(--border);
-    background: #111218;
+    background: var(--bg);
     color: var(--text);
     cursor: pointer;
-    transition: transform 0.06s ease-in-out, background 0.15s ease-in-out;
+    transition: transform 0.06s ease-in-out, background 0.15s ease-in-out, border-color 0.15s ease-in-out;
 }
 
-.icon-button:hover { background: #141520; }
+.icon-button:hover { 
+    background: var(--bg);
+    border-color: var(--text-dim);
+}
 .icon-button:active { transform: scale(0.96); }
 
 .gallery-controls label {
@@ -665,11 +668,17 @@ html.theme-dark .theme-switch { background: #111218; }
 }
 
 .gallery-controls select {
-    background: #111218;
+    background: var(--bg);
     color: var(--text);
     border: 1px solid var(--border);
     border-radius: 6px;
     padding: 6px 8px;
+    cursor: pointer;
+    transition: border-color 0.15s ease-in-out;
+}
+
+.gallery-controls select:hover {
+    border-color: var(--text-dim);
 }
 
 .gallery-item {
