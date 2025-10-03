@@ -42,6 +42,14 @@ def markdown_to_html(markdown):
                   lambda m: f'<pre><code class="language-{m.group(1).strip()}">{escape_html(m.group(2))}</code></pre>',
                   html, flags=re.DOTALL)
     
+    # Images (MUST be processed BEFORE links!)
+    html = re.sub(r'!\[([^\]]*)\]\(([^)]+)\)', 
+                  r'<img src="\2" alt="\1" style="max-width: 100%; height: auto; margin: 1rem 0;">', html)
+    
+    # Links
+    html = re.sub(r'\[([^\]]+)\]\((https?://[^\s)]+)\)', 
+                  r'<a href="\2" target="_blank" rel="noopener noreferrer">\1</a>', html)
+    
     # Headers
     html = re.sub(r'^### (.+)$', r'<h3>\1</h3>', html, flags=re.MULTILINE)
     html = re.sub(r'^## (.+)$', r'<h3>\1</h3>', html, flags=re.MULTILINE)
@@ -55,14 +63,6 @@ def markdown_to_html(markdown):
     
     # Inline code (but not in links)
     html = re.sub(r'`([^`]+?)`', lambda m: f'<code>{escape_html(m.group(1))}</code>', html)
-    
-    # Links
-    html = re.sub(r'\[([^\]]+)\]\((https?://[^\s)]+)\)', 
-                  r'<a href="\2" target="_blank" rel="noopener noreferrer">\1</a>', html)
-    
-    # Images
-    html = re.sub(r'!\[([^\]]*)\]\(([^)]+)\)', 
-                  r'<img src="\2" alt="\1" style="max-width: 100%; height: auto; margin: 1rem 0;">', html)
     
     # Lists (unordered and ordered)
     html = re.sub(r'^\* (.+)$', r'<li>\1</li>', html, flags=re.MULTILINE)
