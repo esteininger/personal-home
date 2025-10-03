@@ -46,20 +46,18 @@ both texts are rigid. both can be read as incompatible with modern liberalism. b
 
 ## the data
 
-i ran a [semantic analysis](https://github.com/esteininger/semantic-clustering) comparing the bible, torah, and quran across 11 conceptual dimensions. the patterns are striking:
+i ran a [semantic analysis](https://github.com/esteininger/semantic-clustering) comparing the bible, torah, and quran. four patterns directly explain the divergent political outcomes:
 
-**individualism:** the bible scores highest on individualism (64.8% individualistic chunks), emphasizing personal salvation and direct relationship with god. the quran (61.6%) and torah (56.0%) are less individualistic, though all three show surprising emphasis on personal accountability.
+**mystical vs legalistic:** the quran is most legalistic (41.8% legalistic chunks), the bible most mystical (66.4%). mysticism creates interpretive flexibility. legalism creates rigid application. christianity's mystical bent allowed it to evolve around its text. islam's legal clarity kept it bound to the text.
 
-![Individualism vs Collectivism Analysis](https://raw.githubusercontent.com/esteininger/semantic-clustering/main/examples/religious/output/individualism_vs_collectivism/tsne_visualization.png)
+![Mystical vs Legalistic Analysis](https://raw.githubusercontent.com/esteininger/semantic-clustering/main/examples/religious/output/mystical_vs_legalistic/tsne_visualization.png)
 
-**dogmatism:** all texts are overwhelmingly dogmatic, but the torah ranks highest (95.7% dogmatic), followed by the bible (92.8%) and quran (88.4%). ironically, the quran shows the most pluralistic language (11.6%) despite being the most doctrinally rigid in practice.
+**love vs fear:** the quran is the only fear-dominant text (64.4% fear vs 35.6% love). the bible leans love (58.4%). fear-based authority maintains orthodoxy and unity. love-based theology tolerates diversity and fracture.
 
-![Dogmatism vs Pluralism Analysis](https://raw.githubusercontent.com/esteininger/semantic-clustering/main/examples/religious/output/dogmatism_vs_pluralism/tsne_visualization.png)
+![Love vs Fear Analysis](https://raw.githubusercontent.com/esteininger/semantic-clustering/main/examples/religious/output/love_vs_fear/tsne_visualization.png)
 
-**authority structures:** the quran emphasizes fear of god (64.4% fear vs 35.6% love) and conservative authority (0.233 similarity score, highest of the three). the torah and bible lean more toward love (70.7% and 58.4% respectively) and show weaker authority emphasis.
+**war vs peace:** the quran emphasizes peace most (74%), but it's a unity-through-order peace. the bible is perfectly balanced (50/50), showing the internal tension that eventually shattered european christendom. that fracture was the accident that created space for liberalism.
 
-**mystical vs legalistic:** surprisingly, the torah is most mystical (75.9%), while the quran is most balanced (58.2% mystical, 41.8% legalistic). this matters because mysticism creates interpretive flexibility, legalism creates rigid application.
+**individualism:** the bible scores highest on individual conscience (64.8%), the quran lowest (61.6%). texts emphasizing personal relationship with god over communal obligation produced cultures that could eventually secularize the individual-state relationship.
 
-**reform capacity:** the bible shows the strongest reform orientation, the quran the strongest tradition orientation. this aligns perfectly with actual historical trajectories.
-
-these aren't subjective readings—they're measurable linguistic patterns. the texts that embedded interpretive flexibility, individual conscience, and mystical ambiguity produced cultures that could evolve around their scripture. the texts that prioritized literal clarity, collective unity, and legal precision produced cultures that worked within their scripture's constraints.
+these aren't subjective readings—they're measurable patterns in the text itself. the quran's linguistic structure (legalistic + fear-based + unified + moderately collective) maps directly onto theocratic continuity. the bible's structure (mystical + love-based + internally contradictory + individualistic) maps onto the fragmentation that accidentally enabled secular governance.
