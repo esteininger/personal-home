@@ -997,9 +997,8 @@
                 const listItem = document.createElement('div');
                 listItem.className = 'blog-list-item';
                 listItem.onclick = (e) => {
-                    e.preventDefault();
-                    window.history.pushState({}, '', '/articles/' + post.id);
-                    routeFromLocation();
+                    // Navigate to standalone article page
+                    window.location.href = '/' + post.id;
                 };
 
                 listItem.innerHTML = `

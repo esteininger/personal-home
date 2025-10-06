@@ -242,8 +242,8 @@
                 const el = document.createElement('div');
                 el.className = 'blog-list-item';
                 el.onclick = (e) => {
-                    e.preventDefault();
-                    window.location.hash = '/' + post.id;
+                    // Navigate to standalone article page
+                    window.location.href = '/' + post.id;
                 };
                 el.innerHTML = `
                     <h2>${post.title}</h2>
