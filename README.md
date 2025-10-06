@@ -27,10 +27,9 @@ A minimal personal website with blog functionality built with HTML, CSS, and Jav
 ## Structure
 
 - `index.html` - Main SPA (single page application)
-- `articles.html` - Articles page
 - `styles.css` - All CSS styles
 - `posts/` - Directory containing blog posts in Markdown format (source files)
-- `articles/` - Directory containing generated HTML article pages
+- `/{article-name}/` - Root-level directories for each article (e.g., `/convergence/`, `/freedom/`)
 - `images/` - Directory containing image data and assets
 
 ## Adding New Blog Posts
@@ -108,7 +107,6 @@ const postFiles = [
 ```
 .
 ├── index.html                 # Main SPA
-├── articles.html              # Articles page
 ├── styles.css                 # CSS styles
 ├── articles.css               # Article-specific styles
 ├── posts/                     # Blog posts (markdown source)
@@ -117,11 +115,14 @@ const postFiles = [
 │   ├── consolidation.md
 │   ├── convergence.md
 │   └── geopolitics.md
-├── articles/                  # Generated HTML articles
-│   ├── freedom.html
-│   ├── consolidation.html
-│   ├── convergence.html
-│   └── geopolitics.html
+├── convergence/               # Generated article pages
+│   └── index.html
+├── freedom/
+│   └── index.html
+├── consolidation/
+│   └── index.html
+├── geopolitics/
+│   └── index.html
 ├── images/                    # Images directory
 │   └── gallery.json           # Gallery images data
 ├── scripts/                   # Utility scripts

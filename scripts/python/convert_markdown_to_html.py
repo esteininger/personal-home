@@ -151,10 +151,6 @@ def main():
     project_root = script_dir.parent.parent
     
     posts_dir = project_root / 'posts'
-    articles_dir = project_root / 'articles'
-    
-    # Create articles directory if it doesn't exist
-    articles_dir.mkdir(exist_ok=True)
     
     # Process each markdown file
     for md_file in posts_dir.glob('*.md'):
@@ -177,8 +173,12 @@ def main():
         # Create full HTML page
         full_html = create_article_html(post_id, metadata, html_content)
         
-        # Write to articles directory
-        output_file = articles_dir / f'{post_id}.html'
+        # Create article directory at root level (e.g., /convergence/)
+        article_dir = project_root / post_id
+        article_dir.mkdir(exist_ok=True)
+        
+        # Write to root-level directory as index.html
+        output_file = article_dir / 'index.html'
         output_file.write_text(full_html, encoding='utf-8')
         print(f"  ✓ Created {output_file}")
     
