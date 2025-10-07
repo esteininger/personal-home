@@ -58,6 +58,8 @@ i ran a [semantic analysis](https://github.com/esteininger/semantic-clustering) 
 
 **war vs peace:** the quran emphasizes peace most (74%), but it's a unity-through-order peace. the bible is perfectly balanced (50/50), showing the internal tension that eventually shattered european christendom. that fracture was the accident that created space for liberalism.
 
+![War vs Peace Analysis](https://raw.githubusercontent.com/esteininger/semantic-clustering/main/examples/religious/output/war_vs_peace/tsne_visualization.png)
+
 **individualism:** the bible scores highest on individual conscience (64.8%), the quran lowest (61.6%). texts emphasizing personal relationship with god over communal obligation produced cultures that could eventually secularize the individual-state relationship.
 
 these aren't subjective readings—they're measurable patterns in the text itself. the quran's linguistic structure (legalistic + fear-based + unified + moderately collective) maps directly onto theocratic continuity. the bible's structure (mystical + love-based + internally contradictory + individualistic) maps onto the fragmentation that accidentally enabled secular governance.
