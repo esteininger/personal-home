@@ -62,4 +62,6 @@ i ran a [semantic analysis](https://github.com/esteininger/semantic-clustering) 
 
 **individualism:** the bible scores highest on individual conscience (64.8%), the quran lowest (61.6%). texts emphasizing personal relationship with god over communal obligation produced cultures that could eventually secularize the individual-state relationship.
 
+![Individualism vs Collectivism Analysis](https://raw.githubusercontent.com/esteininger/semantic-clustering/main/examples/religious/output/individualism_vs_collectivism/tsne_visualization.png)
+
 these aren't subjective readings—they're measurable patterns in the text itself. the quran's linguistic structure (legalistic + fear-based + unified + moderately collective) maps directly onto theocratic continuity. the bible's structure (mystical + love-based + internally contradictory + individualistic) maps onto the fragmentation that accidentally enabled secular governance.
