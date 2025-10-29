@@ -330,13 +330,10 @@
 
         // Function to load blog posts from markdown files
         async function loadBlogPosts() {
-            const postFiles = [
-                'posts/freedom.md',
-                'posts/consolidation.md',
-                'posts/convergence.md',
-                'posts/geopolitics.md',
-                'posts/colonialism.md'
-            ];
+            // Fetch post list from shared config
+            const configResponse = await fetch('posts.json');
+            const config = await configResponse.json();
+            const postFiles = config.posts;
 
             blogPosts = [];
 

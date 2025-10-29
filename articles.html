@@ -194,12 +194,10 @@
         let blogPosts = [];
 
         async function loadBlogPosts() {
-            const postFiles = [
-                'posts/freedom.md',
-                'posts/consolidation.md',
-                'posts/convergence.md',
-                'posts/geopolitics.md'
-            ];
+            // Fetch post list from shared config
+            const configResponse = await fetch('posts.json');
+            const config = await configResponse.json();
+            const postFiles = config.posts;
             blogPosts = [];
             for (const file of postFiles) {
                 try {
