@@ -20,6 +20,8 @@ and this wasn't britain carving up foreign territory for extraction. jews had be
 
 - **indigenous return, not foreign settlement.** jews maintained unbroken cultural, religious, and linguistic ties to the land for millennia. this wasn't settlers arriving from elsewhere—it was a people returning to the only place their identity ever pointed.
 
+- **continuous presence facing violence.** jews had lived in the region continuously for millennia. in the 1920s-30s, they faced pogroms—the hebron massacre (1929), riots, attacks on jewish communities. the holocaust then proved that depending on others for protection was fatal. forming a defense force wasn't colonial aggression; it was survival after watching their community be murdered for being defenseless.
+
 - **purchased land legally.** most early jewish settlement came through legal land purchases under ottoman and british rule, not military seizure. the ottomans even banned sales in 1892 because they recognized what was happening—land changing hands legally, not colonial conquest.
 
 - **no extraction economy.** colonial projects existed to extract: cotton, sugar, gold, oil. israel's economy was built by refugees farming swamps and building cities from nothing. there was no resource extraction scheme.
