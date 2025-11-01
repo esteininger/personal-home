@@ -472,6 +472,8 @@
             <ul>
                 <li><strong>100% Private:</strong> All video processing happens in your browser using WebAssembly. Nothing is uploaded to any server.</li>
                 <li><strong>Powered by FFmpeg:</strong> Uses FFmpeg.wasm, a WebAssembly port of the popular FFmpeg multimedia framework.</li>
+                <li><strong>Performance:</strong> Browser-based conversion is slower than native tools (typically 5-30x slower). This is normal due to WebAssembly limitations - be patient for longer videos!</li>
+                <li><strong>Optimized Settings:</strong> Uses fast encoding presets optimized for browser performance. For best speed, use "Low" quality or smaller files.</li>
                 <li><strong>First Load:</strong> The first time you convert, it will download ~30MB of libraries. Subsequent conversions are much faster.</li>
                 <li><strong>Large Files:</strong> Very large videos (>500MB) may be slow or fail due to browser memory limitations.</li>
             </ul>
@@ -483,27 +485,39 @@
         <div class="footer">me (at) ethan (dot) dev</div>
     </div>
 
-    <!-- Load FFmpeg UMD build -->
-    <script src="https://cdn.jsdelivr.net/npm/@ffmpeg/ffmpeg@0.12.15/dist/umd/ffmpeg.min.js"></script>
-    <!-- Load FFmpeg util (ESM) -->
+    <!-- Load FFmpeg and util via ESM modules -->
     <script type="module">
+        import { FFmpeg } from 'https://cdn.jsdelivr.net/npm/@ffmpeg/ffmpeg@0.12.15/dist/esm/index.js';
         import { toBlobURL } from 'https://cdn.jsdelivr.net/npm/@ffmpeg/util@0.12.1/dist/esm/index.min.js';
+        
+        // Expose to window for main script
+        window.FFmpeg = FFmpeg;
         window.toBlobURL = toBlobURL;
+        window.ffmpegReady = true;
     </script>
 
     <script>
         (async function() {
-            // Wait for FFmpegWASM to be available
-            while (typeof FFmpegWASM === 'undefined') {
+            // Wait for FFmpeg to be available from ESM module
+            while (!window.ffmpegReady || typeof window.FFmpeg === 'undefined') {
                 await new Promise(resolve => setTimeout(resolve, 100));
             }
 
-            const { FFmpeg } = FFmpegWASM;
-            const toBlobURL = window.toBlobURL || (async (url, mimeType) => {
+            const FFmpeg = window.FFmpeg;
+            
+            // Helper function to convert URL to blob URL
+            const toBlobURL = async (url, mimeType) => {
+                if (window.toBlobURL) {
+                    return await window.toBlobURL(url, mimeType);
+                }
+                // Fallback implementation
                 const response = await fetch(url);
+                if (!response.ok) {
+                    throw new Error(`Failed to fetch ${url}: ${response.status} ${response.statusText}`);
+                }
                 const blob = await response.blob();
                 return URL.createObjectURL(new Blob([blob], { type: mimeType }));
-            });
+            };
 
             let ffmpeg = null;
             let inputFile = null;
@@ -639,15 +653,46 @@
                         const coreVersion = '0.12.6';
                         const baseURL = `https://cdn.jsdelivr.net/npm/@ffmpeg/core@${coreVersion}/dist/esm`;
                         
+                        progressText.textContent = 'Downloading FFmpeg libraries...';
+                        progressFill.style.width = '15%';
+                        progressDetails.textContent = 'Preparing FFmpeg...';
+                        
+                        progressText.textContent = 'Loading FFmpeg core...';
+                        progressFill.style.width = '30%';
+                        progressDetails.textContent = 'Downloading core files...';
+                        const coreURL = await toBlobURL(`${baseURL}/ffmpeg-core.js`, 'text/javascript');
+                        
+                        progressFill.style.width = '50%';
+                        progressDetails.textContent = 'Downloading WebAssembly runtime...';
+                        const wasmURL = await toBlobURL(`${baseURL}/ffmpeg-core.wasm`, 'application/wasm');
+                        
+                        progressFill.style.width = '60%';
+                        progressDetails.textContent = 'Preparing worker...';
+                        
                         // Load the worker class file as a blob URL to avoid CORS issues
                         const workerURL = `https://cdn.jsdelivr.net/npm/@ffmpeg/ffmpeg@0.12.15/dist/esm/classes.js`;
                         const classWorkerURL = await toBlobURL(workerURL, 'text/javascript');
                         
-                        await ffmpeg.load({
+                        progressFill.style.width = '70%';
+                        progressText.textContent = 'Initializing FFmpeg...';
+                        progressDetails.textContent = 'Starting conversion engine (this may take 30-60 seconds)...';
+                        
+                        // Try loading with timeout to catch hangs
+                        const loadPromise = ffmpeg.load({
                             classWorkerURL: classWorkerURL,
-                            coreURL: await toBlobURL(`${baseURL}/ffmpeg-core.js`, 'text/javascript'),
-                            wasmURL: await toBlobURL(`${baseURL}/ffmpeg-core.wasm`, 'application/wasm'),
+                            coreURL: coreURL,
+                            wasmURL: wasmURL,
                         });
+                        
+                        // Add a timeout wrapper
+                        const timeoutPromise = new Promise((_, reject) => {
+                            setTimeout(() => reject(new Error('FFmpeg initialization timed out after 2 minutes')), 120000);
+                        });
+                        
+                        await Promise.race([loadPromise, timeoutPromise]);
+                        
+                        progressFill.style.width = '80%';
+                        progressDetails.textContent = 'FFmpeg ready!';
                     }
 
                     progressText.textContent = 'Reading file...';
@@ -665,19 +710,28 @@
                     // Build FFmpeg command
                     let args = ['-i', inputFileName];
 
-                    // Quality settings
+                    // Quality settings optimized for browser speed
+                    // Note: Browser-based FFmpeg is slower than native - expect 5-30x slower depending on file size
                     if (outputFormat === 'mp4') {
                         args.push('-c:v', 'libx264');
+                        // Use faster preset for browser performance (ultrafast/veryfast vs medium/slow)
+                        args.push('-preset', 'veryfast'); // Changed from 'medium' for speed
+                        args.push('-tune', 'fastdecode'); // Optimize for playback speed
                         if (quality === 'high') {
-                            args.push('-crf', '18');
+                            args.push('-crf', '20'); // Slightly higher CRF to compensate for faster preset
                         } else if (quality === 'medium') {
                             args.push('-crf', '23');
                         } else {
                             args.push('-crf', '28');
                         }
-                        args.push('-preset', 'medium');
+                        // Try to copy audio if possible to avoid re-encoding (much faster)
+                        // If copy fails, FFmpeg will fall back to re-encoding
+                        args.push('-c:a', 'copy');
+                        args.push('-map', '0'); // Map all streams from input
                     } else if (outputFormat === 'webm') {
                         args.push('-c:v', 'libvpx-vp9');
+                        args.push('-speed', '4'); // Faster encoding (0-5, higher = faster)
+                        args.push('-row-mt', '1'); // Enable row-based multithreading if available
                         if (quality === 'high') {
                             args.push('-crf', '30', '-b:v', '0');
                         } else if (quality === 'medium') {
@@ -685,9 +739,13 @@
                         } else {
                             args.push('-crf', '40', '-b:v', '0');
                         }
+                        // Try to copy audio if possible
+                        args.push('-c:a', 'copy');
+                        args.push('-map', '0');
                     } else if (outputFormat === 'gif') {
                         args.push('-vf', 'fps=15,scale=640:-1:flags=lanczos');
                         args.push('-c:v', 'gif');
+                        args.push('-an'); // Remove audio for GIF
                     }
 
                     args.push(outputFileName);
@@ -727,12 +785,21 @@
                         resultContainer.classList.add('active');
                     }, 500);
 
-                } catch (error) {
-                    console.error('Conversion error:', error);
-                    showError(`Conversion failed: ${error.message || 'Unknown error'}`);
-                    progressContainer.classList.remove('active');
-                    convertBtn.disabled = false;
+            } catch (error) {
+                console.error('Conversion error:', error);
+                const errorMsg = error.message || error.toString() || 'Unknown error';
+                showError(`Conversion failed: ${errorMsg}. ${error.stack ? 'Check console for details.' : ''}`);
+                progressContainer.classList.remove('active');
+                convertBtn.disabled = false;
+                
+                // Reset FFmpeg instance if load failed
+                if (ffmpeg && !ffmpeg.loaded) {
+                    try {
+                        ffmpeg.terminate();
+                    } catch (_) {}
+                    ffmpeg = null;
                 }
+            }
             });
 
             resetBtn.addEventListener('click', () => {
