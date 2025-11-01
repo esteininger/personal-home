@@ -1,0 +1,66 @@
+{
+  "page": {
+    "title": "Utilities",
+    "slug": "utilities",
+    "headline": "Utilities",
+    "description": "Client-side tools that run entirely in your browser for privacy, speed, and convenience. No data ever leaves your device.",
+    "blurb": "A collection of client-side tools that run entirely in your browser. No data is uploaded to any server - everything is processed locally on your device for privacy and speed.",
+    "meta": {
+      "title": "ethan - utilities",
+      "description": "Explore private, client-side tools built by Ethan that run fully in your browser - no servers, no tracking, just fast utilities.",
+      "canonical": "https://ethan.dev/utilities"
+    }
+  },
+  "utilities": [
+    {
+      "slug": "favicon-converter",
+      "name": "Favicon Converter",
+      "shortDescription": "Turn any image into ready-to-use favicon files with selectable sizes and formats, all processed locally.",
+      "teaser": "Generate favicon ICO or PNG assets from any image without uploads. Choose the sizes you need and download instantly.",
+      "detailIntro": "Generate favicon assets entirely in your browser. Drop in an image, choose the sizes you need, and download ICO or PNG files without sending data anywhere.",
+      "tags": ["Icons", "Images", "Client-side"],
+      "meta": {
+        "title": "Favicon Converter - ethan.dev",
+        "description": "Turn any image into downloadable favicon files (ICO or PNG) directly in your browser. Select your sizes, keep everything local.",
+        "canonical": "https://ethan.dev/utilities/favicon-converter",
+        "twitterCard": "summary",
+        "ogType": "website"
+      },
+      "schema": {
+        "@type": "SoftwareApplication",
+        "applicationCategory": "Design",
+        "operatingSystem": "Any modern browser",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        }
+      }
+    },
+    {
+      "slug": "video-converter",
+      "name": "Video Converter",
+      "shortDescription": "Convert videos between popular formats (MP4, WebM, AVI, MOV, MKV, GIF) directly in your browser with optional compression and quality controls.",
+      "teaser": "Convert videos between different formats (MP4, WebM, AVI, MOV, and more) directly in your browser. Supports compression and quality adjustments.",
+      "detailIntro": "Convert videos between different formats directly in your browser. All processing happens locally on your device - no uploads, completely private and secure.",
+      "tags": ["Video", "Conversion", "FFmpeg"],
+      "meta": {
+        "title": "Video Converter - ethan.dev",
+        "description": "Browser-based video converter powered by FFmpeg.wasm. Convert MP4, WebM, AVI, MOV, MKV, GIF, and more without uploading files anywhere.",
+        "canonical": "https://ethan.dev/utilities/video-converter",
+        "twitterCard": "summary",
+        "ogType": "website"
+      },
+      "schema": {
+        "@type": "SoftwareApplication",
+        "applicationCategory": "Video",
+        "operatingSystem": "Any modern browser",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Converter - ethan.dev</title>
+    <meta name="description" content="Browser-based video converter powered by FFmpeg.wasm. Convert MP4, WebM, AVI, MOV, MKV, GIF, and more without uploading files anywhere.">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Video Converter - ethan.dev">
+    <meta property="og:description" content="Browser-based video converter powered by FFmpeg.wasm. Convert MP4, WebM, AVI, MOV, MKV, GIF, and more without uploading files anywhere.">
+    <meta property="og:url" content="https://ethan.dev/utilities/video-converter">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Video Converter - ethan.dev">
+    <meta name="twitter:description" content="Browser-based video converter powered by FFmpeg.wasm. Convert MP4, WebM, AVI, MOV, MKV, GIF, and more without uploading files anywhere.">
+    <link rel="canonical" href="https://ethan.dev/utilities/video-converter">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="../../styles.css">
+    <link rel="stylesheet" href="../../utilities.css">
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "Video Converter",
+        "description": "Browser-based video converter powered by FFmpeg.wasm. Convert MP4, WebM, AVI, MOV, MKV, GIF, and more without uploading files anywhere.",
+        "applicationCategory": "Video",
+        "operatingSystem": "Any modern browser",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        },
+        "url": "https://ethan.dev/utilities/video-converter"
+    }
+    </script>
+    <style>
+        .converter-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .back-link {
+            display: inline-block;
+            color: var(--text-dim);
+            text-decoration: none;
+            margin-bottom: 2rem;
+            transition: color 0.3s;
+        }
+
+        .back-link:hover {
+            color: var(--accent);
+        }
+
+        .converter-header {
+            margin-bottom: 2rem;
+        }
+
+        .converter-header h1 {
+            font-size: 2rem;
+            font-family: var(--font-headings);
+            margin-bottom: 0.5rem;
+        }
+
+        .converter-header p {
+            color: var(--text-dim);
+            line-height: 1.6;
+        }
+
+        .upload-area {
+            border: 2px dashed var(--border);
+            border-radius: 8px;
+            padding: 3rem 2rem;
+            text-align: center;
+            margin-bottom: 2rem;
+            transition: all 0.3s;
+            cursor: pointer;
+            background: var(--bg);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .upload-area:hover {
+            border-color: var(--accent);
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .upload-area.drag-over {
+            border-color: var(--accent);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .upload-icon {
+            font-size: 3rem;
+            color: var(--text-dim);
+            margin-bottom: 1rem;
+        }
+
+        .upload-text {
+            color: var(--text);
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .upload-subtext {
+            color: var(--text-dim);
+            font-size: 0.9rem;
+        }
+
+        #fileInput {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            cursor: pointer;
+            z-index: 1;
+        }
+
+        .file-info {
+            display: none;
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            margin-bottom: 2rem;
+        }
+
+        .file-info.active {
+            display: block;
+        }
+
+        .file-name {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            color: var(--text);
+        }
+
+        .file-details {
+            color: var(--text-dim);
+            font-size: 0.9rem;
+        }
+
+        .conversion-options {
+            display: none;
+            margin-bottom: 2rem;
+        }
+
+        .conversion-options.active {
+            display: block;
+        }
+
+        .option-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .option-group label {
+            display: block;
+            color: var(--text);
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .option-group select,
+        .option-group input {
+            width: 100%;
+            padding: 0.75rem;
+            background: var(--bg);
+            color: var(--text);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            font-size: 1rem;
+            font-family: inherit;
+        }
+
+        .option-group select:focus,
+        .option-group input:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+
+        .convert-btn {
+            width: 100%;
+            padding: 1rem;
+            background: var(--accent);
+            color: var(--bg);
+            border: none;
+            border-radius: 6px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: var(--font-headings);
+        }
+
+        .convert-btn:hover {
+            opacity: 0.9;
+            transform: translateY(-1px);
+        }
+
+        .convert-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .progress-container {
+            display: none;
+            margin-top: 2rem;
+        }
+
+        .progress-container.active {
+            display: block;
+        }
+
+        .progress-text {
+            color: var(--text);
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--accent);
+            width: 0%;
+            transition: width 0.3s;
+        }
+
+        .progress-details {
+            color: var(--text-dim);
+            font-size: 0.85rem;
+            margin-top: 0.5rem;
+        }
+
+        .result-container {
+            display: none;
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            margin-top: 2rem;
+        }
+
+        .result-container.active {
+            display: block;
+        }
+
+        .result-title {
+            color: var(--text);
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .success-icon {
+            color: #4ade80;
+        }
+
+        .result-info {
+            color: var(--text-dim);
+            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
+        }
+
+        .download-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            background: var(--accent);
+            color: var(--bg);
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s;
+            font-family: var(--font-headings);
+        }
+
+        .download-btn:hover {
+            opacity: 0.9;
+            transform: translateY(-1px);
+        }
+
+        .reset-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            background: transparent;
+            color: var(--text);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            font-size: 1rem;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s;
+            margin-left: 1rem;
+            font-family: var(--font-headings);
+        }
+
+        .reset-btn:hover {
+            border-color: var(--accent);
+        }
+
+        .info-box {
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            margin-top: 2rem;
+        }
+
+        .info-box h3 {
+            color: var(--text);
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+            font-family: var(--font-headings);
+        }
+
+        .info-box ul {
+            color: var(--text-dim);
+            font-size: 0.9rem;
+            line-height: 1.6;
+            padding-left: 1.5rem;
+        }
+
+        .info-box li {
+            margin-bottom: 0.3rem;
+        }
+
+        .error-message {
+            display: none;
+            padding: 1rem;
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            border-radius: 6px;
+            color: #fca5a5;
+            margin-top: 1rem;
+        }
+
+        .error-message.active {
+            display: block;
+        }
+    </style>
+    <script>
+        (function() {
+            try {
+                var saved = localStorage.getItem('theme');
+                var root = document.documentElement;
+                root.classList.remove('theme-light', 'theme-dark');
+                if (saved === 'light' || saved === 'dark') {
+                    root.classList.add('theme-' + saved);
+                }
+            } catch (e) { /* noop */ }
+        })();
+    </script>
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
+</head>
+
+<body>
+    <div class="container">
+        <nav>
+            <div class="nav-row">
+                <ul>
+                    <li><a href="/about" class="nav-link">About</a></li>
+                    <li><a href="/articles" class="nav-link">Articles</a></li>
+                    <li><a href="/album" class="nav-link">Album</a></li>
+                    <li><a href="/utilities" class="nav-link active">Utilities</a></li>
+                </ul>
+                <div class="theme-toggle">
+                    <div id="theme-toggle" class="theme-switch" role="button" tabindex="0" aria-label="Toggle theme" title="Toggle theme">
+                        <i class="fa-solid fa-sun switch-icon sun" aria-hidden="true"></i>
+                        <span class="switch-thumb"></span>
+                        <i class="fa-solid fa-moon switch-icon moon" aria-hidden="true"></i>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <div id="video-converter" class="page active">
+            <div class="converter-container">
+
+                <div class="converter-header">
+                    <h1>Video Converter</h1>
+                    <p>Convert videos between different formats directly in your browser. All processing happens locally on your device - no uploads, completely private and secure.</p>
+                </div>
+
+        <div class="upload-area" id="uploadArea" role="button" tabindex="0" aria-label="Upload a video for conversion">
+            <div class="upload-icon">
+                <i class="fa-solid fa-cloud-arrow-up"></i>
+            </div>
+            <div class="upload-text">Drop your video here or click to browse</div>
+            <div class="upload-subtext">Supports MP4, WebM, AVI, MOV, MKV, and more</div>
+            <input type="file" id="fileInput" accept="video/*">
+        </div>
+
+        <div class="file-info" id="fileInfo">
+            <div class="file-name" id="fileName"></div>
+            <div class="file-details" id="fileDetails"></div>
+        </div>
+
+        <div class="conversion-options" id="conversionOptions">
+            <div class="option-group">
+                <label for="outputFormat">Output Format</label>
+                <select id="outputFormat">
+                    <option value="mp4">MP4 (H.264) - Best compatibility</option>
+                    <option value="webm">WebM (VP9) - Web optimized</option>
+                    <option value="avi">AVI - Legacy format</option>
+                    <option value="mov">MOV - QuickTime</option>
+                    <option value="mkv">MKV - Matroska</option>
+                    <option value="gif">GIF - Animated image</option>
+                </select>
+            </div>
+
+            <div class="option-group">
+                <label for="quality">Quality</label>
+                <select id="quality">
+                    <option value="high">High (larger file)</option>
+                    <option value="medium" selected>Medium (balanced)</option>
+                    <option value="low">Low (smaller file)</option>
+                </select>
+            </div>
+
+            <button class="convert-btn" id="convertBtn">
+                <i class="fa-solid fa-rotate"></i> Convert Video
+            </button>
+        </div>
+
+        <div class="progress-container" id="progressContainer">
+            <div class="progress-text" id="progressText">Initializing...</div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <div class="progress-details" id="progressDetails"></div>
+        </div>
+
+        <div class="error-message" id="errorMessage"></div>
+
+        <div class="result-container" id="resultContainer">
+            <div class="result-title">
+                <i class="fa-solid fa-circle-check success-icon"></i>
+                Conversion Complete!
+            </div>
+            <div class="result-info" id="resultInfo"></div>
+            <a class="download-btn" id="downloadBtn" download>
+                <i class="fa-solid fa-download"></i>
+                Download Converted Video
+            </a>
+            <button class="reset-btn" id="resetBtn">
+                <i class="fa-solid fa-arrow-rotate-left"></i>
+                Convert Another
+            </button>
+        </div>
+
+        <div class="info-box">
+            <h3>How it works</h3>
+            <ul>
+                <li><strong>100% Private:</strong> All video processing happens in your browser using WebAssembly. Nothing is uploaded to any server.</li>
+                <li><strong>Powered by FFmpeg:</strong> Uses FFmpeg.wasm, a WebAssembly port of the popular FFmpeg multimedia framework.</li>
+                <li><strong>First Load:</strong> The first time you convert, it will download ~30MB of libraries. Subsequent conversions are much faster.</li>
+                <li><strong>Large Files:</strong> Very large videos (>500MB) may be slow or fail due to browser memory limitations.</li>
+            </ul>
+        </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">me (at) ethan (dot) dev</div>
+    </div>
+
+    <!-- Load FFmpeg UMD build -->
+    <script src="https://cdn.jsdelivr.net/npm/@ffmpeg/ffmpeg@0.12.15/dist/umd/ffmpeg.min.js"></script>
+    <!-- Load FFmpeg util (ESM) -->
+    <script type="module">
+        import { toBlobURL } from 'https://cdn.jsdelivr.net/npm/@ffmpeg/util@0.12.1/dist/esm/index.min.js';
+        window.toBlobURL = toBlobURL;
+    </script>
+
+    <script>
+        (async function() {
+            // Wait for FFmpegWASM to be available
+            while (typeof FFmpegWASM === 'undefined') {
+                await new Promise(resolve => setTimeout(resolve, 100));
+            }
+
+            const { FFmpeg } = FFmpegWASM;
+            const toBlobURL = window.toBlobURL || (async (url, mimeType) => {
+                const response = await fetch(url);
+                const blob = await response.blob();
+                return URL.createObjectURL(new Blob([blob], { type: mimeType }));
+            });
+
+            let ffmpeg = null;
+            let inputFile = null;
+            let inputFileName = '';
+
+            const uploadArea = document.getElementById('uploadArea');
+            const fileInput = document.getElementById('fileInput');
+            const fileInfo = document.getElementById('fileInfo');
+            const fileName = document.getElementById('fileName');
+            const fileDetails = document.getElementById('fileDetails');
+            const conversionOptions = document.getElementById('conversionOptions');
+            const convertBtn = document.getElementById('convertBtn');
+            const progressContainer = document.getElementById('progressContainer');
+            const progressText = document.getElementById('progressText');
+            const progressFill = document.getElementById('progressFill');
+            const progressDetails = document.getElementById('progressDetails');
+            const errorMessage = document.getElementById('errorMessage');
+            const resultContainer = document.getElementById('resultContainer');
+            const resultInfo = document.getElementById('resultInfo');
+            const downloadBtn = document.getElementById('downloadBtn');
+            const resetBtn = document.getElementById('resetBtn');
+
+            // Upload area interactions
+            // Note: file input covers the entire upload area, so we don't need a click handler on uploadArea
+            // The file input handles clicks natively
+            
+            uploadArea.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    fileInput.click();
+                }
+            });
+
+            let dragCounter = 0;
+            const dragTargets = [uploadArea, fileInput];
+
+            const resetDragState = () => {
+                dragCounter = 0;
+                uploadArea.classList.remove('drag-over');
+            };
+
+            dragTargets.forEach((target) => {
+                if (!target) return;
+
+                target.addEventListener('dragenter', (e) => {
+                    e.preventDefault();
+                    dragCounter += 1;
+                    uploadArea.classList.add('drag-over');
+                });
+
+                target.addEventListener('dragover', (e) => {
+                    e.preventDefault();
+                });
+
+                target.addEventListener('dragleave', (e) => {
+                    e.preventDefault();
+                    dragCounter = Math.max(0, dragCounter - 1);
+                    if (dragCounter === 0) {
+                        uploadArea.classList.remove('drag-over');
+                    }
+                });
+
+                target.addEventListener('drop', (e) => {
+                    e.preventDefault();
+                    const files = e.dataTransfer?.files || e.target?.files;
+                    if (files && files.length > 0) {
+                        handleFileSelect(files[0]);
+                    }
+                    resetDragState();
+                });
+            });
+
+            fileInput.addEventListener('change', (e) => {
+                if (e.target.files && e.target.files.length > 0) {
+                    handleFileSelect(e.target.files[0]);
+                }
+            });
+
+            function isVideoFile(file) {
+                if (file.type && file.type.startsWith('video/')) {
+                    return true;
+                }
+                const lower = file.name?.toLowerCase?.() || '';
+                return ['.mp4', '.mov', '.m4v', '.avi', '.mkv', '.webm', '.wmv', '.flv', '.gif', '.mpeg', '.mpg'].some(ext => lower.endsWith(ext));
+            }
+
+            function handleFileSelect(file) {
+                if (!isVideoFile(file)) {
+                    showError('Please select a valid video file.');
+                    return;
+                }
+
+                errorMessage.classList.remove('active');
+                inputFile = file;
+                inputFileName = file.name;
+
+                const sizeInMB = (file.size / 1024 / 1024).toFixed(2);
+                fileName.textContent = file.name;
+                fileDetails.textContent = `Size: ${sizeInMB} MB | Type: ${file.type}`;
+
+                fileInfo.classList.add('active');
+                conversionOptions.classList.add('active');
+                uploadArea.style.display = 'none';
+            }
+
+            convertBtn.addEventListener('click', async () => {
+                if (!inputFile) return;
+
+                try {
+                    convertBtn.disabled = true;
+                    errorMessage.classList.remove('active');
+                    progressContainer.classList.add('active');
+                    resultContainer.classList.remove('active');
+
+                    // Load FFmpeg if not loaded
+                    if (!ffmpeg) {
+                        progressText.textContent = 'Loading FFmpeg (first time only, ~30MB)...';
+                        progressFill.style.width = '10%';
+
+                        ffmpeg = new FFmpeg();
+                        
+                        ffmpeg.on('log', ({ message }) => {
+                            console.log(message);
+                            progressDetails.textContent = message;
+                        });
+
+                        ffmpeg.on('progress', ({ progress }) => {
+                            const percent = Math.round(progress * 100);
+                            progressFill.style.width = `${percent}%`;
+                            progressText.textContent = `Converting... ${percent}%`;
+                        });
+
+                        const coreVersion = '0.12.6';
+                        const baseURL = `https://cdn.jsdelivr.net/npm/@ffmpeg/core@${coreVersion}/dist/esm`;
+                        
+                        // Load the worker class file as a blob URL to avoid CORS issues
+                        const workerURL = `https://cdn.jsdelivr.net/npm/@ffmpeg/ffmpeg@0.12.15/dist/esm/classes.js`;
+                        const classWorkerURL = await toBlobURL(workerURL, 'text/javascript');
+                        
+                        await ffmpeg.load({
+                            classWorkerURL: classWorkerURL,
+                            coreURL: await toBlobURL(`${baseURL}/ffmpeg-core.js`, 'text/javascript'),
+                            wasmURL: await toBlobURL(`${baseURL}/ffmpeg-core.wasm`, 'application/wasm'),
+                        });
+                    }
+
+                    progressText.textContent = 'Reading file...';
+                    progressFill.style.width = '20%';
+
+                    // Read file
+                    const fileData = await inputFile.arrayBuffer();
+                    await ffmpeg.writeFile(inputFileName, new Uint8Array(fileData));
+
+                    // Get conversion settings
+                    const outputFormat = document.getElementById('outputFormat').value;
+                    const quality = document.getElementById('quality').value;
+                    const outputFileName = `converted.${outputFormat}`;
+
+                    // Build FFmpeg command
+                    let args = ['-i', inputFileName];
+
+                    // Quality settings
+                    if (outputFormat === 'mp4') {
+                        args.push('-c:v', 'libx264');
+                        if (quality === 'high') {
+                            args.push('-crf', '18');
+                        } else if (quality === 'medium') {
+                            args.push('-crf', '23');
+                        } else {
+                            args.push('-crf', '28');
+                        }
+                        args.push('-preset', 'medium');
+                    } else if (outputFormat === 'webm') {
+                        args.push('-c:v', 'libvpx-vp9');
+                        if (quality === 'high') {
+                            args.push('-crf', '30', '-b:v', '0');
+                        } else if (quality === 'medium') {
+                            args.push('-crf', '35', '-b:v', '0');
+                        } else {
+                            args.push('-crf', '40', '-b:v', '0');
+                        }
+                    } else if (outputFormat === 'gif') {
+                        args.push('-vf', 'fps=15,scale=640:-1:flags=lanczos');
+                        args.push('-c:v', 'gif');
+                    }
+
+                    args.push(outputFileName);
+
+                    progressText.textContent = 'Converting...';
+                    progressFill.style.width = '30%';
+
+                    // Convert
+                    await ffmpeg.exec(args);
+
+                    progressText.textContent = 'Finalizing...';
+                    progressFill.style.width = '90%';
+
+                    // Read output
+                    const data = await ffmpeg.readFile(outputFileName);
+                    const blob = new Blob([data.buffer], { type: `video/${outputFormat}` });
+                    const url = URL.createObjectURL(blob);
+
+                    progressFill.style.width = '100%';
+                    progressText.textContent = 'Complete!';
+
+                    // Show result
+                    const outputSizeInMB = (blob.size / 1024 / 1024).toFixed(2);
+                    const originalSizeInMB = (inputFile.size / 1024 / 1024).toFixed(2);
+                    const reduction = ((1 - blob.size / inputFile.size) * 100).toFixed(1);
+
+                    resultInfo.textContent = `Original: ${originalSizeInMB} MB → Converted: ${outputSizeInMB} MB`;
+                    if (reduction > 0) {
+                        resultInfo.textContent += ` (${reduction}% smaller)`;
+                    }
+
+                    downloadBtn.href = url;
+                    downloadBtn.download = `converted_${Date.now()}.${outputFormat}`;
+
+                    setTimeout(() => {
+                        progressContainer.classList.remove('active');
+                        resultContainer.classList.add('active');
+                    }, 500);
+
+                } catch (error) {
+                    console.error('Conversion error:', error);
+                    showError(`Conversion failed: ${error.message || 'Unknown error'}`);
+                    progressContainer.classList.remove('active');
+                    convertBtn.disabled = false;
+                }
+            });
+
+            resetBtn.addEventListener('click', () => {
+                inputFile = null;
+                inputFileName = '';
+                fileInput.value = '';
+                fileInfo.classList.remove('active');
+                conversionOptions.classList.remove('active');
+                resultContainer.classList.remove('active');
+                progressContainer.classList.remove('active');
+                errorMessage.classList.remove('active');
+                uploadArea.style.display = 'block';
+                convertBtn.disabled = false;
+                progressFill.style.width = '0%';
+            });
+
+            function showError(message) {
+                errorMessage.textContent = message;
+                errorMessage.classList.add('active');
+            }
+        })();
+    </script>
+    <script>
+        (function() {
+            const root = document.documentElement;
+            const prefersLight = window.matchMedia('(prefers-color-scheme: light)');
+
+            function currentExplicitTheme() {
+                try { return localStorage.getItem('theme'); } catch (_) { return null; }
+            }
+
+            function applyTheme(theme) {
+                root.classList.remove('theme-light', 'theme-dark');
+                if (theme === 'light' || theme === 'dark') {
+                    root.classList.add('theme-' + theme);
+                }
+                updateThemeToggleState();
+            }
+
+            function updateThemeToggleState() {
+                const sw = document.getElementById('theme-toggle');
+                if (!sw) return;
+                const isLight = root.classList.contains('theme-light') || (!root.classList.contains('theme-dark') && prefersLight.matches);
+                sw.setAttribute('aria-pressed', String(isLight));
+            }
+
+            function toggleTheme() {
+                const explicit = currentExplicitTheme();
+                let next;
+                if (explicit) {
+                    next = explicit === 'light' ? 'dark' : 'light';
+                } else {
+                    next = prefersLight.matches ? 'dark' : 'light';
+                }
+                try { localStorage.setItem('theme', next); } catch (_) {}
+                applyTheme(next);
+            }
+
+            window.addEventListener('DOMContentLoaded', () => {
+                const btn = document.getElementById('theme-toggle');
+                if (btn && !btn.dataset.bound) {
+                    btn.dataset.bound = '1';
+                    btn.addEventListener('click', toggleTheme);
+                    btn.addEventListener('keydown', (e) => {
+                        if (e.key === 'Enter' || e.key === ' ') {
+                            e.preventDefault();
+                            toggleTheme();
+                        }
+                    });
+                    updateThemeToggleState();
+                }
+            });
+
+            try {
+                prefersLight.addEventListener('change', (event) => {
+                    if (!currentExplicitTheme()) {
+                        applyTheme(event.matches ? 'light' : 'dark');
+                    }
+                });
+            } catch (_) {}
+
+            updateThemeToggleState();
+        })();
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,212 @@
+/* Shared styles for utility tools */
+
+.utility-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem;
+}
+
+.utility-header {
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--border);
+}
+
+.utility-header h1 {
+    font-size: 2rem;
+    font-family: var(--font-headings);
+    margin-bottom: 0.75rem;
+}
+
+.utility-header p {
+    color: var(--text-dim);
+    line-height: 1.7;
+    font-size: 1rem;
+}
+
+.utility-section {
+    margin-bottom: 2rem;
+    padding: 1.5rem;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+}
+
+.utility-section h2 {
+    font-size: 1.3rem;
+    font-family: var(--font-headings);
+    margin-bottom: 1rem;
+    color: var(--text);
+}
+
+.utility-button {
+    padding: 0.75rem 1.5rem;
+    background: var(--accent);
+    color: var(--bg);
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-family: var(--font-headings);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.utility-button:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+}
+
+.utility-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.utility-button-secondary {
+    background: transparent;
+    color: var(--text);
+    border: 1px solid var(--border);
+}
+
+.utility-button-secondary:hover {
+    border-color: var(--accent);
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.utility-input {
+    width: 100%;
+    padding: 0.75rem;
+    background: var(--bg);
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 1rem;
+    font-family: inherit;
+    transition: border-color 0.3s;
+}
+
+.utility-input:focus {
+    outline: none;
+    border-color: var(--accent);
+}
+
+.utility-textarea {
+    width: 100%;
+    min-height: 150px;
+    padding: 0.75rem;
+    background: var(--bg);
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 1rem;
+    font-family: 'Courier New', monospace;
+    resize: vertical;
+    transition: border-color 0.3s;
+}
+
+.utility-textarea:focus {
+    outline: none;
+    border-color: var(--accent);
+}
+
+.utility-select {
+    width: 100%;
+    padding: 0.75rem;
+    background: var(--bg);
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 1rem;
+    font-family: inherit;
+    cursor: pointer;
+    transition: border-color 0.3s;
+}
+
+.utility-select:focus {
+    outline: none;
+    border-color: var(--accent);
+}
+
+.utility-alert {
+    padding: 1rem;
+    border-radius: 6px;
+    margin-bottom: 1rem;
+}
+
+.utility-alert-info {
+    background: rgba(59, 130, 246, 0.1);
+    border: 1px solid rgba(59, 130, 246, 0.3);
+    color: #93c5fd;
+}
+
+.utility-alert-success {
+    background: rgba(34, 197, 94, 0.1);
+    border: 1px solid rgba(34, 197, 94, 0.3);
+    color: #86efac;
+}
+
+.utility-alert-error {
+    background: rgba(239, 68, 68, 0.1);
+    border: 1px solid rgba(239, 68, 68, 0.3);
+    color: #fca5a5;
+}
+
+.utility-alert-warning {
+    background: rgba(251, 191, 36, 0.1);
+    border: 1px solid rgba(251, 191, 36, 0.3);
+    color: #fde68a;
+}
+
+/* Light theme adjustments */
+.theme-light .utility-section {
+    background: rgba(0, 0, 0, 0.02);
+}
+
+.theme-light .utility-alert-info {
+    background: rgba(59, 130, 246, 0.1);
+    border: 1px solid rgba(59, 130, 246, 0.3);
+    color: #1e40af;
+}
+
+.theme-light .utility-alert-success {
+    background: rgba(34, 197, 94, 0.1);
+    border: 1px solid rgba(34, 197, 94, 0.3);
+    color: #15803d;
+}
+
+.theme-light .utility-alert-error {
+    background: rgba(239, 68, 68, 0.1);
+    border: 1px solid rgba(239, 68, 68, 0.3);
+    color: #b91c1c;
+}
+
+.theme-light .utility-alert-warning {
+    background: rgba(251, 191, 36, 0.1);
+    border: 1px solid rgba(251, 191, 36, 0.3);
+    color: #b45309;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+    .utility-container {
+        padding: 1.5rem 1rem;
+    }
+
+    .utility-header h1 {
+        font-size: 1.5rem;
+    }
+
+    .utility-section {
+        padding: 1rem;
+    }
+
+    .utility-button {
+        width: 100%;
+        justify-content: center;
+    }
+}
+

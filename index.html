@@ -27,6 +27,7 @@
             } catch (e) { /* noop */ }
         })();
     </script>
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
 </head>
 
 <body>
@@ -37,6 +38,7 @@
                     <li><a href="/about" class="nav-link active">About</a></li>
                     <li><a href="/articles" class="nav-link">Articles</a></li>
                     <li><a href="/album" class="nav-link">Album</a></li>
+                    <li><a href="/utilities" class="nav-link">Utilities</a></li>
                 </ul>
                 <div class="theme-toggle">
                     <div id="theme-toggle" class="theme-switch" role="button" tabindex="0" aria-label="Toggle theme" title="Toggle theme">
@@ -95,8 +97,8 @@
                         <p>Hi 👋🏻 I’m Ethan — founder, builder, and explorer. I’m focused on <a
                                 href="https://mixpeek.com" target="_blank">Mixpeek</a>, a platform that makes video,
                             image, audio, and text searchable. In the past, I’ve worked across 
-                            <a href="#">databases</a>, <a href="#">facial recognition</a>, and
-                            <a href="#">national defense</a>.</p>
+                            <a href="https://www.mongodb.com/">databases</a>, <a href="https://www.mongodb.com/">facial recognition</a>, and
+                            <a href="https://www.mongodb.com/">national defense</a>.</p>
                         <br>
 
                         <p>When I’m not building, you’ll find me outside — living out of my <a
@@ -120,6 +122,20 @@
             </div>
             <div id="blog-post-view" style="display: none;">
                 <!-- Individual blog post will be rendered here -->
+            </div>
+        </div>
+
+        <!-- Utilities Page -->
+        <div id="utilities" class="page">
+            <div class="utilities-intro">
+                <h1 id="utilities-headline">Utilities</h1>
+                <p class="utilities-description" id="utilities-description">
+                    A collection of client-side tools that run entirely in your browser. No data is uploaded to any server - everything is processed locally on your device for privacy and speed.
+                </p>
+            </div>
+
+            <div class="utilities-list" id="utilities-list">
+                <!-- Filled by loadUtilities() -->
             </div>
         </div>
 
@@ -251,7 +267,7 @@
             // If first segment is a repo name (project site), treat it as base
             // Heuristic: if first segment is not one of our app routes
             const first = parts[0] || '';
-            const appRoots = new Set(['about', 'articles', 'album', 'posts', 'images']);
+            const appRoots = new Set(['about', 'articles', 'album', 'utilities', 'posts', 'images']);
             return first && !appRoots.has(first) ? ('/' + first) : '';
         })();
 
@@ -271,30 +287,91 @@
             el.setAttribute('content', content);
         }
 
-        function updatePageMeta(titleText) {
+        function removeLink(rel) {
+            const el = document.head.querySelector(`link[rel="${rel}"]`);
+            if (el && el.parentNode) el.parentNode.removeChild(el);
+        }
+
+        function upsertLink(rel, href) {
+            let el = document.head.querySelector(`link[rel="${rel}"]`);
+            if (!el) {
+                el = document.createElement('link');
+                el.setAttribute('rel', rel);
+                document.head.appendChild(el);
+            }
+            el.setAttribute('href', href);
+        }
+
+        function updatePageMeta(titleText, options) {
+            const opts = options || {};
             try {
                 if (typeof titleText === 'string' && titleText.trim()) {
                     document.title = titleText;
                     upsertMeta('property', 'og:title', titleText);
                     upsertMeta('name', 'twitter:title', titleText);
                 }
+                const description = typeof opts.description === 'string' ? opts.description.trim() : '';
+                if (description) {
+                    upsertMeta('name', 'description', description);
+                    upsertMeta('property', 'og:description', description);
+                    upsertMeta('name', 'twitter:description', description);
+                } else {
+                    removeMeta('meta[name="description"]');
+                    removeMeta('meta[property="og:description"]');
+                    removeMeta('meta[name="twitter:description"]');
+                }
+
+                if (typeof opts.canonical === 'string' && opts.canonical.trim()) {
+                    upsertLink('canonical', opts.canonical.trim());
+                    upsertMeta('property', 'og:url', opts.canonical.trim());
+                } else {
+                    removeLink('canonical');
+                    removeMeta('meta[property="og:url"]');
+                }
+
+                const ogType = typeof opts.ogType === 'string' && opts.ogType.trim()
+                    ? opts.ogType.trim()
+                    : 'website';
+                upsertMeta('property', 'og:type', ogType);
+
+                const twitterCard = typeof opts.twitterCard === 'string' && opts.twitterCard.trim()
+                    ? opts.twitterCard.trim()
+                    : 'summary';
+                upsertMeta('name', 'twitter:card', twitterCard);
+
                 // Ensure no image previews
                 removeMeta('meta[property="og:image"]');
                 removeMeta('meta[name="twitter:image"]');
-                // Prefer text-only summary card
-                upsertMeta('name', 'twitter:card', 'summary');
             } catch (_) { /* noop */ }
         }
 
-        function titleForPageId(pageId) {
-            if (pageId === 'articles') return 'ethan - articles';
-            if (pageId === 'album') return 'ethan - albums';
+        function metaForPageId(pageId) {
+            if (pageId === 'articles') {
+                return { title: 'ethan - articles', ogType: 'website', twitterCard: 'summary' };
+            }
+            if (pageId === 'album') {
+                return { title: 'ethan - albums', ogType: 'website', twitterCard: 'summary' };
+            }
+            if (pageId === 'utilities') {
+                if (utilitiesData && utilitiesData.page) {
+                    const pageMeta = utilitiesData.page.meta || {};
+                    return {
+                        title: pageMeta.title || 'ethan - utilities',
+                        description: pageMeta.description || utilitiesData.page.description || '',
+                        canonical: pageMeta.canonical || '',
+                        ogType: pageMeta.ogType || 'website',
+                        twitterCard: pageMeta.twitterCard || 'summary'
+                    };
+                }
+                return { title: 'ethan - utilities', ogType: 'website', twitterCard: 'summary' };
+            }
             // default/about
-            return 'ethan - about';
+            return { title: 'ethan - about', ogType: 'website', twitterCard: 'summary' };
         }
 
         // Blog posts data - will be loaded from markdown files
         let blogPosts = [];
+        let utilitiesData = null;
 
         // Function to parse frontmatter from markdown content
         function parseFrontmatter(content) {
@@ -383,6 +460,74 @@
             renderBlogList();
         }
 
+        async function loadUtilities() {
+            try {
+                const response = await fetch('utilities/utilities.json', { cache: 'no-cache' });
+                if (!response.ok) {
+                    console.warn(`Failed to load utilities metadata: ${response.status}`);
+                    return;
+                }
+                utilitiesData = await response.json();
+                renderUtilitiesList();
+
+                const utilitiesPage = document.getElementById('utilities');
+                if (utilitiesPage && utilitiesPage.classList.contains('active')) {
+                    const pageMeta = metaForPageId('utilities') || {};
+                    updatePageMeta(pageMeta.title, pageMeta);
+                }
+            } catch (error) {
+                console.error('Error loading utilities metadata:', error);
+            }
+        }
+
+        function renderUtilitiesList() {
+            if (!utilitiesData || typeof utilitiesData !== 'object') return;
+            const listEl = document.getElementById('utilities-list');
+            const headlineEl = document.getElementById('utilities-headline');
+            const descriptionEl = document.getElementById('utilities-description');
+            if (!listEl) return;
+
+            if (headlineEl && utilitiesData.page && utilitiesData.page.headline) {
+                headlineEl.textContent = utilitiesData.page.headline;
+            }
+            if (descriptionEl && utilitiesData.page && utilitiesData.page.blurb) {
+                descriptionEl.textContent = utilitiesData.page.blurb;
+            }
+
+            const utilities = Array.isArray(utilitiesData.utilities) ? utilitiesData.utilities : [];
+            if (!utilities.length) {
+                listEl.innerHTML = '<p class="utilities-empty">Utilities will be available soon.</p>';
+                return;
+            }
+
+            const escapeHtml = (value) => String(value || '')
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#039;');
+
+            const html = utilities.map((utility) => {
+                const slug = utility.slug || '';
+                const href = (basePath ? basePath : '') + '/utilities/' + slug.replace(/^\/+/, '');
+                const name = escapeHtml(utility.name || slug);
+                const summary = escapeHtml(utility.teaser || utility.shortDescription || '');
+                const tags = Array.isArray(utility.tags)
+                    ? utility.tags.map(tag => `<span class="tag">${escapeHtml(tag)}</span>`).join('')
+                    : '';
+
+                return `
+                    <a class="utility-card" href="${href}">
+                        <h2>${name}</h2>
+                        ${summary ? `<p class="utility-description">${summary}</p>` : ''}
+                        ${tags ? `<div class="utility-tags">${tags}</div>` : ''}
+                    </a>
+                `;
+            }).join('');
+
+            listEl.innerHTML = html;
+        }
+
         // Navigation and routing
         const navLinks = document.querySelectorAll('.nav-link');
         const pages = document.querySelectorAll('.page');
@@ -455,13 +600,18 @@
                 }, 50);
             }
 
+            if (pageId === 'utilities') {
+                renderUtilitiesList();
+            }
+
             // Scroll to top with smooth animation
             window.scrollTo({
                 top: 0,
                 behavior: 'smooth'
             });
             // Update meta/title for the current page (article pages will override later)
-            updatePageMeta(titleForPageId(pageId));
+            const pageMeta = metaForPageId(pageId) || {};
+            updatePageMeta(pageMeta.title, pageMeta);
         }
         // Fit map view to include all valid pins
         function fitMapToAllPins() {
@@ -535,7 +685,16 @@
                         <div class="post-content">${parseMarkdown(post.markdown)}</div>
                     </div>`;
                 // Article pages should use the "ethan - <title>" format
-                updatePageMeta('ethan - ' + post.title);
+                let canonicalUrl = '';
+                try {
+                    canonicalUrl = new URL(basePath + '/' + postId, window.location.origin).href;
+                } catch (_) { /* noop */ }
+                updatePageMeta('ethan - ' + post.title, {
+                    description: post.description || '',
+                    canonical: canonicalUrl,
+                    ogType: 'article',
+                    twitterCard: 'summary'
+                });
                 try { if (window.Prism && blogPostView) Prism.highlightAllUnder(blogPostView); } catch (_) {}
                 // Load per-post assets
                 addPostAssets(post.metadata);
@@ -547,7 +706,8 @@
             // Load blog posts and gallery images
             await Promise.all([
                 loadBlogPosts(),
-                loadGalleryImages()
+                loadGalleryImages(),
+                loadUtilities()
             ]);
             // Handle SPA redirect param from 404 fallback
             const params = new URLSearchParams(window.location.search);
@@ -1057,7 +1217,16 @@
             `;
 
             // Article pages should set head title
-            updatePageMeta('ethan - ' + post.title);
+            let canonicalUrl2 = '';
+            try {
+                canonicalUrl2 = new URL(basePath + '/' + postId, window.location.origin).href;
+            } catch (_) { /* noop */ }
+            updatePageMeta('ethan - ' + post.title, {
+                description: post.description || '',
+                canonical: canonicalUrl2,
+                ogType: 'article',
+                twitterCard: 'summary'
+            });
 
             try { if (window.Prism && blogPostView) Prism.highlightAllUnder(blogPostView); } catch (_) {}
 

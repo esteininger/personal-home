@@ -892,6 +892,82 @@ body.lightbox-open .leaflet-tooltip-pane {
     display: none !important;
 }
 
+/* Utilities Page */
+.utilities-intro {
+    margin-bottom: 3rem;
+}
+
+.utilities-intro h1 {
+    font-size: 2rem;
+    font-family: var(--font-headings);
+    margin-bottom: 1rem;
+}
+
+.utilities-description {
+    color: var(--text-dim);
+    line-height: 1.7;
+    font-size: 1rem;
+}
+
+.utilities-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+.utility-card {
+    display: block;
+    padding: 1.5rem;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: var(--bg);
+    text-decoration: none;
+    color: inherit;
+}
+
+.utility-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.utility-card:focus-visible {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.1);
+    outline: none;
+}
+
+.utility-card h2 {
+    font-size: 1.3rem;
+    font-family: var(--font-headings);
+    margin-bottom: 0.75rem;
+    color: var(--text);
+}
+
+.utility-card .utility-description {
+    color: var(--text-dim);
+    line-height: 1.6;
+    margin-bottom: 1rem;
+    font-size: 0.95rem;
+}
+
+.utility-tags {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.utility-tags .tag {
+    padding: 0.25rem 0.75rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    font-size: 0.8rem;
+    color: var(--text-dim);
+}
+
 /* Map popup preview */
 .map-popup {
     display: flex;
@@ -959,13 +1035,20 @@ body.lightbox-open .leaflet-tooltip-pane {
         grid-template-columns: 1fr;
     }
 
-            .profile-img {
-            width: 150px;
-            height: 150px;
-        }
+    .utilities-list {
+        grid-template-columns: 1fr;
+    }
 
-        .map-section {
-            height: 200px;
-        }
+    .utilities-intro h1 {
+        font-size: 1.5rem;
+    }
+
+    .profile-img {
+        width: 150px;
+        height: 150px;
+    }
+
+    .map-section {
+        height: 200px;
     }
 }

@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Favicon Converter - ethan.dev</title>
+    <meta name="description" content="Turn any image into downloadable favicon files (ICO or PNG) directly in your browser. Select your sizes, keep everything local.">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Favicon Converter - ethan.dev">
+    <meta property="og:description" content="Turn any image into downloadable favicon files (ICO or PNG) directly in your browser. Select your sizes, keep everything local.">
+    <meta property="og:url" content="https://ethan.dev/utilities/favicon-converter">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Favicon Converter - ethan.dev">
+    <meta name="twitter:description" content="Turn any image into downloadable favicon files (ICO or PNG) directly in your browser. Select your sizes, keep everything local.">
+    <link rel="canonical" href="https://ethan.dev/utilities/favicon-converter">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="../../styles.css">
+    <link rel="stylesheet" href="../../utilities.css">
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "Favicon Converter",
+        "description": "Generate favicon assets entirely in your browser. Convert any image into ICO or PNG favicon files across multiple sizes with no uploads required.",
+        "applicationCategory": "Design",
+        "operatingSystem": "Any modern browser",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        },
+        "url": "https://ethan.dev/utilities/favicon-converter"
+    }
+    </script>
+    <style>
+        .converter-container {
+            max-width: 760px;
+            margin: 0 auto;
+        }
+
+        .converter-header {
+            margin-bottom: 2rem;
+        }
+
+        .converter-header h1 {
+            font-size: 2rem;
+            font-family: var(--font-headings);
+            margin-bottom: 0.5rem;
+        }
+
+        .converter-header p {
+            color: var(--text-dim);
+            line-height: 1.6;
+        }
+
+        .upload-area {
+            display: block;
+            width: 100%;
+            box-sizing: border-box;
+            border: 2px dashed var(--border);
+            border-radius: 8px;
+            padding: 3rem 2rem;
+            text-align: center;
+            margin-bottom: 2rem;
+            transition: all 0.3s;
+            cursor: pointer;
+            background: var(--bg);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .upload-area:hover,
+        .upload-area.drag-over {
+            border-color: var(--accent);
+            background: rgba(255, 255, 255, 0.03);
+        }
+
+        .upload-icon {
+            font-size: 3rem;
+            color: var(--text-dim);
+            margin-bottom: 1rem;
+        }
+
+        .upload-text {
+            color: var(--text);
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .upload-subtext {
+            color: var(--text-dim);
+            font-size: 0.9rem;
+        }
+
+        #fileInput {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            cursor: pointer;
+            z-index: 2;
+        }
+
+        .file-info {
+            display: none;
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            margin-bottom: 2rem;
+        }
+
+        .file-info.active {
+            display: block;
+        }
+
+        .file-name {
+            font-size: 1.1rem;
+            margin-bottom: 0.35rem;
+            color: var(--text);
+        }
+
+        .file-details {
+            color: var(--text-dim);
+            font-size: 0.9rem;
+        }
+
+        .options-grid {
+            display: grid;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .option-group label {
+            display: block;
+            color: var(--text);
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .sizes-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 0.75rem;
+        }
+
+        .size-pill {
+            border: 1px solid var(--border);
+            border-radius: 999px;
+            padding: 0.5rem 0.75rem;
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(255, 255, 255, 0.02);
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .size-pill input {
+            accent-color: var(--accent);
+        }
+
+        .custom-size {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .custom-size input {
+            flex: 1;
+            padding: 0.6rem 0.75rem;
+            background: var(--bg);
+            color: var(--text);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            font-size: 1rem;
+            font-family: inherit;
+        }
+
+        .custom-size button {
+            padding: 0.6rem 1rem;
+            background: var(--accent);
+            color: var(--bg);
+            border: none;
+            border-radius: 6px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: opacity 0.3s;
+            font-family: var(--font-headings);
+        }
+
+        .custom-size button:hover {
+            opacity: 0.9;
+        }
+
+        .format-options {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .format-pill {
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 0.75rem 1rem;
+            display: flex;
+            gap: 0.65rem;
+            align-items: center;
+            cursor: pointer;
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .format-pill input {
+            accent-color: var(--accent);
+        }
+
+        .convert-btn {
+            width: 100%;
+            padding: 1rem;
+            background: var(--accent);
+            color: var(--bg);
+            border: none;
+            border-radius: 6px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: var(--font-headings);
+        }
+
+        .convert-btn:hover {
+            opacity: 0.9;
+            transform: translateY(-1px);
+        }
+
+        .convert-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .error-message {
+            display: none;
+            padding: 1rem;
+            background: rgba(239, 68, 68, 0.15);
+            border: 1px solid rgba(239, 68, 68, 0.4);
+            border-radius: 6px;
+            color: #fca5a5;
+            margin-top: 1rem;
+        }
+
+        .error-message.active {
+            display: block;
+        }
+
+        .result-container {
+            display: none;
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            margin-top: 2rem;
+        }
+
+        .result-container.active {
+            display: block;
+        }
+
+        .result-title {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .result-info {
+            color: var(--text-dim);
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .downloads-list {
+            display: grid;
+            gap: 0.75rem;
+        }
+
+        .download-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .download-meta {
+            color: var(--text);
+            font-size: 0.95rem;
+        }
+
+        .download-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 0.9rem;
+            background: var(--accent);
+            color: var(--bg);
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: opacity 0.3s;
+            font-family: var(--font-headings);
+        }
+
+        .download-link:hover {
+            opacity: 0.9;
+        }
+
+        .preview-box {
+            margin-top: 1.5rem;
+            text-align: center;
+        }
+
+        .preview-box h3 {
+            font-size: 1rem;
+            margin-bottom: 0.75rem;
+            color: var(--text);
+        }
+
+        .preview-grid {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .preview-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-dim);
+            font-size: 0.85rem;
+        }
+
+        .preview-item img {
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            background: var(--bg);
+            padding: 0.5rem;
+        }
+
+        .info-box {
+            margin-top: 2rem;
+            padding: 1.25rem 1.5rem;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+        }
+
+        .info-box h3 {
+            color: var(--text);
+            font-size: 1rem;
+            margin-bottom: 0.75rem;
+            font-family: var(--font-headings);
+        }
+
+        .info-box ul {
+            margin: 0;
+            padding-left: 1.5rem;
+            color: var(--text-dim);
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        .info-box li + li {
+            margin-top: 0.4rem;
+        }
+
+        @media (max-width: 600px) {
+            .upload-area {
+                padding: 2.5rem 1.5rem;
+            }
+
+            .format-options {
+                flex-direction: column;
+            }
+        }
+    </style>
+    <script>
+        (function() {
+            try {
+                var saved = localStorage.getItem('theme');
+                var root = document.documentElement;
+                root.classList.remove('theme-light', 'theme-dark');
+                if (saved === 'light' || saved === 'dark') {
+                    root.classList.add('theme-' + saved);
+                }
+            } catch (e) { /* noop */ }
+        })();
+    </script>
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
+</head>
+
+<body>
+    <div class="container">
+        <nav>
+            <div class="nav-row">
+                <ul>
+                    <li><a href="/about" class="nav-link">About</a></li>
+                    <li><a href="/articles" class="nav-link">Articles</a></li>
+                    <li><a href="/album" class="nav-link">Album</a></li>
+                    <li><a href="/utilities" class="nav-link active">Utilities</a></li>
+                </ul>
+                <div class="theme-toggle">
+                    <div id="theme-toggle" class="theme-switch" role="button" tabindex="0" aria-label="Toggle theme" title="Toggle theme">
+                        <i class="fa-solid fa-sun switch-icon sun" aria-hidden="true"></i>
+                        <span class="switch-thumb"></span>
+                        <i class="fa-solid fa-moon switch-icon moon" aria-hidden="true"></i>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <div id="favicon-converter" class="page active">
+            <div class="converter-container">
+                <div class="converter-header">
+                    <h1>Favicon Converter</h1>
+                    <p>Generate favicon assets entirely in your browser. Drop in an image, pick your target sizes, and download ICO or PNG files without uploading anything.</p>
+                </div>
+
+                <label class="upload-area" id="dropArea">
+                    <input type="file" id="fileInput" accept="image/*">
+                    <div class="upload-icon"><i class="fa-regular fa-image"></i></div>
+                    <div class="upload-text">Click or drop an image</div>
+                    <div class="upload-subtext">PNG, JPG, WEBP, or SVG. Everything stays on this device.</div>
+                </label>
+
+                <div class="file-info" id="fileInfo">
+                    <div class="file-name" id="fileName"></div>
+                    <div class="file-details" id="fileDetails"></div>
+                </div>
+
+                <div class="options-grid">
+                    <div class="option-group">
+                        <label>Favicon sizes</label>
+                        <div class="sizes-list" id="sizesList">
+                            <label class="size-pill"><input type="checkbox" name="sizeOption" value="16" checked>16 × 16</label>
+                            <label class="size-pill"><input type="checkbox" name="sizeOption" value="32" checked>32 × 32</label>
+                            <label class="size-pill"><input type="checkbox" name="sizeOption" value="48" checked>48 × 48</label>
+                            <label class="size-pill"><input type="checkbox" name="sizeOption" value="64">64 × 64</label>
+                            <label class="size-pill"><input type="checkbox" name="sizeOption" value="128">128 × 128</label>
+                            <label class="size-pill"><input type="checkbox" name="sizeOption" value="256">256 × 256</label>
+                        </div>
+                        <div class="custom-size">
+                            <input type="number" id="customSize" min="8" max="1024" step="1" placeholder="Add custom size (px)">
+                            <button type="button" id="addSize">Add</button>
+                        </div>
+                    </div>
+
+                    <div class="option-group">
+                        <label>Output format</label>
+                        <div class="format-options">
+                            <label class="format-pill"><input type="radio" name="formatOption" value="ico" checked>ICO (multi-size)</label>
+                            <label class="format-pill"><input type="radio" name="formatOption" value="png">PNG (single size per file)</label>
+                        </div>
+                    </div>
+                </div>
+
+                <button id="convertBtn" class="convert-btn">Convert &amp; Download</button>
+                <div id="errorMessage" class="error-message"></div>
+
+                <div id="resultContainer" class="result-container">
+                    <div class="result-title"><i class="fa-solid fa-check-circle" aria-hidden="true"></i> Conversion ready</div>
+                    <div id="resultInfo" class="result-info"></div>
+                    <div id="downloadsList" class="downloads-list"></div>
+                    <div class="preview-box" id="previewBox" hidden>
+                        <h3>Quick preview</h3>
+                        <div id="previewGrid" class="preview-grid"></div>
+                    </div>
+                </div>
+
+                <div class="info-box">
+                    <h3>How it works</h3>
+                    <ul>
+                        <li><strong>100% client-side:</strong> Your image never leaves the browser. Resizing and ICO creation all happen locally.</li>
+                        <li><strong>Smart resizing:</strong> The tool auto-crops to a centered square before scaling, keeping favicons sharp.</li>
+                        <li><strong>Flexible outputs:</strong> Download a multi-size ICO or pick individual PNG files for each size you choose.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">me (at) ethan (dot) dev</div>
+    </div>
+
+    <script>
+        (function() {
+            const root = document.documentElement;
+            const prefersLight = window.matchMedia('(prefers-color-scheme: light)');
+
+            function currentExplicitTheme() {
+                try { return localStorage.getItem('theme'); } catch (_) { return null; }
+            }
+
+            function applyTheme(theme) {
+                root.classList.remove('theme-light', 'theme-dark');
+                if (theme === 'light' || theme === 'dark') {
+                    root.classList.add('theme-' + theme);
+                }
+                updateThemeToggleState();
+            }
+
+            function updateThemeToggleState() {
+                const sw = document.getElementById('theme-toggle');
+                if (!sw) return;
+                const isLight = root.classList.contains('theme-light') || (!root.classList.contains('theme-dark') && prefersLight.matches);
+                sw.setAttribute('aria-pressed', String(isLight));
+            }
+
+            function toggleTheme() {
+                const explicit = currentExplicitTheme();
+                let next;
+                if (explicit) {
+                    next = explicit === 'light' ? 'dark' : 'light';
+                } else {
+                    next = prefersLight.matches ? 'dark' : 'light';
+                }
+                try { localStorage.setItem('theme', next); } catch (_) {}
+                applyTheme(next);
+            }
+
+            window.addEventListener('DOMContentLoaded', () => {
+                const btn = document.getElementById('theme-toggle');
+                if (btn && !btn.dataset.bound) {
+                    btn.dataset.bound = '1';
+                    btn.addEventListener('click', toggleTheme);
+                    btn.addEventListener('keydown', (e) => {
+                        if (e.key === 'Enter' || e.key === ' ') {
+                            e.preventDefault();
+                            toggleTheme();
+                        }
+                    });
+                    updateThemeToggleState();
+                }
+            });
+
+            try {
+                prefersLight.addEventListener('change', () => {
+                    if (!currentExplicitTheme()) {
+                        applyTheme(null);
+                    }
+                });
+            } catch (_) {}
+        })();
+    </script>
+
+    <script>
+        (function() {
+            const fileInput = document.getElementById('fileInput');
+            const dropArea = document.getElementById('dropArea');
+            const fileInfo = document.getElementById('fileInfo');
+            const fileNameEl = document.getElementById('fileName');
+            const fileDetailsEl = document.getElementById('fileDetails');
+            const convertBtn = document.getElementById('convertBtn');
+            const errorMessage = document.getElementById('errorMessage');
+            const resultContainer = document.getElementById('resultContainer');
+            const resultInfo = document.getElementById('resultInfo');
+            const downloadsList = document.getElementById('downloadsList');
+            const previewBox = document.getElementById('previewBox');
+            const previewGrid = document.getElementById('previewGrid');
+            const addSizeBtn = document.getElementById('addSize');
+            const customSizeInput = document.getElementById('customSize');
+
+            let loadedImage = null;
+            let originalFile = null;
+            let objectUrls = [];
+
+            function resetResults() {
+                downloadsList.innerHTML = '';
+                previewGrid.innerHTML = '';
+                previewBox.hidden = true;
+                resultInfo.textContent = '';
+                resultContainer.classList.remove('active');
+                objectUrls.forEach(url => URL.revokeObjectURL(url));
+                objectUrls = [];
+            }
+
+            function showError(message) {
+                if (message) {
+                    errorMessage.textContent = message;
+                    errorMessage.classList.add('active');
+                } else {
+                    errorMessage.textContent = '';
+                    errorMessage.classList.remove('active');
+                }
+            }
+
+            function bytesToHuman(size) {
+                if (!size) return '0 KB';
+                const units = ['bytes', 'KB', 'MB', 'GB'];
+                const index = Math.min(Math.floor(Math.log(size) / Math.log(1024)), units.length - 1);
+                const value = size / Math.pow(1024, index);
+                return `${value.toFixed(index === 0 ? 0 : 1)} ${units[index]}`;
+            }
+
+            function uniqueSizes() {
+                const selected = Array.from(document.querySelectorAll('input[name="sizeOption"]:checked'))
+                    .map((input) => parseInt(input.value, 10))
+                    .filter(Boolean);
+                const unique = Array.from(new Set(selected));
+                unique.sort((a, b) => a - b);
+                return unique;
+            }
+
+            function getSelectedFormat() {
+                const format = document.querySelector('input[name="formatOption"]:checked');
+                return format ? format.value : 'ico';
+            }
+
+            function cropToSquare(image, size) {
+                const canvas = document.createElement('canvas');
+                canvas.width = canvas.height = size;
+                const ctx = canvas.getContext('2d');
+                const minSide = Math.min(image.naturalWidth || image.width, image.naturalHeight || image.height);
+                const sx = ((image.naturalWidth || image.width) - minSide) / 2;
+                const sy = ((image.naturalHeight || image.height) - minSide) / 2;
+                ctx.drawImage(image, sx, sy, minSide, minSide, 0, 0, size, size);
+                return canvas;
+            }
+
+            function canvasToPng(canvas) {
+                return new Promise((resolve, reject) => {
+                    canvas.toBlob((blob) => {
+                        if (blob) {
+                            resolve(blob);
+                        } else {
+                            reject(new Error('Could not create PNG blob'));
+                        }
+                    }, 'image/png');
+                });
+            }
+
+            async function createIcoFromPngs(sizedPngs) {
+                const buffers = await Promise.all(sizedPngs.map(async ({ size, blob }) => {
+                    const arrayBuffer = await blob.arrayBuffer();
+                    return { size, data: new Uint8Array(arrayBuffer) };
+                }));
+
+                const count = buffers.length;
+                const headerSize = 6 + (16 * count);
+                const totalDataSize = buffers.reduce((acc, item) => acc + item.data.length, 0);
+                const header = new ArrayBuffer(headerSize);
+                const view = new DataView(header);
+
+                view.setUint16(0, 0, true); // reserved
+                view.setUint16(2, 1, true); // icon type
+                view.setUint16(4, count, true);
+
+                let offset = headerSize;
+
+                buffers.forEach((entry, index) => {
+                    const pos = 6 + (index * 16);
+                    view.setUint8(pos, entry.size >= 256 ? 0 : entry.size);
+                    view.setUint8(pos + 1, entry.size >= 256 ? 0 : entry.size);
+                    view.setUint8(pos + 2, 0);
+                    view.setUint8(pos + 3, 0);
+                    view.setUint16(pos + 4, 1, true);
+                    view.setUint16(pos + 6, 32, true);
+                    view.setUint32(pos + 8, entry.data.length, true);
+                    view.setUint32(pos + 12, offset, true);
+                    offset += entry.data.length;
+                });
+
+                const combined = [header, ...buffers.map((entry) => entry.data)];
+                return new Blob(combined, { type: 'image/x-icon' });
+            }
+
+            function updateFileInfo(file) {
+                fileInfo.classList.add('active');
+                fileNameEl.textContent = file.name;
+                const dims = loadedImage ? `${loadedImage.naturalWidth || loadedImage.width}×${loadedImage.naturalHeight || loadedImage.height}px` : '';
+                fileDetailsEl.textContent = `${dims} • ${bytesToHuman(file.size)} • ${file.type || 'unknown type'}`;
+            }
+
+            function validateCustomSize(value) {
+                const parsed = parseInt(value, 10);
+                if (Number.isNaN(parsed)) {
+                    showError('Enter a number between 8 and 1024 for custom sizes.');
+                    return null;
+                }
+                if (parsed < 8 || parsed > 1024) {
+                    showError('Custom size must be between 8px and 1024px.');
+                    return null;
+                }
+                return parsed;
+            }
+
+            function addCustomSize(size) {
+                const list = document.getElementById('sizesList');
+                const existing = Array.from(list.querySelectorAll('input[name="sizeOption"]'))
+                    .map((input) => parseInt(input.value, 10));
+                if (existing.includes(size)) {
+                    showError(`Size ${size}px is already selected.`);
+                    return;
+                }
+                const label = document.createElement('label');
+                label.className = 'size-pill';
+                label.innerHTML = `<input type="checkbox" name="sizeOption" value="${size}" checked>${size} × ${size}`;
+                list.appendChild(label);
+                showError('');
+            }
+
+            function handleFile(file) {
+                if (!file || !file.type.startsWith('image/')) {
+                    showError('Please choose an image file (PNG, JPG, WEBP, SVG, etc).');
+                    return;
+                }
+                showError('');
+                resetResults();
+
+                const reader = new FileReader();
+                reader.onload = (event) => {
+                    const img = new Image();
+                    img.onload = () => {
+                        loadedImage = img;
+                        originalFile = file;
+                        updateFileInfo(file);
+                    };
+                    img.onerror = () => {
+                        showError('Unable to read that image. Please try a different file.');
+                    };
+                    img.src = event.target.result;
+                };
+                reader.onerror = () => {
+                    showError('Unable to read that file. Please try again.');
+                };
+                reader.readAsDataURL(file);
+            }
+
+            dropArea.addEventListener('dragover', (event) => {
+                event.preventDefault();
+                dropArea.classList.add('drag-over');
+            });
+
+            dropArea.addEventListener('dragleave', () => {
+                dropArea.classList.remove('drag-over');
+            });
+
+            dropArea.addEventListener('drop', (event) => {
+                event.preventDefault();
+                dropArea.classList.remove('drag-over');
+                if (event.dataTransfer.files && event.dataTransfer.files[0]) {
+                    fileInput.files = event.dataTransfer.files;
+                    handleFile(event.dataTransfer.files[0]);
+                }
+            });
+
+            fileInput.addEventListener('change', (event) => {
+                if (event.target.files && event.target.files[0]) {
+                    handleFile(event.target.files[0]);
+                }
+            });
+
+            addSizeBtn.addEventListener('click', () => {
+                const value = customSizeInput.value.trim();
+                if (!value) {
+                    showError('Enter a size before adding.');
+                    return;
+                }
+                const size = validateCustomSize(value);
+                if (size) {
+                    addCustomSize(size);
+                    customSizeInput.value = '';
+                }
+            });
+
+            customSizeInput.addEventListener('keydown', (event) => {
+                if (event.key === 'Enter') {
+                    event.preventDefault();
+                    addSizeBtn.click();
+                }
+            });
+
+            convertBtn.addEventListener('click', async () => {
+                showError('');
+                resetResults();
+
+                if (!loadedImage || !originalFile) {
+                    showError('Choose an image before converting.');
+                    return;
+                }
+
+                const sizes = uniqueSizes();
+                if (!sizes.length) {
+                    showError('Select at least one favicon size.');
+                    return;
+                }
+
+                const format = getSelectedFormat();
+                convertBtn.disabled = true;
+                convertBtn.textContent = 'Processing...';
+
+                try {
+                    const sizedPngs = [];
+                    for (const size of sizes) {
+                        const canvas = cropToSquare(loadedImage, size);
+                        const pngBlob = await canvasToPng(canvas);
+                        sizedPngs.push({ size, blob: pngBlob });
+                    }
+
+                    if (format === 'ico') {
+                        const icoBlob = await createIcoFromPngs(sizedPngs);
+                        const url = URL.createObjectURL(icoBlob);
+                        objectUrls.push(url);
+
+                        downloadsList.innerHTML = '';
+                        const item = document.createElement('div');
+                        item.className = 'download-item';
+                        item.innerHTML = `
+                            <div class="download-meta">favicon.ico • ${sizes.join(', ')}px</div>
+                            <a class="download-link" href="${url}" download="favicon.ico">
+                                <i class="fa-solid fa-download" aria-hidden="true"></i> Download ICO
+                            </a>
+                        `;
+                        downloadsList.appendChild(item);
+                        resultInfo.textContent = 'Multi-size ICO generated in your browser. Includes the selected dimensions.';
+                    } else {
+                        downloadsList.innerHTML = '';
+                        resultInfo.textContent = 'PNG favicons generated. Download the sizes you need.';
+                        sizedPngs.forEach(({ size, blob }) => {
+                            const url = URL.createObjectURL(blob);
+                            objectUrls.push(url);
+                            const item = document.createElement('div');
+                            item.className = 'download-item';
+                            item.innerHTML = `
+                                <div class="download-meta">${size} × ${size}px</div>
+                                <a class="download-link" href="${url}" download="favicon-${size}.png">
+                                    <i class="fa-solid fa-download" aria-hidden="true"></i> Download
+                                </a>
+                            `;
+                            downloadsList.appendChild(item);
+                        });
+                    }
+
+                    previewGrid.innerHTML = '';
+                    sizedPngs.slice(0, Math.min(sizedPngs.length, 4)).forEach(({ size, blob }) => {
+                        const url = URL.createObjectURL(blob);
+                        objectUrls.push(url);
+                        const wrapper = document.createElement('div');
+                        wrapper.className = 'preview-item';
+                        wrapper.innerHTML = `<img src="${url}" alt="${size}px preview" width="${size}" height="${size}"><span>${size}px</span>`;
+                        previewGrid.appendChild(wrapper);
+                    });
+
+                    previewBox.hidden = sizedPngs.length === 0;
+                    resultContainer.classList.add('active');
+                } catch (error) {
+                    console.error(error);
+                    showError('Something went wrong while converting. Please try again with a different image.');
+                } finally {
+                    convertBtn.disabled = false;
+                    convertBtn.textContent = 'Convert & Download';
+                }
+            });
+        })();
+    </script>
+</body>
+
+</html>
