@@ -101,8 +101,9 @@ python3 scripts/python/convert_markdown_to_html.py
 - **Responsive Design** - Works on desktop and mobile
 - **Blog Posts** - Markdown files with frontmatter metadata
 - **Gallery** - Photo gallery with lightbox functionality
+- **Utilities** - Client-side tools that run entirely in the browser (e.g., video converter)
 - **Navigation** - Single-page app with smooth transitions
-- **Dark Theme** - Clean, minimal design
+- **Dark Theme** - Clean, minimal design with light/dark mode toggle
 
 ## Running Locally
 
