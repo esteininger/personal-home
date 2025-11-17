@@ -35,8 +35,10 @@ A minimal personal website with blog functionality built with HTML, CSS, and Jav
 ## Adding New Blog Posts
 
 1. Create a new `.md` file in the `posts/` directory
-2. Use the filename as the post ID (e.g., `my-new-post.md`)
-3. Include frontmatter at the top of the file:
+   - Use the filename as the post ID (e.g., `my-new-post.md`)
+   - You can use `posts/_template.md` as a starting template
+
+2. Include frontmatter at the top of the file:
 
 ```markdown
 ---
@@ -50,23 +52,34 @@ description: "Brief description of your post"
 Your content here...
 ```
 
+3. Add the new file to `posts.json`:
+   - Open `posts.json`
+   - Add your new post path to the `posts` array (order matters - newest posts should be first)
+   
+```json
+{
+  "posts": [
+    "posts/my-new-post.md",
+    "posts/freedom.md",
+    "posts/consolidation.md",
+    "posts/convergence.md",
+    "posts/geopolitics.md",
+    "posts/colonialism.md"
+  ]
+}
+```
+
 4. Run the conversion script to generate HTML:
 
 ```bash
 python3 scripts/python/convert_markdown_to_html.py
 ```
 
-5. Add the new file to the `postFiles` array in `index.html`:
+   This will:
+   - Generate the HTML page at `/{article-name}/index.html`
+   - The article will automatically appear in the blog list on your site
 
-```javascript
-const postFiles = [
-    'posts/freedom.md',
-    'posts/consolidation.md',
-    'posts/convergence.md',
-    'posts/geopolitics.md',
-    'posts/my-new-post.md'  // Add your new post here
-];
-```
+5. Commit and push - the site will update automatically on GitHub Pages
 
 ## Adding New Gallery Images
 
@@ -93,14 +106,23 @@ const postFiles = [
 
 ## Running Locally
 
-1. Start a local server (required for loading markdown files):
+1. Start a local server (required for SPA routing and loading markdown files):
+   ```bash
+   python3 server.py
+   ```
+   This will:
+   - Run the build script automatically
+   - Start a server at `http://127.0.0.1:8100` (or custom HOST/PORT env vars)
+   - Handle SPA routing correctly (serves `index.html` for routes like `/articles`, `/album`, etc.)
+
+   Alternative (basic server, no SPA routing):
    ```bash
    python3 -m http.server 8000
    # or
    npx serve .
    ```
 
-2. Open `http://localhost:8000` in your browser
+2. Open `http://localhost:8100` (or your configured port) in your browser
 
 ## File Structure
 
@@ -109,12 +131,17 @@ const postFiles = [
 ├── index.html                 # Main SPA
 ├── styles.css                 # CSS styles
 ├── articles.css               # Article-specific styles
+├── utilities.css              # Shared utility styles
+├── posts.json                 # List of blog posts (in order)
+├── server.py                  # Local dev server with SPA routing
 ├── posts/                     # Blog posts (markdown source)
 │   ├── _template.md           # Template for new posts
 │   ├── freedom.md
 │   ├── consolidation.md
 │   ├── convergence.md
-│   └── geopolitics.md
+│   ├── geopolitics.md
+│   ├── colonialism.md
+│   └── guardrails.md
 ├── convergence/               # Generated article pages
 │   └── index.html
 ├── freedom/
@@ -123,6 +150,12 @@ const postFiles = [
 │   └── index.html
 ├── geopolitics/
 │   └── index.html
+├── colonialism/
+│   └── index.html
+├── utilities/                 # Client-side utility tools
+│   ├── index.html             # Utilities landing page
+│   └── video-converter/       # Video converter utility
+│       └── index.html
 ├── images/                    # Images directory
 │   └── gallery.json           # Gallery images data
 ├── scripts/                   # Utility scripts
