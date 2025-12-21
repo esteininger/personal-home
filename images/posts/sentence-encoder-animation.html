@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sentence Encoder Animation</title>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Syne:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: transparent;
+      font-family: 'Syne', sans-serif;
+      overflow: hidden;
+    }
+
+    .container {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      padding: 60px;
+    }
+
+    .text-input {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 8px;
+      width: 200px;
+    }
+
+    .word {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 18px;
+      color: #f5f5f4;
+      padding: 6px 14px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 4px;
+      opacity: 0;
+      transform: translateX(-30px);
+      animation: wordAppear 0.5s ease-out forwards, wordFly 0.6s ease-in forwards;
+    }
+
+    .word:nth-child(1) { animation-delay: 0s, 2s; }
+    .word:nth-child(2) { animation-delay: 0.15s, 2.1s; }
+    .word:nth-child(3) { animation-delay: 0.3s, 2.2s; }
+    .word:nth-child(4) { animation-delay: 0.45s, 2.3s; }
+
+    @keyframes wordAppear {
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    @keyframes wordFly {
+      0% {
+        opacity: 1;
+        transform: translateX(0) scale(1);
+      }
+      100% {
+        opacity: 0;
+        transform: translateX(120px) scale(0.5);
+      }
+    }
+
+    .encoder {
+      width: 140px;
+      height: 140px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .encoder-box {
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, #1a1a1c 0%, #0f0f10 100%);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .encoder-box::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at center, rgba(99, 102, 241, 0.15) 0%, transparent 70%);
+      opacity: 0;
+      animation: encoderPulse 4s ease-in-out infinite;
+      animation-delay: 1.8s;
+    }
+
+    @keyframes encoderPulse {
+      0%, 100% { opacity: 0; }
+      25%, 75% { opacity: 1; }
+    }
+
+    .encoder-label {
+      font-size: 11px;
+      font-weight: 500;
+      color: #71717a;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    .encoder-glow {
+      position: absolute;
+      width: 160px;
+      height: 160px;
+      border-radius: 20px;
+      background: radial-gradient(circle, rgba(99, 102, 241, 0.2) 0%, transparent 70%);
+      opacity: 0;
+      animation: glowPulse 4s ease-in-out infinite;
+      animation-delay: 2s;
+    }
+
+    @keyframes glowPulse {
+      0%, 100% { opacity: 0; transform: scale(0.9); }
+      50% { opacity: 1; transform: scale(1.1); }
+    }
+
+    .vector-output {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      width: 160px;
+    }
+
+    .number {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      color: #a5b4fc;
+      padding: 4px 10px;
+      background: rgba(99, 102, 241, 0.1);
+      border: 1px solid rgba(99, 102, 241, 0.2);
+      border-radius: 3px;
+      opacity: 0;
+      transform: translateX(-20px);
+      animation: numberAppear 0.3s ease-out forwards;
+    }
+
+    .number:nth-child(1) { animation-delay: 2.6s; }
+    .number:nth-child(2) { animation-delay: 2.7s; }
+    .number:nth-child(3) { animation-delay: 2.8s; }
+    .number:nth-child(4) { animation-delay: 2.9s; }
+    .number:nth-child(5) { animation-delay: 3.0s; }
+    .number:nth-child(6) { animation-delay: 3.1s; }
+    .number:nth-child(7) { animation-delay: 3.2s; }
+    .number:nth-child(8) { animation-delay: 3.3s; }
+
+    @keyframes numberAppear {
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    .arrow {
+      color: #3f3f46;
+      font-size: 24px;
+      opacity: 0;
+      animation: arrowFade 0.5s ease-out forwards;
+    }
+
+    .arrow:first-of-type { animation-delay: 1.5s; }
+    .arrow:last-of-type { animation-delay: 2.5s; }
+
+    @keyframes arrowFade {
+      to { opacity: 1; }
+    }
+
+    .dots {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      color: #52525b;
+      padding: 4px 10px;
+      opacity: 0;
+      animation: dotsAppear 0.3s ease-out forwards;
+      animation-delay: 3.4s;
+    }
+
+    @keyframes dotsAppear {
+      to { opacity: 1; }
+    }
+
+    .label {
+      position: absolute;
+      font-size: 10px;
+      color: #52525b;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      font-weight: 500;
+    }
+
+    .label-text {
+      top: -30px;
+      left: 0;
+      opacity: 0;
+      animation: labelFade 0.5s ease-out forwards;
+      animation-delay: 0.2s;
+    }
+
+    .label-vector {
+      top: -30px;
+      left: 0;
+      opacity: 0;
+      animation: labelFade 0.5s ease-out forwards;
+      animation-delay: 2.8s;
+    }
+
+    @keyframes labelFade {
+      to { opacity: 1; }
+    }
+
+    .text-input, .vector-output {
+      position: relative;
+    }
+
+    /* loop animation */
+    .container {
+      animation: resetLoop 6s infinite;
+    }
+
+    @keyframes resetLoop {
+      0%, 90% { opacity: 1; }
+      95% { opacity: 0; }
+      100% { opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="text-input">
+      <span class="label label-text">input text</span>
+      <span class="word">the</span>
+      <span class="word">dog</span>
+      <span class="word">ran</span>
+      <span class="word">quickly</span>
+    </div>
+
+    <span class="arrow">→</span>
+
+    <div class="encoder">
+      <div class="encoder-glow"></div>
+      <div class="encoder-box">
+        <span class="encoder-label">encoder</span>
+      </div>
+    </div>
+
+    <span class="arrow">→</span>
+
+    <div class="vector-output">
+      <span class="label label-vector">embedding vector</span>
+      <span class="number">0.0234</span>
+      <span class="number">-0.8912</span>
+      <span class="number">0.4521</span>
+      <span class="number">-0.1187</span>
+      <span class="number">0.7634</span>
+      <span class="number">-0.3298</span>
+      <span class="number">0.5541</span>
+      <span class="number">0.0892</span>
+      <span class="dots">... (384 dims)</span>
+    </div>
+  </div>
+</body>
+</html>

@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="articles.css">
+    <link rel="alternate" type="application/rss+xml" title="ethan - articles" href="/rss.xml">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css">
     <script>
         (function() {
@@ -37,6 +38,11 @@
                     <li><a href="/articles" class="nav-link active">Articles</a></li>
                     <li><a href="/album" class="nav-link">Album</a></li>
                 </ul>
+                <div class="rss-link">
+                    <a href="/rss.xml" aria-label="RSS feed" title="RSS feed" target="_blank" rel="noopener">
+                        <i class="fa-solid fa-rss" aria-hidden="true"></i> RSS
+                    </a>
+                </div>
                 <div class="theme-toggle">
                     <div id="theme-toggle" class="theme-switch" role="button" tabindex="0" aria-label="Toggle theme" title="Toggle theme">
                         <i class="fa-solid fa-sun switch-icon sun" aria-hidden="true"></i>
@@ -48,6 +54,11 @@
         </nav>
 
         <div id="articles" class="page active">
+            <div id="articles-toolbar" class="articles-toolbar">
+                <a href="/rss.xml" aria-label="RSS feed" title="RSS feed" target="_blank" rel="noopener">
+                    <i class="fa-solid fa-rss" aria-hidden="true"></i> RSS
+                </a>
+            </div>
             <div id="blog-list" class="blog-list"></div>
             <div id="blog-post-view" style="display:none;"></div>
         </div>
@@ -234,9 +245,11 @@
         function renderBlogList() {
             const blogList = document.getElementById('blog-list');
             const blogPostView = document.getElementById('blog-post-view');
+            const toolbar = document.getElementById('articles-toolbar');
             if (!blogList || !blogPostView) return;
             blogList.style.display = 'block';
             blogPostView.style.display = 'none';
+            if (toolbar) toolbar.style.display = 'flex';
             blogList.innerHTML = '';
             blogPosts.forEach(post => {
                 const el = document.createElement('div');
@@ -292,10 +305,12 @@
         function renderPostById(postId) {
             const blogList = document.getElementById('blog-list');
             const blogPostView = document.getElementById('blog-post-view');
+            const toolbar = document.getElementById('articles-toolbar');
             const post = blogPosts.find(p => p.id === postId);
             if (!post || !blogList || !blogPostView) return;
             blogList.style.display = 'none';
             blogPostView.style.display = 'block';
+            if (toolbar) toolbar.style.display = 'none';
             const lastEditedDisplay = (post.lastEdited && !Number.isNaN(Date.parse(post.lastEdited)))
                 ? new Date(post.lastEdited).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
                 : '';

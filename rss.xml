@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+  <channel>
+    <title>ethan - articles</title>
+    <link>https://ethan.dev/articles</link>
+    <description>Articles by Ethan</description>
+    <language>en-US</language>
+    <lastBuildDate>Wed, 01 Oct 2025 00:00:00 GMT</lastBuildDate>
+    <item>
+      <title>convergence</title>
+      <link>https://ethan.dev/articles/convergence.html</link>
+      <guid isPermaLink="true">https://ethan.dev/articles/convergence.html</guid>
+      <pubDate>Wed, 01 Oct 2025 00:00:00 GMT</pubDate>
+      <description><![CDATA[Why Christianity and Islam produced such different political outcomes, despite both being rooted in rigid scripture.]]></description>
+    </item>
+    <item>
+      <title>consolidation</title>
+      <link>https://ethan.dev/articles/consolidation.html</link>
+      <guid isPermaLink="true">https://ethan.dev/articles/consolidation.html</guid>
+      <pubDate>Mon, 15 Sep 2025 00:00:00 GMT</pubDate>
+      <description><![CDATA[the democratic party isn’t just drifting left on healthcare, climate, and social issues—it’s also consolidating ideologically, becoming more homogeneous and unified than in the past.]]></description>
+    </item>
+    <item>
+      <title>freedom</title>
+      <link>https://ethan.dev/articles/freedom.html</link>
+      <guid isPermaLink="true">https://ethan.dev/articles/freedom.html</guid>
+      <pubDate>Wed, 20 Aug 2025 00:00:00 GMT</pubDate>
+      <description><![CDATA[when i built out my ford transit during covid, i wasn’t just making a camper. i was creating a rolling cabin with a kitchen, office, bathroom, and all my gear. now i fly out with my dog, pick it up from a driveway i rent, and roam—paddleboarding one morning, biking the next, always with a new backyard. it’s the best travel hack i’ve found and a balance to manhattan life.]]></description>
+    </item>
+    <item>
+      <title>geopolitics</title>
+      <link>https://ethan.dev/articles/geopolitics.html</link>
+      <guid isPermaLink="true">https://ethan.dev/articles/geopolitics.html</guid>
+      <pubDate>Thu, 09 Nov 2023 00:00:00 GMT</pubDate>
+      <description><![CDATA[an attempt at a neutral, fact-based breakdown of october 7th and what it means for the world moving forward]]></description>
+    </item>
+  </channel>
+</rss>

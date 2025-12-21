@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ethan - encoders</title>
+    <meta name="twitter:card" content="summary">
+    <meta property="og:type" content="website">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/styles.css">
+    <link rel="stylesheet" href="/articles.css">
+</head>
+<body>
+    <div class="container">
+        <nav>
+            <div class="nav-row">
+                <ul>
+                    <li><a href="/about" class="nav-link">About</a></li>
+                    <li><a href="/articles" class="nav-link active">Articles</a></li>
+                    <li><a href="/album" class="nav-link">Album</a></li>
+                </ul>
+            </div>
+        </nav>
+        <div id="articles" class="page active">
+            <div class="blog-post">
+                <div class="post-header">
+                    <h1>encoders</h1>
+                    <div class="post-date">December 21, 2025</div>
+                </div>
+                <div class="post-content">
+                    <h2>how sentence encoders actually work</h2>
+<p>most people think AI understands language the way we do. it doesn't. it converts words into numbers and does math on them.</p>
+<p>here's how that actually works.</p>
+<h3>turning words into vectors</h3>
+<p>a sentence encoder takes your text and outputs a list of numbers—usually 384 to 1024 of them. this list is called an embedding or vector.</p>
+<p>each number represents some learned feature of meaning. not features humans designed, but patterns the model discovered by reading billions of sentences during training.</p>
+<iframe src="/images/posts/sentence-encoder-animation.html" width="100%" height="300" frameborder="0" style="border: none; background: transparent;"></iframe>
+<h3>why this matters for search</h3>
+<p>the magic is that similar meanings land close together in this number space.</p>
+<p>"the dog ran quickly" and "a fast-running canine" produce vectors that are mathematically close, even though they share zero words. "the dog ran quickly" and "quarterly earnings report" are far apart.</p>
+<p>this is how semantic search works. you encode the query, encode your documents, then find the nearest neighbors.</p>
+<iframe src="/images/posts/sentence-encoder-animation.html" width="100%" height="300" frameborder="0" style="border: none; background: transparent;"></iframe>
+<h3>what's happening inside</h3>
+<p>the encoder is usually a transformer model. your sentence gets tokenized into subword pieces, then passes through multiple layers of attention.</p>
+<p>attention lets each token look at every other token and decide what's relevant. "bank" near "river" attends differently than "bank" near "account."</p>
+<p>the final layer pools all this context into one fixed-size vector representing the whole sentence.</p>
+<iframe src="/images/posts/transformer-encoder-animation.html" width="100%" height="300" frameborder="0" style="border: none; background: transparent;"></iframe>
+<h3>the tradeoffs</h3>
+<p>bigger models capture more nuance but cost more to run. smaller models are faster but miss subtlety.</p>
+<p>domain matters too. an encoder trained on legal documents will outperform a general one for legal search, even if it's smaller.</p>
+<p>there's no universal best—just the right fit for your data and latency budget.</p>
+                </div>
+            </div>
+        </div>
+        <div class="footer">me (at) ethan (dot) dev</div>
+    </div>
+</body>
+</html>

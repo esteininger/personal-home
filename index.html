@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="articles.css">
+    <link rel="alternate" type="application/rss+xml" title="ethan - articles" href="/rss.xml">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css">
     <script>
@@ -38,6 +39,11 @@
                     <li><a href="/articles" class="nav-link">Articles</a></li>
                     <li><a href="/album" class="nav-link">Album</a></li>
                 </ul>
+                <div class="rss-link">
+                    <a href="/rss.xml" aria-label="RSS feed" title="RSS feed" target="_blank" rel="noopener">
+                        <i class="fa-solid fa-rss" aria-hidden="true"></i> RSS
+                    </a>
+                </div>
                 <div class="theme-toggle">
                     <div id="theme-toggle" class="theme-switch" role="button" tabindex="0" aria-label="Toggle theme" title="Toggle theme">
                         <i class="fa-solid fa-sun switch-icon sun" aria-hidden="true"></i>
@@ -115,6 +121,11 @@
         <!-- Articles Page -->
         <div id="articles" class="page">
             <!-- <h1>Articles</h1> -->
+            <div id="articles-toolbar" class="articles-toolbar">
+                <a href="/rss.xml" aria-label="RSS feed" title="RSS feed" target="_blank" rel="noopener">
+                    <i class="fa-solid fa-rss" aria-hidden="true"></i> RSS
+                </a>
+            </div>
             <div id="blog-list" class="blog-list">
                 <!-- Blog list will be rendered here -->
             </div>
@@ -331,6 +342,7 @@
         // Function to load blog posts from markdown files
         async function loadBlogPosts() {
             const postFiles = [
+                "posts/encoders.md",
                 'posts/freedom.md',
                 'posts/consolidation.md',
                 'posts/convergence.md',

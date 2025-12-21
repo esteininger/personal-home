@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Transformer Encoder Animation</title>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Syne:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #0a0a0b;
+      font-family: 'Syne', sans-serif;
+      overflow: hidden;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 30px;
+      padding: 40px;
+    }
+
+    /* Stage labels */
+    .stage-label {
+      font-size: 10px;
+      color: #52525b;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-weight: 500;
+      margin-bottom: 8px;
+      opacity: 0;
+    }
+
+    .stage-label.active {
+      animation: labelFade 0.4s ease-out forwards;
+    }
+
+    @keyframes labelFade {
+      to { opacity: 1; }
+    }
+
+    /* Input tokens */
+    .tokens-row {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .token {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      color: #e4e4e7;
+      padding: 8px 12px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 4px;
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+
+    .token.appear {
+      animation: tokenAppear 0.4s ease-out forwards;
+    }
+
+    .token:nth-child(1).appear { animation-delay: 0.1s; }
+    .token:nth-child(2).appear { animation-delay: 0.2s; }
+    .token:nth-child(3).appear { animation-delay: 0.3s; }
+    .token:nth-child(4).appear { animation-delay: 0.4s; }
+    .token:nth-child(5).appear { animation-delay: 0.5s; }
+
+    @keyframes tokenAppear {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Arrow between stages */
+    .arrow-down {
+      color: #3f3f46;
+      font-size: 20px;
+      opacity: 0;
+    }
+
+    .arrow-down.active {
+      animation: arrowFade 0.3s ease-out forwards;
+    }
+
+    @keyframes arrowFade {
+      to { opacity: 1; }
+    }
+
+    /* Transformer layers */
+    .transformer-block {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .layer {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      opacity: 0;
+      transform: scale(0.95);
+    }
+
+    .layer.active {
+      animation: layerAppear 0.5s ease-out forwards;
+    }
+
+    @keyframes layerAppear {
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    .layer-box {
+      display: flex;
+      gap: 6px;
+      padding: 12px 16px;
+      background: rgba(99, 102, 241, 0.08);
+      border: 1px solid rgba(99, 102, 241, 0.2);
+      border-radius: 8px;
+      position: relative;
+    }
+
+    .layer-label {
+      position: absolute;
+      right: -70px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      color: #52525b;
+      white-space: nowrap;
+    }
+
+    .node {
+      width: 32px;
+      height: 32px;
+      border-radius: 6px;
+      background: rgba(99, 102, 241, 0.15);
+      border: 1px solid rgba(99, 102, 241, 0.3);
+      position: relative;
+    }
+
+    /* Attention visualization */
+    .attention-container {
+      position: relative;
+      width: 280px;
+      height: 80px;
+      opacity: 0;
+    }
+
+    .attention-container.active {
+      animation: attentionAppear 0.5s ease-out forwards;
+    }
+
+    @keyframes attentionAppear {
+      to { opacity: 1; }
+    }
+
+    .attention-line {
+      position: absolute;
+      height: 2px;
+      transform-origin: left center;
+      opacity: 0;
+    }
+
+    .attention-line.active {
+      animation: lineDraw 0.4s ease-out forwards;
+    }
+
+    @keyframes lineDraw {
+      to { opacity: 1; }
+    }
+
+    /* Attention lines from "bank" to other tokens */
+    .attn-1 {
+      width: 60px;
+      top: 20px;
+      left: 85px;
+      background: linear-gradient(90deg, rgba(251, 146, 60, 0.8), rgba(251, 146, 60, 0.1));
+      transform: rotate(-25deg);
+      animation-delay: 2.8s !important;
+    }
+
+    .attn-2 {
+      width: 45px;
+      top: 35px;
+      left: 95px;
+      background: linear-gradient(90deg, rgba(251, 146, 60, 0.5), rgba(251, 146, 60, 0.1));
+      transform: rotate(-10deg);
+      animation-delay: 2.9s !important;
+    }
+
+    .attn-3 {
+      width: 50px;
+      top: 45px;
+      left: 95px;
+      background: linear-gradient(90deg, rgba(251, 146, 60, 0.9), rgba(251, 146, 60, 0.1));
+      transform: rotate(15deg);
+      animation-delay: 3.0s !important;
+    }
+
+    .attn-4 {
+      width: 70px;
+      top: 55px;
+      left: 85px;
+      background: linear-gradient(90deg, rgba(251, 146, 60, 0.4), rgba(251, 146, 60, 0.1));
+      transform: rotate(30deg);
+      animation-delay: 3.1s !important;
+    }
+
+    .attention-tokens {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      position: absolute;
+      bottom: 0;
+    }
+
+    .attn-token {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: #71717a;
+      padding: 4px 8px;
+      border-radius: 3px;
+      transition: all 0.3s ease;
+    }
+
+    .attn-token.highlight {
+      color: #fb923c;
+      background: rgba(251, 146, 60, 0.1);
+      border: 1px solid rgba(251, 146, 60, 0.3);
+    }
+
+    .attn-token.source {
+      color: #818cf8;
+      background: rgba(129, 140, 248, 0.1);
+      border: 1px solid rgba(129, 140, 248, 0.3);
+    }
+
+    .attention-note {
+      position: absolute;
+      top: -5px;
+      right: 0;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      color: #52525b;
+      opacity: 0;
+    }
+
+    .attention-note.active {
+      animation: noteFade 0.4s ease-out forwards;
+      animation-delay: 3.3s;
+    }
+
+    @keyframes noteFade {
+      to { opacity: 1; }
+    }
+
+    /* Pooling visualization */
+    .pooling-container {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      opacity: 0;
+    }
+
+    .pooling-container.active {
+      animation: poolingAppear 0.5s ease-out forwards;
+    }
+
+    @keyframes poolingAppear {
+      to { opacity: 1; }
+    }
+
+    .pool-inputs {
+      display: flex;
+      gap: 4px;
+    }
+
+    .pool-node {
+      width: 24px;
+      height: 24px;
+      border-radius: 4px;
+      background: rgba(99, 102, 241, 0.2);
+      border: 1px solid rgba(99, 102, 241, 0.3);
+      opacity: 0;
+    }
+
+    .pool-node.active {
+      animation: poolNodeAppear 0.3s ease-out forwards;
+    }
+
+    .pool-node:nth-child(1).active { animation-delay: 4.2s; }
+    .pool-node:nth-child(2).active { animation-delay: 4.3s; }
+    .pool-node:nth-child(3).active { animation-delay: 4.4s; }
+    .pool-node:nth-child(4).active { animation-delay: 4.5s; }
+    .pool-node:nth-child(5).active { animation-delay: 4.6s; }
+
+    @keyframes poolNodeAppear {
+      to { opacity: 1; }
+    }
+
+    .pool-arrow {
+      color: #3f3f46;
+      font-size: 16px;
+      opacity: 0;
+    }
+
+    .pool-arrow.active {
+      animation: arrowFade 0.3s ease-out forwards;
+      animation-delay: 4.7s;
+    }
+
+    .pool-output {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      opacity: 0;
+    }
+
+    .pool-output.active {
+      animation: outputAppear 0.4s ease-out forwards;
+      animation-delay: 4.9s;
+    }
+
+    @keyframes outputAppear {
+      to { opacity: 1; }
+    }
+
+    .output-num {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      color: #4ade80;
+      padding: 2px 6px;
+      background: rgba(74, 222, 128, 0.1);
+      border: 1px solid rgba(74, 222, 128, 0.2);
+      border-radius: 2px;
+    }
+
+    .output-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      color: #52525b;
+      margin-top: 4px;
+    }
+
+    /* Animation sequencing */
+    .stage-1 .stage-label { animation-delay: 0s; }
+    .stage-1 .arrow-down { animation-delay: 0.8s; }
+
+    .stage-2 .stage-label { animation-delay: 1.0s; }
+    .layer-1 { animation-delay: 1.2s !important; }
+    .layer-2 { animation-delay: 1.5s !important; }
+    .layer-3 { animation-delay: 1.8s !important; }
+    .stage-2 .arrow-down { animation-delay: 2.2s; }
+
+    .stage-3 .stage-label { animation-delay: 2.4s; }
+    .attention-container { animation-delay: 2.6s !important; }
+
+    .stage-4 .stage-label { animation-delay: 3.8s; }
+    .stage-3 .arrow-down { animation-delay: 4.0s; }
+    .pooling-container { animation-delay: 4.1s !important; }
+
+    /* Loop reset */
+    .container {
+      animation: loopReset 8s infinite;
+    }
+
+    @keyframes loopReset {
+      0%, 92% { opacity: 1; }
+      96% { opacity: 0; }
+      100% { opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Stage 1: Input tokens -->
+    <div class="stage stage-1">
+      <div class="stage-label active">tokenization</div>
+      <div class="tokens-row">
+        <div class="token appear">the</div>
+        <div class="token appear">river</div>
+        <div class="token appear">bank</div>
+        <div class="token appear">was</div>
+        <div class="token appear">muddy</div>
+      </div>
+      <div class="arrow-down active">↓</div>
+    </div>
+
+    <!-- Stage 2: Transformer layers -->
+    <div class="stage stage-2">
+      <div class="stage-label active">transformer layers</div>
+      <div class="transformer-block">
+        <div class="layer layer-1 active">
+          <div class="layer-box">
+            <div class="node"></div>
+            <div class="node"></div>
+            <div class="node"></div>
+            <div class="node"></div>
+            <div class="node"></div>
+            <span class="layer-label">layer 1</span>
+          </div>
+        </div>
+        <div class="layer layer-2 active">
+          <div class="layer-box">
+            <div class="node"></div>
+            <div class="node"></div>
+            <div class="node"></div>
+            <div class="node"></div>
+            <div class="node"></div>
+            <span class="layer-label">layer 2</span>
+          </div>
+        </div>
+        <div class="layer layer-3 active">
+          <div class="layer-box">
+            <div class="node"></div>
+            <div class="node"></div>
+            <div class="node"></div>
+            <div class="node"></div>
+            <div class="node"></div>
+            <span class="layer-label">layer n</span>
+          </div>
+        </div>
+      </div>
+      <div class="arrow-down active">↓</div>
+    </div>
+
+    <!-- Stage 3: Attention visualization -->
+    <div class="stage stage-3">
+      <div class="stage-label active">self-attention</div>
+      <div class="attention-container active">
+        <div class="attention-line attn-1 active"></div>
+        <div class="attention-line attn-2 active"></div>
+        <div class="attention-line attn-3 active"></div>
+        <div class="attention-line attn-4 active"></div>
+        <div class="attention-tokens">
+          <span class="attn-token">the</span>
+          <span class="attn-token highlight">river</span>
+          <span class="attn-token source">bank</span>
+          <span class="attn-token">was</span>
+          <span class="attn-token highlight">muddy</span>
+        </div>
+        <span class="attention-note active">"bank" attends to context</span>
+      </div>
+      <div class="arrow-down active" style="animation-delay: 3.6s;">↓</div>
+    </div>
+
+    <!-- Stage 4: Pooling -->
+    <div class="stage stage-4">
+      <div class="stage-label active">mean pooling</div>
+      <div class="pooling-container active">
+        <div class="pool-inputs">
+          <div class="pool-node active"></div>
+          <div class="pool-node active"></div>
+          <div class="pool-node active"></div>
+          <div class="pool-node active"></div>
+          <div class="pool-node active"></div>
+        </div>
+        <span class="pool-arrow active">→</span>
+        <div class="pool-output active">
+          <div class="output-num">0.234</div>
+          <div class="output-num">-0.891</div>
+          <div class="output-num">0.452</div>
+          <div class="output-num">...</div>
+          <span class="output-label">single vector</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
