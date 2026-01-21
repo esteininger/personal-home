@@ -1135,8 +1135,12 @@
 
                         visualizeBtn.textContent = 'Update Map';
                         visualizeBtn.disabled = false;
-                        mapControls.style.display = 'flex';
-                        styleOptions.classList.add('active');
+                        if (mapControls) {
+                            mapControls.style.display = 'flex';
+                        }
+                        if (styleOptions) {
+                            styleOptions.classList.add('active');
+                        }
 
                         // Scroll to map
                         mapContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -1188,41 +1192,53 @@
             }
 
             // Update range value displays
-            pinSize.addEventListener('input', (e) => {
-                pinSizeValue.textContent = e.target.value;
-                updateMapStyles();
-            });
+            if (pinSize && pinSizeValue) {
+                pinSize.addEventListener('input', (e) => {
+                    pinSizeValue.textContent = e.target.value;
+                    updateMapStyles();
+                });
+            }
 
-            routeWidth.addEventListener('input', (e) => {
-                routeWidthValue.textContent = e.target.value;
-                updateMapStyles();
-            });
+            if (routeWidth && routeWidthValue) {
+                routeWidth.addEventListener('input', (e) => {
+                    routeWidthValue.textContent = e.target.value;
+                    updateMapStyles();
+                });
+            }
 
-            routeOpacity.addEventListener('input', (e) => {
-                routeOpacityValue.textContent = e.target.value;
-                updateMapStyles();
-            });
+            if (routeOpacity && routeOpacityValue) {
+                routeOpacity.addEventListener('input', (e) => {
+                    routeOpacityValue.textContent = e.target.value;
+                    updateMapStyles();
+                });
+            }
 
             // Update map when colors change
-            pinColor.addEventListener('input', updateMapStyles);
-            routeColor.addEventListener('input', updateMapStyles);
+            if (pinColor) {
+                pinColor.addEventListener('input', updateMapStyles);
+            }
+            if (routeColor) {
+                routeColor.addEventListener('input', updateMapStyles);
+            }
 
             // Reset styles to default
-            resetStylesBtn.addEventListener('click', () => {
-                pinColor.value = '#ff2d2d';
-                routeColor.value = '#ff2d2d';
-                pinSize.value = '4';
-                pinSizeValue.textContent = '4';
-                routeWidth.value = '2';
-                routeWidthValue.textContent = '2';
-                routeOpacity.value = '60';
-                routeOpacityValue.textContent = '60';
-                exportBgColor.value = '#ffffff';
-                updateMapStyles();
-            });
+            if (resetStylesBtn) {
+                resetStylesBtn.addEventListener('click', () => {
+                    if (pinColor) pinColor.value = '#ff2d2d';
+                    if (routeColor) routeColor.value = '#ff2d2d';
+                    if (pinSize) pinSize.value = '4';
+                    if (pinSizeValue) pinSizeValue.textContent = '4';
+                    if (routeWidth) routeWidth.value = '2';
+                    if (routeWidthValue) routeWidthValue.textContent = '2';
+                    if (routeOpacity) routeOpacity.value = '60';
+                    if (routeOpacityValue) routeOpacityValue.textContent = '60';
+                    if (exportBgColor) exportBgColor.value = '#ffffff';
+                    updateMapStyles();
+                });
+            }
 
             function updateMapStyles() {
-                if (!map) return;
+                if (!map || !pinColor || !pinSize || !routeColor || !routeWidth || !routeOpacity) return;
 
                 const newPinColor = pinColor.value;
                 const newPinSize = parseInt(pinSize.value);
@@ -1231,15 +1247,17 @@
                 const newRouteOpacity = parseInt(routeOpacity.value) / 100;
 
                 // Update all markers
-                markers.forEach(marker => {
-                    marker.setStyle({
-                        radius: newPinSize,
-                        color: newPinColor,
-                        weight: 2,
-                        fillColor: '#ffffff',
-                        fillOpacity: 1
+                if (markers && markers.length > 0) {
+                    markers.forEach(marker => {
+                        marker.setStyle({
+                            radius: newPinSize,
+                            color: newPinColor,
+                            weight: 2,
+                            fillColor: '#ffffff',
+                            fillOpacity: 1
+                        });
                     });
-                });
+                }
 
                 // Update route line
                 if (routeLine) {
@@ -1253,7 +1271,8 @@
 
             // Fullscreen toggle
             let isFullscreen = false;
-            fullscreenBtn.addEventListener('click', () => {
+            if (fullscreenBtn && mapContainer) {
+                fullscreenBtn.addEventListener('click', () => {
                 isFullscreen = !isFullscreen;
                 if (isFullscreen) {
                     mapContainer.classList.add('fullscreen');
@@ -1268,10 +1287,12 @@
                 if (map) {
                     setTimeout(() => map.invalidateSize(), 100);
                 }
-            });
+                });
+            }
 
             // Export map as PNG
-            exportBtn.addEventListener('click', async () => {
+            if (exportBtn && mapContainer) {
+                exportBtn.addEventListener('click', async () => {
                 const originalIcon = exportBtn.innerHTML;
                 exportBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i>';
                 exportBtn.disabled = true;
@@ -1298,11 +1319,12 @@
                     exportBtn.innerHTML = originalIcon;
                     exportBtn.disabled = false;
                 }
-            });
+                });
+            }
 
             // Exit fullscreen on Escape key
             document.addEventListener('keydown', (e) => {
-                if (e.key === 'Escape' && isFullscreen) {
+                if (e.key === 'Escape' && isFullscreen && mapContainer && fullscreenBtn) {
                     isFullscreen = false;
                     mapContainer.classList.remove('fullscreen');
                     fullscreenBtn.innerHTML = '<i class="fa-solid fa-expand"></i>';
