@@ -81,6 +81,18 @@ python3 scripts/python/convert_markdown_to_html.py
 
 5. Commit and push - the site will update automatically on GitHub Pages
 
+## SEO Optimization for New Pages
+
+All pages should follow SEO best practices for search engine and social media discovery. See **[SEO-GUIDE.md](SEO-GUIDE.md)** for:
+
+- Required meta tags (description, Open Graph, Twitter Cards)
+- Canonical URLs
+- Structured data (JSON-LD) for different page types
+- Complete examples for articles, utilities, and main pages
+- SEO checklist and testing tools
+
+The conversion script (`convert_markdown_to_html.py`) automatically includes SEO meta tags when generating article pages from markdown, using frontmatter metadata (title, description, date).
+
 ## Adding New Gallery Images
 
 1. Edit `images/gallery.json` to add new image entries:

@@ -95,7 +95,8 @@ def create_article_html(post_id, metadata, html_content):
     """Generate full HTML page for an article."""
     title = metadata.get('title', 'Untitled')
     date = metadata.get('date', '')
-    
+    description = metadata.get('description', '')
+
     # Format date
     from datetime import datetime
     try:
@@ -103,15 +104,29 @@ def create_article_html(post_id, metadata, html_content):
         formatted_date = date_obj.strftime('%B %d, %Y')
     except:
         formatted_date = date
-    
+
+    # Escape HTML for meta tags
+    title_escaped = html_escape(title)
+    description_escaped = html_escape(description)
+    post_url = f"https://ethan.dev/{post_id}"
+
     template = f'''<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ethan - {post_id}</title>
+    <meta name="description" content="{description_escaped}">
+    <meta property="og:title" content="{title_escaped} - Ethan Steininger">
+    <meta property="og:description" content="{description_escaped}">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="{post_url}">
+    <meta property="article:published_time" content="{date}">
+    <meta property="article:author" content="Ethan Steininger">
     <meta name="twitter:card" content="summary">
-    <meta property="og:type" content="website">
+    <meta name="twitter:title" content="{title_escaped} - Ethan Steininger">
+    <meta name="twitter:description" content="{description_escaped}">
+    <link rel="canonical" href="{post_url}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -129,6 +144,26 @@ def create_article_html(post_id, metadata, html_content):
                 }}
             }} catch (e) {{ /* noop */ }}
         }})();
+    </script>
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
+    <script type="application/ld+json">
+    {{
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "{title_escaped}",
+        "description": "{description_escaped}",
+        "datePublished": "{date}",
+        "author": {{
+            "@type": "Person",
+            "name": "Ethan Steininger",
+            "url": "https://ethan.dev"
+        }},
+        "publisher": {{
+            "@type": "Person",
+            "name": "Ethan Steininger"
+        }},
+        "url": "{post_url}"
+    }}
     </script>
 </head>
 <body>
