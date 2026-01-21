@@ -492,6 +492,17 @@
             .map-container {
                 height: 400px;
             }
+
+            .map-controls {
+                top: 5px;
+                right: 5px;
+                gap: 0.25rem;
+            }
+
+            .map-control-btn {
+                padding: 0.5rem 0.7rem;
+                font-size: 0.9rem;
+            }
         }
     </style>
     <script>
@@ -582,7 +593,16 @@
                     </div>
                 </div>
 
-                <div class="map-container" id="mapContainer"></div>
+                <div class="map-container" id="mapContainer">
+                    <div class="map-controls" id="mapControls" style="display: none;">
+                        <button class="map-control-btn" id="fullscreenBtn" title="Toggle fullscreen">
+                            <i class="fa-solid fa-expand"></i>
+                        </button>
+                        <button class="map-control-btn" id="exportBtn" title="Export as PNG">
+                            <i class="fa-solid fa-download"></i>
+                        </button>
+                    </div>
+                </div>
 
                 <div class="style-options" id="styleOptions">
                     <div class="style-accordion" id="styleAccordion">
@@ -641,7 +661,7 @@
                         <li><strong>Filter by date:</strong> Optionally specify a date range to focus on specific time periods in your location history.</li>
                         <li><strong>Visualize:</strong> Click "Visualize on Map" to see your location data with interactive pins and route lines.</li>
                         <li><strong>Customize:</strong> Optionally adjust map colors, pin sizes, and route styling in the "Map Style Options" section.</li>
-                        <li><strong>Export:</strong> Save your map visualization as a PNG image using the "Export Map as PNG" button.</li>
+                        <li><strong>Export & Fullscreen:</strong> Use the controls in the top-right corner of the map to toggle fullscreen view or export as PNG.</li>
                         <li><strong>100% private:</strong> All data processing happens in your browser. Your location history never leaves your device.</li>
                     </ol>
                 </div>
@@ -652,7 +672,7 @@
     </div>
 
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dom-to-image/2.6.0/dom-to-image.min.js"></script>
     <script>
         (function() {
             const root = document.documentElement;
@@ -726,9 +746,11 @@
             const endDate = document.getElementById('endDate');
             const filterStats = document.getElementById('filterStats');
             const visualizeBtn = document.getElementById('visualizeBtn');
-            const exportBtn = document.getElementById('exportBtn');
             const errorMessage = document.getElementById('errorMessage');
             const mapContainer = document.getElementById('mapContainer');
+            const mapControls = document.getElementById('mapControls');
+            const fullscreenBtn = document.getElementById('fullscreenBtn');
+            const exportBtn = document.getElementById('exportBtn');
             const mapStats = document.getElementById('mapStats');
             const totalPoints = document.getElementById('totalPoints');
             const dateRange = document.getElementById('dateRange');
@@ -1113,7 +1135,7 @@
 
                         visualizeBtn.textContent = 'Update Map';
                         visualizeBtn.disabled = false;
-                        exportBtn.style.display = 'block';
+                        mapControls.style.display = 'flex';
                         styleOptions.classList.add('active');
 
                         // Scroll to map
@@ -1158,9 +1180,12 @@
             visualizeBtn.addEventListener('click', visualizeData);
 
             // Style accordion toggle
-            styleAccordion.querySelector('.style-accordion-header').addEventListener('click', () => {
-                styleAccordion.classList.toggle('open');
-            });
+            const accordionHeader = styleAccordion?.querySelector('.style-accordion-header');
+            if (accordionHeader) {
+                accordionHeader.addEventListener('click', () => {
+                    styleAccordion.classList.toggle('open');
+                });
+            }
 
             // Update range value displays
             pinSize.addEventListener('input', (e) => {
@@ -1226,35 +1251,65 @@
                 }
             }
 
+            // Fullscreen toggle
+            let isFullscreen = false;
+            fullscreenBtn.addEventListener('click', () => {
+                isFullscreen = !isFullscreen;
+                if (isFullscreen) {
+                    mapContainer.classList.add('fullscreen');
+                    fullscreenBtn.innerHTML = '<i class="fa-solid fa-compress"></i>';
+                    fullscreenBtn.title = 'Exit fullscreen';
+                } else {
+                    mapContainer.classList.remove('fullscreen');
+                    fullscreenBtn.innerHTML = '<i class="fa-solid fa-expand"></i>';
+                    fullscreenBtn.title = 'Toggle fullscreen';
+                }
+                // Trigger map resize to ensure proper rendering
+                if (map) {
+                    setTimeout(() => map.invalidateSize(), 100);
+                }
+            });
+
+            // Export map as PNG
             exportBtn.addEventListener('click', async () => {
-                exportBtn.textContent = 'Generating image...';
+                const originalIcon = exportBtn.innerHTML;
+                exportBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i>';
                 exportBtn.disabled = true;
 
                 try {
-                    // Use html2canvas to capture the map
-                    const canvas = await html2canvas(mapContainer, {
-                        useCORS: true,
-                        allowTaint: true,
-                        backgroundColor: exportBgColor.value
+                    // Use dom-to-image to capture the map (better handling of CSS transforms)
+                    const dataUrl = await domtoimage.toPng(mapContainer, {
+                        bgcolor: exportBgColor.value,
+                        quality: 1.0,
+                        cacheBust: true
                     });
 
-                    // Convert to blob and download
-                    canvas.toBlob((blob) => {
-                        const url = URL.createObjectURL(blob);
-                        const link = document.createElement('a');
-                        link.download = `location-history-${new Date().toISOString().split('T')[0]}.png`;
-                        link.href = url;
-                        link.click();
-                        URL.revokeObjectURL(url);
+                    // Download the image
+                    const link = document.createElement('a');
+                    link.download = `location-history-${new Date().toISOString().split('T')[0]}.png`;
+                    link.href = dataUrl;
+                    link.click();
 
-                        exportBtn.textContent = 'Export Map as PNG';
-                        exportBtn.disabled = false;
-                    });
+                    exportBtn.innerHTML = originalIcon;
+                    exportBtn.disabled = false;
                 } catch (error) {
                     console.error('Error exporting map:', error);
                     showError('Failed to export map. Please try again.');
-                    exportBtn.textContent = 'Export Map as PNG';
+                    exportBtn.innerHTML = originalIcon;
                     exportBtn.disabled = false;
+                }
+            });
+
+            // Exit fullscreen on Escape key
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && isFullscreen) {
+                    isFullscreen = false;
+                    mapContainer.classList.remove('fullscreen');
+                    fullscreenBtn.innerHTML = '<i class="fa-solid fa-expand"></i>';
+                    fullscreenBtn.title = 'Toggle fullscreen';
+                    if (map) {
+                        setTimeout(() => map.invalidateSize(), 100);
+                    }
                 }
             });
         })();

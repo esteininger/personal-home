@@ -5,8 +5,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ethan - about</title>
-    <meta name="twitter:card" content="summary">
+    <meta name="description" content="Ethan Steininger builds Mixpeek, infrastructure for making video, image, audio, and text searchable. Building AI-powered tools and living the van life.">
+    <meta property="og:title" content="ethan - about">
+    <meta property="og:description" content="Ethan Steininger builds Mixpeek, infrastructure for making video, image, audio, and text searchable. Building AI-powered tools and living the van life.">
     <meta property="og:type" content="website">
+    <meta property="og:url" content="https://ethan.dev/about">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="ethan - about">
+    <meta name="twitter:description" content="Ethan Steininger builds Mixpeek, infrastructure for making video, image, audio, and text searchable. Building AI-powered tools and living the van life.">
+    <link rel="canonical" href="https://ethan.dev/about">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -28,6 +35,31 @@
         })();
     </script>
     <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Ethan Steininger",
+        "url": "https://ethan.dev",
+        "image": "https://ethan.dev/images/ethan.jpeg",
+        "sameAs": [
+            "https://github.com/esteininger",
+            "https://www.linkedin.com/in/ethansteininger/",
+            "https://x.com/ethansteininger",
+            "https://www.instagram.com/vanlifecoder/",
+            "https://www.youtube.com/@vanlifecoder",
+            "https://www.tiktok.com/@vanlifecoder"
+        ],
+        "jobTitle": "Founder",
+        "worksFor": {
+            "@type": "Organization",
+            "name": "Mixpeek",
+            "url": "https://mixpeek.com"
+        },
+        "knowsAbout": ["Software Engineering", "AI", "Multimodal Search", "Van Life"],
+        "description": "Building Mixpeek — infrastructure for making video, image, audio, and text searchable. Also built Modo, an AI-powered hardware design tool."
+    }
+    </script>
 </head>
 
 <body>
@@ -349,10 +381,22 @@
 
         function metaForPageId(pageId) {
             if (pageId === 'articles') {
-                return { title: 'ethan - articles', ogType: 'website', twitterCard: 'summary' };
+                return {
+                    title: 'ethan - articles',
+                    description: 'Long-form essays and analysis on software engineering, geopolitics, AI, and technology by Ethan Steininger.',
+                    canonical: 'https://ethan.dev/articles',
+                    ogType: 'website',
+                    twitterCard: 'summary'
+                };
             }
             if (pageId === 'album') {
-                return { title: 'ethan - albums', ogType: 'website', twitterCard: 'summary' };
+                return {
+                    title: 'ethan - album',
+                    description: 'Photo journal from van life adventures, alpine lakes, and outdoor explorations. View location-tagged photos on an interactive map.',
+                    canonical: 'https://ethan.dev/album',
+                    ogType: 'website',
+                    twitterCard: 'summary'
+                };
             }
             if (pageId === 'utilities') {
                 if (utilitiesData && utilitiesData.page) {
@@ -368,7 +412,13 @@
                 return { title: 'ethan - utilities', ogType: 'website', twitterCard: 'summary' };
             }
             // default/about
-            return { title: 'ethan - about', ogType: 'website', twitterCard: 'summary' };
+            return {
+                title: 'ethan - about',
+                description: 'Ethan Steininger builds Mixpeek, infrastructure for making video, image, audio, and text searchable. Building AI-powered tools and living the van life.',
+                canonical: 'https://ethan.dev/about',
+                ogType: 'website',
+                twitterCard: 'summary'
+            };
         }
 
         // Blog posts data - will be loaded from markdown files
