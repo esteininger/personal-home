@@ -5,14 +5,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Location History Visualizer - ethan.dev</title>
-    <meta name="description" content="Visualize your Google location history data on an interactive map. Supports exports from Google Maps app and Google Takeout. See your journey with pins and route lines, all processed locally in your browser.">
+    <meta name="description" content="Visualize your Google location history data on customizable interactive maps. Choose from 8 map styles, toggle features like grid overlays and scale bars, customize colors and routes. Supports Google Maps app and Takeout exports, all processed locally.">
     <meta property="og:type" content="website">
     <meta property="og:title" content="Location History Visualizer - ethan.dev">
-    <meta property="og:description" content="Visualize your Google location history data on an interactive map. Supports exports from Google Maps app and Google Takeout. See your journey with pins and route lines, all processed locally in your browser.">
+    <meta property="og:description" content="Visualize your Google location history data on customizable interactive maps. Choose from 8 map styles, toggle features like grid overlays and scale bars, customize colors and routes. Supports Google Maps app and Takeout exports, all processed locally.">
     <meta property="og:url" content="https://ethan.dev/utilities/location-history-visualizer">
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="Location History Visualizer - ethan.dev">
-    <meta name="twitter:description" content="Visualize your Google location history data on an interactive map. Supports exports from Google Maps app and Google Takeout. See your journey with pins and route lines, all processed locally in your browser.">
+    <meta name="twitter:description" content="Visualize your Google location history data on customizable interactive maps. Choose from 8 map styles, toggle features like grid overlays and scale bars, customize colors and routes. Supports Google Maps app and Takeout exports, all processed locally.">
     <link rel="canonical" href="https://ethan.dev/utilities/location-history-visualizer">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -26,7 +26,7 @@
         "@context": "https://schema.org",
         "@type": "SoftwareApplication",
         "name": "Location History Visualizer",
-        "description": "Visualize your Google location history on an interactive map. Supports exports from Google Maps app and Google Takeout. See your journey with location pins and route lines, all processed locally.",
+        "description": "Visualize your Google location history on customizable interactive maps. Choose from 8 map styles, toggle features like grid overlays and scale bars, customize colors and routes. Supports Google Maps app and Takeout exports, all processed locally.",
         "applicationCategory": "Maps",
         "operatingSystem": "Any modern browser",
         "offers": {
@@ -409,11 +409,111 @@
         }
 
         .style-accordion.open .style-accordion-content {
-            max-height: 500px;
+            max-height: 800px;
         }
 
         .style-accordion-body {
             padding: 0 1.5rem 1.5rem 1.5rem;
+        }
+
+        .style-section {
+            margin-bottom: 1.5rem;
+        }
+
+        .style-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .style-section h4 {
+            font-size: 0.85rem;
+            color: var(--text);
+            margin: 0 0 0.75rem 0;
+            font-family: var(--font-headings);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            opacity: 0.7;
+        }
+
+        .style-control select {
+            width: 100%;
+            padding: 0.6rem 0.75rem;
+            background: var(--bg);
+            color: var(--text);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            font-size: 1rem;
+            font-family: inherit;
+            cursor: pointer;
+        }
+
+        .style-control select option {
+            background: var(--bg);
+            color: var(--text);
+        }
+
+        .toggle-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 0.75rem;
+        }
+
+        .toggle-control {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.6rem 0.75rem;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .toggle-control:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .toggle-control label {
+            color: var(--text-dim);
+            font-size: 0.9rem;
+            cursor: pointer;
+            user-select: none;
+            margin: 0;
+        }
+
+        .toggle-switch {
+            position: relative;
+            width: 40px;
+            height: 22px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 11px;
+            transition: background 0.3s;
+            flex-shrink: 0;
+        }
+
+        .toggle-control input[type="checkbox"] {
+            display: none;
+        }
+
+        .toggle-control input[type="checkbox"]:checked + .toggle-switch {
+            background: var(--accent);
+        }
+
+        .toggle-switch::after {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 18px;
+            height: 18px;
+            background: white;
+            border-radius: 50%;
+            transition: transform 0.3s;
+        }
+
+        .toggle-control input[type="checkbox"]:checked + .toggle-switch::after {
+            transform: translateX(18px);
         }
 
         .style-grid {
@@ -544,7 +644,7 @@
             <div class="converter-container">
                 <div class="converter-header">
                     <h1>Location History Visualizer</h1>
-                    <p>Upload your Google location history files and visualize your journey on an interactive map. Supports exports from Google Maps app (Timeline) and older Google Takeout files. See location pins, route lines, and filter by date range. All processing happens locally in your browser.</p>
+                    <p>Upload your Google location history files and visualize your journey on a fully customizable interactive map. Choose from 8 map styles (satellite, terrain, dark mode, etc.), toggle features like grid overlays and scale bars, and customize colors and routes to your preference. Supports exports from Google Maps app (Timeline) and older Google Takeout files. All processing happens locally in your browser.</p>
                 </div>
 
                 <label class="upload-area" id="dropArea">
@@ -612,36 +712,113 @@
                         </div>
                         <div class="style-accordion-content">
                             <div class="style-accordion-body">
-                                <div class="style-grid">
+                                <div class="style-section">
+                                    <h4>Map Base Layer</h4>
                                     <div class="style-control">
-                                        <label for="pinColor">Pin Color</label>
-                                        <input type="color" id="pinColor" value="#ff2d2d">
+                                        <label for="baseLayer">Map Style</label>
+                                        <select id="baseLayer">
+                                            <option value="osm">OpenStreetMap (Default)</option>
+                                            <option value="osm-hot">OpenStreetMap HOT</option>
+                                            <option value="topo">Topographic</option>
+                                            <option value="satellite">Satellite (Esri)</option>
+                                            <option value="dark">Dark Mode</option>
+                                            <option value="light">Light (CartoDB)</option>
+                                            <option value="terrain">Terrain (Stamen)</option>
+                                            <option value="watercolor">Watercolor (Stamen)</option>
+                                        </select>
                                     </div>
-                                    <div class="style-control">
-                                        <label for="routeColor">Route Line Color</label>
-                                        <input type="color" id="routeColor" value="#ff2d2d">
+                                </div>
+
+                                <div class="style-section">
+                                    <h4>Map Features</h4>
+                                    <div class="toggle-group">
+                                        <div class="toggle-control">
+                                            <label for="showPins">Location Pins</label>
+                                            <input type="checkbox" id="showPins" checked>
+                                            <div class="toggle-switch"></div>
+                                        </div>
+                                        <div class="toggle-control">
+                                            <label for="showRoute">Route Lines</label>
+                                            <input type="checkbox" id="showRoute" checked>
+                                            <div class="toggle-switch"></div>
+                                        </div>
+                                        <div class="toggle-control">
+                                            <label for="showGrid">Grid Overlay</label>
+                                            <input type="checkbox" id="showGrid">
+                                            <div class="toggle-switch"></div>
+                                        </div>
+                                        <div class="toggle-control">
+                                            <label for="showScale">Scale Bar</label>
+                                            <input type="checkbox" id="showScale">
+                                            <div class="toggle-switch"></div>
+                                        </div>
                                     </div>
-                                    <div class="style-control">
-                                        <label for="pinSize">Pin Size</label>
-                                        <input type="range" id="pinSize" min="2" max="10" value="4" step="1">
-                                        <div class="range-value"><span id="pinSizeValue">4</span>px</div>
+                                </div>
+
+                                <div class="style-section">
+                                    <h4>Pin Styling</h4>
+                                    <div class="style-grid">
+                                        <div class="style-control">
+                                            <label for="pinColor">Pin Color</label>
+                                            <input type="color" id="pinColor" value="#ff2d2d">
+                                        </div>
+                                        <div class="style-control">
+                                            <label for="pinSize">Pin Size</label>
+                                            <input type="range" id="pinSize" min="2" max="10" value="4" step="1">
+                                            <div class="range-value"><span id="pinSizeValue">4</span>px</div>
+                                        </div>
                                     </div>
-                                    <div class="style-control">
-                                        <label for="routeWidth">Route Line Width</label>
-                                        <input type="range" id="routeWidth" min="1" max="6" value="2" step="0.5">
-                                        <div class="range-value"><span id="routeWidthValue">2</span>px</div>
+                                </div>
+
+                                <div class="style-section">
+                                    <h4>Route Styling</h4>
+                                    <div class="style-grid">
+                                        <div class="style-control">
+                                            <label for="routeColor">Route Line Color</label>
+                                            <input type="color" id="routeColor" value="#ff2d2d">
+                                        </div>
+                                        <div class="style-control">
+                                            <label for="routeWidth">Route Line Width</label>
+                                            <input type="range" id="routeWidth" min="1" max="6" value="2" step="0.5">
+                                            <div class="range-value"><span id="routeWidthValue">2</span>px</div>
+                                        </div>
+                                        <div class="style-control">
+                                            <label for="routeOpacity">Route Line Opacity</label>
+                                            <input type="range" id="routeOpacity" min="0" max="100" value="60" step="5">
+                                            <div class="range-value"><span id="routeOpacityValue">60</span>%</div>
+                                        </div>
                                     </div>
-                                    <div class="style-control">
-                                        <label for="routeOpacity">Route Line Opacity</label>
-                                        <input type="range" id="routeOpacity" min="0" max="100" value="60" step="5">
-                                        <div class="range-value"><span id="routeOpacityValue">60</span>%</div>
+                                </div>
+
+                                <div class="style-section">
+                                    <h4>Grid Overlay Settings</h4>
+                                    <div class="style-grid">
+                                        <div class="style-control">
+                                            <label for="gridColor">Grid Color</label>
+                                            <input type="color" id="gridColor" value="#00ff00">
+                                        </div>
+                                        <div class="style-control">
+                                            <label for="gridOpacity">Grid Opacity</label>
+                                            <input type="range" id="gridOpacity" min="0" max="100" value="30" step="5">
+                                            <div class="range-value"><span id="gridOpacityValue">30</span>%</div>
+                                        </div>
+                                        <div class="style-control">
+                                            <label for="gridWeight">Grid Line Weight</label>
+                                            <input type="range" id="gridWeight" min="1" max="4" value="1" step="0.5">
+                                            <div class="range-value"><span id="gridWeightValue">1</span>px</div>
+                                        </div>
                                     </div>
+                                </div>
+
+                                <div class="style-section">
+                                    <h4>Export Settings</h4>
                                     <div class="style-control">
                                         <label for="exportBgColor">Export Background Color</label>
                                         <input type="color" id="exportBgColor" value="#ffffff">
                                     </div>
                                 </div>
-                                <button class="reset-styles-btn" id="resetStylesBtn">Reset to Default</button>
+
+                                <button class="reset-styles-btn" id="resetStylesBtn">Reset All to Default</button>
                             </div>
                         </div>
                     </div>
@@ -660,7 +837,14 @@
                         <li><strong>Upload files:</strong> You can upload multiple JSON files at once. Supports location-history.json (Google Maps app export), Records.json (raw location data), and Semantic Location History files (monthly files like 2024_JANUARY.json).</li>
                         <li><strong>Filter by date:</strong> Optionally specify a date range to focus on specific time periods in your location history.</li>
                         <li><strong>Visualize:</strong> Click "Visualize on Map" to see your location data with interactive pins and route lines.</li>
-                        <li><strong>Customize:</strong> Optionally adjust map colors, pin sizes, and route styling in the "Map Style Options" section.</li>
+                        <li><strong>Customize:</strong> Expand "Map Style Options" to:
+                            <ul>
+                                <li>Choose from 8 different map styles (satellite, terrain, dark mode, etc.)</li>
+                                <li>Toggle map features (pins, routes, grid overlay, scale bar)</li>
+                                <li>Customize colors, sizes, and opacity for pins and routes</li>
+                                <li>Configure grid overlay appearance and density</li>
+                            </ul>
+                        </li>
                         <li><strong>Export & Fullscreen:</strong> Use the controls in the top-right corner of the map to toggle fullscreen view or export as PNG.</li>
                         <li><strong>100% private:</strong> All data processing happens in your browser. Your location history never leaves your device.</li>
                     </ol>
@@ -767,11 +951,24 @@
             const routeOpacityValue = document.getElementById('routeOpacityValue');
             const exportBgColor = document.getElementById('exportBgColor');
             const resetStylesBtn = document.getElementById('resetStylesBtn');
+            const baseLayer = document.getElementById('baseLayer');
+            const showPins = document.getElementById('showPins');
+            const showRoute = document.getElementById('showRoute');
+            const showGrid = document.getElementById('showGrid');
+            const showScale = document.getElementById('showScale');
+            const gridColor = document.getElementById('gridColor');
+            const gridOpacity = document.getElementById('gridOpacity');
+            const gridOpacityValue = document.getElementById('gridOpacityValue');
+            const gridWeight = document.getElementById('gridWeight');
+            const gridWeightValue = document.getElementById('gridWeightValue');
 
             let loadedData = [];
             let map = null;
             let markers = [];
             let routeLine = null;
+            let currentTileLayer = null;
+            let gridLayer = null;
+            let scaleControl = null;
 
             function showError(message) {
                 if (message) {
@@ -780,6 +977,153 @@
                 } else {
                     errorMessage.textContent = '';
                     errorMessage.classList.remove('active');
+                }
+            }
+
+            function getTileLayerConfig(layerType) {
+                const configs = {
+                    osm: {
+                        url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+                        attribution: '&copy; OpenStreetMap contributors'
+                    },
+                    'osm-hot': {
+                        url: 'https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png',
+                        attribution: '&copy; OpenStreetMap contributors, Tiles style by Humanitarian OpenStreetMap Team'
+                    },
+                    topo: {
+                        url: 'https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png',
+                        attribution: '&copy; OpenStreetMap contributors, SRTM | Map style: &copy; OpenTopoMap'
+                    },
+                    satellite: {
+                        url: 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
+                        attribution: '&copy; Esri, Maxar, Earthstar Geographics'
+                    },
+                    dark: {
+                        url: 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',
+                        attribution: '&copy; OpenStreetMap contributors, &copy; CARTO'
+                    },
+                    light: {
+                        url: 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',
+                        attribution: '&copy; OpenStreetMap contributors, &copy; CARTO'
+                    },
+                    terrain: {
+                        url: 'https://tiles.stadiamaps.com/tiles/stamen_terrain/{z}/{x}/{y}{r}.png',
+                        attribution: '&copy; Stamen Design, &copy; OpenStreetMap contributors'
+                    },
+                    watercolor: {
+                        url: 'https://tiles.stadiamaps.com/tiles/stamen_watercolor/{z}/{x}/{y}.jpg',
+                        attribution: '&copy; Stamen Design, &copy; OpenStreetMap contributors'
+                    }
+                };
+                return configs[layerType] || configs.osm;
+            }
+
+            function updateTileLayer() {
+                if (!map || !baseLayer) return;
+
+                const config = getTileLayerConfig(baseLayer.value);
+
+                if (currentTileLayer) {
+                    map.removeLayer(currentTileLayer);
+                }
+
+                currentTileLayer = L.tileLayer(config.url, {
+                    attribution: config.attribution,
+                    maxZoom: 19
+                }).addTo(map);
+            }
+
+            function createGridOverlay() {
+                if (!map) return;
+
+                // Remove existing grid if any
+                if (gridLayer) {
+                    map.removeLayer(gridLayer);
+                    gridLayer = null;
+                }
+
+                if (!showGrid.checked) return;
+
+                const bounds = map.getBounds();
+                const lines = [];
+
+                // Get current zoom level to adjust grid density
+                const zoom = map.getZoom();
+                const step = zoom > 10 ? 0.01 : zoom > 5 ? 0.1 : 1;
+
+                // Create vertical lines (longitude)
+                for (let lng = Math.floor(bounds.getWest() / step) * step; lng <= bounds.getEast(); lng += step) {
+                    lines.push([
+                        [bounds.getSouth(), lng],
+                        [bounds.getNorth(), lng]
+                    ]);
+                }
+
+                // Create horizontal lines (latitude)
+                for (let lat = Math.floor(bounds.getSouth() / step) * step; lat <= bounds.getNorth(); lat += step) {
+                    lines.push([
+                        [lat, bounds.getWest()],
+                        [lat, bounds.getEast()]
+                    ]);
+                }
+
+                // Create polylines for grid
+                const gridPolylines = lines.map(line =>
+                    L.polyline(line, {
+                        color: gridColor.value,
+                        weight: parseFloat(gridWeight.value),
+                        opacity: parseInt(gridOpacity.value) / 100,
+                        interactive: false
+                    })
+                );
+
+                gridLayer = L.layerGroup(gridPolylines).addTo(map);
+            }
+
+            function updateScaleControl() {
+                if (!map) return;
+
+                if (scaleControl) {
+                    map.removeControl(scaleControl);
+                    scaleControl = null;
+                }
+
+                if (showScale.checked) {
+                    scaleControl = L.control.scale({
+                        position: 'bottomleft',
+                        imperial: true,
+                        metric: true
+                    }).addTo(map);
+                }
+            }
+
+            function updatePinsVisibility() {
+                if (!markers || markers.length === 0) return;
+
+                markers.forEach(marker => {
+                    if (showPins.checked) {
+                        if (!map.hasLayer(marker)) {
+                            marker.addTo(map);
+                        }
+                    } else {
+                        if (map.hasLayer(marker)) {
+                            map.removeLayer(marker);
+                        }
+                    }
+                });
+            }
+
+            function updateRouteVisibility() {
+                if (!routeLine) return;
+
+                if (showRoute.checked) {
+                    if (!map.hasLayer(routeLine)) {
+                        routeLine.addTo(map);
+                    }
+                } else {
+                    if (map.hasLayer(routeLine)) {
+                        map.removeLayer(routeLine);
+                    }
                 }
             }
 
@@ -1044,15 +1388,38 @@
                 mapStats.classList.add('active');
 
                 map = L.map('mapContainer');
-                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                    attribution: '&copy; OpenStreetMap contributors'
+
+                // Use selected tile layer
+                const config = getTileLayerConfig(baseLayer.value);
+                currentTileLayer = L.tileLayer(config.url, {
+                    attribution: config.attribution,
+                    maxZoom: 19
                 }).addTo(map);
+
+                // Initialize scale control if enabled
+                updateScaleControl();
+
+                // Add event listeners for grid updates
+                map.on('moveend', () => {
+                    if (showGrid.checked) {
+                        createGridOverlay();
+                    }
+                });
+
+                map.on('zoomend', () => {
+                    if (showGrid.checked) {
+                        createGridOverlay();
+                    }
+                });
 
                 // Clear existing markers and route
                 markers = [];
                 if (routeLine) {
                     routeLine.remove();
                     routeLine = null;
+                }
+                if (gridLayer) {
+                    gridLayer = null;
                 }
             }
 
@@ -1142,6 +1509,11 @@
                             styleOptions.classList.add('active');
                         }
 
+                        // Initialize grid overlay if enabled
+                        if (showGrid.checked) {
+                            createGridOverlay();
+                        }
+
                         // Scroll to map
                         mapContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
                     } catch (e) {
@@ -1224,6 +1596,7 @@
             // Reset styles to default
             if (resetStylesBtn) {
                 resetStylesBtn.addEventListener('click', () => {
+                    if (baseLayer) baseLayer.value = 'osm';
                     if (pinColor) pinColor.value = '#ff2d2d';
                     if (routeColor) routeColor.value = '#ff2d2d';
                     if (pinSize) pinSize.value = '4';
@@ -1232,8 +1605,63 @@
                     if (routeWidthValue) routeWidthValue.textContent = '2';
                     if (routeOpacity) routeOpacity.value = '60';
                     if (routeOpacityValue) routeOpacityValue.textContent = '60';
+                    if (gridColor) gridColor.value = '#00ff00';
+                    if (gridOpacity) gridOpacity.value = '30';
+                    if (gridOpacityValue) gridOpacityValue.textContent = '30';
+                    if (gridWeight) gridWeight.value = '1';
+                    if (gridWeightValue) gridWeightValue.textContent = '1';
                     if (exportBgColor) exportBgColor.value = '#ffffff';
+                    if (showPins) showPins.checked = true;
+                    if (showRoute) showRoute.checked = true;
+                    if (showGrid) showGrid.checked = false;
+                    if (showScale) showScale.checked = false;
+                    updateTileLayer();
                     updateMapStyles();
+                    updatePinsVisibility();
+                    updateRouteVisibility();
+                    createGridOverlay();
+                    updateScaleControl();
+                });
+            }
+
+            // Base layer change
+            if (baseLayer) {
+                baseLayer.addEventListener('change', updateTileLayer);
+            }
+
+            // Map feature toggles
+            if (showPins) {
+                showPins.addEventListener('change', updatePinsVisibility);
+            }
+
+            if (showRoute) {
+                showRoute.addEventListener('change', updateRouteVisibility);
+            }
+
+            if (showGrid) {
+                showGrid.addEventListener('change', createGridOverlay);
+            }
+
+            if (showScale) {
+                showScale.addEventListener('change', updateScaleControl);
+            }
+
+            // Grid style controls
+            if (gridColor) {
+                gridColor.addEventListener('input', createGridOverlay);
+            }
+
+            if (gridOpacity && gridOpacityValue) {
+                gridOpacity.addEventListener('input', (e) => {
+                    gridOpacityValue.textContent = e.target.value;
+                    createGridOverlay();
+                });
+            }
+
+            if (gridWeight && gridWeightValue) {
+                gridWeight.addEventListener('input', (e) => {
+                    gridWeightValue.textContent = e.target.value;
+                    createGridOverlay();
                 });
             }
 
