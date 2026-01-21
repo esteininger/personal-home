@@ -61,6 +61,31 @@
           "priceCurrency": "USD"
         }
       }
+    },
+    {
+      "slug": "location-history-visualizer",
+      "name": "Location History Visualizer",
+      "shortDescription": "Visualize your Google location history (exported from Google Maps or Google Takeout) on an interactive map with pins, route lines, and date range filtering.",
+      "teaser": "Upload your Google location history and see your journey visualized on an interactive map with location pins and route lines. Supports exports from Google Maps app and Google Takeout.",
+      "detailIntro": "Visualize your Google location history on an interactive map. Export your Timeline data from the Google Maps app (Settings > Location > Export Timeline data) or use older Google Takeout files. Filter by date range and explore your journey with location pins and route lines. All processing happens locally in your browser.",
+      "tags": ["Maps", "Location", "Privacy"],
+      "meta": {
+        "title": "Location History Visualizer - ethan.dev",
+        "description": "Visualize your Google Takeout location history on an interactive map. See your journey with pins and route lines, filter by date range. Completely private and client-side.",
+        "canonical": "https://ethan.dev/utilities/location-history-visualizer",
+        "twitterCard": "summary",
+        "ogType": "website"
+      },
+      "schema": {
+        "@type": "SoftwareApplication",
+        "applicationCategory": "Maps",
+        "operatingSystem": "Any modern browser",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        }
+      }
     }
   ]
 }

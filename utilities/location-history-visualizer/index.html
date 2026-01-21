@@ -1,0 +1,1264 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Location History Visualizer - ethan.dev</title>
+    <meta name="description" content="Visualize your Google location history data on an interactive map. Supports exports from Google Maps app and Google Takeout. See your journey with pins and route lines, all processed locally in your browser.">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Location History Visualizer - ethan.dev">
+    <meta property="og:description" content="Visualize your Google location history data on an interactive map. Supports exports from Google Maps app and Google Takeout. See your journey with pins and route lines, all processed locally in your browser.">
+    <meta property="og:url" content="https://ethan.dev/utilities/location-history-visualizer">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Location History Visualizer - ethan.dev">
+    <meta name="twitter:description" content="Visualize your Google location history data on an interactive map. Supports exports from Google Maps app and Google Takeout. See your journey with pins and route lines, all processed locally in your browser.">
+    <link rel="canonical" href="https://ethan.dev/utilities/location-history-visualizer">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+    <link rel="stylesheet" href="../../styles.css">
+    <link rel="stylesheet" href="../../utilities.css">
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "Location History Visualizer",
+        "description": "Visualize your Google location history on an interactive map. Supports exports from Google Maps app and Google Takeout. See your journey with location pins and route lines, all processed locally.",
+        "applicationCategory": "Maps",
+        "operatingSystem": "Any modern browser",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        },
+        "url": "https://ethan.dev/utilities/location-history-visualizer"
+    }
+    </script>
+    <style>
+        .converter-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .converter-header {
+            margin-bottom: 2rem;
+        }
+
+        .converter-header h1 {
+            font-size: 2rem;
+            font-family: var(--font-headings);
+            margin-bottom: 0.5rem;
+        }
+
+        .converter-header p {
+            color: var(--text-dim);
+            line-height: 1.6;
+        }
+
+        .upload-area {
+            display: block;
+            width: 100%;
+            box-sizing: border-box;
+            border: 2px dashed var(--border);
+            border-radius: 8px;
+            padding: 3rem 2rem;
+            text-align: center;
+            margin-bottom: 2rem;
+            transition: all 0.3s;
+            cursor: pointer;
+            background: var(--bg);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .upload-area:hover,
+        .upload-area.drag-over {
+            border-color: var(--accent);
+            background: rgba(255, 255, 255, 0.03);
+        }
+
+        .upload-icon {
+            font-size: 3rem;
+            color: var(--text-dim);
+            margin-bottom: 1rem;
+        }
+
+        .upload-text {
+            color: var(--text);
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .upload-subtext {
+            color: var(--text-dim);
+            font-size: 0.9rem;
+        }
+
+        #fileInput {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            cursor: pointer;
+            z-index: 2;
+        }
+
+        .file-info {
+            display: none;
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            margin-bottom: 2rem;
+        }
+
+        .file-info.active {
+            display: block;
+        }
+
+        .file-name {
+            font-size: 1.1rem;
+            margin-bottom: 0.35rem;
+            color: var(--text);
+        }
+
+        .file-details {
+            color: var(--text-dim);
+            font-size: 0.9rem;
+        }
+
+        .date-filter {
+            display: none;
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            margin-bottom: 2rem;
+        }
+
+        .date-filter.active {
+            display: block;
+        }
+
+        .date-filter h3 {
+            font-size: 1rem;
+            color: var(--text);
+            margin-bottom: 1rem;
+            font-family: var(--font-headings);
+        }
+
+        .date-inputs {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .date-group label {
+            display: block;
+            color: var(--text-dim);
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .date-group input {
+            width: 100%;
+            padding: 0.6rem 0.75rem;
+            background: var(--bg);
+            color: var(--text);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            font-size: 1rem;
+            font-family: inherit;
+        }
+
+        .filter-stats {
+            color: var(--text-dim);
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
+
+        .visualize-btn {
+            width: 100%;
+            padding: 1rem;
+            background: var(--accent);
+            color: var(--bg);
+            border: none;
+            border-radius: 6px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: var(--font-headings);
+            margin-bottom: 2rem;
+        }
+
+        .visualize-btn:hover {
+            opacity: 0.9;
+            transform: translateY(-1px);
+        }
+
+        .visualize-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .error-message {
+            display: none;
+            padding: 1rem;
+            background: rgba(239, 68, 68, 0.15);
+            border: 1px solid rgba(239, 68, 68, 0.4);
+            border-radius: 6px;
+            color: #fca5a5;
+            margin-bottom: 1rem;
+        }
+
+        .error-message.active {
+            display: block;
+        }
+
+        .map-container {
+            display: none;
+            width: 100%;
+            height: 600px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        .map-container.active {
+            display: block;
+        }
+
+        .map-container.fullscreen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 9999;
+            border-radius: 0;
+            margin: 0;
+        }
+
+        .map-controls {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            z-index: 1000;
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .map-control-btn {
+            background: var(--bg);
+            border: 2px solid var(--border);
+            color: var(--text);
+            padding: 0.6rem 0.9rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .map-control-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+        }
+
+        .map-control-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .map-control-btn i {
+            font-size: 1rem;
+        }
+
+        .map-stats {
+            display: none;
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            margin-bottom: 2rem;
+        }
+
+        .map-stats.active {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: var(--accent);
+            margin-bottom: 0.25rem;
+        }
+
+        .stat-label {
+            color: var(--text-dim);
+            font-size: 0.9rem;
+        }
+
+        .info-box {
+            margin-top: 2rem;
+            padding: 1.25rem 1.5rem;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+        }
+
+        .info-box h3 {
+            color: var(--text);
+            font-size: 1rem;
+            margin-bottom: 0.75rem;
+            font-family: var(--font-headings);
+        }
+
+        .info-box ul {
+            margin: 0;
+            padding-left: 1.5rem;
+            color: var(--text-dim);
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        .info-box li + li {
+            margin-top: 0.4rem;
+        }
+
+        .info-box a {
+            color: var(--accent);
+            text-decoration: underline;
+        }
+
+        .info-box a:hover {
+            opacity: 0.8;
+        }
+
+        .style-options {
+            display: none;
+            margin-bottom: 2rem;
+        }
+
+        .style-options.active {
+            display: block;
+        }
+
+        .style-accordion {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .style-accordion-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem 1.5rem;
+            cursor: pointer;
+            user-select: none;
+            transition: background 0.2s;
+        }
+
+        .style-accordion-header:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .style-accordion-header h3 {
+            font-size: 1rem;
+            color: var(--text);
+            margin: 0;
+            font-family: var(--font-headings);
+        }
+
+        .style-accordion-icon {
+            font-size: 1.2rem;
+            color: var(--text-dim);
+            transition: transform 0.3s;
+        }
+
+        .style-accordion.open .style-accordion-icon {
+            transform: rotate(180deg);
+        }
+
+        .style-accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+
+        .style-accordion.open .style-accordion-content {
+            max-height: 500px;
+        }
+
+        .style-accordion-body {
+            padding: 0 1.5rem 1.5rem 1.5rem;
+        }
+
+        .style-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .style-control {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .style-control label {
+            color: var(--text-dim);
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .style-control input[type="color"] {
+            width: 100%;
+            height: 40px;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            cursor: pointer;
+            background: var(--bg);
+        }
+
+        .style-control input[type="range"] {
+            width: 100%;
+        }
+
+        .style-control input[type="number"] {
+            width: 100%;
+            padding: 0.6rem 0.75rem;
+            background: var(--bg);
+            color: var(--text);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            font-size: 1rem;
+            font-family: inherit;
+        }
+
+        .range-value {
+            color: var(--text);
+            font-size: 0.85rem;
+            text-align: right;
+        }
+
+        .reset-styles-btn {
+            margin-top: 1rem;
+            padding: 0.6rem 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .reset-styles-btn:hover {
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        @media (max-width: 600px) {
+            .upload-area {
+                padding: 2.5rem 1.5rem;
+            }
+
+            .date-inputs {
+                grid-template-columns: 1fr;
+            }
+
+            .map-container {
+                height: 400px;
+            }
+        }
+    </style>
+    <script>
+        (function() {
+            try {
+                var saved = localStorage.getItem('theme');
+                var root = document.documentElement;
+                root.classList.remove('theme-light', 'theme-dark');
+                if (saved === 'light' || saved === 'dark') {
+                    root.classList.add('theme-' + saved);
+                }
+            } catch (e) { /* noop */ }
+        })();
+    </script>
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
+</head>
+
+<body>
+    <div class="container">
+        <nav>
+            <div class="nav-row">
+                <ul>
+                    <li><a href="/about" class="nav-link">About</a></li>
+                    <li><a href="/articles" class="nav-link">Articles</a></li>
+                    <li><a href="/album" class="nav-link">Album</a></li>
+                    <li><a href="/utilities" class="nav-link active">Utilities</a></li>
+                </ul>
+                <div class="theme-toggle">
+                    <div id="theme-toggle" class="theme-switch" role="button" tabindex="0" aria-label="Toggle theme" title="Toggle theme">
+                        <i class="fa-solid fa-sun switch-icon sun" aria-hidden="true"></i>
+                        <span class="switch-thumb"></span>
+                        <i class="fa-solid fa-moon switch-icon moon" aria-hidden="true"></i>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <div id="location-visualizer" class="page active">
+            <div class="converter-container">
+                <div class="converter-header">
+                    <h1>Location History Visualizer</h1>
+                    <p>Upload your Google location history files and visualize your journey on an interactive map. Supports exports from Google Maps app (Timeline) and older Google Takeout files. See location pins, route lines, and filter by date range. All processing happens locally in your browser.</p>
+                </div>
+
+                <label class="upload-area" id="dropArea">
+                    <input type="file" id="fileInput" accept=".json,application/json" multiple>
+                    <div class="upload-icon"><i class="fa-solid fa-map-location-dot"></i></div>
+                    <div class="upload-text">Click or drop Google location history JSON files</div>
+                    <div class="upload-subtext">Supports location-history.json (Google Maps app export), Records.json, and Semantic Location History files (e.g., 2024_JANUARY.json). Everything stays on this device.</div>
+                </label>
+
+                <div class="file-info" id="fileInfo">
+                    <div class="file-name" id="fileName"></div>
+                    <div class="file-details" id="fileDetails"></div>
+                </div>
+
+                <div class="date-filter" id="dateFilter">
+                    <h3>Filter by Date Range (Optional)</h3>
+                    <div class="date-inputs">
+                        <div class="date-group">
+                            <label for="startDate">Start Date</label>
+                            <input type="date" id="startDate">
+                        </div>
+                        <div class="date-group">
+                            <label for="endDate">End Date</label>
+                            <input type="date" id="endDate">
+                        </div>
+                    </div>
+                    <div class="filter-stats" id="filterStats"></div>
+                </div>
+
+                <div id="errorMessage" class="error-message"></div>
+
+                <button id="visualizeBtn" class="visualize-btn" disabled>Visualize on Map</button>
+
+                <div class="map-stats" id="mapStats">
+                    <div class="stat-item">
+                        <div class="stat-value" id="totalPoints">0</div>
+                        <div class="stat-label">Location Points</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="dateRange">-</div>
+                        <div class="stat-label">Date Range</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="fileCount">0</div>
+                        <div class="stat-label">Files Processed</div>
+                    </div>
+                </div>
+
+                <div class="map-container" id="mapContainer"></div>
+
+                <div class="style-options" id="styleOptions">
+                    <div class="style-accordion" id="styleAccordion">
+                        <div class="style-accordion-header">
+                            <h3>Map Style Options</h3>
+                            <i class="fa-solid fa-chevron-down style-accordion-icon"></i>
+                        </div>
+                        <div class="style-accordion-content">
+                            <div class="style-accordion-body">
+                                <div class="style-grid">
+                                    <div class="style-control">
+                                        <label for="pinColor">Pin Color</label>
+                                        <input type="color" id="pinColor" value="#ff2d2d">
+                                    </div>
+                                    <div class="style-control">
+                                        <label for="routeColor">Route Line Color</label>
+                                        <input type="color" id="routeColor" value="#ff2d2d">
+                                    </div>
+                                    <div class="style-control">
+                                        <label for="pinSize">Pin Size</label>
+                                        <input type="range" id="pinSize" min="2" max="10" value="4" step="1">
+                                        <div class="range-value"><span id="pinSizeValue">4</span>px</div>
+                                    </div>
+                                    <div class="style-control">
+                                        <label for="routeWidth">Route Line Width</label>
+                                        <input type="range" id="routeWidth" min="1" max="6" value="2" step="0.5">
+                                        <div class="range-value"><span id="routeWidthValue">2</span>px</div>
+                                    </div>
+                                    <div class="style-control">
+                                        <label for="routeOpacity">Route Line Opacity</label>
+                                        <input type="range" id="routeOpacity" min="0" max="100" value="60" step="5">
+                                        <div class="range-value"><span id="routeOpacityValue">60</span>%</div>
+                                    </div>
+                                    <div class="style-control">
+                                        <label for="exportBgColor">Export Background Color</label>
+                                        <input type="color" id="exportBgColor" value="#ffffff">
+                                    </div>
+                                </div>
+                                <button class="reset-styles-btn" id="resetStylesBtn">Reset to Default</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="info-box">
+                    <h3>How to use</h3>
+                    <ol>
+                        <li><strong>Get your data:</strong> Since Google moved Timeline to on-device storage, export from the Google Maps app:
+                            <ul>
+                                <li><strong>Android:</strong> Settings → Location → Export Timeline data</li>
+                                <li><strong>iOS:</strong> Your Timeline → ⋮ → Settings and privacy → Export Timeline data</li>
+                                <li>Older <a href="https://takeout.google.com/" target="_blank" rel="noopener noreferrer">Google Takeout</a> files still work</li>
+                            </ul>
+                        </li>
+                        <li><strong>Upload files:</strong> You can upload multiple JSON files at once. Supports location-history.json (Google Maps app export), Records.json (raw location data), and Semantic Location History files (monthly files like 2024_JANUARY.json).</li>
+                        <li><strong>Filter by date:</strong> Optionally specify a date range to focus on specific time periods in your location history.</li>
+                        <li><strong>Visualize:</strong> Click "Visualize on Map" to see your location data with interactive pins and route lines.</li>
+                        <li><strong>Customize:</strong> Optionally adjust map colors, pin sizes, and route styling in the "Map Style Options" section.</li>
+                        <li><strong>Export:</strong> Save your map visualization as a PNG image using the "Export Map as PNG" button.</li>
+                        <li><strong>100% private:</strong> All data processing happens in your browser. Your location history never leaves your device.</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">me (at) ethan (dot) dev</div>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script>
+        (function() {
+            const root = document.documentElement;
+            const prefersLight = window.matchMedia('(prefers-color-scheme: light)');
+
+            function currentExplicitTheme() {
+                try { return localStorage.getItem('theme'); } catch (_) { return null; }
+            }
+
+            function applyTheme(theme) {
+                root.classList.remove('theme-light', 'theme-dark');
+                if (theme === 'light' || theme === 'dark') {
+                    root.classList.add('theme-' + theme);
+                }
+                updateThemeToggleState();
+            }
+
+            function updateThemeToggleState() {
+                const sw = document.getElementById('theme-toggle');
+                if (!sw) return;
+                const isLight = root.classList.contains('theme-light') || (!root.classList.contains('theme-dark') && prefersLight.matches);
+                sw.setAttribute('aria-pressed', String(isLight));
+            }
+
+            function toggleTheme() {
+                const explicit = currentExplicitTheme();
+                let next;
+                if (explicit) {
+                    next = explicit === 'light' ? 'dark' : 'light';
+                } else {
+                    next = prefersLight.matches ? 'dark' : 'light';
+                }
+                try { localStorage.setItem('theme', next); } catch (_) {}
+                applyTheme(next);
+            }
+
+            window.addEventListener('DOMContentLoaded', () => {
+                const btn = document.getElementById('theme-toggle');
+                if (btn && !btn.dataset.bound) {
+                    btn.dataset.bound = '1';
+                    btn.addEventListener('click', toggleTheme);
+                    btn.addEventListener('keydown', (e) => {
+                        if (e.key === 'Enter' || e.key === ' ') {
+                            e.preventDefault();
+                            toggleTheme();
+                        }
+                    });
+                    updateThemeToggleState();
+                }
+            });
+
+            try {
+                prefersLight.addEventListener('change', () => {
+                    if (!currentExplicitTheme()) {
+                        applyTheme(null);
+                    }
+                });
+            } catch (_) {}
+        })();
+    </script>
+
+    <script>
+        (function() {
+            const fileInput = document.getElementById('fileInput');
+            const dropArea = document.getElementById('dropArea');
+            const fileInfo = document.getElementById('fileInfo');
+            const fileName = document.getElementById('fileName');
+            const fileDetails = document.getElementById('fileDetails');
+            const dateFilter = document.getElementById('dateFilter');
+            const startDate = document.getElementById('startDate');
+            const endDate = document.getElementById('endDate');
+            const filterStats = document.getElementById('filterStats');
+            const visualizeBtn = document.getElementById('visualizeBtn');
+            const exportBtn = document.getElementById('exportBtn');
+            const errorMessage = document.getElementById('errorMessage');
+            const mapContainer = document.getElementById('mapContainer');
+            const mapStats = document.getElementById('mapStats');
+            const totalPoints = document.getElementById('totalPoints');
+            const dateRange = document.getElementById('dateRange');
+            const fileCount = document.getElementById('fileCount');
+            const styleOptions = document.getElementById('styleOptions');
+            const styleAccordion = document.getElementById('styleAccordion');
+            const pinColor = document.getElementById('pinColor');
+            const routeColor = document.getElementById('routeColor');
+            const pinSize = document.getElementById('pinSize');
+            const pinSizeValue = document.getElementById('pinSizeValue');
+            const routeWidth = document.getElementById('routeWidth');
+            const routeWidthValue = document.getElementById('routeWidthValue');
+            const routeOpacity = document.getElementById('routeOpacity');
+            const routeOpacityValue = document.getElementById('routeOpacityValue');
+            const exportBgColor = document.getElementById('exportBgColor');
+            const resetStylesBtn = document.getElementById('resetStylesBtn');
+
+            let loadedData = [];
+            let map = null;
+            let markers = [];
+            let routeLine = null;
+
+            function showError(message) {
+                if (message) {
+                    errorMessage.textContent = message;
+                    errorMessage.classList.add('active');
+                } else {
+                    errorMessage.textContent = '';
+                    errorMessage.classList.remove('active');
+                }
+            }
+
+            function parseE7Coordinate(value) {
+                if (typeof value === 'number') {
+                    return value / 10000000;
+                }
+                return null;
+            }
+
+            function parseTimestamp(ts) {
+                if (!ts) return null;
+                try {
+                    // Handle ISO format (e.g., "2022-01-12T17:18:24.190Z")
+                    const date = new Date(ts);
+                    if (!isNaN(date.getTime())) return date;
+                    return null;
+                } catch (e) {
+                    return null;
+                }
+            }
+
+            function parseRecordsJson(data) {
+                const locations = [];
+                if (!data || !data.locations) return locations;
+
+                data.locations.forEach(record => {
+                    const lat = parseE7Coordinate(record.latitudeE7);
+                    const lng = parseE7Coordinate(record.longitudeE7);
+                    const timestamp = parseTimestamp(record.timestamp);
+
+                    if (lat !== null && lng !== null && timestamp) {
+                        locations.push({
+                            lat,
+                            lng,
+                            timestamp,
+                            accuracy: record.accuracy,
+                            source: record.source
+                        });
+                    }
+                });
+
+                return locations;
+            }
+
+            function parseSemanticLocationHistory(data) {
+                const locations = [];
+                if (!data || !data.timelineObjects) return locations;
+
+                data.timelineObjects.forEach(obj => {
+                    // Handle place visits
+                    if (obj.placeVisit && obj.placeVisit.location) {
+                        const loc = obj.placeVisit.location;
+                        const lat = parseE7Coordinate(loc.latitudeE7);
+                        const lng = parseE7Coordinate(loc.longitudeE7);
+                        const timestamp = parseTimestamp(obj.placeVisit.duration?.startTimestamp);
+
+                        if (lat !== null && lng !== null && timestamp) {
+                            locations.push({
+                                lat,
+                                lng,
+                                timestamp,
+                                name: loc.name,
+                                address: loc.address,
+                                type: 'placeVisit'
+                            });
+                        }
+                    }
+
+                    // Handle activity segments
+                    if (obj.activitySegment && obj.activitySegment.startLocation) {
+                        const loc = obj.activitySegment.startLocation;
+                        const lat = parseE7Coordinate(loc.latitudeE7);
+                        const lng = parseE7Coordinate(loc.longitudeE7);
+                        const timestamp = parseTimestamp(obj.activitySegment.duration?.startTimestamp);
+
+                        if (lat !== null && lng !== null && timestamp) {
+                            locations.push({
+                                lat,
+                                lng,
+                                timestamp,
+                                activityType: obj.activitySegment.activityType,
+                                type: 'activitySegment'
+                            });
+                        }
+                    }
+                });
+
+                return locations;
+            }
+
+            function parseGeoString(geoStr) {
+                // Parse "geo:40.737334,-74.005359" format
+                if (!geoStr || typeof geoStr !== 'string' || !geoStr.startsWith('geo:')) {
+                    return null;
+                }
+                const coords = geoStr.substring(4).split(',');
+                if (coords.length !== 2) return null;
+
+                const lat = parseFloat(coords[0]);
+                const lng = parseFloat(coords[1]);
+
+                if (isNaN(lat) || isNaN(lng)) return null;
+                return { lat, lng };
+            }
+
+            function parseNewLocationHistory(data) {
+                const locations = [];
+                if (!Array.isArray(data)) return locations;
+
+                data.forEach(obj => {
+                    if (!obj.startTime) return;
+
+                    const timestamp = parseTimestamp(obj.startTime);
+                    if (!timestamp) return;
+
+                    // Handle visit objects
+                    if (obj.visit && obj.visit.topCandidate && obj.visit.topCandidate.placeLocation) {
+                        const coords = parseGeoString(obj.visit.topCandidate.placeLocation);
+                        if (coords) {
+                            locations.push({
+                                lat: coords.lat,
+                                lng: coords.lng,
+                                timestamp,
+                                probability: obj.visit.probability,
+                                semanticType: obj.visit.topCandidate.semanticType,
+                                type: 'visit'
+                            });
+                        }
+                    }
+
+                    // Handle activity objects
+                    if (obj.activity) {
+                        // Use start location for activity
+                        if (obj.activity.start) {
+                            const coords = parseGeoString(obj.activity.start);
+                            if (coords) {
+                                locations.push({
+                                    lat: coords.lat,
+                                    lng: coords.lng,
+                                    timestamp,
+                                    activityType: obj.activity.topCandidate?.type,
+                                    distanceMeters: obj.activity.distanceMeters,
+                                    type: 'activity'
+                                });
+                            }
+                        }
+                    }
+                });
+
+                return locations;
+            }
+
+            async function handleFiles(files) {
+                if (!files || files.length === 0) return;
+
+                showError('');
+                loadedData = [];
+                let processedFiles = 0;
+
+                try {
+                    visualizeBtn.textContent = 'Processing files...';
+                    visualizeBtn.disabled = true;
+
+                    for (const file of Array.from(files)) {
+                        if (!file.type.includes('json') && !file.name.endsWith('.json')) {
+                            continue;
+                        }
+
+                        try {
+                            const text = await file.text();
+                            const data = JSON.parse(text);
+
+                            let locations = [];
+
+                            // Try parsing as Records.json format
+                            if (data.locations && Array.isArray(data.locations)) {
+                                locations = parseRecordsJson(data);
+                            }
+                            // Try parsing as Semantic Location History format
+                            else if (data.timelineObjects && Array.isArray(data.timelineObjects)) {
+                                locations = parseSemanticLocationHistory(data);
+                            }
+                            // Try parsing as new location history format (array of visit/activity objects)
+                            else if (Array.isArray(data) && data.length > 0 && (data[0].visit || data[0].activity)) {
+                                locations = parseNewLocationHistory(data);
+                            }
+
+                            if (locations.length > 0) {
+                                loadedData.push(...locations);
+                                processedFiles++;
+                            }
+                        } catch (e) {
+                            console.warn(`Failed to parse ${file.name}:`, e);
+                        }
+                    }
+
+                    if (loadedData.length === 0) {
+                        showError('No valid location data found in the uploaded files. Make sure you\'re uploading Google Takeout location history JSON files.');
+                        visualizeBtn.disabled = true;
+                        fileInfo.classList.remove('active');
+                        dateFilter.classList.remove('active');
+                        return;
+                    }
+
+                    // Sort by timestamp
+                    loadedData.sort((a, b) => a.timestamp - b.timestamp);
+
+                    // Update UI
+                    const firstDate = loadedData[0].timestamp;
+                    const lastDate = loadedData[loadedData.length - 1].timestamp;
+
+                    fileName.textContent = `${processedFiles} file${processedFiles > 1 ? 's' : ''} loaded successfully`;
+                    fileDetails.textContent = `${loadedData.length.toLocaleString()} location points from ${firstDate.toLocaleDateString()} to ${lastDate.toLocaleDateString()}`;
+                    fileInfo.classList.add('active');
+                    dateFilter.classList.add('active');
+
+                    // Set default date range
+                    startDate.value = firstDate.toISOString().split('T')[0];
+                    endDate.value = lastDate.toISOString().split('T')[0];
+                    updateFilterStats();
+
+                    visualizeBtn.disabled = false;
+                    visualizeBtn.textContent = 'Visualize on Map';
+                } catch (e) {
+                    console.error('Error processing files:', e);
+                    showError('An error occurred while processing the files. Please try again.');
+                    visualizeBtn.disabled = true;
+                }
+            }
+
+            function updateFilterStats() {
+                const filtered = getFilteredData();
+                if (filtered.length === loadedData.length) {
+                    filterStats.textContent = `Showing all ${loadedData.length.toLocaleString()} points`;
+                } else {
+                    filterStats.textContent = `Filtered to ${filtered.length.toLocaleString()} of ${loadedData.length.toLocaleString()} points`;
+                }
+            }
+
+            function getFilteredData() {
+                if (!loadedData.length) return [];
+
+                const start = startDate.value ? new Date(startDate.value) : null;
+                const end = endDate.value ? new Date(endDate.value + 'T23:59:59') : null;
+
+                if (!start && !end) return loadedData;
+
+                return loadedData.filter(loc => {
+                    if (start && loc.timestamp < start) return false;
+                    if (end && loc.timestamp > end) return false;
+                    return true;
+                });
+            }
+
+            function createMap() {
+                if (map) {
+                    map.remove();
+                }
+
+                mapContainer.classList.add('active');
+                mapStats.classList.add('active');
+
+                map = L.map('mapContainer');
+                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    attribution: '&copy; OpenStreetMap contributors'
+                }).addTo(map);
+
+                // Clear existing markers and route
+                markers = [];
+                if (routeLine) {
+                    routeLine.remove();
+                    routeLine = null;
+                }
+            }
+
+            function visualizeData() {
+                showError('');
+                const filtered = getFilteredData();
+
+                if (filtered.length === 0) {
+                    showError('No data points in the selected date range.');
+                    return;
+                }
+
+                visualizeBtn.textContent = 'Rendering map...';
+                visualizeBtn.disabled = true;
+
+                setTimeout(() => {
+                    try {
+                        createMap();
+
+                        const bounds = L.latLngBounds();
+                        const routePoints = [];
+
+                        // Sample data if too many points (for performance)
+                        const maxPoints = 5000;
+                        const step = Math.max(1, Math.floor(filtered.length / maxPoints));
+
+                        filtered.forEach((loc, index) => {
+                            if (index % step !== 0 && index !== filtered.length - 1) return;
+
+                            const latLng = [loc.lat, loc.lng];
+                            bounds.extend(latLng);
+                            routePoints.push(latLng);
+
+                            // Create marker with current style values
+                            const marker = L.circleMarker(latLng, {
+                                radius: parseInt(pinSize.value),
+                                color: pinColor.value,
+                                weight: 2,
+                                fillColor: '#ffffff',
+                                fillOpacity: 1
+                            });
+
+                            let popupContent = `<div style="font-size: 0.9rem;">`;
+                            popupContent += `<strong>${loc.timestamp.toLocaleString()}</strong><br>`;
+                            if (loc.name) popupContent += `${loc.name}<br>`;
+                            if (loc.address) popupContent += `${loc.address}<br>`;
+                            if (loc.semanticType && loc.semanticType !== 'Unknown') popupContent += `Type: ${loc.semanticType}<br>`;
+                            if (loc.activityType) popupContent += `Activity: ${loc.activityType}<br>`;
+                            if (loc.distanceMeters) popupContent += `Distance: ${Math.round(loc.distanceMeters)}m<br>`;
+                            if (loc.accuracy) popupContent += `Accuracy: ${loc.accuracy}m<br>`;
+                            if (loc.probability) popupContent += `Confidence: ${(parseFloat(loc.probability) * 100).toFixed(1)}%<br>`;
+                            popupContent += `${loc.lat.toFixed(6)}, ${loc.lng.toFixed(6)}`;
+                            popupContent += `</div>`;
+
+                            marker.bindPopup(popupContent);
+                            marker.addTo(map);
+                            markers.push(marker);
+                        });
+
+                        // Draw route line with current style values
+                        if (routePoints.length > 1) {
+                            routeLine = L.polyline(routePoints, {
+                                color: routeColor.value,
+                                weight: parseFloat(routeWidth.value),
+                                opacity: parseInt(routeOpacity.value) / 100
+                            }).addTo(map);
+                        }
+
+                        // Fit map to bounds
+                        if (bounds.isValid()) {
+                            map.fitBounds(bounds.pad(0.1));
+                        }
+
+                        // Update stats
+                        totalPoints.textContent = filtered.length.toLocaleString();
+                        const firstDate = filtered[0].timestamp;
+                        const lastDate = filtered[filtered.length - 1].timestamp;
+                        dateRange.textContent = `${firstDate.toLocaleDateString()} - ${lastDate.toLocaleDateString()}`;
+                        fileCount.textContent = new Set(filtered.map(l => l.timestamp.toDateString())).size;
+
+                        visualizeBtn.textContent = 'Update Map';
+                        visualizeBtn.disabled = false;
+                        exportBtn.style.display = 'block';
+                        styleOptions.classList.add('active');
+
+                        // Scroll to map
+                        mapContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    } catch (e) {
+                        console.error('Error visualizing data:', e);
+                        showError('An error occurred while creating the map. Please try again.');
+                        visualizeBtn.textContent = 'Visualize on Map';
+                        visualizeBtn.disabled = false;
+                    }
+                }, 100);
+            }
+
+            // Event listeners
+            dropArea.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                dropArea.classList.add('drag-over');
+            });
+
+            dropArea.addEventListener('dragleave', () => {
+                dropArea.classList.remove('drag-over');
+            });
+
+            dropArea.addEventListener('drop', (e) => {
+                e.preventDefault();
+                dropArea.classList.remove('drag-over');
+                if (e.dataTransfer.files) {
+                    fileInput.files = e.dataTransfer.files;
+                    handleFiles(e.dataTransfer.files);
+                }
+            });
+
+            fileInput.addEventListener('change', (e) => {
+                if (e.target.files) {
+                    handleFiles(e.target.files);
+                }
+            });
+
+            startDate.addEventListener('change', updateFilterStats);
+            endDate.addEventListener('change', updateFilterStats);
+
+            visualizeBtn.addEventListener('click', visualizeData);
+
+            // Style accordion toggle
+            styleAccordion.querySelector('.style-accordion-header').addEventListener('click', () => {
+                styleAccordion.classList.toggle('open');
+            });
+
+            // Update range value displays
+            pinSize.addEventListener('input', (e) => {
+                pinSizeValue.textContent = e.target.value;
+                updateMapStyles();
+            });
+
+            routeWidth.addEventListener('input', (e) => {
+                routeWidthValue.textContent = e.target.value;
+                updateMapStyles();
+            });
+
+            routeOpacity.addEventListener('input', (e) => {
+                routeOpacityValue.textContent = e.target.value;
+                updateMapStyles();
+            });
+
+            // Update map when colors change
+            pinColor.addEventListener('input', updateMapStyles);
+            routeColor.addEventListener('input', updateMapStyles);
+
+            // Reset styles to default
+            resetStylesBtn.addEventListener('click', () => {
+                pinColor.value = '#ff2d2d';
+                routeColor.value = '#ff2d2d';
+                pinSize.value = '4';
+                pinSizeValue.textContent = '4';
+                routeWidth.value = '2';
+                routeWidthValue.textContent = '2';
+                routeOpacity.value = '60';
+                routeOpacityValue.textContent = '60';
+                exportBgColor.value = '#ffffff';
+                updateMapStyles();
+            });
+
+            function updateMapStyles() {
+                if (!map) return;
+
+                const newPinColor = pinColor.value;
+                const newPinSize = parseInt(pinSize.value);
+                const newRouteColor = routeColor.value;
+                const newRouteWidth = parseFloat(routeWidth.value);
+                const newRouteOpacity = parseInt(routeOpacity.value) / 100;
+
+                // Update all markers
+                markers.forEach(marker => {
+                    marker.setStyle({
+                        radius: newPinSize,
+                        color: newPinColor,
+                        weight: 2,
+                        fillColor: '#ffffff',
+                        fillOpacity: 1
+                    });
+                });
+
+                // Update route line
+                if (routeLine) {
+                    routeLine.setStyle({
+                        color: newRouteColor,
+                        weight: newRouteWidth,
+                        opacity: newRouteOpacity
+                    });
+                }
+            }
+
+            exportBtn.addEventListener('click', async () => {
+                exportBtn.textContent = 'Generating image...';
+                exportBtn.disabled = true;
+
+                try {
+                    // Use html2canvas to capture the map
+                    const canvas = await html2canvas(mapContainer, {
+                        useCORS: true,
+                        allowTaint: true,
+                        backgroundColor: exportBgColor.value
+                    });
+
+                    // Convert to blob and download
+                    canvas.toBlob((blob) => {
+                        const url = URL.createObjectURL(blob);
+                        const link = document.createElement('a');
+                        link.download = `location-history-${new Date().toISOString().split('T')[0]}.png`;
+                        link.href = url;
+                        link.click();
+                        URL.revokeObjectURL(url);
+
+                        exportBtn.textContent = 'Export Map as PNG';
+                        exportBtn.disabled = false;
+                    });
+                } catch (error) {
+                    console.error('Error exporting map:', error);
+                    showError('Failed to export map. Please try again.');
+                    exportBtn.textContent = 'Export Map as PNG';
+                    exportBtn.disabled = false;
+                }
+            });
+        })();
+    </script>
+</body>
+
+</html>
