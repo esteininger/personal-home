@@ -87,8 +87,8 @@ def load_location_history(path):
     # Sort by timestamp
     points.sort(key=lambda p: p[2])
 
-    # Return just lat/lng pairs
-    return [[round(p[0], 6), round(p[1], 6)] for p in points]
+    # Return [lat, lng, timestamp] triples
+    return [[round(p[0], 6), round(p[1], 6), p[2]] for p in points]
 
 
 def main():
