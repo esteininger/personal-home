@@ -172,9 +172,10 @@ def create_article_html(post_id, metadata, html_content):
             <div class="nav-row">
                 <ul>
                     <li><a href="/about" class="nav-link">About</a></li>
-                    <li><a href="/articles" class="nav-link active">Articles</a></li>
                     <li><a href="/album" class="nav-link">Album</a></li>
+                    <li><a href="/road" class="nav-link">Road</a></li>
                     <li><a href="/utilities" class="nav-link">Utilities</a></li>
+                    <li><a href="/articles" class="nav-link active">Articles</a></li>
                 </ul>
                 <div class="theme-toggle">
                     <div id="theme-toggle" class="theme-switch" role="button" tabindex="0" aria-label="Toggle theme" title="Toggle theme">
@@ -398,9 +399,10 @@ def build_utilities_page(project_root: Path):
                 <div class="nav-row">
                     <ul>
                         <li><a href="/about" class="nav-link">About</a></li>
-                        <li><a href="/articles" class="nav-link">Articles</a></li>
                         <li><a href="/album" class="nav-link">Album</a></li>
+                        <li><a href="/road" class="nav-link">Road</a></li>
                         <li><a href="/utilities" class="nav-link active">Utilities</a></li>
+                        <li><a href="/articles" class="nav-link">Articles</a></li>
                     </ul>
                     <div class="theme-toggle">
                         <div id="theme-toggle" class="theme-switch" role="button" tabindex="0" aria-label="Toggle theme" title="Toggle theme">

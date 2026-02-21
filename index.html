@@ -68,9 +68,10 @@
             <div class="nav-row">
                 <ul>
                     <li><a href="/about" class="nav-link active">About</a></li>
-                    <li><a href="/articles" class="nav-link">Articles</a></li>
                     <li><a href="/album" class="nav-link">Album</a></li>
+                    <li><a href="/road" class="nav-link">Road</a></li>
                     <li><a href="/utilities" class="nav-link">Utilities</a></li>
+                    <li><a href="/articles" class="nav-link">Articles</a></li>
                 </ul>
                 <div class="theme-toggle">
                     <div id="theme-toggle" class="theme-switch" role="button" tabindex="0" aria-label="Toggle theme" title="Toggle theme">
@@ -199,6 +200,16 @@
                 <!-- Gallery items will be rendered here -->
             </div>
         </div>
+        <!-- Road Page -->
+        <div id="road" class="page">
+            <div class="road-intro">
+                <h1>Road Trips</h1>
+                <p class="road-description">Routes from the road — van life, national parks, and everything in between. Generated from GPS location history.</p>
+            </div>
+            <div class="road-list" id="road-list">
+                <!-- Filled by loadRoutes() -->
+            </div>
+        </div>
     </div>
 
     <!-- Lightbox -->
@@ -217,6 +228,23 @@
             <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
         </button>
         <div id="lightbox-caption" onclick="event.stopPropagation();"></div>
+    </div>
+
+    <!-- Road Modal -->
+    <div class="road-modal" id="road-modal" onclick="closeRoadModal()">
+        <button class="lightbox-close" aria-label="Close" onclick="closeRoadModal(); event.stopPropagation();">
+            <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+        </button>
+        <button class="lightbox-nav lightbox-prev" aria-label="Previous" onclick="navigateRoadModal(-1); event.stopPropagation();">
+            <i class="fa-solid fa-chevron-left" aria-hidden="true"></i>
+        </button>
+        <div class="road-modal-content" onclick="event.stopPropagation();">
+            <div class="road-modal-map" id="road-modal-map"></div>
+            <div class="road-modal-info" id="road-modal-info"></div>
+        </div>
+        <button class="lightbox-nav lightbox-next" aria-label="Next" onclick="navigateRoadModal(1); event.stopPropagation();">
+            <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
+        </button>
     </div>
 
     <!-- Fullscreen Map Overlay -->
@@ -301,7 +329,7 @@
             // If first segment is a repo name (project site), treat it as base
             // Heuristic: if first segment is not one of our app routes
             const first = parts[0] || '';
-            const appRoots = new Set(['about', 'articles', 'album', 'utilities', 'posts', 'images']);
+            const appRoots = new Set(['about', 'articles', 'album', 'road', 'utilities', 'posts', 'images']);
             return first && !appRoots.has(first) ? ('/' + first) : '';
         })();
 
@@ -394,6 +422,15 @@
                     title: 'ethan - album',
                     description: 'Photo journal from van life adventures, alpine lakes, and outdoor explorations. View location-tagged photos on an interactive map.',
                     canonical: 'https://ethan.dev/album',
+                    ogType: 'website',
+                    twitterCard: 'summary'
+                };
+            }
+            if (pageId === 'road') {
+                return {
+                    title: 'ethan - road trips',
+                    description: 'Road trip routes from van life adventures across the US and Canada. GPS-tracked routes through national parks, mountain passes, and coastal highways.',
+                    canonical: 'https://ethan.dev/road',
                     ogType: 'website',
                     twitterCard: 'summary'
                 };
@@ -656,6 +693,14 @@
                 renderUtilitiesList();
             }
 
+            if (pageId === 'road') {
+                if (!routesData.length) {
+                    loadRoutes();
+                } else {
+                    renderRoadList();
+                }
+            }
+
             // Scroll to top with smooth animation
             window.scrollTo({
                 top: 0,
@@ -686,7 +731,7 @@
 
         function routeFromLocation() {
             const path = window.location.pathname;
-            const basePages = ['/about', '/articles', '/album', '/'];
+            const basePages = ['/about', '/articles', '/album', '/road', '/utilities', '/'];
 
             if (path.startsWith(basePath + '/articles/')) {
                 navigateToPath(basePath + '/articles');
@@ -759,7 +804,8 @@
             await Promise.all([
                 loadBlogPosts(),
                 loadGalleryImages(),
-                loadUtilities()
+                loadUtilities(),
+                loadRoutes()
             ]);
             // Handle SPA redirect param from 404 fallback
             const params = new URLSearchParams(window.location.search);
@@ -1538,6 +1584,198 @@
                 const toRemove = head.querySelectorAll('[data-post-asset]');
                 toRemove.forEach(el => el.parentNode && el.parentNode.removeChild(el));
             } catch (_) { /* noop */ }
+        }
+
+        // Road trips data
+        let routesData = [];
+        let roadPreviewMaps = {}; // preview map instances
+        let roadDetailMaps = {};  // expanded detail map instances
+
+        async function loadRoutes() {
+            try {
+                const response = await fetch('routes.json', { cache: 'no-cache' });
+                if (!response.ok) {
+                    console.warn('Failed to load routes:', response.status);
+                    return;
+                }
+                routesData = await response.json();
+                renderRoadList();
+            } catch (error) {
+                console.error('Error loading routes:', error);
+            }
+        }
+
+        function renderRoadList() {
+            const listEl = document.getElementById('road-list');
+            if (!listEl || !Array.isArray(routesData)) return;
+
+            // Clean up old maps
+            Object.values(roadPreviewMaps).forEach(m => m.remove());
+            Object.values(roadDetailMaps).forEach(m => m.remove());
+            roadPreviewMaps = {};
+            roadDetailMaps = {};
+
+            if (!routesData.length) {
+                listEl.innerHTML = '<p class="road-empty">No routes yet.</p>';
+                return;
+            }
+
+            const escapeHtml = (v) => String(v || '')
+                .replace(/&/g, '&amp;').replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+
+            const sorted = routesData.slice().sort((a, b) => {
+                const da = Date.parse(a.date || '');
+                const db = Date.parse(b.date || '');
+                if (isNaN(da) && isNaN(db)) return 0;
+                if (isNaN(da)) return 1;
+                if (isNaN(db)) return -1;
+                return db - da;
+            });
+
+            const html = sorted.map((route) => {
+                const id = route.id || route.name || Math.random().toString(36).slice(2);
+                const name = escapeHtml(route.name || 'Untitled Route');
+                const desc = escapeHtml(route.description || '');
+                const date = route.date ? new Date(route.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) : '';
+                const tags = Array.isArray(route.tags)
+                    ? route.tags.map(t => `<span class="road-tag">${escapeHtml(t)}</span>`).join('')
+                    : '';
+                const color = escapeHtml(route.color || '#3388ff');
+
+                return `
+                    <div class="road-card" data-route-id="${escapeHtml(id)}">
+                        <div class="road-map-preview" id="road-preview-${escapeHtml(id)}"></div>
+                        <div class="road-card-info">
+                            <div class="road-card-title-row">
+                                <span class="road-color-dot" style="background:${color}"></span>
+                                <h2>${name}</h2>
+                            </div>
+                            ${date ? `<div class="road-card-date">${date}</div>` : ''}
+                            ${desc ? `<div class="road-card-desc">${desc}</div>` : ''}
+                            ${tags ? `<div class="road-tags">${tags}</div>` : ''}
+                        </div>
+                        <div class="road-card-expand" onclick="toggleRoute('${escapeHtml(id)}')">
+                            <span>Expand map</span>
+                            <i class="fa-solid fa-chevron-down road-chevron"></i>
+                        </div>
+                        <div class="road-card-body" id="road-body-${escapeHtml(id)}">
+                            <div class="road-map-detail" id="road-detail-${escapeHtml(id)}"></div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            listEl.innerHTML = html;
+
+            // Initialize preview maps after DOM is ready
+            requestAnimationFrame(() => {
+                sorted.forEach(route => {
+                    const id = route.id || route.name;
+                    initPreviewMap(id);
+                });
+            });
+        }
+
+        function initPreviewMap(id) {
+            const route = routesData.find(r => (r.id || r.name) === id);
+            if (!route || !Array.isArray(route.coordinates) || route.coordinates.length === 0) return;
+            const mapEl = document.getElementById('road-preview-' + id);
+            if (!mapEl) return;
+            if (roadPreviewMaps[id]) return;
+
+            const m = L.map(mapEl, {
+                zoomControl: false,
+                scrollWheelZoom: false,
+                dragging: false,
+                touchZoom: false,
+                doubleClickZoom: false,
+                boxZoom: false,
+                keyboard: false,
+                attributionControl: false
+            });
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(m);
+
+            const latlngs = route.coordinates.map(c => [c[0], c[1]]);
+            const color = route.color || '#3388ff';
+
+            L.polyline(latlngs, { color: color, weight: 3, opacity: 0.8 }).addTo(m);
+
+            if (latlngs.length > 0) {
+                L.circleMarker(latlngs[0], {
+                    radius: 5, color: '#22c55e', weight: 2, fillColor: '#ffffff', fillOpacity: 1
+                }).addTo(m);
+                L.circleMarker(latlngs[latlngs.length - 1], {
+                    radius: 5, color: '#ef4444', weight: 2, fillColor: '#ffffff', fillOpacity: 1
+                }).addTo(m);
+            }
+
+            const bounds = L.latLngBounds(latlngs);
+            if (bounds.isValid()) {
+                m.fitBounds(bounds.pad(0.15));
+            }
+
+            roadPreviewMaps[id] = m;
+            setTimeout(() => m.invalidateSize(true), 100);
+        }
+
+        function toggleRoute(id) {
+            const card = document.querySelector(`.road-card[data-route-id="${id}"]`);
+            if (!card) return;
+            const isOpen = card.classList.contains('open');
+
+            if (isOpen) {
+                card.classList.remove('open');
+                if (roadDetailMaps[id]) {
+                    roadDetailMaps[id].remove();
+                    delete roadDetailMaps[id];
+                }
+                // Restore preview map
+                setTimeout(() => {
+                    if (roadPreviewMaps[id]) roadPreviewMaps[id].invalidateSize(true);
+                }, 400);
+            } else {
+                card.classList.add('open');
+                setTimeout(() => initDetailMap(id), 50);
+            }
+        }
+
+        function initDetailMap(id) {
+            const route = routesData.find(r => (r.id || r.name) === id);
+            if (!route || !Array.isArray(route.coordinates) || route.coordinates.length === 0) return;
+            const mapEl = document.getElementById('road-detail-' + id);
+            if (!mapEl) return;
+            if (roadDetailMaps[id]) {
+                roadDetailMaps[id].invalidateSize(true);
+                return;
+            }
+
+            const m = L.map(mapEl, { zoomControl: true, scrollWheelZoom: true });
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; OpenStreetMap contributors'
+            }).addTo(m);
+
+            const latlngs = route.coordinates.map(c => [c[0], c[1]]);
+            const color = route.color || '#3388ff';
+
+            L.polyline(latlngs, { color: color, weight: 3, opacity: 0.8 }).addTo(m);
+
+            if (latlngs.length > 0) {
+                L.circleMarker(latlngs[0], {
+                    radius: 6, color: '#22c55e', weight: 2, fillColor: '#ffffff', fillOpacity: 1
+                }).addTo(m).bindPopup('Start');
+                L.circleMarker(latlngs[latlngs.length - 1], {
+                    radius: 6, color: '#ef4444', weight: 2, fillColor: '#ffffff', fillOpacity: 1
+                }).addTo(m).bindPopup('End');
+            }
+
+            const bounds = L.latLngBounds(latlngs);
+            if (bounds.isValid()) {
+                m.fitBounds(bounds.pad(0.1));
+            }
+
+            roadDetailMaps[id] = m;
+            setTimeout(() => m.invalidateSize(true), 350);
         }
 
     </script>
