@@ -986,5 +986,26 @@
     "date_taken": "2021-10-03",
     "lat": 43.97901364151483,
     "lng": -121.80836017360481
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_4931.jpg",
+    "name": "",
+    "lat": 48.923219,
+    "lng": -125.542114,
+    "date_taken": "2026-02-16"
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_4891.jpg",
+    "name": "",
+    "lat": 49.042294,
+    "lng": -125.704506,
+    "date_taken": "2026-02-15"
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_4825.jpg",
+    "name": "",
+    "lat": 48.419922,
+    "lng": -124.047158,
+    "date_taken": "2026-02-13"
   }
 ]
