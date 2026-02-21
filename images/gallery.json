@@ -1005,11 +1005,12 @@
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_6029.jpg",
-    "name": "",
+    "name": "Denali Antlers",
     "lat": 63.43,
     "lng": -150.3,
     "date_taken": "2021-08-01",
-    "featured": true
+    "featured": true,
+    "description": "Weathered caribou antlers rise from the tundra, framing the massive snow-covered face of Denali across a wide glacial valley."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_3470.jpg",
