@@ -1008,7 +1008,8 @@
     "name": "",
     "lat": 63.43,
     "lng": -150.3,
-    "date_taken": "2021-08-01"
+    "date_taken": "2021-08-01",
+    "featured": true
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_3470.jpg",
