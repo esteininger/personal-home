@@ -984,13 +984,13 @@
                     shuffleBtn.dataset.bound = '1';
                     shuffleBtn.addEventListener('click', () => {
                         // Fisher–Yates shuffle of non-featured items only, within current view
-                        const featured = galleryView.find(g => g.featured);
+                        const featuredItems = galleryView.filter(g => g.featured);
                         const rest = galleryView.filter(g => !g.featured);
                         for (let i = rest.length - 1; i > 0; i--) {
                             const j = Math.floor(Math.random() * (i + 1));
                             [rest[i], rest[j]] = [rest[j], rest[i]];
                         }
-                        galleryView = featured ? [featured, ...rest] : rest;
+                        galleryView = [...featuredItems, ...rest];
                         galleryShuffled = true;
                         renderGallery();
                     });
@@ -1179,8 +1179,8 @@
                 return NaN;
             }
 
-            // Apply sorting (keep featured item at top) within the current view
-            const featured = galleryView.find(g => g.featured);
+            // Apply sorting (keep featured items at top) within the current view
+            const featuredItems = galleryView.filter(g => g.featured);
             const rest = galleryView.filter(g => !g.featured);
             const orderFactor = (gallerySortOrder === 'asc') ? 1 : -1;
             if (!galleryShuffled && gallerySortField === 'date') {
@@ -1204,7 +1204,7 @@
                     return na.localeCompare(nb) * orderFactor;
                 });
             }
-            const toRender = featured ? [featured, ...rest] : rest;
+            const toRender = [...featuredItems, ...rest];
 
             toRender.forEach((image, index) => {
                 const item = document.createElement('div');
