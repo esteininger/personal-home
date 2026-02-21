@@ -1066,19 +1066,48 @@ body.lightbox-open .leaflet-tooltip-pane {
 
     .road-list {
         grid-template-columns: 1fr;
+        gap: 1rem;
+        margin-top: 0.5rem;
+    }
+
+    .road-card-info {
+        padding: 0.75rem 1rem;
+    }
+
+    .road-card-title-row h2 {
+        font-size: 0.95rem;
+    }
+
+    .road-card-desc {
+        font-size: 0.8rem;
+    }
+
+    .road-tag {
+        font-size: 0.65rem;
+        padding: 0.1rem 0.4rem;
     }
 
     .road-map-preview {
-        height: 180px;
+        height: 160px;
+    }
+
+    .road-image-preview {
+        aspect-ratio: 16 / 9;
     }
 
     .road-modal-content {
         width: 95%;
+        max-height: 90vh;
+        overflow-y: auto;
     }
 
     .road-modal-map {
-        height: 50vh;
-        min-height: 250px;
+        height: 45vh;
+        min-height: 220px;
+    }
+
+    .road-modal-info {
+        padding: 0.75rem 1rem;
     }
 }
 
@@ -1103,6 +1132,7 @@ body.lightbox-open .leaflet-tooltip-pane {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 1.5rem;
+    margin-top: 1rem;
 }
 
 .road-empty {
