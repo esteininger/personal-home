@@ -1004,113 +1004,6 @@ body.lightbox-open .leaflet-tooltip-pane {
     text-decoration-color: #2b6cb0;
 }
 
-/* Mobile responsiveness */
-@media (max-width: 1024px) {
-    .gallery {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-    .road-list {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-
-@media (max-width: 768px) {
-    body {
-        padding: 2rem 1rem;
-    }
-
-    .bio-layout {
-        grid-template-columns: 1fr;
-        gap: 2rem;
-    }
-
-    .profile-section {
-        border-bottom: 1px solid var(--border);
-        padding-bottom: 2rem;
-    }
-
-    .bio-content {
-        padding-top: 0;
-    }
-
-    nav ul {
-        gap: 1rem;
-        font-size: 0.85rem;
-    }
-
-    .gallery {
-        grid-template-columns: 1fr;
-    }
-
-    .utilities-list {
-        grid-template-columns: 1fr;
-    }
-
-    .utilities-intro h1 {
-        font-size: 1.5rem;
-    }
-
-    .profile-img {
-        width: 150px;
-        height: 150px;
-    }
-
-    .map-section {
-        height: 200px;
-    }
-
-    .road-intro h1 {
-        font-size: 1.5rem;
-    }
-
-    .road-list {
-        grid-template-columns: 1fr;
-        gap: 1rem;
-        margin-top: 0.5rem;
-    }
-
-    .road-card-info {
-        padding: 0.75rem 1rem;
-    }
-
-    .road-card-title-row h2 {
-        font-size: 0.95rem;
-    }
-
-    .road-card-desc {
-        font-size: 0.8rem;
-    }
-
-    .road-tag {
-        font-size: 0.65rem;
-        padding: 0.1rem 0.4rem;
-    }
-
-    .road-map-preview {
-        height: 160px;
-    }
-
-    .road-image-preview {
-        aspect-ratio: 16 / 9;
-    }
-
-    .road-modal-content {
-        width: 95%;
-        max-height: 90vh;
-        overflow-y: auto;
-    }
-
-    .road-modal-map {
-        height: 45vh;
-        min-height: 220px;
-    }
-
-    .road-modal-info {
-        padding: 0.75rem 1rem;
-    }
-}
-
 /* Road Trips Page */
 .road-intro {
     margin-bottom: 2rem;
@@ -1286,4 +1179,111 @@ body.lightbox-open .leaflet-tooltip-pane {
     font-size: 0.9rem;
     line-height: 1.5;
     margin-bottom: 0.5rem;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 1024px) {
+    .gallery {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .road-list {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 2rem 1rem;
+    }
+
+    .bio-layout {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    .profile-section {
+        border-bottom: 1px solid var(--border);
+        padding-bottom: 2rem;
+    }
+
+    .bio-content {
+        padding-top: 0;
+    }
+
+    nav ul {
+        gap: 1rem;
+        font-size: 0.85rem;
+    }
+
+    .gallery {
+        grid-template-columns: 1fr;
+    }
+
+    .utilities-list {
+        grid-template-columns: 1fr;
+    }
+
+    .utilities-intro h1 {
+        font-size: 1.5rem;
+    }
+
+    .profile-img {
+        width: 150px;
+        height: 150px;
+    }
+
+    .map-section {
+        height: 200px;
+    }
+
+    .road-intro h1 {
+        font-size: 1.5rem;
+    }
+
+    .road-list {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+        margin-top: 0.5rem;
+    }
+
+    .road-card-info {
+        padding: 0.75rem 1rem;
+    }
+
+    .road-card-title-row h2 {
+        font-size: 0.95rem;
+    }
+
+    .road-card-desc {
+        font-size: 0.8rem;
+    }
+
+    .road-tag {
+        font-size: 0.65rem;
+        padding: 0.1rem 0.4rem;
+    }
+
+    .road-map-preview {
+        height: 160px;
+    }
+
+    .road-image-preview {
+        aspect-ratio: 16 / 9;
+    }
+
+    .road-modal-content {
+        width: 95%;
+        max-height: 90vh;
+        overflow-y: auto;
+    }
+
+    .road-modal-map {
+        height: 45vh;
+        min-height: 220px;
+    }
+
+    .road-modal-info {
+        padding: 0.75rem 1rem;
+    }
 }
