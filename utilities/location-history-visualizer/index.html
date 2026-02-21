@@ -182,6 +182,39 @@
             margin-top: 0.5rem;
         }
 
+        .filter-actions {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 0.75rem;
+        }
+
+        .download-filtered-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            font-size: 0.9rem;
+            font-family: inherit;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .download-filtered-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-1px);
+        }
+
+        .download-filtered-btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+            transform: none;
+        }
+
         .visualize-btn {
             width: 100%;
             padding: 1rem;
@@ -673,6 +706,11 @@
                         </div>
                     </div>
                     <div class="filter-stats" id="filterStats"></div>
+                    <div class="filter-actions">
+                        <button class="download-filtered-btn" id="downloadFilteredBtn" disabled title="Download filtered location data as JSON">
+                            <i class="fa-solid fa-download"></i> Download Filtered Data
+                        </button>
+                    </div>
                 </div>
 
                 <div id="errorMessage" class="error-message"></div>
@@ -930,6 +968,7 @@
             const startDate = document.getElementById('startDate');
             const endDate = document.getElementById('endDate');
             const filterStats = document.getElementById('filterStats');
+            const downloadFilteredBtn = document.getElementById('downloadFilteredBtn');
             const visualizeBtn = document.getElementById('visualizeBtn');
             const errorMessage = document.getElementById('errorMessage');
             const mapContainer = document.getElementById('mapContainer');
@@ -1349,10 +1388,12 @@
 
                     visualizeBtn.disabled = false;
                     visualizeBtn.textContent = 'Visualize on Map';
+                    downloadFilteredBtn.disabled = false;
                 } catch (e) {
                     console.error('Error processing files:', e);
                     showError('An error occurred while processing the files. Please try again.');
                     visualizeBtn.disabled = true;
+                    downloadFilteredBtn.disabled = true;
                 }
             }
 
@@ -1378,6 +1419,36 @@
                     if (end && loc.timestamp > end) return false;
                     return true;
                 });
+            }
+
+            function downloadFilteredData() {
+                const filtered = getFilteredData();
+                if (!filtered.length) return;
+
+                const exportData = filtered.map(loc => ({
+                    lat: loc.lat,
+                    lng: loc.lng,
+                    timestamp: loc.timestamp.toISOString(),
+                    ...(loc.name && { name: loc.name }),
+                    ...(loc.address && { address: loc.address }),
+                    ...(loc.accuracy && { accuracy: loc.accuracy }),
+                    ...(loc.activityType && { activityType: loc.activityType }),
+                    ...(loc.semanticType && { semanticType: loc.semanticType }),
+                    ...(loc.distanceMeters && { distanceMeters: loc.distanceMeters }),
+                    ...(loc.source && { source: loc.source }),
+                    ...(loc.type && { type: loc.type })
+                }));
+
+                const blob = new Blob([JSON.stringify(exportData, null, 2)], { type: 'application/json' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+
+                const startStr = startDate.value || 'start';
+                const endStr = endDate.value || 'end';
+                a.download = `location-history_${startStr}_to_${endStr}.json`;
+                a.href = url;
+                a.click();
+                URL.revokeObjectURL(url);
             }
 
             function createMap() {
@@ -1553,6 +1624,7 @@
 
             startDate.addEventListener('change', updateFilterStats);
             endDate.addEventListener('change', updateFilterStats);
+            downloadFilteredBtn.addEventListener('click', downloadFilteredData);
 
             visualizeBtn.addEventListener('click', visualizeData);
 
