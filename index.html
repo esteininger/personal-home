@@ -69,7 +69,7 @@
                 <ul>
                     <li><a href="/about" class="nav-link active">About</a></li>
                     <li><a href="/album" class="nav-link">Album</a></li>
-                    <li><a href="/road" class="nav-link">Road</a></li>
+                    <!-- <li><a href="/road" class="nav-link">Road</a></li> -->
                     <li><a href="/utilities" class="nav-link">Utilities</a></li>
                     <li><a href="/articles" class="nav-link">Articles</a></li>
                 </ul>
@@ -1588,8 +1588,29 @@
 
         // Road trips data
         let routesData = [];
-        let roadPreviewMaps = {}; // preview map instances
-        let roadDetailMaps = {};  // expanded detail map instances
+        let roadSorted = [];
+        let roadPreviewMaps = {};
+        let roadModalMap = null;
+        let currentRoadIndex = -1;
+
+        // Assign distinct colors to tags across all routes
+        const tagColorPalette = [
+            '#3b82f6', '#ef4444', '#22c55e', '#f59e0b', '#8b5cf6',
+            '#ec4899', '#06b6d4', '#f97316', '#14b8a6', '#6366f1'
+        ];
+        let tagColorMap = {};
+
+        function buildTagColors() {
+            const allTags = new Set();
+            routesData.forEach(r => {
+                if (Array.isArray(r.tags)) r.tags.forEach(t => allTags.add(t));
+            });
+            let i = 0;
+            allTags.forEach(tag => {
+                tagColorMap[tag] = tagColorPalette[i % tagColorPalette.length];
+                i++;
+            });
+        }
 
         async function loadRoutes() {
             try {
@@ -1599,6 +1620,7 @@
                     return;
                 }
                 routesData = await response.json();
+                buildTagColors();
                 renderRoadList();
             } catch (error) {
                 console.error('Error loading routes:', error);
@@ -1609,11 +1631,9 @@
             const listEl = document.getElementById('road-list');
             if (!listEl || !Array.isArray(routesData)) return;
 
-            // Clean up old maps
+            // Clean up old preview maps
             Object.values(roadPreviewMaps).forEach(m => m.remove());
-            Object.values(roadDetailMaps).forEach(m => m.remove());
             roadPreviewMaps = {};
-            roadDetailMaps = {};
 
             if (!routesData.length) {
                 listEl.innerHTML = '<p class="road-empty">No routes yet.</p>';
@@ -1624,7 +1644,7 @@
                 .replace(/&/g, '&amp;').replace(/</g, '&lt;')
                 .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 
-            const sorted = routesData.slice().sort((a, b) => {
+            roadSorted = routesData.slice().sort((a, b) => {
                 const da = Date.parse(a.date || '');
                 const db = Date.parse(b.date || '');
                 if (isNaN(da) && isNaN(db)) return 0;
@@ -1633,19 +1653,27 @@
                 return db - da;
             });
 
-            const html = sorted.map((route) => {
+            const html = roadSorted.map((route, idx) => {
                 const id = route.id || route.name || Math.random().toString(36).slice(2);
                 const name = escapeHtml(route.name || 'Untitled Route');
                 const desc = escapeHtml(route.description || '');
                 const date = route.date ? new Date(route.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) : '';
                 const tags = Array.isArray(route.tags)
-                    ? route.tags.map(t => `<span class="road-tag">${escapeHtml(t)}</span>`).join('')
+                    ? route.tags.map(t => {
+                        const c = tagColorMap[t] || '#888';
+                        return `<span class="road-tag" style="border-color:${c}; color:${c}">${escapeHtml(t)}</span>`;
+                    }).join('')
                     : '';
                 const color = escapeHtml(route.color || '#3388ff');
+                const hasImage = !!route.image;
+
+                const previewHtml = hasImage
+                    ? `<img class="road-image-preview" src="${escapeHtml(route.image)}" alt="${name}" loading="lazy" decoding="async">`
+                    : `<div class="road-map-preview" id="road-preview-${escapeHtml(id)}"></div>`;
 
                 return `
-                    <div class="road-card" data-route-id="${escapeHtml(id)}">
-                        <div class="road-map-preview" id="road-preview-${escapeHtml(id)}"></div>
+                    <div class="road-card" data-route-id="${escapeHtml(id)}" onclick="openRoadModal(${idx})">
+                        ${previewHtml}
                         <div class="road-card-info">
                             <div class="road-card-title-row">
                                 <span class="road-color-dot" style="background:${color}"></span>
@@ -1655,24 +1683,19 @@
                             ${desc ? `<div class="road-card-desc">${desc}</div>` : ''}
                             ${tags ? `<div class="road-tags">${tags}</div>` : ''}
                         </div>
-                        <div class="road-card-expand" onclick="toggleRoute('${escapeHtml(id)}')">
-                            <span>Expand map</span>
-                            <i class="fa-solid fa-chevron-down road-chevron"></i>
-                        </div>
-                        <div class="road-card-body" id="road-body-${escapeHtml(id)}">
-                            <div class="road-map-detail" id="road-detail-${escapeHtml(id)}"></div>
-                        </div>
                     </div>
                 `;
             }).join('');
 
             listEl.innerHTML = html;
 
-            // Initialize preview maps after DOM is ready
+            // Initialize preview maps for routes without images
             requestAnimationFrame(() => {
-                sorted.forEach(route => {
-                    const id = route.id || route.name;
-                    initPreviewMap(id);
+                roadSorted.forEach(route => {
+                    if (!route.image) {
+                        const id = route.id || route.name;
+                        initPreviewMap(id);
+                    }
                 });
             });
         }
@@ -1685,98 +1708,120 @@
             if (roadPreviewMaps[id]) return;
 
             const m = L.map(mapEl, {
-                zoomControl: false,
-                scrollWheelZoom: false,
-                dragging: false,
-                touchZoom: false,
-                doubleClickZoom: false,
-                boxZoom: false,
-                keyboard: false,
-                attributionControl: false
+                zoomControl: false, scrollWheelZoom: false, dragging: false,
+                touchZoom: false, doubleClickZoom: false, boxZoom: false,
+                keyboard: false, attributionControl: false
             });
             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(m);
 
             const latlngs = route.coordinates.map(c => [c[0], c[1]]);
-            const color = route.color || '#3388ff';
-
-            L.polyline(latlngs, { color: color, weight: 3, opacity: 0.8 }).addTo(m);
+            L.polyline(latlngs, { color: route.color || '#3388ff', weight: 3, opacity: 0.8 }).addTo(m);
 
             if (latlngs.length > 0) {
-                L.circleMarker(latlngs[0], {
-                    radius: 5, color: '#22c55e', weight: 2, fillColor: '#ffffff', fillOpacity: 1
-                }).addTo(m);
-                L.circleMarker(latlngs[latlngs.length - 1], {
-                    radius: 5, color: '#ef4444', weight: 2, fillColor: '#ffffff', fillOpacity: 1
-                }).addTo(m);
+                L.circleMarker(latlngs[0], { radius: 5, color: '#22c55e', weight: 2, fillColor: '#fff', fillOpacity: 1 }).addTo(m);
+                L.circleMarker(latlngs[latlngs.length - 1], { radius: 5, color: '#ef4444', weight: 2, fillColor: '#fff', fillOpacity: 1 }).addTo(m);
             }
 
             const bounds = L.latLngBounds(latlngs);
-            if (bounds.isValid()) {
-                m.fitBounds(bounds.pad(0.15));
-            }
+            if (bounds.isValid()) m.fitBounds(bounds.pad(0.15));
 
             roadPreviewMaps[id] = m;
             setTimeout(() => m.invalidateSize(true), 100);
         }
 
-        function toggleRoute(id) {
-            const card = document.querySelector(`.road-card[data-route-id="${id}"]`);
-            if (!card) return;
-            const isOpen = card.classList.contains('open');
+        // Modal functions
+        function openRoadModal(idx) {
+            if (idx < 0 || idx >= roadSorted.length) return;
+            currentRoadIndex = idx;
+            const route = roadSorted[idx];
+            const modal = document.getElementById('road-modal');
+            const infoEl = document.getElementById('road-modal-info');
+            const mapEl = document.getElementById('road-modal-map');
+            if (!modal) return;
 
-            if (isOpen) {
-                card.classList.remove('open');
-                if (roadDetailMaps[id]) {
-                    roadDetailMaps[id].remove();
-                    delete roadDetailMaps[id];
-                }
-                // Restore preview map
+            const escapeHtml = (v) => String(v || '')
+                .replace(/&/g, '&amp;').replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+
+            const name = escapeHtml(route.name || 'Untitled Route');
+            const desc = escapeHtml(route.description || '');
+            const date = route.date ? new Date(route.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) : '';
+            const tags = Array.isArray(route.tags)
+                ? route.tags.map(t => {
+                    const c = tagColorMap[t] || '#888';
+                    return `<span class="road-tag" style="border-color:${c}; color:${c}">${escapeHtml(t)}</span>`;
+                }).join('')
+                : '';
+
+            infoEl.innerHTML = `
+                <h2>${name}</h2>
+                ${date ? `<div class="road-modal-date">${date}</div>` : ''}
+                ${desc ? `<div class="road-modal-desc">${desc}</div>` : ''}
+                ${tags ? `<div class="road-tags">${tags}</div>` : ''}
+            `;
+
+            modal.classList.add('active');
+            document.body.classList.add('lightbox-open');
+
+            // Destroy previous modal map
+            if (roadModalMap) { roadModalMap.remove(); roadModalMap = null; }
+            mapEl.innerHTML = '';
+
+            const hasCoords = Array.isArray(route.coordinates) && route.coordinates.length > 0;
+            if (hasCoords) {
+                mapEl.style.display = '';
                 setTimeout(() => {
-                    if (roadPreviewMaps[id]) roadPreviewMaps[id].invalidateSize(true);
-                }, 400);
+                    const m = L.map(mapEl, { zoomControl: true, scrollWheelZoom: true });
+                    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                        attribution: '&copy; OpenStreetMap contributors'
+                    }).addTo(m);
+
+                    const latlngs = route.coordinates.map(c => [c[0], c[1]]);
+                    L.polyline(latlngs, { color: route.color || '#3388ff', weight: 3, opacity: 0.8 }).addTo(m);
+
+                    if (latlngs.length > 0) {
+                        L.circleMarker(latlngs[0], { radius: 6, color: '#22c55e', weight: 2, fillColor: '#fff', fillOpacity: 1 }).addTo(m).bindPopup('Start');
+                        L.circleMarker(latlngs[latlngs.length - 1], { radius: 6, color: '#ef4444', weight: 2, fillColor: '#fff', fillOpacity: 1 }).addTo(m).bindPopup('End');
+                    }
+
+                    const bounds = L.latLngBounds(latlngs);
+                    if (bounds.isValid()) m.fitBounds(bounds.pad(0.1));
+
+                    roadModalMap = m;
+                    setTimeout(() => m.invalidateSize(true), 100);
+                }, 50);
+            } else if (route.image) {
+                mapEl.style.display = '';
+                mapEl.innerHTML = `<img src="${escapeHtml(route.image)}" alt="${name}" style="width:100%;height:100%;object-fit:contain;">`;
             } else {
-                card.classList.add('open');
-                setTimeout(() => initDetailMap(id), 50);
+                mapEl.style.display = 'none';
             }
         }
 
-        function initDetailMap(id) {
-            const route = routesData.find(r => (r.id || r.name) === id);
-            if (!route || !Array.isArray(route.coordinates) || route.coordinates.length === 0) return;
-            const mapEl = document.getElementById('road-detail-' + id);
-            if (!mapEl) return;
-            if (roadDetailMaps[id]) {
-                roadDetailMaps[id].invalidateSize(true);
-                return;
-            }
-
-            const m = L.map(mapEl, { zoomControl: true, scrollWheelZoom: true });
-            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                attribution: '&copy; OpenStreetMap contributors'
-            }).addTo(m);
-
-            const latlngs = route.coordinates.map(c => [c[0], c[1]]);
-            const color = route.color || '#3388ff';
-
-            L.polyline(latlngs, { color: color, weight: 3, opacity: 0.8 }).addTo(m);
-
-            if (latlngs.length > 0) {
-                L.circleMarker(latlngs[0], {
-                    radius: 6, color: '#22c55e', weight: 2, fillColor: '#ffffff', fillOpacity: 1
-                }).addTo(m).bindPopup('Start');
-                L.circleMarker(latlngs[latlngs.length - 1], {
-                    radius: 6, color: '#ef4444', weight: 2, fillColor: '#ffffff', fillOpacity: 1
-                }).addTo(m).bindPopup('End');
-            }
-
-            const bounds = L.latLngBounds(latlngs);
-            if (bounds.isValid()) {
-                m.fitBounds(bounds.pad(0.1));
-            }
-
-            roadDetailMaps[id] = m;
-            setTimeout(() => m.invalidateSize(true), 350);
+        function closeRoadModal() {
+            const modal = document.getElementById('road-modal');
+            if (!modal) return;
+            modal.classList.remove('active');
+            document.body.classList.remove('lightbox-open');
+            if (roadModalMap) { roadModalMap.remove(); roadModalMap = null; }
+            currentRoadIndex = -1;
         }
+
+        function navigateRoadModal(delta) {
+            if (!roadSorted.length) return;
+            let next = (currentRoadIndex + delta) % roadSorted.length;
+            if (next < 0) next += roadSorted.length;
+            openRoadModal(next);
+        }
+
+        // Keyboard navigation for road modal
+        document.addEventListener('keydown', function(e) {
+            const modal = document.getElementById('road-modal');
+            if (!modal || !modal.classList.contains('active')) return;
+            if (e.key === 'Escape') { closeRoadModal(); e.preventDefault(); }
+            else if (e.key === 'ArrowLeft') { navigateRoadModal(-1); e.preventDefault(); }
+            else if (e.key === 'ArrowRight') { navigateRoadModal(1); e.preventDefault(); }
+        });
 
     </script>
 </body>

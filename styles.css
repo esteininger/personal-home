@@ -562,6 +562,7 @@ html.theme-dark .theme-switch { background: #111218; }
 /* Fullscreen map overlay */
 .map-overlay {
     display: none;
+    visibility: hidden;
     position: fixed;
     top: 0;
     left: 0;
@@ -573,6 +574,7 @@ html.theme-dark .theme-switch { background: #111218; }
 
 .map-overlay.active {
     display: block;
+    visibility: visible;
 }
 
 .map-overlay .map-container {
@@ -735,6 +737,7 @@ html.theme-dark .theme-switch { background: #111218; }
 /* Lightbox */
 .lightbox {
     display: none;
+    visibility: hidden;
     position: fixed;
     top: 0;
     left: 0;
@@ -798,6 +801,7 @@ html.theme-dark .theme-switch { background: #111218; }
 
 .lightbox.active {
     display: flex;
+    visibility: visible;
 }
 
 .lightbox img {
@@ -1005,6 +1009,10 @@ body.lightbox-open .leaflet-tooltip-pane {
     .gallery {
         grid-template-columns: repeat(2, 1fr);
     }
+
+    .road-list {
+        grid-template-columns: repeat(2, 1fr);
+    }
 }
 
 @media (max-width: 768px) {
@@ -1051,4 +1059,201 @@ body.lightbox-open .leaflet-tooltip-pane {
     .map-section {
         height: 200px;
     }
+
+    .road-intro h1 {
+        font-size: 1.5rem;
+    }
+
+    .road-list {
+        grid-template-columns: 1fr;
+    }
+
+    .road-map-preview {
+        height: 180px;
+    }
+
+    .road-modal-content {
+        width: 95%;
+    }
+
+    .road-modal-map {
+        height: 50vh;
+        min-height: 250px;
+    }
+}
+
+/* Road Trips Page */
+.road-intro {
+    margin-bottom: 2rem;
+}
+
+.road-intro h1 {
+    font-size: 2rem;
+    font-family: var(--font-headings);
+    margin-bottom: 1rem;
+}
+
+.road-description {
+    color: var(--text-dim);
+    line-height: 1.7;
+    font-size: 1rem;
+}
+
+.road-list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+}
+
+.road-empty {
+    color: var(--text-dim);
+    font-style: italic;
+    grid-column: 1 / -1;
+}
+
+.road-card {
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+    transition: border-color 0.2s ease;
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+}
+
+.road-card:hover {
+    border-color: var(--text-dim);
+}
+
+.road-map-preview {
+    height: 200px;
+    width: 100%;
+    position: relative;
+}
+
+.road-image-preview {
+    width: 100%;
+    aspect-ratio: 3 / 2;
+    object-fit: cover;
+    display: block;
+}
+
+.road-card-info {
+    padding: 1rem 1.25rem;
+}
+
+.road-card-title-row {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.road-card-title-row h2 {
+    font-size: 1.05rem;
+    font-family: var(--font-headings);
+    color: var(--text);
+    margin: 0;
+    flex: 1;
+    line-height: 1.3;
+}
+
+.road-color-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.road-card-date {
+    color: var(--text-dim);
+    font-size: 0.8rem;
+    margin-top: 0.3rem;
+}
+
+.road-card-desc {
+    color: var(--text-dim);
+    font-size: 0.85rem;
+    margin-top: 0.3rem;
+    line-height: 1.4;
+}
+
+.road-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    margin-top: 0.5rem;
+}
+
+.road-tag {
+    padding: 0.15rem 0.5rem;
+    background: transparent;
+    border: 1px solid currentColor;
+    border-radius: 4px;
+    font-size: 0.72rem;
+}
+
+/* Road Modal */
+.road-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.92);
+    z-index: 20000;
+    justify-content: center;
+    align-items: center;
+    visibility: hidden;
+}
+
+.road-modal.active {
+    display: flex;
+    visibility: visible;
+}
+
+.road-modal .lightbox-close,
+.road-modal .lightbox-nav {
+    visibility: inherit;
+}
+
+.road-modal-content {
+    width: 90%;
+    max-width: 900px;
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    border-radius: 8px;
+    overflow: hidden;
+    background: var(--bg);
+}
+
+.road-modal-map {
+    height: 60vh;
+    width: 100%;
+    min-height: 300px;
+}
+
+.road-modal-info {
+    padding: 1.25rem 1.5rem;
+}
+
+.road-modal-info h2 {
+    font-size: 1.3rem;
+    font-family: var(--font-headings);
+    color: var(--text);
+    margin: 0 0 0.25rem;
+}
+
+.road-modal-date {
+    color: var(--text-dim);
+    font-size: 0.85rem;
+    margin-bottom: 0.3rem;
+}
+
+.road-modal-desc {
+    color: var(--text-dim);
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin-bottom: 0.5rem;
 }
