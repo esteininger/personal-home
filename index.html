@@ -221,6 +221,9 @@
 
     <!-- Road Modal -->
     <div class="road-modal" id="road-modal" onclick="closeRoadModal()">
+        <button class="lightbox-download" aria-label="Download" title="Download" onclick="downloadRoadImage(); event.stopPropagation();">
+            <i class="fa-solid fa-floppy-disk" aria-hidden="true"></i>
+        </button>
         <button class="lightbox-close" aria-label="Close" onclick="closeRoadModal(); event.stopPropagation();">
             <i class="fa-solid fa-xmark" aria-hidden="true"></i>
         </button>
@@ -245,6 +248,7 @@
     </div>
 
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-core.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
     <script>try { Prism.plugins.autoloader.languages_path = 'https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/'; } catch (_) {}</script>
@@ -1824,6 +1828,40 @@
             let next = (currentRoadIndex + delta) % roadSorted.length;
             if (next < 0) next += roadSorted.length;
             openRoadModal(next);
+        }
+
+        function downloadRoadImage() {
+            if (currentRoadIndex < 0 || !roadSorted.length) return;
+            const route = roadSorted[currentRoadIndex];
+            const name = (route.name || 'route').replace(/\s+/g, '-').toLowerCase();
+
+            if (route.image) {
+                // Download the CDN image directly
+                const a = document.createElement('a');
+                a.href = route.image;
+                a.download = name + '.' + (route.image.split('.').pop().split('?')[0] || 'jpg');
+                a.rel = 'noopener';
+                document.body.appendChild(a);
+                a.click();
+                a.remove();
+            } else if (roadModalMap) {
+                // Capture the map as an image using html2canvas
+                const mapEl = document.getElementById('road-modal-map');
+                if (!mapEl || typeof html2canvas === 'undefined') return;
+                html2canvas(mapEl, { useCORS: true, allowTaint: true }).then(canvas => {
+                    canvas.toBlob(blob => {
+                        if (!blob) return;
+                        const url = URL.createObjectURL(blob);
+                        const a = document.createElement('a');
+                        a.href = url;
+                        a.download = name + '-map.png';
+                        document.body.appendChild(a);
+                        a.click();
+                        a.remove();
+                        URL.revokeObjectURL(url);
+                    });
+                });
+            }
         }
 
         // Keyboard navigation for road modal
