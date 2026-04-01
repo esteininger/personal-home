@@ -64,13 +64,8 @@ body {
 
 /* Navigation */
 nav {
-    position: sticky;
-    top: 0;
-    background: var(--bg);
-    z-index: 100;
     margin-bottom: 3rem;
     padding-top: 2rem;
-    margin-top: -2rem;
 }
 
 nav ul {
