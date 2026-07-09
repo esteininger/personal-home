@@ -5,23 +5,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ethan - about</title>
-    <meta name="description" content="Ethan Steininger builds Mixpeek, infrastructure for making video, image, audio, and text searchable. Building AI-powered tools and living the van life.">
+    <meta name="description" content="Ethan Steininger makes videos searchable at Mixpeek and juggles AI agents with Amux. Split between NYC and van life.">
     <meta property="og:title" content="ethan - about">
-    <meta property="og:description" content="Ethan Steininger builds Mixpeek, infrastructure for making video, image, audio, and text searchable. Building AI-powered tools and living the van life.">
+    <meta property="og:description" content="Ethan Steininger makes videos searchable at Mixpeek and juggles AI agents with Amux. Split between NYC and van life.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://ethan.dev/about">
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="ethan - about">
-    <meta name="twitter:description" content="Ethan Steininger builds Mixpeek, infrastructure for making video, image, audio, and text searchable. Building AI-powered tools and living the van life.">
+    <meta name="twitter:description" content="Ethan Steininger makes videos searchable at Mixpeek and juggles AI agents with Amux. Split between NYC and van life.">
     <link rel="canonical" href="https://ethan.dev/about">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="articles.css">
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css">
+    <link rel="stylesheet" href="articles.css" media="print" onload="this.media='all'">
     <script>
         (function() {
             try {
@@ -57,7 +54,7 @@
             "url": "https://mixpeek.com"
         },
         "knowsAbout": ["Software Engineering", "AI", "Multimodal Search", "Van Life"],
-        "description": "Building Mixpeek — infrastructure for making video, image, audio, and text searchable. Side project: Amux (AI agent multiplexer)."
+        "description": "Makes videos searchable at Mixpeek and juggles AI agents with Amux. Split between NYC and van life."
     }
     </script>
 </head>
@@ -70,14 +67,12 @@
                     <li><a href="/about" class="nav-link active">About</a></li>
                     <li><a href="/album" class="nav-link">Album</a></li>
                     <li><a href="/road" class="nav-link">Road</a></li>
-                    <li><a href="/articles" class="nav-link">Articles</a></li>
-                    <li><a href="/utilities" class="nav-link">Utilities</a></li>
                 </ul>
                 <div class="theme-toggle">
                     <div id="theme-toggle" class="theme-switch" role="button" tabindex="0" aria-label="Toggle theme" title="Toggle theme">
-                        <i class="fa-solid fa-sun switch-icon sun" aria-hidden="true"></i>
+                        <svg class="switch-icon sun" width="14" height="14" viewBox="0 0 512 512" fill="currentColor" aria-hidden="true"><path d="M256 160c-52.9 0-96 43.1-96 96s43.1 96 96 96 96-43.1 96-96-43.1-96-96-96zm246.4 80.5l-94.7-47.3 33.5-100.4c4.5-13.6-8.4-26.5-21.9-21.9l-100.4 33.5-47.4-94.8c-6.4-12.8-24.6-12.8-31 0l-47.3 94.7L92.7 70.8c-13.6-4.5-26.5 8.4-21.9 21.9l33.5 100.4-94.7 47.4c-12.8 6.4-12.8 24.6 0 31l94.7 47.3-33.5 100.5c-4.5 13.6 8.4 26.5 21.9 21.9l100.4-33.5 47.3 94.7c6.4 12.8 24.6 12.8 31 0l47.3-94.7 100.4 33.5c13.6 4.5 26.5-8.4 21.9-21.9l-33.5-100.4 94.7-47.3c12.8-6.4 12.8-24.6 0-31z"/></svg>
                         <span class="switch-thumb"></span>
-                        <i class="fa-solid fa-moon switch-icon moon" aria-hidden="true"></i>
+                        <svg class="switch-icon moon" width="14" height="14" viewBox="0 0 384 512" fill="currentColor" aria-hidden="true"><path d="M223.5 32C100 32 0 132.3 0 256s100 224 223.5 224c60.6 0 115.5-24.2 155.8-63.4 5-4.9 6.3-12.5 3.1-18.7s-10.1-9.7-17-8.5c-9.8 1.7-19.8 2.6-30.1 2.6-96.9 0-175.5-78.8-175.5-176 0-65.8 36-123.1 89.3-153.3 6.1-3.5 9.2-10.5 7.7-17.3s-7.3-11.9-14.3-12.5c-6.3-.5-12.6-.8-19-.8z"/></svg>
                     </div>
                 </div>
             </div>
@@ -88,7 +83,7 @@
             <div class="bio-layout">
                 <!-- Left Column -->
                 <div class="profile-section">
-                    <img src="images/ethan.jpeg" alt="Profile" class="profile-img">
+                    <img src="images/ethan.jpeg" alt="Profile" class="profile-img" width="200" height="200">
                     <h3>Ethan Steininger</h3>
 
                     <div class="social-links">
@@ -116,10 +111,10 @@
                             </svg>
                         </a>
                         <a href="https://www.youtube.com/@vanlifecoder" target="_blank" aria-label="YouTube">
-                            <i class="fa-brands fa-youtube" aria-hidden="true"></i>
+                            <svg width="24" height="24" fill="currentColor" viewBox="0 0 576 512" aria-hidden="true"><path d="M549.655 124.083c-6.281-23.65-24.787-42.276-48.284-48.597C458.781 64 288 64 288 64S117.22 64 74.629 75.486c-23.497 6.322-42.003 24.947-48.284 48.597-11.412 42.867-11.412 132.305-11.412 132.305s0 89.438 11.412 132.305c6.281 23.65 24.787 41.5 48.284 47.821C117.22 448 288 448 288 448s170.78 0 213.371-11.486c23.497-6.321 42.003-24.171 48.284-47.821 11.412-42.867 11.412-132.305 11.412-132.305s0-89.438-11.412-132.305zm-317.51 213.508V175.185l142.739 81.205-142.739 81.201z"/></svg>
                         </a>
                         <a href="https://www.tiktok.com/@vanlifecoder" target="_blank" aria-label="TikTok">
-                            <i class="fa-brands fa-tiktok" aria-hidden="true"></i>
+                            <svg width="24" height="24" fill="currentColor" viewBox="0 0 448 512" aria-hidden="true"><path d="M448 209.91a210.06 210.06 0 01-122.77-39.25v178.72A162.55 162.55 0 11185 188.31v89.89a74.62 74.62 0 1052.23 71.18V0h88a121.18 121.18 0 001.86 22.17A122.18 122.18 0 00381 102.39a121.43 121.43 0 0067 20.14z"/></svg>
                         </a>
                     </div>
                 </div>
@@ -127,17 +122,9 @@
                 <!-- Right Column -->
                 <div class="bio-content">
                     <div class="bio-section">
-                        <p>
-                            Hi 👋🏻 I’m Ethan. I’m building
-                            <a href="https://mixpeek.com" target="_blank">Mixpeek</a> — infrastructure for making video, image, audio, and text searchable.
-                        </p>
+                        <p>I make videos searchable at <a href="https://mixpeek.com" target="_blank">Mixpeek</a> and juggle too many AI agents with <a href="https://amux.io" target="_blank">Amux</a>.</p>
 
-                        <p>On the side, I built <a href="https://amux.io" target="_blank">Amux</a>, a multiplexer for AI coding agents.</p>
-
-                        <p>When I’m not building, you’ll find me outside — living in my <a
-                                target="_blank" href="https://vanlifecoder.com">self-converted camper van</a>, paddle boarding on alpine
-                            lakes, or hiking with my dog, <a href="https://www.instagram.com/danywigglebutt/" target="_blank">Dany</a>.</p>   
-
+                        <p>The rest of my time is split between NYC and a <a target="_blank" href="https://vanlifecoder.com">van</a> I converted myself, usually with a paddle board on the roof and an Australian Shepherd named <a href="https://www.instagram.com/danywigglebutt/" target="_blank">Dany</a>, who has better Instagram engagement than me.</p>
                     </div>
                 </div>
             </div>
@@ -174,7 +161,7 @@
             <div class="gallery-controls">
                 <label for="gallery-shuffle">Shuffle:</label>
                 <button id="gallery-shuffle" class="icon-button" aria-label="Shuffle" title="Shuffle">
-                    <i class="fa-solid fa-shuffle" aria-hidden="true"></i>
+                    <svg width="16" height="16" viewBox="0 0 512 512" fill="currentColor" aria-hidden="true"><path d="M403.8 34.4c12-5 25.7-2.2 34.9 6.9l64 64c6 6 9.4 14.1 9.4 22.6s-3.4 16.6-9.4 22.6l-64 64c-9.2 9.2-22.9 11.9-34.9 6.9S384 205.8 384 192.8V160h-32c-10.1 0-19.6 4.7-25.6 12.8L284 229.3 244 176l31.2-41.6C293.3 110.2 321.8 96 352 96h32V63.2c0-12.9 7.8-24.6 19.8-29.6zM164 282.7l40 53.3-31.2 41.6C154.7 401.8 126.2 416 96 416H32c-17.7 0-32-14.3-32-32s14.3-32 32-32h64c10.1 0 19.6-4.7 25.6-12.8L164 282.7zm274.6 188c-12 5-25.7 2.2-34.9-6.9l-64-64c-6-6-9.4-14.1-9.4-22.6s3.4-16.6 9.4-22.6l64-64c9.2-9.2 22.9-11.9 34.9-6.9s19.8 16.6 19.8 29.6V352h-32c-30.2 0-58.7-14.2-76.8-38.4L217.6 153.6C199.6 129.8 171.1 116 141 116H32c-17.7 0-32-14.3-32-32S14.3 52 32 52h109c45.3 0 87.9 21.2 115.2 57.6L368.4 270.4c18 23.8 46.5 37.6 76.6 37.6h-61V345.2c0 12.9 7.8 24.6 19.8 29.6z"/></svg>
                 </button>
                 <label for="gallery-sort-field">Sort by:</label>
                 <select id="gallery-sort-field">
@@ -202,17 +189,17 @@
     <!-- Lightbox -->
     <div class="lightbox" id="lightbox" onclick="closeLightbox()">
         <button class="lightbox-download" aria-label="Download" title="Download" onclick="downloadCurrentImage(); event.stopPropagation();">
-            <i class="fa-solid fa-floppy-disk" aria-hidden="true"></i>
+            <svg width="18" height="18" viewBox="0 0 448 512" fill="currentColor" aria-hidden="true"><path d="M64 32C28.7 32 0 60.7 0 96v320c0 35.3 28.7 64 64 64h320c35.3 0 64-28.7 64-64V96c0-35.3-28.7-64-64-64H64zM224 272l-64-64h48V160h32v48h48l-64 64zm-96 80h192v32H128v-32z"/></svg>
         </button>
         <button class="lightbox-close" aria-label="Close" onclick="closeLightbox(); event.stopPropagation();">
-            <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+            <svg width="22" height="22" viewBox="0 0 384 512" fill="currentColor" aria-hidden="true"><path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3l105.4 105.3c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256l105.3-105.4z"/></svg>
         </button>
         <button class="lightbox-nav lightbox-prev" aria-label="Previous" onclick="navigateLightbox(-1); event.stopPropagation();">
-            <i class="fa-solid fa-chevron-left" aria-hidden="true"></i>
+            <svg width="20" height="20" viewBox="0 0 320 512" fill="currentColor" aria-hidden="true"><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l192 192c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256 246.6 86.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-192 192z"/></svg>
         </button>
         <img src="" alt="Full size image" id="lightbox-img" onclick="toggleZoom(event)">
         <button class="lightbox-nav lightbox-next" aria-label="Next" onclick="navigateLightbox(1); event.stopPropagation();">
-            <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
+            <svg width="20" height="20" viewBox="0 0 320 512" fill="currentColor" aria-hidden="true"><path d="M310.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5-12.5-32.8-12.5-45.3 0s-12.5-32.8 0-45.3L242.7 256 73.4 86.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l192 192z"/></svg>
         </button>
         <div id="lightbox-caption" onclick="event.stopPropagation();"></div>
     </div>
@@ -220,36 +207,76 @@
     <!-- Road Modal -->
     <div class="road-modal" id="road-modal" onclick="closeRoadModal()">
         <button class="lightbox-download" aria-label="Download" title="Download" onclick="downloadRoadImage(); event.stopPropagation();">
-            <i class="fa-solid fa-floppy-disk" aria-hidden="true"></i>
+            <svg width="18" height="18" viewBox="0 0 448 512" fill="currentColor" aria-hidden="true"><path d="M64 32C28.7 32 0 60.7 0 96v320c0 35.3 28.7 64 64 64h320c35.3 0 64-28.7 64-64V96c0-35.3-28.7-64-64-64H64zM224 272l-64-64h48V160h32v48h48l-64 64zm-96 80h192v32H128v-32z"/></svg>
         </button>
         <button class="lightbox-close" aria-label="Close" onclick="closeRoadModal(); event.stopPropagation();">
-            <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+            <svg width="22" height="22" viewBox="0 0 384 512" fill="currentColor" aria-hidden="true"><path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3l105.4 105.3c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256l105.3-105.4z"/></svg>
         </button>
         <button class="lightbox-nav lightbox-prev" aria-label="Previous" onclick="navigateRoadModal(-1); event.stopPropagation();">
-            <i class="fa-solid fa-chevron-left" aria-hidden="true"></i>
+            <svg width="20" height="20" viewBox="0 0 320 512" fill="currentColor" aria-hidden="true"><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l192 192c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256 246.6 86.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-192 192z"/></svg>
         </button>
         <div class="road-modal-content" onclick="event.stopPropagation();">
             <div class="road-modal-map" id="road-modal-map"></div>
             <div class="road-modal-info" id="road-modal-info"></div>
         </div>
         <button class="lightbox-nav lightbox-next" aria-label="Next" onclick="navigateRoadModal(1); event.stopPropagation();">
-            <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
+            <svg width="20" height="20" viewBox="0 0 320 512" fill="currentColor" aria-hidden="true"><path d="M310.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5-12.5-32.8-12.5-45.3 0s-12.5-32.8 0-45.3L242.7 256 73.4 86.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l192 192z"/></svg>
         </button>
     </div>
 
     <!-- Fullscreen Map Overlay -->
     <div class="map-overlay" id="map-overlay" aria-hidden="true">
         <button class="lightbox-close" aria-label="Close fullscreen map" onclick="toggleMapFullscreen(false); event.stopPropagation();">
-            <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+            <svg width="22" height="22" viewBox="0 0 384 512" fill="currentColor" aria-hidden="true"><path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3l105.4 105.3c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256l105.3-105.4z"/></svg>
         </button>
         <div id="map-overlay-container" class="map-container"></div>
     </div>
 
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-core.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
-    <script>try { Prism.plugins.autoloader.languages_path = 'https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/'; } catch (_) {}</script>
+    <script>
+        function loadScript(src) {
+            return new Promise(function(resolve) {
+                var s = document.createElement('script');
+                s.src = src;
+                s.onload = resolve;
+                s.onerror = resolve;
+                document.head.appendChild(s);
+            });
+        }
+        function loadCSS(href) {
+            var link = document.createElement('link');
+            link.rel = 'stylesheet';
+            link.href = href;
+            document.head.appendChild(link);
+        }
+        var _leafletReady, _leafletPromise;
+        function ensureLeaflet() {
+            if (_leafletReady) return Promise.resolve();
+            if (_leafletPromise) return _leafletPromise;
+            loadCSS('https://unpkg.com/leaflet@1.9.4/dist/leaflet.css');
+            _leafletPromise = loadScript('https://unpkg.com/leaflet@1.9.4/dist/leaflet.js').then(function() { _leafletReady = true; });
+            return _leafletPromise;
+        }
+        var _prismReady, _prismPromise;
+        function ensurePrism() {
+            if (_prismReady) return Promise.resolve();
+            if (_prismPromise) return _prismPromise;
+            loadCSS('https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css');
+            _prismPromise = loadScript('https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-core.min.js')
+                .then(function() { return loadScript('https://cdn.jsdelivr.net/npm/prismjs@1.29.0/plugins/autoloader/prism-autoloader.min.js'); })
+                .then(function() {
+                    try { Prism.plugins.autoloader.languages_path = 'https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/'; } catch (_) {}
+                    _prismReady = true;
+                });
+            return _prismPromise;
+        }
+        var _h2cReady, _h2cPromise;
+        function ensureHtml2Canvas() {
+            if (_h2cReady) return Promise.resolve();
+            if (_h2cPromise) return _h2cPromise;
+            _h2cPromise = loadScript('https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js').then(function() { _h2cReady = true; });
+            return _h2cPromise;
+        }
+    </script>
     <script>
         // Theme handling
         (function() {
@@ -442,7 +469,7 @@
             // default/about
             return {
                 title: 'ethan - about',
-                description: 'Ethan Steininger builds Mixpeek, infrastructure for making video, image, audio, and text searchable. Building AI-powered tools and living the van life.',
+                description: 'Ethan Steininger makes videos searchable at Mixpeek and juggles AI agents with Amux. Split between NYC and van life.',
                 canonical: 'https://ethan.dev/about',
                 ogType: 'website',
                 twitterCard: 'summary'
@@ -783,7 +810,7 @@
                     ogType: 'article',
                     twitterCard: 'summary'
                 });
-                try { if (window.Prism && blogPostView) Prism.highlightAllUnder(blogPostView); } catch (_) {}
+                ensurePrism().then(function() { try { Prism.highlightAllUnder(blogPostView); } catch (_) {} });
                 // Load per-post assets
                 addPostAssets(post.metadata);
             }
@@ -995,12 +1022,13 @@
         }
 
         // Render map
-        function renderMap() {
+        async function renderMap() {
+            await ensureLeaflet();
             const mapSection = document.getElementById('map-section');
             if (!mapSection || !galleryAll.length) return;
 
             // Create/replace map container
-            mapSection.innerHTML = '<button class="map-expand-btn" aria-label="Expand map" onclick="toggleMapFullscreen(true); event.stopPropagation();"><i class="fa-solid fa-up-right-and-down-left-from-center" aria-hidden="true"></i></button><div id="leaflet-map" class="map-container"></div>';
+            mapSection.innerHTML = '<button class="map-expand-btn" aria-label="Expand map" onclick="toggleMapFullscreen(true); event.stopPropagation();"><svg width="16" height="16" viewBox="0 0 512 512" fill="currentColor" aria-hidden="true"><path d="M344 0H488c13.3 0 24 10.7 24 24v144c0 9.7-5.8 18.5-14.8 22.2s-19.3 1.7-26.2-5.2l-39-39-87 87c-9.4 9.4-24.6 9.4-33.9 0l-32.4-32.4c-9.4-9.4-9.4-24.6 0-33.9l87-87-39-39c-6.9-6.9-8.9-17.2-5.2-26.2S334.3 0 344 0zM168 512H24c-13.3 0-24-10.7-24-24V344c0-9.7 5.8-18.5 14.8-22.2s19.3-1.7 26.2 5.2l39 39 87-87c9.4-9.4 24.6-9.4 33.9 0l32.4 32.4c9.4 9.4 9.4 24.6 0 33.9l-87 87 39 39c6.9 6.9 8.9 17.2 5.2 26.2S177.7 512 168 512z"/></svg></button><div id="leaflet-map" class="map-container"></div>';
             const mapEl = document.getElementById('leaflet-map');
 
             // Initialize or reset map
@@ -1690,7 +1718,8 @@
             });
         }
 
-        function initPreviewMap(id) {
+        async function initPreviewMap(id) {
+            await ensureLeaflet();
             const route = routesData.find(r => (r.id || r.name) === id);
             if (!route || !Array.isArray(route.coordinates) || route.coordinates.length === 0) return;
             const mapEl = document.getElementById('road-preview-' + id);
@@ -1720,7 +1749,8 @@
         }
 
         // Modal functions
-        function openRoadModal(idx) {
+        async function openRoadModal(idx) {
+            await ensureLeaflet();
             if (idx < 0 || idx >= roadSorted.length) return;
             currentRoadIndex = idx;
             const route = roadSorted[idx];
@@ -1828,13 +1858,12 @@
             openRoadModal(next);
         }
 
-        function downloadRoadImage() {
+        async function downloadRoadImage() {
             if (currentRoadIndex < 0 || !roadSorted.length) return;
             const route = roadSorted[currentRoadIndex];
             const name = (route.name || 'route').replace(/\s+/g, '-').toLowerCase();
 
             if (route.image) {
-                // Download the CDN image directly
                 const a = document.createElement('a');
                 a.href = route.image;
                 a.download = name + '.' + (route.image.split('.').pop().split('?')[0] || 'jpg');
@@ -1843,9 +1872,9 @@
                 a.click();
                 a.remove();
             } else if (roadModalMap) {
-                // Capture the map as an image using html2canvas
                 const mapEl = document.getElementById('road-modal-map');
-                if (!mapEl || typeof html2canvas === 'undefined') return;
+                if (!mapEl) return;
+                await ensureHtml2Canvas();
                 html2canvas(mapEl, { useCORS: true, allowTaint: true }).then(canvas => {
                     canvas.toBlob(blob => {
                         if (!blob) return;

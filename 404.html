@@ -1,32 +1,1906 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8" />
-    <title>Redirecting...</title>
-    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
-    <meta http-equiv="Pragma" content="no-cache" />
-    <meta http-equiv="Expires" content="0" />
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ethan - about</title>
+    <meta name="description" content="Ethan Steininger makes videos searchable at Mixpeek and juggles AI agents with Amux. Split between NYC and van life.">
+    <meta property="og:title" content="ethan - about">
+    <meta property="og:description" content="Ethan Steininger makes videos searchable at Mixpeek and juggles AI agents with Amux. Split between NYC and van life.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://ethan.dev/about">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="ethan - about">
+    <meta name="twitter:description" content="Ethan Steininger makes videos searchable at Mixpeek and juggles AI agents with Amux. Split between NYC and van life.">
+    <link rel="canonical" href="https://ethan.dev/about">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="articles.css" media="print" onload="this.media='all'">
     <script>
-      // For GitHub Pages style SPA redirect handling (rooted custom domain)
-      (function() {
-        var l = window.location;
-        // Break any potential loops: if we already have a redirect param, go home
-        if (/^[?#].*redirect=/.test(l.search)) {
-          window.location.replace('/');
-          return;
-        }
-        if (!l.pathname.endsWith('/index.html')) {
-          var target = l.pathname + l.search + l.hash;
-          var newUrl = '/?redirect=' + encodeURIComponent(target);
-          window.location.replace(newUrl);
-        } else {
-          window.location.replace('/');
-        }
-      })();
+        (function() {
+            try {
+                var saved = localStorage.getItem('theme');
+                var root = document.documentElement;
+                root.classList.remove('theme-light', 'theme-dark');
+                if (saved === 'light' || saved === 'dark') {
+                    root.classList.add('theme-' + saved);
+                }
+            } catch (e) { /* noop */ }
+        })();
     </script>
     <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
-  </head>
-  <body>
-    Redirecting...
-  </body>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Ethan Steininger",
+        "url": "https://ethan.dev",
+        "image": "https://ethan.dev/images/ethan.jpeg",
+        "sameAs": [
+            "https://github.com/esteininger",
+            "https://www.linkedin.com/in/ethansteininger/",
+            "https://x.com/ethansteininger",
+            "https://www.instagram.com/vanlifecoder/",
+            "https://www.youtube.com/@vanlifecoder",
+            "https://www.tiktok.com/@vanlifecoder"
+        ],
+        "jobTitle": "Founder",
+        "worksFor": {
+            "@type": "Organization",
+            "name": "Mixpeek",
+            "url": "https://mixpeek.com"
+        },
+        "knowsAbout": ["Software Engineering", "AI", "Multimodal Search", "Van Life"],
+        "description": "Makes videos searchable at Mixpeek and juggles AI agents with Amux. Split between NYC and van life."
+    }
+    </script>
+</head>
+
+<body>
+    <div class="container">
+        <nav>
+            <div class="nav-row">
+                <ul>
+                    <li><a href="/about" class="nav-link active">About</a></li>
+                    <li><a href="/album" class="nav-link">Album</a></li>
+                    <li><a href="/road" class="nav-link">Road</a></li>
+                </ul>
+                <div class="theme-toggle">
+                    <div id="theme-toggle" class="theme-switch" role="button" tabindex="0" aria-label="Toggle theme" title="Toggle theme">
+                        <svg class="switch-icon sun" width="14" height="14" viewBox="0 0 512 512" fill="currentColor" aria-hidden="true"><path d="M256 160c-52.9 0-96 43.1-96 96s43.1 96 96 96 96-43.1 96-96-43.1-96-96-96zm246.4 80.5l-94.7-47.3 33.5-100.4c4.5-13.6-8.4-26.5-21.9-21.9l-100.4 33.5-47.4-94.8c-6.4-12.8-24.6-12.8-31 0l-47.3 94.7L92.7 70.8c-13.6-4.5-26.5 8.4-21.9 21.9l33.5 100.4-94.7 47.4c-12.8 6.4-12.8 24.6 0 31l94.7 47.3-33.5 100.5c-4.5 13.6 8.4 26.5 21.9 21.9l100.4-33.5 47.3 94.7c6.4 12.8 24.6 12.8 31 0l47.3-94.7 100.4 33.5c13.6 4.5 26.5-8.4 21.9-21.9l-33.5-100.4 94.7-47.3c12.8-6.4 12.8-24.6 0-31z"/></svg>
+                        <span class="switch-thumb"></span>
+                        <svg class="switch-icon moon" width="14" height="14" viewBox="0 0 384 512" fill="currentColor" aria-hidden="true"><path d="M223.5 32C100 32 0 132.3 0 256s100 224 223.5 224c60.6 0 115.5-24.2 155.8-63.4 5-4.9 6.3-12.5 3.1-18.7s-10.1-9.7-17-8.5c-9.8 1.7-19.8 2.6-30.1 2.6-96.9 0-175.5-78.8-175.5-176 0-65.8 36-123.1 89.3-153.3 6.1-3.5 9.2-10.5 7.7-17.3s-7.3-11.9-14.3-12.5c-6.3-.5-12.6-.8-19-.8z"/></svg>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- About Page -->
+        <div id="about" class="page active">
+            <div class="bio-layout">
+                <!-- Left Column -->
+                <div class="profile-section">
+                    <img src="images/ethan.jpeg" alt="Profile" class="profile-img" width="200" height="200">
+                    <h3>Ethan Steininger</h3>
+
+                    <div class="social-links">
+                        <a href="https://github.com/esteininger" target="_blank">
+                            <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                                <path
+                                    d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+                            </svg>
+                        </a>
+                        <a href="https://www.linkedin.com/in/ethansteininger/" target="_blank">
+                            <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                                <path
+                                    d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
+                            </svg>
+                        </a>
+                        <a href="https://x.com/ethansteininger" target="_blank">
+                            <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                <path d="M18.244 2H21l-7.5 8.574L22 22h-6.828l-5.33-6.364L3.756 22H1l8.04-9.196L2 2h6.828l5.046 6.02L18.244 2zM16.83 20h1.885L7.29 4H5.41l11.42 16z"/>
+                            </svg>
+                        </a>
+                        <a href="https://www.instagram.com/vanlifecoder/" target="_blank">
+                            <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                                <path
+                                    d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zM5.838 12a6.162 6.162 0 1112.324 0 6.162 6.162 0 01-12.324 0zM12 16a4 4 0 110-8 4 4 0 010 8zm4.965-10.405a1.44 1.44 0 112.881.001 1.44 1.44 0 01-2.881-.001z" />
+                            </svg>
+                        </a>
+                        <a href="https://www.youtube.com/@vanlifecoder" target="_blank" aria-label="YouTube">
+                            <svg width="24" height="24" fill="currentColor" viewBox="0 0 576 512" aria-hidden="true"><path d="M549.655 124.083c-6.281-23.65-24.787-42.276-48.284-48.597C458.781 64 288 64 288 64S117.22 64 74.629 75.486c-23.497 6.322-42.003 24.947-48.284 48.597-11.412 42.867-11.412 132.305-11.412 132.305s0 89.438 11.412 132.305c6.281 23.65 24.787 41.5 48.284 47.821C117.22 448 288 448 288 448s170.78 0 213.371-11.486c23.497-6.321 42.003-24.171 48.284-47.821 11.412-42.867 11.412-132.305 11.412-132.305s0-89.438-11.412-132.305zm-317.51 213.508V175.185l142.739 81.205-142.739 81.201z"/></svg>
+                        </a>
+                        <a href="https://www.tiktok.com/@vanlifecoder" target="_blank" aria-label="TikTok">
+                            <svg width="24" height="24" fill="currentColor" viewBox="0 0 448 512" aria-hidden="true"><path d="M448 209.91a210.06 210.06 0 01-122.77-39.25v178.72A162.55 162.55 0 11185 188.31v89.89a74.62 74.62 0 1052.23 71.18V0h88a121.18 121.18 0 001.86 22.17A122.18 122.18 0 00381 102.39a121.43 121.43 0 0067 20.14z"/></svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Right Column -->
+                <div class="bio-content">
+                    <div class="bio-section">
+                        <p>I make videos searchable at <a href="https://mixpeek.com" target="_blank">Mixpeek</a> and juggle too many AI agents with <a href="https://amux.io" target="_blank">Amux</a>.</p>
+
+                        <p>The rest of my time is split between NYC and a <a target="_blank" href="https://vanlifecoder.com">van</a> I converted myself, usually with a paddle board on the roof and an Australian Shepherd named <a href="https://www.instagram.com/danywigglebutt/" target="_blank">Dany</a>, who has better Instagram engagement than me.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer">
+                me (at) ethan (dot) dev
+            </div>
+        </div>
+
+        <!-- Articles Page -->
+        <div id="articles" class="page">
+            <!-- <h1>Articles</h1> -->
+            <div id="blog-list" class="blog-list">
+                <!-- Blog list will be rendered here -->
+            </div>
+            <div id="blog-post-view" style="display: none;">
+                <!-- Individual blog post will be rendered here -->
+            </div>
+        </div>
+
+        <!-- Utilities Page -->
+        <div id="utilities" class="page">
+            <div class="utilities-list" id="utilities-list">
+                <!-- Filled by loadUtilities() -->
+            </div>
+        </div>
+
+        <!-- Adventures Page -->
+        <div id="album" class="page">
+            <!-- <h1>Album</h1> -->
+            <div class="map-section" id="map-section">
+                <!-- Map will be rendered here -->
+            </div>
+            <div class="gallery-controls">
+                <label for="gallery-shuffle">Shuffle:</label>
+                <button id="gallery-shuffle" class="icon-button" aria-label="Shuffle" title="Shuffle">
+                    <svg width="16" height="16" viewBox="0 0 512 512" fill="currentColor" aria-hidden="true"><path d="M403.8 34.4c12-5 25.7-2.2 34.9 6.9l64 64c6 6 9.4 14.1 9.4 22.6s-3.4 16.6-9.4 22.6l-64 64c-9.2 9.2-22.9 11.9-34.9 6.9S384 205.8 384 192.8V160h-32c-10.1 0-19.6 4.7-25.6 12.8L284 229.3 244 176l31.2-41.6C293.3 110.2 321.8 96 352 96h32V63.2c0-12.9 7.8-24.6 19.8-29.6zM164 282.7l40 53.3-31.2 41.6C154.7 401.8 126.2 416 96 416H32c-17.7 0-32-14.3-32-32s14.3-32 32-32h64c10.1 0 19.6-4.7 25.6-12.8L164 282.7zm274.6 188c-12 5-25.7 2.2-34.9-6.9l-64-64c-6-6-9.4-14.1-9.4-22.6s3.4-16.6 9.4-22.6l64-64c9.2-9.2 22.9-11.9 34.9-6.9s19.8 16.6 19.8 29.6V352h-32c-30.2 0-58.7-14.2-76.8-38.4L217.6 153.6C199.6 129.8 171.1 116 141 116H32c-17.7 0-32-14.3-32-32S14.3 52 32 52h109c45.3 0 87.9 21.2 115.2 57.6L368.4 270.4c18 23.8 46.5 37.6 76.6 37.6h-61V345.2c0 12.9 7.8 24.6 19.8 29.6z"/></svg>
+                </button>
+                <label for="gallery-sort-field">Sort by:</label>
+                <select id="gallery-sort-field">
+                    <option value="date">date</option>
+                    <option value="name">name</option>
+                </select>
+                <label for="gallery-sort-order" style="margin-left:8px;">Order:</label>
+                <select id="gallery-sort-order">
+                    <option value="desc">desc</option>
+                    <option value="asc">asc</option>
+                </select>
+            </div>
+            <div class="gallery" id="gallery">
+                <!-- Gallery items will be rendered here -->
+            </div>
+        </div>
+        <!-- Road Page -->
+        <div id="road" class="page">
+            <div class="road-list" id="road-list">
+                <!-- Filled by loadRoutes() -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox" onclick="closeLightbox()">
+        <button class="lightbox-download" aria-label="Download" title="Download" onclick="downloadCurrentImage(); event.stopPropagation();">
+            <svg width="18" height="18" viewBox="0 0 448 512" fill="currentColor" aria-hidden="true"><path d="M64 32C28.7 32 0 60.7 0 96v320c0 35.3 28.7 64 64 64h320c35.3 0 64-28.7 64-64V96c0-35.3-28.7-64-64-64H64zM224 272l-64-64h48V160h32v48h48l-64 64zm-96 80h192v32H128v-32z"/></svg>
+        </button>
+        <button class="lightbox-close" aria-label="Close" onclick="closeLightbox(); event.stopPropagation();">
+            <svg width="22" height="22" viewBox="0 0 384 512" fill="currentColor" aria-hidden="true"><path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3l105.4 105.3c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256l105.3-105.4z"/></svg>
+        </button>
+        <button class="lightbox-nav lightbox-prev" aria-label="Previous" onclick="navigateLightbox(-1); event.stopPropagation();">
+            <svg width="20" height="20" viewBox="0 0 320 512" fill="currentColor" aria-hidden="true"><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l192 192c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256 246.6 86.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-192 192z"/></svg>
+        </button>
+        <img src="" alt="Full size image" id="lightbox-img" onclick="toggleZoom(event)">
+        <button class="lightbox-nav lightbox-next" aria-label="Next" onclick="navigateLightbox(1); event.stopPropagation();">
+            <svg width="20" height="20" viewBox="0 0 320 512" fill="currentColor" aria-hidden="true"><path d="M310.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5-12.5-32.8-12.5-45.3 0s-12.5-32.8 0-45.3L242.7 256 73.4 86.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l192 192z"/></svg>
+        </button>
+        <div id="lightbox-caption" onclick="event.stopPropagation();"></div>
+    </div>
+
+    <!-- Road Modal -->
+    <div class="road-modal" id="road-modal" onclick="closeRoadModal()">
+        <button class="lightbox-download" aria-label="Download" title="Download" onclick="downloadRoadImage(); event.stopPropagation();">
+            <svg width="18" height="18" viewBox="0 0 448 512" fill="currentColor" aria-hidden="true"><path d="M64 32C28.7 32 0 60.7 0 96v320c0 35.3 28.7 64 64 64h320c35.3 0 64-28.7 64-64V96c0-35.3-28.7-64-64-64H64zM224 272l-64-64h48V160h32v48h48l-64 64zm-96 80h192v32H128v-32z"/></svg>
+        </button>
+        <button class="lightbox-close" aria-label="Close" onclick="closeRoadModal(); event.stopPropagation();">
+            <svg width="22" height="22" viewBox="0 0 384 512" fill="currentColor" aria-hidden="true"><path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3l105.4 105.3c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256l105.3-105.4z"/></svg>
+        </button>
+        <button class="lightbox-nav lightbox-prev" aria-label="Previous" onclick="navigateRoadModal(-1); event.stopPropagation();">
+            <svg width="20" height="20" viewBox="0 0 320 512" fill="currentColor" aria-hidden="true"><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l192 192c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256 246.6 86.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-192 192z"/></svg>
+        </button>
+        <div class="road-modal-content" onclick="event.stopPropagation();">
+            <div class="road-modal-map" id="road-modal-map"></div>
+            <div class="road-modal-info" id="road-modal-info"></div>
+        </div>
+        <button class="lightbox-nav lightbox-next" aria-label="Next" onclick="navigateRoadModal(1); event.stopPropagation();">
+            <svg width="20" height="20" viewBox="0 0 320 512" fill="currentColor" aria-hidden="true"><path d="M310.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5-12.5-32.8-12.5-45.3 0s-12.5-32.8 0-45.3L242.7 256 73.4 86.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l192 192z"/></svg>
+        </button>
+    </div>
+
+    <!-- Fullscreen Map Overlay -->
+    <div class="map-overlay" id="map-overlay" aria-hidden="true">
+        <button class="lightbox-close" aria-label="Close fullscreen map" onclick="toggleMapFullscreen(false); event.stopPropagation();">
+            <svg width="22" height="22" viewBox="0 0 384 512" fill="currentColor" aria-hidden="true"><path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3l105.4 105.3c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256l105.3-105.4z"/></svg>
+        </button>
+        <div id="map-overlay-container" class="map-container"></div>
+    </div>
+
+    <script>
+        function loadScript(src) {
+            return new Promise(function(resolve) {
+                var s = document.createElement('script');
+                s.src = src;
+                s.onload = resolve;
+                s.onerror = resolve;
+                document.head.appendChild(s);
+            });
+        }
+        function loadCSS(href) {
+            var link = document.createElement('link');
+            link.rel = 'stylesheet';
+            link.href = href;
+            document.head.appendChild(link);
+        }
+        var _leafletReady, _leafletPromise;
+        function ensureLeaflet() {
+            if (_leafletReady) return Promise.resolve();
+            if (_leafletPromise) return _leafletPromise;
+            loadCSS('https://unpkg.com/leaflet@1.9.4/dist/leaflet.css');
+            _leafletPromise = loadScript('https://unpkg.com/leaflet@1.9.4/dist/leaflet.js').then(function() { _leafletReady = true; });
+            return _leafletPromise;
+        }
+        var _prismReady, _prismPromise;
+        function ensurePrism() {
+            if (_prismReady) return Promise.resolve();
+            if (_prismPromise) return _prismPromise;
+            loadCSS('https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css');
+            _prismPromise = loadScript('https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-core.min.js')
+                .then(function() { return loadScript('https://cdn.jsdelivr.net/npm/prismjs@1.29.0/plugins/autoloader/prism-autoloader.min.js'); })
+                .then(function() {
+                    try { Prism.plugins.autoloader.languages_path = 'https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/'; } catch (_) {}
+                    _prismReady = true;
+                });
+            return _prismPromise;
+        }
+        var _h2cReady, _h2cPromise;
+        function ensureHtml2Canvas() {
+            if (_h2cReady) return Promise.resolve();
+            if (_h2cPromise) return _h2cPromise;
+            _h2cPromise = loadScript('https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js').then(function() { _h2cReady = true; });
+            return _h2cPromise;
+        }
+    </script>
+    <script>
+        // Theme handling
+        (function() {
+            const root = document.documentElement;
+            const prefersLight = window.matchMedia('(prefers-color-scheme: light)');
+
+            function currentExplicitTheme() {
+                try { return localStorage.getItem('theme'); } catch (_) { return null; }
+            }
+
+            function applyTheme(theme) {
+                root.classList.remove('theme-light', 'theme-dark');
+                if (theme === 'light' || theme === 'dark') {
+                    root.classList.add('theme-' + theme);
+                }
+                updateThemeToggleState();
+            }
+
+            function updateThemeToggleState() {
+                const sw = document.getElementById('theme-toggle');
+                if (!sw) return;
+                const isLight = root.classList.contains('theme-light') || (!root.classList.contains('theme-dark') && prefersLight.matches);
+                sw.setAttribute('aria-pressed', String(isLight));
+            }
+
+            function toggleTheme() {
+                const explicit = currentExplicitTheme();
+                let next;
+                if (explicit) {
+                    next = explicit === 'light' ? 'dark' : 'light';
+                } else {
+                    // No explicit choice yet; flip from system preference
+                    next = prefersLight.matches ? 'dark' : 'light';
+                }
+                try { localStorage.setItem('theme', next); } catch (_) {}
+                applyTheme(next);
+            }
+
+            // Bind button after DOM is ready
+            window.addEventListener('DOMContentLoaded', () => {
+                const btn = document.getElementById('theme-toggle');
+                if (btn && !btn.dataset.bound) {
+                    btn.dataset.bound = '1';
+                    btn.addEventListener('click', toggleTheme);
+                    btn.addEventListener('keydown', (e) => {
+                        if (e.key === 'Enter' || e.key === ' ') {
+                            e.preventDefault();
+                            toggleTheme();
+                        }
+                    });
+                    updateThemeToggleState();
+                }
+            });
+
+            // React to system changes only if user hasn't chosen
+            try {
+                prefersLight.addEventListener('change', () => {
+                    if (!currentExplicitTheme()) {
+                        applyTheme(null);
+                    }
+                });
+            } catch (_) {}
+        })();
+
+        // Determine base path for project pages (e.g., GitHub Pages project sites)
+        const basePath = (() => {
+            const parts = window.location.pathname.split('/').filter(Boolean);
+            // If first segment is a repo name (project site), treat it as base
+            // Heuristic: if first segment is not one of our app routes
+            const first = parts[0] || '';
+            const appRoots = new Set(['about', 'articles', 'album', 'road', 'utilities', 'posts', 'images']);
+            return first && !appRoots.has(first) ? ('/' + first) : '';
+        })();
+
+        // Meta helpers: keep social previews text-only and remove images
+        function removeMeta(selector) {
+            const el = document.head.querySelector(selector);
+            if (el && el.parentNode) el.parentNode.removeChild(el);
+        }
+
+        function upsertMeta(attrName, attrValue, content) {
+            let el = document.head.querySelector(`meta[${attrName}="${attrValue}"]`);
+            if (!el) {
+                el = document.createElement('meta');
+                el.setAttribute(attrName, attrValue);
+                document.head.appendChild(el);
+            }
+            el.setAttribute('content', content);
+        }
+
+        function removeLink(rel) {
+            const el = document.head.querySelector(`link[rel="${rel}"]`);
+            if (el && el.parentNode) el.parentNode.removeChild(el);
+        }
+
+        function upsertLink(rel, href) {
+            let el = document.head.querySelector(`link[rel="${rel}"]`);
+            if (!el) {
+                el = document.createElement('link');
+                el.setAttribute('rel', rel);
+                document.head.appendChild(el);
+            }
+            el.setAttribute('href', href);
+        }
+
+        function updatePageMeta(titleText, options) {
+            const opts = options || {};
+            try {
+                if (typeof titleText === 'string' && titleText.trim()) {
+                    document.title = titleText;
+                    upsertMeta('property', 'og:title', titleText);
+                    upsertMeta('name', 'twitter:title', titleText);
+                }
+                const description = typeof opts.description === 'string' ? opts.description.trim() : '';
+                if (description) {
+                    upsertMeta('name', 'description', description);
+                    upsertMeta('property', 'og:description', description);
+                    upsertMeta('name', 'twitter:description', description);
+                } else {
+                    removeMeta('meta[name="description"]');
+                    removeMeta('meta[property="og:description"]');
+                    removeMeta('meta[name="twitter:description"]');
+                }
+
+                if (typeof opts.canonical === 'string' && opts.canonical.trim()) {
+                    upsertLink('canonical', opts.canonical.trim());
+                    upsertMeta('property', 'og:url', opts.canonical.trim());
+                } else {
+                    removeLink('canonical');
+                    removeMeta('meta[property="og:url"]');
+                }
+
+                const ogType = typeof opts.ogType === 'string' && opts.ogType.trim()
+                    ? opts.ogType.trim()
+                    : 'website';
+                upsertMeta('property', 'og:type', ogType);
+
+                const twitterCard = typeof opts.twitterCard === 'string' && opts.twitterCard.trim()
+                    ? opts.twitterCard.trim()
+                    : 'summary';
+                upsertMeta('name', 'twitter:card', twitterCard);
+
+                // Ensure no image previews
+                removeMeta('meta[property="og:image"]');
+                removeMeta('meta[name="twitter:image"]');
+            } catch (_) { /* noop */ }
+        }
+
+        function metaForPageId(pageId) {
+            if (pageId === 'articles') {
+                return {
+                    title: 'ethan - articles',
+                    description: 'Long-form essays and analysis on software engineering, geopolitics, AI, and technology by Ethan Steininger.',
+                    canonical: 'https://ethan.dev/articles',
+                    ogType: 'website',
+                    twitterCard: 'summary'
+                };
+            }
+            if (pageId === 'album') {
+                return {
+                    title: 'ethan - album',
+                    description: 'Photo journal from van life adventures, alpine lakes, and outdoor explorations. View location-tagged photos on an interactive map.',
+                    canonical: 'https://ethan.dev/album',
+                    ogType: 'website',
+                    twitterCard: 'summary'
+                };
+            }
+            if (pageId === 'road') {
+                return {
+                    title: 'ethan - road trips',
+                    description: 'Road trip routes from van life adventures across the US and Canada. GPS-tracked routes through national parks, mountain passes, and coastal highways.',
+                    canonical: 'https://ethan.dev/road',
+                    ogType: 'website',
+                    twitterCard: 'summary'
+                };
+            }
+            if (pageId === 'utilities') {
+                if (utilitiesData && utilitiesData.page) {
+                    const pageMeta = utilitiesData.page.meta || {};
+                    return {
+                        title: pageMeta.title || 'ethan - utilities',
+                        description: pageMeta.description || utilitiesData.page.description || '',
+                        canonical: pageMeta.canonical || '',
+                        ogType: pageMeta.ogType || 'website',
+                        twitterCard: pageMeta.twitterCard || 'summary'
+                    };
+                }
+                return { title: 'ethan - utilities', ogType: 'website', twitterCard: 'summary' };
+            }
+            // default/about
+            return {
+                title: 'ethan - about',
+                description: 'Ethan Steininger makes videos searchable at Mixpeek and juggles AI agents with Amux. Split between NYC and van life.',
+                canonical: 'https://ethan.dev/about',
+                ogType: 'website',
+                twitterCard: 'summary'
+            };
+        }
+
+        // Blog posts data - will be loaded from markdown files
+        let blogPosts = [];
+        let utilitiesData = null;
+
+        // Function to parse frontmatter from markdown content
+        function parseFrontmatter(content) {
+            const frontmatterRegex = /^---\n([\s\S]*?)\n---\n([\s\S]*)$/;
+            const match = content.match(frontmatterRegex);
+
+            if (!match) {
+                return { content: content, metadata: {} };
+            }
+
+            const frontmatter = match[1];
+            const markdownContent = match[2];
+
+            const metadata = {};
+            frontmatter.split('\n').forEach(line => {
+                const colonIndex = line.indexOf(':');
+                if (colonIndex > 0) {
+                    const key = line.substring(0, colonIndex).trim();
+                    let value = line.substring(colonIndex + 1).trim();
+
+                    // Remove quotes if present
+                    if ((value.startsWith('"') && value.endsWith('"')) ||
+                        (value.startsWith("'") && value.endsWith("'"))) {
+                        value = value.slice(1, -1);
+                    }
+
+                    metadata[key] = value;
+                }
+            });
+
+            return { content: markdownContent, metadata };
+        }
+
+        // Function to load blog posts from markdown files
+        async function loadBlogPosts() {
+            // Fetch post list from shared config
+            const configResponse = await fetch('posts.json');
+            const config = await configResponse.json();
+            const postFiles = config.posts;
+
+            blogPosts = [];
+
+            for (const file of postFiles) {
+                try {
+                    const response = await fetch(file);
+                    if (!response.ok) {
+                        console.warn(`Failed to load ${file}: ${response.status}`);
+                        continue;
+                    }
+
+                    const content = await response.text();
+                    const { content: markdownContent, metadata } = parseFrontmatter(content);
+
+                    // Extract ID from filename
+                    const id = file.replace('posts/', '').replace('.md', '');
+
+                    // Determine last edited time from frontmatter or HTTP headers
+                    const lastModifiedHeader = response.headers.get('last-modified');
+                    const lastEdited = metadata.lastEdited
+                        || metadata.lastedited
+                        || metadata.updated
+                        || metadata.last_updated
+                        || metadata.modified
+                        || metadata['last-edited']
+                        || lastModifiedHeader
+                        || metadata.date;
+
+                    blogPosts.push({
+                        id: id,
+                        title: metadata.title || 'Untitled',
+                        date: metadata.date || 'Unknown Date',
+                        lastEdited: lastEdited || '',
+                        description: metadata.description || '',
+                        markdown: markdownContent,
+                        metadata: metadata
+                    });
+                } catch (error) {
+                    console.error(`Error loading ${file}:`, error);
+                }
+            }
+
+            // Sort posts by date (newest first)
+            blogPosts.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+            // Render the blog list after loading
+            renderBlogList();
+        }
+
+        async function loadUtilities() {
+            try {
+                const response = await fetch('utilities/utilities.json', { cache: 'no-cache' });
+                if (!response.ok) {
+                    console.warn(`Failed to load utilities metadata: ${response.status}`);
+                    return;
+                }
+                utilitiesData = await response.json();
+                renderUtilitiesList();
+
+                const utilitiesPage = document.getElementById('utilities');
+                if (utilitiesPage && utilitiesPage.classList.contains('active')) {
+                    const pageMeta = metaForPageId('utilities') || {};
+                    updatePageMeta(pageMeta.title, pageMeta);
+                }
+            } catch (error) {
+                console.error('Error loading utilities metadata:', error);
+            }
+        }
+
+        function renderUtilitiesList() {
+            if (!utilitiesData || typeof utilitiesData !== 'object') return;
+            const listEl = document.getElementById('utilities-list');
+            const headlineEl = document.getElementById('utilities-headline');
+            const descriptionEl = document.getElementById('utilities-description');
+            if (!listEl) return;
+
+            if (headlineEl && utilitiesData.page && utilitiesData.page.headline) {
+                headlineEl.textContent = utilitiesData.page.headline;
+            }
+            if (descriptionEl && utilitiesData.page && utilitiesData.page.blurb) {
+                descriptionEl.textContent = utilitiesData.page.blurb;
+            }
+
+            const utilities = Array.isArray(utilitiesData.utilities) ? utilitiesData.utilities : [];
+            if (!utilities.length) {
+                listEl.innerHTML = '<p class="utilities-empty">Utilities will be available soon.</p>';
+                return;
+            }
+
+            const escapeHtml = (value) => String(value || '')
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#039;');
+
+            const html = utilities.map((utility) => {
+                const slug = utility.slug || '';
+                const href = (basePath ? basePath : '') + '/utilities/' + slug.replace(/^\/+/, '');
+                const name = escapeHtml(utility.name || slug);
+                const summary = escapeHtml(utility.teaser || utility.shortDescription || '');
+                const tags = Array.isArray(utility.tags)
+                    ? utility.tags.map(tag => `<span class="tag">${escapeHtml(tag)}</span>`).join('')
+                    : '';
+
+                return `
+                    <a class="utility-card" href="${href}">
+                        <h2>${name}</h2>
+                        ${summary ? `<p class="utility-description">${summary}</p>` : ''}
+                        ${tags ? `<div class="utility-tags">${tags}</div>` : ''}
+                    </a>
+                `;
+            }).join('');
+
+            listEl.innerHTML = html;
+        }
+
+        // Navigation and routing
+        const navLinks = document.querySelectorAll('.nav-link');
+        const pages = document.querySelectorAll('.page');
+
+        // Handle navigation clicks (History API)
+        navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const rawPath = new URL(link.getAttribute('href'), window.location.origin).pathname;
+                const path = (basePath ? basePath : '') + rawPath;
+                navigateToPath(path);
+            });
+        });
+
+        // Navigate to a specific path using History API
+        function navigateToPath(path, options) {
+            const opts = options || {};
+            const shouldPush = opts.push === undefined ? true : !!opts.push;
+            if (!path || path === '/' || path === basePath + '/') path = (basePath + '/about');
+
+            if (shouldPush && window.location.pathname !== path) {
+                window.history.pushState({}, '', path);
+            }
+
+            const pageId = path.replace(basePath, '').replace(/^\/+/, '');
+
+            // Update active states
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                const linkPath = new URL(link.getAttribute('href'), window.location.origin).pathname.replace(/^\/+/, '');
+                if (linkPath === pageId) {
+                    link.classList.add('active');
+                }
+            });
+
+            // Show/hide pages
+            pages.forEach(page => {
+                page.classList.remove('active');
+                if (page.id === pageId) {
+                    page.classList.add('active');
+                }
+            });
+
+            // Reset articles view when navigating to articles
+            if (pageId === 'articles') {
+                const blogListEl = document.getElementById('blog-list');
+                const blogPostView = document.getElementById('blog-post-view');
+                const blogTitle = document.querySelector('#articles h1');
+
+                if (blogListEl) blogListEl.style.display = 'block';
+                if (blogPostView) blogPostView.style.display = 'none';
+                if (blogTitle) blogTitle.style.display = 'block';
+                // Remove any per-post assets when returning to list
+                removePostAssets();
+            }
+
+            // Ensure Leaflet map sizes correctly when the Album page becomes visible
+            if (pageId === 'album') {
+                // Create map if it hasn't been created yet
+                if (!leafletMap) {
+                    renderMap();
+                }
+                // Defer invalidation until layout settles
+                setTimeout(() => {
+                    if (leafletMap) {
+                        leafletMap.invalidateSize(true);
+                        // Ensure we fit to all pins when album becomes visible
+                        fitMapToAllPins();
+                    }
+                }, 50);
+            }
+
+            if (pageId === 'utilities') {
+                renderUtilitiesList();
+            }
+
+            if (pageId === 'road') {
+                if (!routesData.length) {
+                    loadRoutes();
+                } else {
+                    renderRoadList();
+                }
+            }
+
+            // Scroll to top with smooth animation
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+            // Update meta/title for the current page (article pages will override later)
+            const pageMeta = metaForPageId(pageId) || {};
+            updatePageMeta(pageMeta.title, pageMeta);
+        }
+        // Fit map view to include all valid pins
+        function fitMapToAllPins() {
+            if (!leafletMap || !Array.isArray(galleryAll)) return;
+            const b = L.latLngBounds();
+            for (const img of galleryAll) {
+                if (typeof img.lat === 'number' && typeof img.lng === 'number') {
+                    b.extend([img.lat, img.lng]);
+                }
+            }
+            if (b.isValid()) {
+                leafletMap.fitBounds(b.pad(0.1));
+            }
+        }
+
+        // Handle browser back/forward buttons and deep linking (History API)
+        window.addEventListener('popstate', () => {
+            routeFromLocation();
+        });
+
+        function routeFromLocation() {
+            const path = window.location.pathname;
+            const basePages = ['/about', '/articles', '/album', '/road', '/utilities', '/'];
+
+            if (path.startsWith(basePath + '/articles/')) {
+                navigateToPath(basePath + '/articles');
+                const postId = path.replace(basePath + '/articles/', '');
+                setTimeout(() => {
+                    renderPostById(postId);
+                }, 100);
+            } else if (!basePages.map(p => basePath + p).includes(path)) {
+                // Treat as baseline article slug at root
+                const postId = path.replace(basePath, '').replace(/^\//, '');
+                navigateToPath(basePath + '/articles');
+                setTimeout(() => {
+                    renderPostById(postId);
+                }, 100);
+            } else {
+                navigateToPath(path);
+            }
+        }
+
+        function renderPostById(postId) {
+            const post = blogPosts.find(p => p.id === postId);
+            if (!post) return;
+            // ensure URL reflects article slug at /articles/<id>
+            const desiredArticles = (basePath + '/articles/' + postId);
+            const desiredRoot = (basePath + '/' + postId);
+            if (window.location.pathname !== desiredArticles && window.location.pathname !== desiredRoot) {
+                // Prefer short root slug when programmatically navigating
+                window.history.pushState({}, '', desiredRoot);
+                // do not recurse; just update URL
+            }
+            const blogListEl = document.getElementById('blog-list');
+            const blogPostView = document.getElementById('blog-post-view');
+            const blogTitle = document.querySelector('#articles h1');
+            if (blogListEl) blogListEl.style.display = 'none';
+            if (blogTitle) blogTitle.style.display = 'none';
+            if (blogPostView) {
+                blogPostView.style.display = 'block';
+                const lastEditedDisplay = (post.lastEdited && !Number.isNaN(Date.parse(post.lastEdited)))
+                    ? new Date(post.lastEdited).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
+                    : '';
+                blogPostView.innerHTML = `
+                    <div class="blog-post">
+                        <div class="post-header">
+                            <h1>${post.title}</h1>
+                            <div class="post-date">${new Date(post.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</div>
+                            ${lastEditedDisplay ? `<div class="post-last-edited">Last edited: ${lastEditedDisplay}</div>` : ''}
+                        </div>
+                        <div class="post-content">${parseMarkdown(post.markdown)}</div>
+                    </div>`;
+                // Article pages should use the "ethan - <title>" format
+                let canonicalUrl = '';
+                try {
+                    canonicalUrl = new URL(basePath + '/' + postId, window.location.origin).href;
+                } catch (_) { /* noop */ }
+                updatePageMeta('ethan - ' + post.title, {
+                    description: post.description || '',
+                    canonical: canonicalUrl,
+                    ogType: 'article',
+                    twitterCard: 'summary'
+                });
+                ensurePrism().then(function() { try { Prism.highlightAllUnder(blogPostView); } catch (_) {} });
+                // Load per-post assets
+                addPostAssets(post.metadata);
+            }
+        }
+
+        // Handle initial page load
+        window.addEventListener('load', async () => {
+            // Load blog posts and gallery images
+            await Promise.all([
+                loadBlogPosts(),
+                loadGalleryImages(),
+                loadUtilities(),
+                loadRoutes()
+            ]);
+            // Handle SPA redirect param from 404 fallback
+            const params = new URLSearchParams(window.location.search);
+            const redirected = params.get('redirect');
+            if (redirected) {
+                // Sanitize to prevent nested redirect chains
+                let clean = redirected;
+                try {
+                    // Trim any nested ?redirect=... from the end
+                    const idx = clean.indexOf('?redirect=');
+                    if (idx >= 0) clean = clean.slice(0, idx);
+                    // Ensure it starts with a single leading slash
+                    clean = '/' + clean.replace(/^\/+/, '');
+                } catch (_) { /* noop */ }
+                window.history.replaceState({}, '', clean);
+            }
+            routeFromLocation();
+        });
+
+        // Simple Markdown parser with fenced code language support
+        function parseMarkdown(markdown) {
+            function escapeHtml(s) {
+                return String(s)
+                    .replace(/&/g, '&amp;')
+                    .replace(/</g, '&lt;')
+                    .replace(/>/g, '&gt;');
+            }
+
+            // Fenced code blocks: ```lang\ncode```
+            let html = markdown.replace(/```([\w#+-]*)\n([\s\S]*?)```/g, (m, lang, code) => {
+                const language = (lang || '').trim().toLowerCase();
+                const cls = language ? ` class="language-${language}"` : '';
+                return `<pre${cls}><code${cls}>${escapeHtml(code)}</code></pre>`;
+            });
+
+            html = html
+                // Remove leading arrow emoji markers
+                .replace(/➡️\s*/g, '')
+                // Headers
+                .replace(/^### (.*$)/gim, '<h3>$1</h3>')
+                .replace(/^## (.*$)/gim, '<h3>$1</h3>')
+                .replace(/^# (.*$)/gim, '<h2>$1</h2>')
+                // Bold
+                .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+                // Italic  
+                .replace(/\*(.+?)\*/g, '<em>$1</em>')
+                // Inline code
+                .replace(/`(.+?)`/g, (m, code) => `<code>${escapeHtml(code)}</code>`)
+                // Markdown links [text](url)
+                .replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1<\/a>')
+                // Lists
+                .replace(/^\d+\. (.+)$/gim, '<li>$1</li>')
+                .replace(/^\* (.+)$/gim, '<li>$1</li>')
+                .replace(/^- (.+)$/gim, '<li>$1</li>')
+                // Line breaks
+                .replace(/\n/g, '\n')
+                // Paragraphs
+                .split('\n\n')
+                .map(para => {
+                    para = para.trim();
+                    if (!para) return '';
+                    if (para.match(/^<[h|l|p|u|o]/)) {
+                        return para;
+                    }
+                    return `<p>${para}</p>`;
+                })
+                .join('\n');
+
+            // Wrap list items in appropriate list tags
+            html = html.replace(/(<li>.*<\/li>\n?)+/g, match => {
+                if (match.includes('<li>1.')) {
+                    return `<ol>${match}</ol>`;
+                }
+                return `<ul>${match}</ul>`;
+            });
+
+            return html;
+        }
+
+        // Gallery data - will be loaded from JSON file
+        let galleryImages = [];
+        // Master list of all images (deduped)
+        let galleryAll = [];
+        // Current gallery view (filtered by map bounds and sorted/shuffled)
+        let galleryView = [];
+        let leafletMap = null;
+        let leafletMarkers = [];
+        let urlToMarker = {};
+        let currentLightboxIndex = -1;
+        let lightboxLoading = false;
+        let gallerySortField = 'date';
+        let gallerySortOrder = 'desc';
+        let galleryShuffled = false;
+
+        // Function to load gallery images from JSON file
+        async function loadGalleryImages() {
+            try {
+                const response = await fetch('images/gallery.json');
+                if (!response.ok) {
+                    console.warn('Failed to load gallery images:', response.status);
+                    return;
+                }
+
+                galleryImages = await response.json();
+
+                // Remove default camera names like "IMG 1234", "IMG_1234", "IMG-1234"
+                try {
+                    galleryImages.forEach(img => {
+                        if (!img || typeof img.name !== 'string') return;
+                        const n = img.name.trim();
+                        if (/^img[\s_-]*\d+$/i.test(n)) {
+                            delete img.name;
+                        }
+                    });
+                } catch (_) { /* ignore */ }
+
+                // Deduplicate by filename (case-insensitive, ignoring extension)
+                const byKey = new Map();
+                const parseDate = (v) => {
+                    if (!v) return NaN;
+                    const t = Date.parse(v);
+                    if (!Number.isNaN(t)) return t;
+                    const m = /^([0-9]{4}):([0-9]{2}):([0-9]{2})/.exec(String(v));
+                    return m ? Date.parse(`${m[1]}-${m[2]}-${m[3]}`) : NaN;
+                };
+                for (const img of galleryImages) {
+                    try {
+                        const fname = (img.url || '').split('/').pop() || '';
+                        const key = fname.replace(/\.[^.]+$/, '').toLowerCase();
+                        const existing = byKey.get(key);
+                        if (!existing) {
+                            byKey.set(key, img);
+                        } else {
+                            const ta = parseDate(existing.date_taken);
+                            const tb = parseDate(img.date_taken);
+                            const existingHasDate = !Number.isNaN(ta);
+                            const newHasDate = !Number.isNaN(tb);
+                            const existingHasCoords = (typeof existing.lat === 'number' && typeof existing.lng === 'number');
+                            const newHasCoords = (typeof img.lat === 'number' && typeof img.lng === 'number');
+
+                            let preferNew = false;
+                            if (newHasDate && !existingHasDate) preferNew = true;
+                            else if (newHasDate && existingHasDate && tb > ta) preferNew = true;
+                            else if (!newHasDate && !existingHasDate && newHasCoords && !existingHasCoords) preferNew = true;
+
+                            if (preferNew) byKey.set(key, img);
+                        }
+                    } catch (_) {
+                        // fall through; keep existing
+                    }
+                }
+                galleryAll = Array.from(byKey.values());
+                galleryView = galleryAll.slice();
+
+                // Initialize sort controls
+                const sortFieldEl = document.getElementById('gallery-sort-field');
+                const sortOrderEl = document.getElementById('gallery-sort-order');
+                if (sortFieldEl && !sortFieldEl.dataset.bound) {
+                    sortFieldEl.dataset.bound = '1';
+                    sortFieldEl.addEventListener('change', () => {
+                        gallerySortField = sortFieldEl.value;
+                        galleryShuffled = false;
+                        renderGallery();
+                    });
+                }
+                if (sortOrderEl && !sortOrderEl.dataset.bound) {
+                    sortOrderEl.dataset.bound = '1';
+                    sortOrderEl.addEventListener('change', () => {
+                        gallerySortOrder = sortOrderEl.value;
+                        galleryShuffled = false;
+                        renderGallery();
+                    });
+                }
+                const shuffleBtn = document.getElementById('gallery-shuffle');
+                if (shuffleBtn && !shuffleBtn.dataset.bound) {
+                    shuffleBtn.dataset.bound = '1';
+                    shuffleBtn.addEventListener('click', () => {
+                        // Fisher–Yates shuffle of non-featured items only, within current view
+                        const featuredItems = galleryView.filter(g => g.featured);
+                        const rest = galleryView.filter(g => !g.featured);
+                        for (let i = rest.length - 1; i > 0; i--) {
+                            const j = Math.floor(Math.random() * (i + 1));
+                            [rest[i], rest[j]] = [rest[j], rest[i]];
+                        }
+                        galleryView = [...featuredItems, ...rest];
+                        galleryShuffled = true;
+                        renderGallery();
+                    });
+                }
+
+                // Render gallery after loading
+                renderGallery();
+            } catch (error) {
+                console.error('Error loading gallery images:', error);
+            }
+        }
+
+        // Render map
+        async function renderMap() {
+            await ensureLeaflet();
+            const mapSection = document.getElementById('map-section');
+            if (!mapSection || !galleryAll.length) return;
+
+            // Create/replace map container
+            mapSection.innerHTML = '<button class="map-expand-btn" aria-label="Expand map" onclick="toggleMapFullscreen(true); event.stopPropagation();"><svg width="16" height="16" viewBox="0 0 512 512" fill="currentColor" aria-hidden="true"><path d="M344 0H488c13.3 0 24 10.7 24 24v144c0 9.7-5.8 18.5-14.8 22.2s-19.3 1.7-26.2-5.2l-39-39-87 87c-9.4 9.4-24.6 9.4-33.9 0l-32.4-32.4c-9.4-9.4-9.4-24.6 0-33.9l87-87-39-39c-6.9-6.9-8.9-17.2-5.2-26.2S334.3 0 344 0zM168 512H24c-13.3 0-24-10.7-24-24V344c0-9.7 5.8-18.5 14.8-22.2s19.3-1.7 26.2 5.2l39 39 87-87c9.4-9.4 24.6-9.4 33.9 0l32.4 32.4c9.4 9.4 9.4 24.6 0 33.9l-87 87 39 39c6.9 6.9 8.9 17.2 5.2 26.2S177.7 512 168 512z"/></svg></button><div id="leaflet-map" class="map-container"></div>';
+            const mapEl = document.getElementById('leaflet-map');
+
+            // Initialize or reset map
+            if (!leafletMap) {
+                leafletMap = L.map(mapEl, { zoomControl: true });
+                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    attribution: '&copy; OpenStreetMap contributors'
+                }).addTo(leafletMap);
+                // Add reset view control below default zoom controls
+                const ResetControl = L.Control.extend({
+                    options: { position: 'topleft' },
+                    onAdd: function() {
+                        const container = L.DomUtil.create('div', 'leaflet-control leaflet-bar');
+                        const link = L.DomUtil.create('a', 'leaflet-control-reset', container);
+                        link.href = '#';
+                        link.title = 'Reset view';
+                        link.innerHTML = '⟲';
+                        L.DomEvent.on(link, 'click', (e) => {
+                            L.DomEvent.stop(e);
+                            resetMapView();
+                        });
+                        return container;
+                    }
+                });
+                new ResetControl().addTo(leafletMap);
+            } else {
+                leafletMap.remove();
+                leafletMap = L.map(mapEl, { zoomControl: true });
+                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    attribution: '&copy; OpenStreetMap contributors'
+                }).addTo(leafletMap);
+                const ResetControl = L.Control.extend({
+                    options: { position: 'topleft' },
+                    onAdd: function() {
+                        const container = L.DomUtil.create('div', 'leaflet-control leaflet-bar');
+                        const link = L.DomUtil.create('a', 'leaflet-control-reset', container);
+                        link.href = '#';
+                        link.title = 'Reset view';
+                        link.innerHTML = '⟲';
+                        L.DomEvent.on(link, 'click', (e) => {
+                            L.DomEvent.stop(e);
+                            resetMapView();
+                        });
+                        return container;
+                    }
+                });
+                new ResetControl().addTo(leafletMap);
+            }
+
+            // Clear old markers
+            leafletMarkers = [];
+            urlToMarker = {};
+            const bounds = L.latLngBounds();
+
+            galleryAll.forEach((image, index) => {
+                if (typeof image.lat !== 'number' || typeof image.lng !== 'number') {
+                    leafletMarkers[index] = null;
+                    return;
+                }
+                const marker = L.circleMarker([image.lat, image.lng], {
+                    radius: 5,
+                    color: '#ff2d2d',
+                    weight: 2,
+                    fillColor: '#ffffff',
+                    fillOpacity: 1
+                });
+                const titleText = (image.name && image.name.trim()) ? image.name : '';
+                const popupHtml = `
+                    <div class="map-popup">
+                        ${titleText ? `<div class=\"map-popup-title\" onclick=\"openLightbox('${image.url}'); event.preventDefault(); event.stopPropagation();\">${titleText}</div>` : ''}
+                        <img src="${image.url}" alt="${titleText || 'Photo'}" class="map-popup-thumb" onclick="openLightbox('${image.url}'); event.preventDefault(); event.stopPropagation();">
+                    </div>
+                `;
+                marker.addTo(leafletMap).bindPopup(popupHtml);
+                leafletMarkers[index] = marker;
+                if (image.url) {
+                    urlToMarker[image.url] = marker;
+                }
+                bounds.extend([image.lat, image.lng]);
+            });
+
+            // Fit to all markers by default; fallback to a world view if none
+            if (bounds.isValid()) {
+                leafletMap.fitBounds(bounds.pad(0.1));
+            } else {
+                leafletMap.setView([20, 0], 2);
+            }
+
+            // Update gallery when map viewport changes
+            leafletMap.on('moveend zoomend', () => {
+                filterGalleryByMapBounds();
+            });
+
+            // Initialize gallery filter based on current bounds
+            filterGalleryByMapBounds();
+        }
+
+        // Filter current gallery by visible map bounds
+        function filterGalleryByMapBounds() {
+            if (!leafletMap || !Array.isArray(galleryAll)) return;
+            const b = leafletMap.getBounds();
+            galleryView = galleryAll.filter(img =>
+                typeof img.lat === 'number' && typeof img.lng === 'number' && b.contains([img.lat, img.lng])
+            );
+            galleryShuffled = false;
+            renderGallery();
+        }
+
+        // Focus a map point and scroll to the map
+        function focusMapPoint(index) {
+            const mapSection = document.getElementById('map-section');
+            if (mapSection) {
+                mapSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+            const marker = leafletMarkers[index];
+            if (leafletMap && marker) {
+                const targetZoom = 12;
+                leafletMap.setView(
+                    marker.getLatLng(),
+                    Math.max(leafletMap.getZoom(), targetZoom),
+                    { animate: true }
+                );
+                marker.openPopup();
+            }
+        }
+
+        function focusMapByUrl(url) {
+            const mapSection = document.getElementById('map-section');
+            if (mapSection) {
+                mapSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+            const marker = urlToMarker[url];
+            if (leafletMap && marker) {
+                const targetZoom = 12;
+                leafletMap.setView(
+                    marker.getLatLng(),
+                    Math.max(leafletMap.getZoom(), targetZoom),
+                    { animate: true }
+                );
+                marker.openPopup();
+            }
+        }
+
+        function navigateAndFocus(url) {
+            navigateToPath('/album');
+            setTimeout(() => focusMapByUrl(url), 150);
+        }
+
+        // Render gallery
+        function renderGallery() {
+            const gallery = document.getElementById('gallery');
+            if (!gallery || !Array.isArray(galleryView)) return;
+
+            gallery.innerHTML = '';
+
+            // Helper to parse various date formats into ms since epoch
+            function parseDateMs(val) {
+                if (!val) return NaN;
+                const direct = Date.parse(val);
+                if (!Number.isNaN(direct)) return direct;
+                const m = /^([0-9]{4}):([0-9]{2}):([0-9]{2})(?:[ T].*)?$/.exec(String(val));
+                if (m) {
+                    const iso = `${m[1]}-${m[2]}-${m[3]}`;
+                    const t = Date.parse(iso);
+                    if (!Number.isNaN(t)) return t;
+                }
+                return NaN;
+            }
+
+            // Apply sorting (keep featured items at top) within the current view
+            const featuredItems = galleryView.filter(g => g.featured);
+            const rest = galleryView.filter(g => !g.featured);
+            const orderFactor = (gallerySortOrder === 'asc') ? 1 : -1;
+            if (!galleryShuffled && gallerySortField === 'date') {
+                rest.sort((a, b) => {
+                    const ta = parseDateMs(a.date_taken);
+                    const tb = parseDateMs(b.date_taken);
+                    const aMissing = Number.isNaN(ta);
+                    const bMissing = Number.isNaN(tb);
+                    if (aMissing && bMissing) return 0;
+                    if (aMissing) return 1; // missing dates go to bottom
+                    if (bMissing) return -1;
+                    return (ta - tb) * orderFactor;
+                });
+            } else if (!galleryShuffled && gallerySortField === 'name') {
+                rest.sort((a, b) => {
+                    const na = (a.name || '').toLocaleLowerCase();
+                    const nb = (b.name || '').toLocaleLowerCase();
+                    if (!na && !nb) return 0;
+                    if (!na) return 1; // blanks last by default before applying order
+                    if (!nb) return -1;
+                    return na.localeCompare(nb) * orderFactor;
+                });
+            }
+            const toRender = [...featuredItems, ...rest];
+
+            toRender.forEach((image, index) => {
+                const item = document.createElement('div');
+                item.className = 'gallery-item';
+                item.dataset.index = index;
+
+                const coordsHtml = (typeof image.lat === 'number' && typeof image.lng === 'number')
+                    ? `<a href="/album" class="location-coords" onclick="navigateAndFocus('${image.url}'); event.preventDefault(); event.stopPropagation();">${image.lat.toFixed(4)}°, ${image.lng.toFixed(4)}°</a>`
+                    : '';
+
+                const nameHtml = (image.name && String(image.name).trim()) ? `<div class="location-name">${image.name}</div>` : '';
+                const dateHtml = (image.date_taken && !Number.isNaN(Date.parse(image.date_taken)))
+                    ? `<div class=\"location-date\">${new Date(image.date_taken).toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' })}</div>`
+                    : '';
+
+                item.innerHTML = `
+                    <img src="${image.url}" alt="${image.name || ''}" loading="lazy" decoding="async" onclick="openLightbox('${image.url}')">
+                    <div class="location-info">
+                        ${nameHtml}
+                        ${dateHtml}
+                        ${coordsHtml}
+                    </div>
+                `;
+
+                gallery.appendChild(item);
+            });
+
+            // Ensure map sizes correctly after DOM changes
+            setTimeout(() => {
+                if (leafletMap) {
+                    leafletMap.invalidateSize(true);
+                }
+            }, 50);
+        }
+
+
+
+        // Render blog list
+        function renderBlogList() {
+            const blogList = document.getElementById('blog-list');
+            if (!blogList) return;
+
+            blogList.innerHTML = '';
+
+            blogPosts.forEach(post => {
+                const listItem = document.createElement('div');
+                listItem.className = 'blog-list-item';
+                listItem.onclick = (e) => {
+                    // Navigate to standalone article page
+                    window.location.href = '/' + post.id;
+                };
+
+                listItem.innerHTML = `
+                    <h2>${post.title}</h2>
+                    <div class="date">${new Date(post.date).toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                })}</div>
+                    <div class="description">${post.description}</div>
+                `;
+
+                blogList.appendChild(listItem);
+            });
+        }
+
+        // Show individual blog post
+        function showBlogPost(postId) {
+            const post = blogPosts.find(p => p.id === postId);
+            if (!post) return;
+
+            // Update URL to /articles/<id>
+            const desiredArticles2 = (basePath + '/articles/' + postId);
+            const desiredRoot2 = (basePath + '/' + postId);
+            if (window.location.pathname !== desiredArticles2 && window.location.pathname !== desiredRoot2) {
+                // Prefer short root slug when opening via list/hash
+                window.history.pushState({}, '', desiredRoot2);
+            }
+
+            const blogListEl = document.getElementById('blog-list');
+            const blogPostView = document.getElementById('blog-post-view');
+            const blogTitle = document.querySelector('#blog h1');
+
+            // Hide list and title, show post
+            blogListEl.style.display = 'none';
+            blogTitle.style.display = 'none';
+            blogPostView.style.display = 'block';
+
+            // Render the post
+            const lastEditedDisplay2 = (post.lastEdited && !Number.isNaN(Date.parse(post.lastEdited)))
+                ? new Date(post.lastEdited).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
+                : '';
+            blogPostView.innerHTML = `
+                <div class="blog-post">
+                    <div class="post-header">
+                        <h1>${post.title}</h1>
+                        <div class="post-date">${new Date(post.date).toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            })}</div>
+                        ${lastEditedDisplay2 ? `<div class="post-last-edited">Last edited: ${lastEditedDisplay2}</div>` : ''}
+                    </div>
+                    <div class="post-content">
+                        ${parseMarkdown(post.markdown)}
+                    </div>
+                </div>
+            `;
+
+            // Article pages should set head title
+            let canonicalUrl2 = '';
+            try {
+                canonicalUrl2 = new URL(basePath + '/' + postId, window.location.origin).href;
+            } catch (_) { /* noop */ }
+            updatePageMeta('ethan - ' + post.title, {
+                description: post.description || '',
+                canonical: canonicalUrl2,
+                ogType: 'article',
+                twitterCard: 'summary'
+            });
+
+            try { if (window.Prism && blogPostView) Prism.highlightAllUnder(blogPostView); } catch (_) {}
+
+            // Scroll to top with smooth animation
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        // Back to articles list
+        function backToBlogList(event) {
+            if (event) event.preventDefault();
+
+            const blogListEl = document.getElementById('blog-list');
+            const blogPostView = document.getElementById('blog-post-view');
+            const blogTitle = document.querySelector('#articles h1');
+
+            // Show list and title, hide post
+            blogListEl.style.display = 'block';
+            blogTitle.style.display = 'block';
+            blogPostView.style.display = 'none';
+
+            // Scroll to top with smooth animation
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        // Lightbox functionality
+        function openLightbox(src) {
+            const img = document.getElementById('lightbox-img');
+            const lightbox = document.getElementById('lightbox');
+            const caption = document.getElementById('lightbox-caption');
+            if (!img || !lightbox) return;
+            img.src = src;
+            lightbox.classList.add('active');
+            document.body.classList.add('lightbox-open');
+            // reset any zoom state
+            img.classList.remove('zoomed');
+            // sync caption width to image width once the image dimensions are known
+            setTimeout(() => syncCaptionWidthToImage(), 0);
+
+            // Populate caption from current gallery view
+            if (caption && Array.isArray(galleryView)) {
+                const entryIndex = galleryView.findIndex(g => g.url === src);
+                const entry = entryIndex >= 0 ? galleryView[entryIndex] : null;
+                if (entryIndex >= 0) {
+                    currentLightboxIndex = entryIndex;
+                }
+                if (entry) {
+                    const title = entry.name && entry.name.trim() ? entry.name : '';
+                    const date = entry.date_taken ? new Date(entry.date_taken).toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' }) : '';
+                    const statsParts = [];
+                    if (entry.miles != null) statsParts.push(`${entry.miles} mi`);
+                    if (entry.elevation_gain_ft != null) statsParts.push(`${entry.elevation_gain_ft.toLocaleString()} ft gain`);
+                    const stats = statsParts.length ? `<div class="caption-stats">${statsParts.join(' · ')}</div>` : '';
+                    const journal = entry.journal ? `<div class="caption-journal">${entry.journal}</div>` : '';
+                    const description = entry.description ? `<div class="caption-description">${entry.description}</div>` : '';
+                    const dateHtml = date ? `<div class="caption-date">${date}</div>` : '';
+                    const coordsHtml = (typeof entry.lat === 'number' && typeof entry.lng === 'number') ? `<a href=\"/album\" class=\"caption-coords\" onclick=\"closeLightbox(); navigateAndFocus('${src}'); event.preventDefault(); event.stopPropagation();\">${entry.lat.toFixed(4)}°, ${entry.lng.toFixed(4)}°</a>` : '';
+                    caption.innerHTML = `${title ? `<div class="caption-title">${title}</div>` : ''}${coordsHtml}${dateHtml}${stats}${description}${journal}`;
+                } else if (caption) {
+                    caption.innerHTML = '';
+                }
+            }
+        }
+
+        // Preload helper – resolves when the image has fully loaded
+        function preloadImage(url) {
+            return new Promise((resolve) => {
+                const i = new Image();
+                i.onload = () => resolve();
+                i.onerror = () => resolve();
+                i.src = url;
+            });
+        }
+
+        // Navigate lightbox left/right with wrap-around; wait for image to load
+        async function navigateLightbox(delta) {
+            if (lightboxLoading) return;
+            if (!Array.isArray(galleryView) || galleryView.length === 0) return;
+            if (currentLightboxIndex < 0) {
+                currentLightboxIndex = 0;
+            }
+            const total = galleryView.length;
+            let next = (currentLightboxIndex + delta) % total;
+            if (next < 0) next += total;
+            const nextEntry = galleryView[next];
+            if (!(nextEntry && nextEntry.url)) return;
+            try {
+                lightboxLoading = true;
+                await preloadImage(nextEntry.url);
+                currentLightboxIndex = next;
+                openLightbox(nextEntry.url);
+            } finally {
+                lightboxLoading = false;
+            }
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightbox').classList.remove('active');
+            document.body.classList.remove('lightbox-open');
+        }
+
+        // Toggle zoom on lightbox image click
+        function toggleZoom(event) {
+            event.stopPropagation();
+            const img = document.getElementById('lightbox-img');
+            if (!img) return;
+            img.classList.toggle('zoomed');
+        }
+
+        function syncCaptionWidthToImage() {
+            const img = document.getElementById('lightbox-img');
+            const caption = document.getElementById('lightbox-caption');
+            if (!img || !caption) return;
+            // Use the rendered width of the image element
+            const w = img.getBoundingClientRect().width;
+            if (w && isFinite(w)) {
+                caption.style.width = Math.min(w, window.innerWidth * 0.9) + 'px';
+            }
+        }
+
+        // keep caption aligned with image width on resize
+        window.addEventListener('resize', syncCaptionWidthToImage);
+
+        // Download the currently open image by URL
+        function downloadCurrentImage() {
+            const img = document.getElementById('lightbox-img');
+            if (!img || !img.src) return;
+            try {
+                const url = img.src;
+                const fileNameFromUrl = (() => {
+                    try {
+                        const u = new URL(url);
+                        const path = u.pathname.split('/').filter(Boolean);
+                        return path[path.length - 1] || 'image.jpg';
+                    } catch (_) {
+                        const parts = String(url).split('?')[0].split('/');
+                        return parts[parts.length - 1] || 'image.jpg';
+                    }
+                })();
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = fileNameFromUrl;
+                a.rel = 'noopener';
+                document.body.appendChild(a);
+                a.click();
+                a.remove();
+            } catch (_) {
+                // Fallback: open in new tab if download attribute is blocked
+                window.open(img.src, '_blank', 'noopener');
+            }
+        }
+
+        // ESC key to close lightbox
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeLightbox();
+                // Exit map fullscreen if active
+                const overlay = document.getElementById('map-overlay');
+                if (overlay && overlay.classList.contains('active')) {
+                    toggleMapFullscreen(false);
+                }
+            } else if (e.key === 'ArrowRight') {
+                const lb = document.getElementById('lightbox');
+                if (lb && lb.classList.contains('active')) {
+                    navigateLightbox(1);
+                }
+            } else if (e.key === 'ArrowLeft') {
+                const lb = document.getElementById('lightbox');
+                if (lb && lb.classList.contains('active')) {
+                    navigateLightbox(-1);
+                }
+            }
+        });
+
+        // Toggle map fullscreen
+        function toggleMapFullscreen(enter) {
+            const overlay = document.getElementById('map-overlay');
+            const overlayContainer = document.getElementById('map-overlay-container');
+            const mapSection = document.getElementById('map-section');
+            const inlineMap = document.getElementById('leaflet-map');
+            if (!overlay || !overlayContainer || !mapSection || !inlineMap) return;
+
+            if (enter) {
+                // Move map DOM into overlay
+                overlay.classList.add('active');
+                overlay.setAttribute('aria-hidden', 'false');
+                overlayContainer.appendChild(inlineMap);
+                setTimeout(() => {
+                    if (leafletMap) {
+                        leafletMap.invalidateSize(true);
+                    }
+                }, 30);
+            } else {
+                // Move map DOM back to inline section
+                overlay.classList.remove('active');
+                overlay.setAttribute('aria-hidden', 'true');
+                mapSection.appendChild(inlineMap);
+                setTimeout(() => {
+                    if (leafletMap) {
+                        leafletMap.invalidateSize(true);
+                    }
+                }, 30);
+            }
+        }
+
+        // Reset map to default view (fit all pins)
+        function resetMapView() {
+            if (!leafletMap) return;
+            leafletMap.closePopup();
+            fitMapToAllPins();
+        }
+
+        // Per-post assets: load and cleanup CSS/JS referenced in frontmatter
+        function parseAssetList(val) {
+            if (!val) return [];
+            return String(val)
+                .split(/[\s,]+/)
+                .map(s => s.trim())
+                .filter(Boolean);
+        }
+
+        function addPostAssets(metadata) {
+            try {
+                removePostAssets();
+                if (!metadata || typeof metadata !== 'object') return;
+                const head = document.head || document.getElementsByTagName('head')[0];
+                const cssList = parseAssetList(metadata.css || metadata.style || metadata.styles);
+                const jsList = parseAssetList(metadata.js || metadata.script || metadata.scripts);
+
+                cssList.forEach(href => {
+                    const link = document.createElement('link');
+                    link.rel = 'stylesheet';
+                    link.href = href;
+                    link.setAttribute('data-post-asset', 'css');
+                    link.setAttribute('data-asset-url', href);
+                    head.appendChild(link);
+                });
+                jsList.forEach(src => {
+                    const s = document.createElement('script');
+                    s.src = src;
+                    s.defer = true;
+                    s.setAttribute('data-post-asset', 'js');
+                    s.setAttribute('data-asset-url', src);
+                    head.appendChild(s);
+                });
+            } catch (_) { /* noop */ }
+        }
+
+        function removePostAssets() {
+            try {
+                const head = document.head || document.getElementsByTagName('head')[0];
+                const toRemove = head.querySelectorAll('[data-post-asset]');
+                toRemove.forEach(el => el.parentNode && el.parentNode.removeChild(el));
+            } catch (_) { /* noop */ }
+        }
+
+        // Road trips data
+        let routesData = [];
+        let roadSorted = [];
+        let roadPreviewMaps = {};
+        let roadModalMap = null;
+        let currentRoadIndex = -1;
+
+        // Assign distinct colors to tags across all routes
+        const tagColorPalette = [
+            '#3b82f6', '#ef4444', '#22c55e', '#f59e0b', '#8b5cf6',
+            '#ec4899', '#06b6d4', '#f97316', '#14b8a6', '#6366f1'
+        ];
+        let tagColorMap = {};
+
+        function buildTagColors() {
+            const allTags = new Set();
+            routesData.forEach(r => {
+                if (Array.isArray(r.tags)) r.tags.forEach(t => allTags.add(t));
+            });
+            let i = 0;
+            allTags.forEach(tag => {
+                tagColorMap[tag] = tagColorPalette[i % tagColorPalette.length];
+                i++;
+            });
+        }
+
+        async function loadRoutes() {
+            try {
+                const response = await fetch('routes.json', { cache: 'no-cache' });
+                if (!response.ok) {
+                    console.warn('Failed to load routes:', response.status);
+                    return;
+                }
+                routesData = await response.json();
+                buildTagColors();
+                renderRoadList();
+            } catch (error) {
+                console.error('Error loading routes:', error);
+            }
+        }
+
+        function renderRoadList() {
+            const listEl = document.getElementById('road-list');
+            if (!listEl || !Array.isArray(routesData)) return;
+
+            // Clean up old preview maps
+            Object.values(roadPreviewMaps).forEach(m => m.remove());
+            roadPreviewMaps = {};
+
+            if (!routesData.length) {
+                listEl.innerHTML = '<p class="road-empty">No routes yet.</p>';
+                return;
+            }
+
+            const escapeHtml = (v) => String(v || '')
+                .replace(/&/g, '&amp;').replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+
+            roadSorted = routesData.slice().sort((a, b) => {
+                const da = Date.parse(a.date || '');
+                const db = Date.parse(b.date || '');
+                if (isNaN(da) && isNaN(db)) return 0;
+                if (isNaN(da)) return 1;
+                if (isNaN(db)) return -1;
+                return db - da;
+            });
+
+            const html = roadSorted.map((route, idx) => {
+                const id = route.id || route.name || Math.random().toString(36).slice(2);
+                const name = escapeHtml(route.name || 'Untitled Route');
+                const desc = escapeHtml(route.description || '');
+                const date = route.date ? new Date(route.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) : '';
+                const tags = Array.isArray(route.tags)
+                    ? route.tags.map(t => {
+                        const c = tagColorMap[t] || '#888';
+                        return `<span class="road-tag" style="border-color:${c}; color:${c}">${escapeHtml(t)}</span>`;
+                    }).join('')
+                    : '';
+                const color = escapeHtml(route.color || '#3388ff');
+                const hasImage = !!route.image;
+
+                const previewHtml = hasImage
+                    ? `<img class="road-image-preview" src="${escapeHtml(route.image)}" alt="${name}" loading="lazy" decoding="async">`
+                    : `<div class="road-map-preview" id="road-preview-${escapeHtml(id)}"></div>`;
+
+                return `
+                    <div class="road-card" data-route-id="${escapeHtml(id)}" onclick="openRoadModal(${idx})">
+                        ${previewHtml}
+                        <div class="road-card-info">
+                            <div class="road-card-title-row">
+                                <span class="road-color-dot" style="background:${color}"></span>
+                                <h2>${name}</h2>
+                            </div>
+                            ${desc ? `<div class="road-card-desc">${desc}</div>` : ''}
+                            ${tags ? `<div class="road-tags">${tags}</div>` : ''}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            listEl.innerHTML = html;
+
+            // Initialize preview maps for routes without images
+            requestAnimationFrame(() => {
+                roadSorted.forEach(route => {
+                    if (!route.image) {
+                        const id = route.id || route.name;
+                        initPreviewMap(id);
+                    }
+                });
+            });
+        }
+
+        async function initPreviewMap(id) {
+            await ensureLeaflet();
+            const route = routesData.find(r => (r.id || r.name) === id);
+            if (!route || !Array.isArray(route.coordinates) || route.coordinates.length === 0) return;
+            const mapEl = document.getElementById('road-preview-' + id);
+            if (!mapEl) return;
+            if (roadPreviewMaps[id]) return;
+
+            const m = L.map(mapEl, {
+                zoomControl: false, scrollWheelZoom: false, dragging: false,
+                touchZoom: false, doubleClickZoom: false, boxZoom: false,
+                keyboard: false, attributionControl: false
+            });
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(m);
+
+            const latlngs = route.coordinates.map(c => [c[0], c[1]]);
+            L.polyline(latlngs, { color: route.color || '#3388ff', weight: 3, opacity: 0.8 }).addTo(m);
+
+            if (latlngs.length > 0) {
+                L.circleMarker(latlngs[0], { radius: 5, color: '#22c55e', weight: 2, fillColor: '#fff', fillOpacity: 1 }).addTo(m);
+                L.circleMarker(latlngs[latlngs.length - 1], { radius: 5, color: '#ef4444', weight: 2, fillColor: '#fff', fillOpacity: 1 }).addTo(m);
+            }
+
+            const bounds = L.latLngBounds(latlngs);
+            if (bounds.isValid()) m.fitBounds(bounds.pad(0.15));
+
+            roadPreviewMaps[id] = m;
+            setTimeout(() => m.invalidateSize(true), 100);
+        }
+
+        // Modal functions
+        async function openRoadModal(idx) {
+            await ensureLeaflet();
+            if (idx < 0 || idx >= roadSorted.length) return;
+            currentRoadIndex = idx;
+            const route = roadSorted[idx];
+            const modal = document.getElementById('road-modal');
+            const infoEl = document.getElementById('road-modal-info');
+            const mapEl = document.getElementById('road-modal-map');
+            if (!modal) return;
+
+            const escapeHtml = (v) => String(v || '')
+                .replace(/&/g, '&amp;').replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+
+            const name = escapeHtml(route.name || 'Untitled Route');
+            const desc = escapeHtml(route.description || '');
+            const date = route.date ? new Date(route.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) : '';
+            const tags = Array.isArray(route.tags)
+                ? route.tags.map(t => {
+                    const c = tagColorMap[t] || '#888';
+                    return `<span class="road-tag" style="border-color:${c}; color:${c}">${escapeHtml(t)}</span>`;
+                }).join('')
+                : '';
+
+            infoEl.innerHTML = `
+                <h2>${name}</h2>
+                ${date ? `<div class="road-modal-date">${date}</div>` : ''}
+                ${desc ? `<div class="road-modal-desc">${desc}</div>` : ''}
+                ${tags ? `<div class="road-tags">${tags}</div>` : ''}
+            `;
+
+            modal.classList.add('active');
+            document.body.classList.add('lightbox-open');
+
+            // Destroy previous modal map
+            if (roadModalMap) { roadModalMap.remove(); roadModalMap = null; }
+            mapEl.innerHTML = '';
+
+            const hasCoords = Array.isArray(route.coordinates) && route.coordinates.length > 0;
+            if (route.image) {
+                mapEl.style.display = '';
+                mapEl.innerHTML = `<img src="${escapeHtml(route.image)}" alt="${name}" style="width:100%;height:100%;object-fit:contain;">`;
+            } else if (hasCoords) {
+                mapEl.style.display = '';
+                setTimeout(() => {
+                    const m = L.map(mapEl, { zoomControl: true, scrollWheelZoom: true });
+                    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                        attribution: '&copy; OpenStreetMap contributors'
+                    }).addTo(m);
+
+                    const latlngs = route.coordinates.map(c => [c[0], c[1]]);
+                    const routeColor = route.color || '#3388ff';
+                    L.polyline(latlngs, { color: routeColor, weight: 3, opacity: 0.8 }).addTo(m);
+
+                    // Add clickable markers at each point
+                    route.coordinates.forEach((c, i) => {
+                        const lat = c[0], lng = c[1], ts = c[2];
+                        const isStart = i === 0;
+                        const isEnd = i === route.coordinates.length - 1;
+                        const color = isStart ? '#22c55e' : isEnd ? '#ef4444' : routeColor;
+                        const radius = (isStart || isEnd) ? 6 : 4;
+
+                        let popupHtml = '';
+                        if (ts) {
+                            const d = new Date(ts);
+                            const dateStr = d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+                            const timeStr = d.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
+                            popupHtml = `<div style="font-size:13px;line-height:1.4">`;
+                            if (isStart) popupHtml += `<strong>Start</strong><br>`;
+                            else if (isEnd) popupHtml += `<strong>End</strong><br>`;
+                            popupHtml += `<strong>${dateStr}</strong> ${timeStr}<br>`;
+                            popupHtml += `<span style="color:#666">${lat.toFixed(4)}, ${lng.toFixed(4)}</span></div>`;
+                        } else {
+                            popupHtml = isStart ? 'Start' : isEnd ? 'End' : `${lat.toFixed(4)}, ${lng.toFixed(4)}`;
+                        }
+
+                        L.circleMarker([lat, lng], {
+                            radius: radius, color: color, weight: 2,
+                            fillColor: '#fff', fillOpacity: 1
+                        }).addTo(m).bindPopup(popupHtml);
+                    });
+
+                    const bounds = L.latLngBounds(latlngs);
+                    if (bounds.isValid()) m.fitBounds(bounds.pad(0.1));
+
+                    roadModalMap = m;
+                    setTimeout(() => m.invalidateSize(true), 100);
+                }, 50);
+            } else {
+                mapEl.style.display = 'none';
+            }
+        }
+
+        function closeRoadModal() {
+            const modal = document.getElementById('road-modal');
+            if (!modal) return;
+            modal.classList.remove('active');
+            document.body.classList.remove('lightbox-open');
+            if (roadModalMap) { roadModalMap.remove(); roadModalMap = null; }
+            currentRoadIndex = -1;
+        }
+
+        function navigateRoadModal(delta) {
+            if (!roadSorted.length) return;
+            let next = (currentRoadIndex + delta) % roadSorted.length;
+            if (next < 0) next += roadSorted.length;
+            openRoadModal(next);
+        }
+
+        async function downloadRoadImage() {
+            if (currentRoadIndex < 0 || !roadSorted.length) return;
+            const route = roadSorted[currentRoadIndex];
+            const name = (route.name || 'route').replace(/\s+/g, '-').toLowerCase();
+
+            if (route.image) {
+                const a = document.createElement('a');
+                a.href = route.image;
+                a.download = name + '.' + (route.image.split('.').pop().split('?')[0] || 'jpg');
+                a.rel = 'noopener';
+                document.body.appendChild(a);
+                a.click();
+                a.remove();
+            } else if (roadModalMap) {
+                const mapEl = document.getElementById('road-modal-map');
+                if (!mapEl) return;
+                await ensureHtml2Canvas();
+                html2canvas(mapEl, { useCORS: true, allowTaint: true }).then(canvas => {
+                    canvas.toBlob(blob => {
+                        if (!blob) return;
+                        const url = URL.createObjectURL(blob);
+                        const a = document.createElement('a');
+                        a.href = url;
+                        a.download = name + '-map.png';
+                        document.body.appendChild(a);
+                        a.click();
+                        a.remove();
+                        URL.revokeObjectURL(url);
+                    });
+                });
+            }
+        }
+
+        // Keyboard navigation for road modal
+        document.addEventListener('keydown', function(e) {
+            const modal = document.getElementById('road-modal');
+            if (!modal || !modal.classList.contains('active')) return;
+            if (e.key === 'Escape') { closeRoadModal(); e.preventDefault(); }
+            else if (e.key === 'ArrowLeft') { navigateRoadModal(-1); e.preventDefault(); }
+            else if (e.key === 'ArrowRight') { navigateRoadModal(1); e.preventDefault(); }
+        });
+
+    </script>
+</body>
+
 </html>
