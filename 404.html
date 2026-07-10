@@ -78,6 +78,16 @@
             </div>
         </nav>
 
+        <script>
+        (function() {
+            var seg = window.location.pathname.replace(/^\/+/, '').split('/')[0] || 'about';
+            var valid = {about:1, articles:1, album:1, road:1, utilities:1};
+            var p = valid[seg] ? seg : 'about';
+            if (p !== 'about') {
+                document.write('<style>#about.page{display:none!important}#' + p + '.page{display:block!important}</style>');
+            }
+        })();
+        </script>
         <!-- About Page -->
         <div id="about" class="page active">
             <div class="bio-layout">
