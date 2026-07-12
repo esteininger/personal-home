@@ -84,7 +84,7 @@
             var valid = {about:1, articles:1, album:1, road:1, utilities:1};
             var p = valid[seg] ? seg : 'about';
             if (p !== 'about') {
-                document.write('<style>#about.page{display:none!important}#' + p + '.page{display:block!important}</style>');
+                document.write('<style id="spa-preroute">#about.page{display:none!important}#' + p + '.page{display:block!important}</style>');
             }
         })();
         </script>
@@ -851,6 +851,8 @@
                 window.history.replaceState({}, '', clean);
             }
             routeFromLocation();
+            var _pr = document.getElementById('spa-preroute');
+            if (_pr) _pr.remove();
         });
 
         // Simple Markdown parser with fenced code language support
