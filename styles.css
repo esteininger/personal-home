@@ -642,6 +642,45 @@ html.theme-dark .theme-switch { background: #111218; }
     margin-top: 2rem;
 }
 
+.cluster-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-top: 0.5rem;
+    padding: 0.4rem 0;
+}
+.cluster-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0.25rem 0.6rem;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    background: var(--bg);
+    color: var(--text);
+    font-size: 0.75rem;
+    cursor: pointer;
+    transition: opacity 0.15s;
+}
+.cluster-chip:hover, .cluster-chip.active {
+    opacity: 1;
+    border-color: var(--chip-color, var(--text));
+}
+.cluster-chip:not(.active) {
+    opacity: 0.6;
+}
+.cluster-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+.map-popup-cluster {
+    font-size: 0.7rem;
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
 .gallery-controls {
     display: flex;
     align-items: center;

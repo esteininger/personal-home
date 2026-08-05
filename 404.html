@@ -168,6 +168,7 @@
             <div class="map-section" id="map-section">
                 <!-- Map will be rendered here -->
             </div>
+            <div class="cluster-legend" id="cluster-legend" style="display:none"></div>
             <div class="gallery-controls">
                 <label for="gallery-shuffle">Shuffle:</label>
                 <button id="gallery-shuffle" class="icon-button" aria-label="Shuffle" title="Shuffle">
@@ -1100,17 +1101,20 @@
                     leafletMarkers[index] = null;
                     return;
                 }
+                const clusterColor = image.cluster_color || '#ff2d2d';
                 const marker = L.circleMarker([image.lat, image.lng], {
                     radius: 5,
-                    color: '#ff2d2d',
+                    color: clusterColor,
                     weight: 2,
                     fillColor: '#ffffff',
                     fillOpacity: 1
                 });
                 const titleText = (image.name && image.name.trim()) ? image.name : '';
+                const clusterTag = image.cluster_label ? `<div class="map-popup-cluster" style="color:${clusterColor}">${image.cluster_label}</div>` : '';
                 const popupHtml = `
                     <div class="map-popup">
                         ${titleText ? `<div class=\"map-popup-title\" onclick=\"openLightbox('${image.url}'); event.preventDefault(); event.stopPropagation();\">${titleText}</div>` : ''}
+                        ${clusterTag}
                         <img src="${image.url}" alt="${titleText || 'Photo'}" class="map-popup-thumb" onclick="openLightbox('${image.url}'); event.preventDefault(); event.stopPropagation();">
                     </div>
                 `;
@@ -1136,6 +1140,57 @@
 
             // Initialize gallery filter based on current bounds
             filterGalleryByMapBounds();
+
+            // Build cluster legend if cluster data exists
+            buildClusterLegend();
+        }
+
+        function buildClusterLegend() {
+            const legend = document.getElementById('cluster-legend');
+            if (!legend || !galleryAll.length) return;
+            const clusters = {};
+            galleryAll.forEach(img => {
+                if (img.cluster_id != null && img.cluster_label && img.cluster_label !== 'Unclustered') {
+                    if (!clusters[img.cluster_id]) {
+                        clusters[img.cluster_id] = { label: img.cluster_label, color: img.cluster_color, count: 0 };
+                    }
+                    clusters[img.cluster_id].count++;
+                }
+            });
+            const ids = Object.keys(clusters);
+            if (!ids.length) { legend.style.display = 'none'; return; }
+            legend.style.display = 'flex';
+            legend.innerHTML = ids.sort((a, b) => clusters[b].count - clusters[a].count).map(id => {
+                const c = clusters[id];
+                return `<button class="cluster-chip" data-cluster="${id}" style="--chip-color:${c.color}" onclick="filterByCluster(${id})">`
+                    + `<span class="cluster-dot" style="background:${c.color}"></span>${c.label} (${c.count})</button>`;
+            }).join('') + `<button class="cluster-chip cluster-chip-all" onclick="filterByCluster(null)">All</button>`;
+        }
+
+        var activeCluster = null;
+        function filterByCluster(clusterId) {
+            activeCluster = clusterId;
+            document.querySelectorAll('.cluster-chip').forEach(el => {
+                el.classList.toggle('active', clusterId === null ? el.classList.contains('cluster-chip-all') : el.dataset.cluster == clusterId);
+            });
+            if (clusterId === null) {
+                galleryView = galleryAll.slice();
+            } else {
+                galleryView = galleryAll.filter(img => img.cluster_id == clusterId);
+            }
+            renderGallery();
+            // Update map marker visibility
+            if (leafletMap) {
+                galleryAll.forEach((img, i) => {
+                    const m = leafletMarkers[i];
+                    if (!m) return;
+                    if (clusterId === null || img.cluster_id == clusterId) {
+                        if (!leafletMap.hasLayer(m)) leafletMap.addLayer(m);
+                    } else {
+                        if (leafletMap.hasLayer(m)) leafletMap.removeLayer(m);
+                    }
+                });
+            }
         }
 
         // Filter current gallery by visible map bounds
