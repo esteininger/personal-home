@@ -10,970 +10,1140 @@
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_0025.JPG",
-    "name": "IMG_0025",
+    "name": "Northern California Coast",
     "lat": 41.778775,
-    "lng": -124.101281
+    "lng": -124.101281,
+    "description": "Rocky coastline and windswept headlands along the northern California shore near Crescent City."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_0067.JPG",
-    "name": "IMG_0067",
+    "name": "Mendocino Coast",
     "lat": 39.305417,
-    "lng": -123.810128
+    "lng": -123.810128,
+    "description": "Rugged sea cliffs and coastal bluffs along the Mendocino headlands."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_0125.JPG",
-    "name": "IMG_0125",
+    "name": "Big Sur",
     "lat": 36.632664,
-    "lng": -121.938583
+    "lng": -121.938583,
+    "description": "Dramatic cliffs and crashing waves along the Big Sur coastline."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_0233.JPG",
-    "name": "IMG_0233",
+    "name": "Joshua Tree 1",
     "lat": 33.989286,
-    "lng": -116.132797
+    "lng": -116.132797,
+    "description": "Sculptural rock formations and Joshua trees in the high desert of Joshua Tree National Park."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_0283.JPG",
-    "name": "",
+    "name": "Joshua Tree 2",
     "lat": 33.503272,
-    "lng": -115.916358
+    "lng": -115.916358,
+    "description": "Sprawling desert landscape with granite boulders and sparse vegetation in Joshua Tree."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_0360.JPG",
-    "name": "IMG_0360",
+    "name": "Joshua Tree 3",
     "lat": 34.117481,
-    "lng": -116.106042
+    "lng": -116.106042,
+    "description": "Twisted Joshua trees silhouetted against the desert sky."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_0363.JPG",
-    "name": "IMG_0363",
+    "name": "Joshua Tree 4",
     "lat": 34.106522,
-    "lng": -116.105636
+    "lng": -116.105636,
+    "description": "Sun-warmed boulders scattered across the arid terrain of Joshua Tree National Park."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_0410.JPG",
-    "name": "IMG_0410",
+    "name": "Joshua Tree 5",
     "lat": 33.999572,
-    "lng": -116.146003
+    "lng": -116.146003,
+    "description": "Desert panorama with cactus and rocky outcrops under wide open sky."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_1607.JPG",
-    "name": "IMG_1607",
+    "name": "Yosemite",
     "lat": 37.776314,
-    "lng": -119.554244
+    "lng": -119.554244,
+    "description": "Granite walls and evergreen forest in the heart of Yosemite Valley."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_9971.JPG",
-    "name": "IMG 9971",
+    "name": "Southern Oregon Coast",
     "lat": 42.592539,
     "lng": -124.39685,
-    "date_taken": "2025-01-16"
+    "date_taken": "2025-01-16",
+    "description": "Rugged shoreline and forested headlands along the southern Oregon coast."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_9757.JPG",
-    "name": "IMG 9757",
+    "name": "Oregon Coast",
     "lat": 45.894353,
     "lng": -123.964653,
-    "date_taken": "2025-01-14"
+    "date_taken": "2025-01-14",
+    "description": "Windswept beach and sea stacks along the Oregon coastline."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_9958.JPG",
-    "name": "IMG 9958",
+    "name": "Southern Oregon Coast 2",
     "lat": 43.113031,
     "lng": -124.433814,
-    "date_taken": "2025-01-16"
+    "date_taken": "2025-01-16",
+    "description": "Dramatic coastal cliffs and tide pools south of Coos Bay."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_9966.JPG",
-    "name": "IMG 9966",
+    "name": "Southern Oregon Coast 3",
     "lat": 42.691422,
     "lng": -124.449019,
-    "date_taken": "2025-01-16"
+    "date_taken": "2025-01-16",
+    "description": "Pacific waves meeting rocky shores along southern Oregon's wild coast."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_9797.JPG",
-    "name": "IMG 9797",
+    "name": "Oregon Coast 2",
     "lat": 44.277642,
     "lng": -124.112236,
-    "date_taken": "2025-01-14"
+    "date_taken": "2025-01-14",
+    "description": "Moody skies over the rocky Oregon shore."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_1694.JPG",
-    "name": "IMG 1694",
+    "name": "Eastern Sierra",
     "lat": 37.412614,
     "lng": -118.75615,
-    "date_taken": "2025-07-26"
+    "date_taken": "2025-07-26",
+    "description": "Towering granite peaks rising above the Owens Valley along the Eastern Sierra front."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_9828.JPG",
-    "name": "IMG 9828",
+    "name": "Southern Oregon Coast 4",
     "lat": 43.586594,
     "lng": -124.191422,
-    "date_taken": "2025-01-15"
+    "date_taken": "2025-01-15",
+    "description": "Twisted shore pines and sea stacks along the southern Oregon coastline."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_9975.JPG",
-    "name": "IMG 9975",
+    "name": "Southern Oregon Coast 5",
     "lat": 42.311839,
     "lng": -124.414703,
-    "date_taken": "2025-01-16"
+    "date_taken": "2025-01-16",
+    "description": "Fog-draped cliffs and churning surf on the southern Oregon coast."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_1626.JPG",
-    "name": "IMG 1626",
+    "name": "Yosemite 2",
     "lat": 37.782325,
     "lng": -119.550758,
-    "date_taken": "2025-07-26"
+    "date_taken": "2025-07-26",
+    "description": "Yosemite's iconic granite landscape with meadows and towering cliffs."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_9900.JPG",
-    "name": "IMG 9900",
+    "name": "Southern Oregon Coast 6",
     "lat": 43.114503,
     "lng": -124.436828,
-    "date_taken": "2025-01-16"
+    "date_taken": "2025-01-16",
+    "description": "Secluded cove framed by coastal bluffs near Gold Beach."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_9726.JPG",
-    "name": "IMG 9726",
+    "name": "Oregon Coast 3",
     "lat": 45.918147,
     "lng": -123.975394,
-    "date_taken": "2025-01-14"
+    "date_taken": "2025-01-14",
+    "description": "Waves crashing against basalt sea stacks on the northern Oregon coast."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_2090.JPG",
-    "name": "IMG 2090",
+    "name": "Lassen",
     "lat": 40.463072,
     "lng": -121.509033,
-    "date_taken": "2025-07-31"
+    "date_taken": "2025-07-31",
+    "description": "Volcanic terrain and conifer forest in Lassen Volcanic National Park."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_1611.JPG",
-    "name": "IMG 1611",
+    "name": "Yosemite 3",
     "lat": 37.778789,
     "lng": -119.551658,
-    "date_taken": "2025-07-26"
+    "date_taken": "2025-07-26",
+    "description": "Sunlit pines and granite domes in Yosemite National Park."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_9703.JPG",
-    "name": "IMG 9703",
+    "name": "Oregon Coast 4",
     "lat": 45.921283,
     "lng": -123.976106,
-    "date_taken": "2025-01-14"
+    "date_taken": "2025-01-14",
+    "description": "Windswept beach and sea stacks along the Oregon coastline."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_9925.JPG",
-    "name": "IMG 9925",
+    "name": "Southern Oregon Coast 7",
     "lat": 43.114144,
     "lng": -124.436347,
-    "date_taken": "2025-01-16"
+    "date_taken": "2025-01-16",
+    "description": "Rugged shoreline and forested headlands along the southern Oregon coast."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_1819.JPG",
-    "name": "IMG 1819",
+    "name": "Palisades",
     "lat": 37.125939,
     "lng": -118.486947,
-    "date_taken": "2025-07-28"
+    "date_taken": "2025-07-28",
+    "description": "The sheer granite faces of the Palisades rising above a glacial cirque."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_1993.JPG",
-    "name": "IMG 1993",
+    "name": "Palisades 2",
     "lat": 37.131436,
     "lng": -118.493819,
-    "date_taken": "2025-07-29"
+    "date_taken": "2025-07-29",
+    "description": "Glacial polish and alpine tundra beneath the Palisades crest."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_1615.JPG",
-    "name": "IMG 1615",
+    "name": "Yosemite 4",
     "lat": 37.780369,
     "lng": -119.550872,
-    "date_taken": "2025-07-26"
+    "date_taken": "2025-07-26",
+    "description": "Views of Yosemite's sweeping valley floor and soaring cliff walls."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_1991.JPG",
-    "name": "IMG 1991",
+    "name": "Palisades 3",
     "lat": 37.1293,
     "lng": -118.500731,
-    "date_taken": "2025-07-29"
+    "date_taken": "2025-07-29",
+    "description": "Snowfields clinging to the north faces of the Palisade peaks."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_7847.JPG",
-    "name": "IMG 7847",
+    "name": "Canadian Rockies",
     "lat": 51.673142,
     "lng": -116.450142,
-    "date_taken": "2024-07-07"
+    "date_taken": "2024-07-07",
+    "description": "Turquoise glacial lakes and towering limestone peaks in the Canadian Rockies."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_7884.JPG",
-    "name": "IMG 7884",
+    "name": "Canadian Rockies 2",
     "lat": 51.440792,
     "lng": -116.542106,
-    "date_taken": "2024-07-08"
+    "date_taken": "2024-07-08",
+    "description": "Ice-fed rivers and dense boreal forest along the Icefields Parkway."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_2144.JPG",
-    "name": "IMG 2144",
+    "name": "Central Oregon 2",
     "lat": 44.018578,
     "lng": -121.741303,
-    "date_taken": "2025-08-02"
+    "date_taken": "2025-08-02",
+    "description": "Ponderosa pines and volcanic landscape in the high desert of central Oregon."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_2018.JPG",
-    "name": "IMG 2018",
+    "name": "Palisades 4",
     "lat": 37.1315,
     "lng": -118.485903,
-    "date_taken": "2025-07-29"
+    "date_taken": "2025-07-29",
+    "description": "The Palisades' jagged skyline reflected in a high alpine tarn."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_8078.JPG",
-    "name": "IMG 8078",
+    "name": "Snoqualmie Pass 2",
     "lat": 47.470736,
     "lng": -121.4542,
-    "date_taken": "2024-07-10"
+    "date_taken": "2024-07-10",
+    "description": "Alpine lakes and rugged peaks along the Cascade crest near Snoqualmie Pass."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_2421.JPG",
-    "name": "IMG 2421",
+    "name": "Lake Chelan",
     "lat": 47.807961,
     "lng": -120.727692,
-    "date_taken": "2025-08-06"
+    "date_taken": "2025-08-06",
+    "description": "Mountain scenery along the shores of Lake Chelan in Washington's North Cascades."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_8052.JPG",
-    "name": "IMG 8052",
+    "name": "Snoqualmie Pass 3",
     "lat": 47.476111,
     "lng": -121.464789,
-    "date_taken": "2024-07-10"
+    "date_taken": "2024-07-10",
+    "description": "Forested ridges and mountain meadows in the central Cascades."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_1671.JPG",
-    "name": "IMG 1671",
+    "name": "Eastern Sierra 2",
     "lat": 37.420453,
     "lng": -118.754831,
-    "date_taken": "2025-07-26"
+    "date_taken": "2025-07-26",
+    "description": "Alpine meadows and jagged ridgelines in the Eastern Sierra."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_9991.JPG",
-    "name": "IMG 9991",
+    "name": "Southern Oregon Coast 8",
     "lat": 42.186783,
     "lng": -124.362922,
-    "date_taken": "2025-01-17"
+    "date_taken": "2025-01-17",
+    "description": "Dramatic coastal cliffs and tide pools south of Coos Bay."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_7990.JPG",
-    "name": "IMG 7990",
+    "name": "Snoqualmie Pass 4",
     "lat": 47.466989,
     "lng": -121.448022,
-    "date_taken": "2024-07-10"
+    "date_taken": "2024-07-10",
+    "description": "Granite boulders and subalpine fir near Snoqualmie Pass."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_1932.JPG",
-    "name": "IMG 1932",
+    "name": "Palisades 5",
     "lat": 37.130389,
     "lng": -118.506194,
-    "date_taken": "2025-07-28"
+    "date_taken": "2025-07-28",
+    "description": "The sheer granite faces of the Palisades rising above a glacial cirque."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_9980.JPG",
-    "name": "IMG 9980",
+    "name": "Southern Oregon Coast 9",
     "lat": 42.189403,
     "lng": -124.366019,
-    "date_taken": "2025-01-17"
+    "date_taken": "2025-01-17",
+    "description": "Pacific waves meeting rocky shores along southern Oregon's wild coast."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_8041.JPG",
-    "name": "IMG 8041",
+    "name": "Snoqualmie Pass 5",
     "lat": 47.477925,
     "lng": -121.464669,
-    "date_taken": "2024-07-10"
+    "date_taken": "2024-07-10",
+    "description": "Alpine lakes and rugged peaks along the Cascade crest near Snoqualmie Pass."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_1703.JPG",
-    "name": "IMG 1703",
+    "name": "Eastern Sierra 3",
     "lat": 37.408817,
     "lng": -118.7575,
-    "date_taken": "2025-07-26"
+    "date_taken": "2025-07-26",
+    "description": "Golden light on the Sierra crest as seen from the Owens Valley."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_8082.JPG",
-    "name": "IMG 8082",
+    "name": "Snoqualmie Pass 6",
     "lat": 47.469475,
     "lng": -121.451622,
-    "date_taken": "2024-07-10"
+    "date_taken": "2024-07-10",
+    "description": "Forested ridges and mountain meadows in the central Cascades."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_9767.JPG",
-    "name": "IMG 9767",
+    "name": "Oregon Coast 5",
     "lat": 45.828656,
     "lng": -123.962044,
-    "date_taken": "2025-01-14"
+    "date_taken": "2025-01-14",
+    "description": "Moody skies over the rocky Oregon shore."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_7546.JPG",
-    "name": "IMG 7546",
-    "date_taken": "2024-07-03"
+    "name": "Eastern Sierra (2)",
+    "date_taken": "2024-07-03",
+    "description": "Rugged Eastern Sierra escarpment with snowfields and scree slopes."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_1730.JPG",
-    "name": "IMG 1730",
+    "name": "Eastern Sierra 4",
     "lat": 37.390097,
     "lng": -118.7574,
-    "date_taken": "2025-07-26"
+    "date_taken": "2025-07-26",
+    "description": "Towering granite peaks rising above the Owens Valley along the Eastern Sierra front."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_7597.JPG",
-    "name": "IMG 7597",
-    "date_taken": "2024-07-03"
+    "name": "North Cascades (15)",
+    "date_taken": "2024-07-03",
+    "description": "Jagged peaks and alpine terrain in the North Cascades."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_2613.JPG",
-    "name": "IMG 2613",
+    "name": "North Cascades 4",
     "lat": 48.845828,
     "lng": -121.692878,
-    "date_taken": "2025-08-12"
+    "date_taken": "2025-08-12",
+    "description": "Glaciated valleys and dense forest in the North Cascades wilderness."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_7690.JPG",
-    "name": "IMG 7690",
-    "date_taken": "2024-07-05"
+    "name": "Jasper (1)",
+    "date_taken": "2024-07-05",
+    "description": "Wide river valleys and rugged peaks in Jasper National Park."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_7735.JPG",
-    "name": "IMG 7735",
+    "name": "Jasper",
     "date_taken": "2024-07-06",
     "lat": 52.8733,
-    "lng": -118.0823
+    "lng": -118.0823,
+    "description": "Wide river valleys and rugged peaks in Jasper National Park."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_1740.JPG",
-    "name": "IMG 1740",
+    "name": "Eastern Sierra 5",
     "lat": 37.414117,
     "lng": -118.755608,
-    "date_taken": "2025-07-26"
+    "date_taken": "2025-07-26",
+    "description": "Alpine meadows and jagged ridgelines in the Eastern Sierra."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_7665.JPG",
-    "name": "IMG 7665",
-    "date_taken": "2024-07-05"
+    "name": "Eastern Sierra (3)",
+    "date_taken": "2024-07-05",
+    "description": "Golden light on the Sierra crest as seen from the Owens Valley."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_7570.JPG",
-    "name": "IMG 7570",
-    "date_taken": "2024-07-03"
+    "name": "North Cascades (14)",
+    "date_taken": "2024-07-03",
+    "description": "Alpine ridgeline with views of distant glaciers in the North Cascades."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_2569.JPG",
-    "name": "IMG 2569",
+    "name": "North Cascades 5",
     "lat": 48.948203,
     "lng": -121.686944,
-    "date_taken": "2025-08-12"
+    "date_taken": "2025-08-12",
+    "description": "Jagged peaks and alpine terrain in the North Cascades."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_7767.JPG",
-    "name": "IMG 7767",
-    "date_taken": "2024-07-06"
+    "name": "North Cascades (21)",
+    "date_taken": "2024-07-06",
+    "description": "Glaciated valleys and dense forest in the North Cascades wilderness."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_7599.JPG",
-    "name": "IMG 7599",
-    "date_taken": "2024-07-03"
+    "name": "North Cascades (16)",
+    "date_taken": "2024-07-03",
+    "description": "Alpine ridgeline with views of distant glaciers in the North Cascades."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_2547.JPG",
-    "name": "IMG 2547",
+    "name": "North Cascades 6",
     "lat": 48.945847,
     "lng": -121.682717,
-    "date_taken": "2025-08-12"
+    "date_taken": "2025-08-12",
+    "description": "Jagged peaks and alpine terrain in the North Cascades."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_7761.JPG",
-    "name": "IMG 7761",
-    "date_taken": "2024-07-06"
+    "name": "North Cascades (20)",
+    "date_taken": "2024-07-06",
+    "description": "Glaciated valleys and dense forest in the North Cascades wilderness."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_7775.JPG",
-    "name": "IMG 7775",
-    "date_taken": "2024-07-07"
+    "name": "Oregon Coast (2)",
+    "date_taken": "2024-07-07",
+    "description": "Waves crashing against basalt sea stacks on the northern Oregon coast."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_7602.JPG",
-    "name": "IMG 7602",
-    "date_taken": "2024-07-03"
+    "name": "Oregon Coast (1)",
+    "date_taken": "2024-07-03",
+    "description": "Windswept beach and sea stacks along the Oregon coastline."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_9693.JPG",
-    "name": "IMG 9693",
+    "name": "Oregon Coast 6",
     "lat": 45.921322,
     "lng": -123.976081,
-    "date_taken": "2025-01-14"
+    "date_taken": "2025-01-14",
+    "description": "Moody skies over the rocky Oregon shore."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_2613.jpg",
-    "name": "IMG 2613",
+    "name": "North Cascades 7",
     "lat": 48.845828,
     "lng": -121.692878,
-    "date_taken": "2025-08-12"
+    "date_taken": "2025-08-12",
+    "description": "Alpine ridgeline with views of distant glaciers in the North Cascades."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_2933.JPG",
-    "name": "IMG 2933",
+    "name": "North Cascades 8",
     "lat": 48.866058,
     "lng": -121.677681,
-    "date_taken": "2025-08-19"
+    "date_taken": "2025-08-19",
+    "description": "Jagged peaks and alpine terrain in the North Cascades."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_2921.JPG",
-    "name": "IMG 2921",
+    "name": "North Cascades 9",
     "lat": 48.845564,
     "lng": -121.690919,
-    "date_taken": "2025-08-19"
+    "date_taken": "2025-08-19",
+    "description": "Glaciated valleys and dense forest in the North Cascades wilderness."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_2895.JPG",
-    "name": "IMG 2895",
+    "name": "North Cascades 10",
     "lat": 48.855694,
     "lng": -121.721619,
-    "date_taken": "2025-08-18"
+    "date_taken": "2025-08-18",
+    "description": "Alpine ridgeline with views of distant glaciers in the North Cascades."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_2866.JPG",
-    "name": "IMG 2866",
+    "name": "North Cascades 11",
     "lat": 48.846219,
     "lng": -121.70755,
-    "date_taken": "2025-08-18"
+    "date_taken": "2025-08-18",
+    "description": "Jagged peaks and alpine terrain in the North Cascades."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_2723.JPG",
-    "name": "IMG 2723",
+    "name": "North Cascades 12",
     "lat": 48.486011,
     "lng": -121.044289,
-    "date_taken": "2025-08-14"
+    "date_taken": "2025-08-14",
+    "description": "Glaciated valleys and dense forest in the North Cascades wilderness."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_2861.JPG",
-    "name": "IMG 2861",
+    "name": "North Cascades 13",
     "lat": 48.8465,
     "lng": -121.695961,
-    "date_taken": "2025-08-18"
+    "date_taken": "2025-08-18",
+    "description": "Alpine ridgeline with views of distant glaciers in the North Cascades."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_3002.JPG",
-    "name": "IMG 3002",
+    "name": "Mountain Loop Highway",
     "lat": 48.025836,
     "lng": -121.363106,
-    "date_taken": "2025-08-21"
+    "date_taken": "2025-08-21",
+    "description": "Old-growth forest and mountain streams along the Mountain Loop Highway."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_8079.JPG",
-    "name": "IMG 8079",
-    "date_taken": "2021-09-29"
+    "name": "Mountain Loop Highway (12)",
+    "date_taken": "2021-09-29",
+    "description": "Cascade foothills and lush temperate forest near Darrington."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_2976.JPG",
-    "name": "IMG 2976",
+    "name": "Mountain Loop Highway 2",
     "lat": 48.021,
     "lng": -121.351883,
-    "date_taken": "2025-08-21"
+    "date_taken": "2025-08-21",
+    "description": "River valleys cutting through dense evergreen forest on the Mountain Loop."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_1691.jpg",
-    "name": "IMG 1691",
+    "name": "Eastern Sierra 6",
     "lat": 37.412606,
     "lng": -118.756156,
-    "date_taken": "2025-07-26"
+    "date_taken": "2025-07-26",
+    "description": "Rugged Eastern Sierra escarpment with snowfields and scree slopes."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_2574.jpg",
-    "name": "IMG 2574",
+    "name": "North Cascades 14",
     "lat": 48.947833,
     "lng": -121.6848,
-    "date_taken": "2025-08-12"
+    "date_taken": "2025-08-12",
+    "description": "Jagged peaks and alpine terrain in the North Cascades."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_1860.jpg",
-    "name": "IMG 1860",
+    "name": "Palisades 6",
     "lat": 37.130494,
     "lng": -118.505897,
-    "date_taken": "2025-07-28"
+    "date_taken": "2025-07-28",
+    "description": "Glacial polish and alpine tundra beneath the Palisades crest."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_1723.jpg",
-    "name": "IMG 1723",
+    "name": "Eastern Sierra 7",
     "lat": 37.389994,
     "lng": -118.757597,
-    "date_taken": "2025-07-26"
+    "date_taken": "2025-07-26",
+    "description": "Towering granite peaks rising above the Owens Valley along the Eastern Sierra front."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_1988.jpg",
-    "name": "IMG 1988",
+    "name": "Palisades 7",
     "lat": 37.130406,
     "lng": -118.506278,
-    "date_taken": "2025-07-29"
+    "date_taken": "2025-07-29",
+    "description": "Snowfields clinging to the north faces of the Palisade peaks."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_1975.jpg",
-    "name": "IMG 1975",
+    "name": "Palisades 8",
     "lat": 37.130403,
     "lng": -118.505958,
-    "date_taken": "2025-07-28"
+    "date_taken": "2025-07-28",
+    "description": "The Palisades' jagged skyline reflected in a high alpine tarn."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_1674.jpg",
-    "name": "IMG 1674",
+    "name": "Eastern Sierra 8",
     "lat": 37.419489,
     "lng": -118.755097,
-    "date_taken": "2025-07-26"
+    "date_taken": "2025-07-26",
+    "description": "Alpine meadows and jagged ridgelines in the Eastern Sierra."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_5848.JPG",
-    "name": "IMG 5848",
-    "date_taken": "2021-07-29"
+    "name": "Eastern Sierra (1)",
+    "date_taken": "2021-07-29",
+    "description": "Golden light on the Sierra crest as seen from the Owens Valley."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_5928.JPG",
-    "name": "IMG 5928",
-    "date_taken": "2021-07-31"
+    "name": "Mt. Rainier (4)",
+    "date_taken": "2021-07-31",
+    "description": "The glaciated volcanic cone of Mt. Rainier rising above wildflower meadows."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_5895.JPG",
-    "name": "IMG 5895",
-    "date_taken": "2021-07-30"
+    "name": "Mt. Rainier (3)",
+    "date_taken": "2021-07-30",
+    "description": "The glaciated volcanic cone of Mt. Rainier rising above wildflower meadows."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_58310.png",
-    "name": "IMG 58310",
+    "name": "Mt. Rainier 2",
     "lat": 46.804025,
     "lng": -121.729294,
-    "date_taken": "2024-07-02"
+    "date_taken": "2024-07-02",
+    "description": "The glaciated volcanic cone of Mt. Rainier rising above wildflower meadows."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_7536.JPG",
-    "name": "IMG 7536",
-    "date_taken": "2024-07-03"
+    "name": "Mt. Rainier (6)",
+    "date_taken": "2024-07-03",
+    "description": "The glaciated volcanic cone of Mt. Rainier rising above wildflower meadows."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_2847.JPG",
-    "name": "IMG 2847",
-    "date_taken": "2022-11-07"
+    "name": "Mt. Rainier (1)",
+    "date_taken": "2022-11-07",
+    "description": "The glaciated volcanic cone of Mt. Rainier rising above wildflower meadows."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_2854.JPG",
-    "name": "IMG 2854",
-    "date_taken": "2022-11-07"
+    "name": "Mt. Rainier (2)",
+    "date_taken": "2022-11-07",
+    "description": "The glaciated volcanic cone of Mt. Rainier rising above wildflower meadows."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_9030.JPG",
-    "name": "IMG 9030",
-    "date_taken": "2021-10-14"
+    "name": "Mt. Rainier (7)",
+    "date_taken": "2021-10-14",
+    "description": "The glaciated volcanic cone of Mt. Rainier rising above wildflower meadows."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_6840.JPG",
-    "name": "IMG 6840",
-    "date_taken": "2021-08-22"
+    "name": "Mt. Rainier (5)",
+    "date_taken": "2021-08-22",
+    "description": "The glaciated volcanic cone of Mt. Rainier rising above wildflower meadows."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_4716.JPG",
-    "name": "IMG 4716",
-    "date_taken": "2021-07-02"
+    "name": "Mountain Loop Highway (2)",
+    "date_taken": "2021-07-02",
+    "description": "Old-growth forest and mountain streams along the Mountain Loop Highway."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_4845.JPG",
-    "name": "IMG 4845",
-    "date_taken": "2021-07-02"
+    "name": "Mountain Loop Highway (3)",
+    "date_taken": "2021-07-02",
+    "description": "Cascade foothills and lush temperate forest near Darrington."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_5226.JPG",
-    "name": "IMG 5226",
-    "date_taken": "2021-07-10"
+    "name": "Mountain Loop Highway (6)",
+    "date_taken": "2021-07-10",
+    "description": "River valleys cutting through dense evergreen forest on the Mountain Loop."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_7626.JPG",
-    "name": "IMG 7626",
-    "date_taken": "2021-09-11"
+    "name": "Mountain Loop Highway (9)",
+    "date_taken": "2021-09-11",
+    "description": "Old-growth forest and mountain streams along the Mountain Loop Highway."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_7632.JPG",
-    "name": "IMG 7632",
-    "date_taken": "2021-09-11"
+    "name": "Mountain Loop Highway (11)",
+    "date_taken": "2021-09-11",
+    "description": "Cascade foothills and lush temperate forest near Darrington."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_2992.JPG",
-    "name": "IMG 2992",
+    "name": "Mountain Loop Highway 3",
     "lat": 48.020989,
     "lng": -121.351889,
-    "date_taken": "2025-08-21"
+    "date_taken": "2025-08-21",
+    "description": "River valleys cutting through dense evergreen forest on the Mountain Loop."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_7424.JPG",
-    "name": "IMG 7424",
-    "date_taken": "2021-09-04"
+    "name": "Mountain Loop Highway (8)",
+    "date_taken": "2021-09-04",
+    "description": "Old-growth forest and mountain streams along the Mountain Loop Highway."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_4688.JPG",
-    "name": "IMG 4688",
-    "date_taken": "2021-07-02"
+    "name": "Mountain Loop Highway (1)",
+    "date_taken": "2021-07-02",
+    "description": "Cascade foothills and lush temperate forest near Darrington."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_4891.JPG",
-    "name": "IMG 4891",
-    "date_taken": "2021-07-03"
+    "name": "Mountain Loop Highway (4)",
+    "date_taken": "2021-07-03",
+    "description": "River valleys cutting through dense evergreen forest on the Mountain Loop."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_7631.JPG",
-    "name": "IMG 7631",
-    "date_taken": "2021-09-11"
+    "name": "Mountain Loop Highway (10)",
+    "date_taken": "2021-09-11",
+    "description": "Old-growth forest and mountain streams along the Mountain Loop Highway."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_5754.JPG",
-    "name": "IMG 5754",
-    "date_taken": "2021-07-25"
+    "name": "Mountain Loop Highway (7)",
+    "date_taken": "2021-07-25",
+    "description": "Cascade foothills and lush temperate forest near Darrington."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_5032.JPG",
-    "name": "IMG 5032",
-    "date_taken": "2021-07-05"
+    "name": "Mountain Loop Highway (5)",
+    "date_taken": "2021-07-05",
+    "description": "River valleys cutting through dense evergreen forest on the Mountain Loop."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_7590.JPG",
-    "name": "IMG 7590",
-    "date_taken": "2021-09-11"
+    "name": "Leavenworth (14)",
+    "date_taken": "2021-09-11",
+    "description": "Alpine scenery in the Enchantments area near Leavenworth, Washington."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_5340.JPG",
-    "name": "IMG 5340",
-    "date_taken": "2021-07-12"
+    "name": "Leavenworth (4)",
+    "date_taken": "2021-07-12",
+    "description": "Cascade peaks and evergreen forest in the Leavenworth backcountry."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_7147.JPG",
-    "name": "IMG 7147",
-    "date_taken": "2021-08-28"
+    "name": "Leavenworth (12)",
+    "date_taken": "2021-08-28",
+    "description": "Larches and granite along a mountain trail near Leavenworth."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_5590.JPG",
-    "name": "IMG 5590",
-    "date_taken": "2021-07-18"
+    "name": "Leavenworth (6)",
+    "date_taken": "2021-07-18",
+    "description": "Golden larches framing granite peaks in the Stuart Range."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_4739.JPG",
-    "name": "IMG 4739",
-    "date_taken": "2021-07-02"
+    "name": "Leavenworth (1)",
+    "date_taken": "2021-07-02",
+    "description": "Subalpine meadows and rocky ridges near Leavenworth."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_7967.JPG",
-    "name": "IMG 7967",
-    "date_taken": "2021-09-27"
+    "name": "Leavenworth (17)",
+    "date_taken": "2021-09-27",
+    "description": "Crystal lake surrounded by alpine larches and granite walls."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_3097.JPG",
-    "name": "IMG 3097",
+    "name": "Leavenworth 8",
     "lat": 47.469328,
     "lng": -120.939864,
-    "date_taken": "2025-08-23"
+    "date_taken": "2025-08-23",
+    "description": "Jagged Cascade peaks rising above a high alpine basin."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_7623.JPG",
-    "name": "IMG 7623",
-    "date_taken": "2021-09-11"
+    "name": "Leavenworth (15)",
+    "date_taken": "2021-09-11",
+    "description": "Alpine scenery in the Enchantments area near Leavenworth, Washington."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_7804.JPG",
-    "name": "IMG 7804",
-    "date_taken": "2021-09-18"
+    "name": "Leavenworth (16)",
+    "date_taken": "2021-09-18",
+    "description": "Cascade peaks and evergreen forest in the Leavenworth backcountry."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_5236.JPG",
-    "name": "IMG 5236",
-    "date_taken": "2021-07-10"
+    "name": "Leavenworth (3)",
+    "date_taken": "2021-07-10",
+    "description": "Larches and granite along a mountain trail near Leavenworth."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_7297.JPG",
-    "name": "IMG 7297",
-    "date_taken": "2021-08-29"
+    "name": "Snoqualmie Pass (3)",
+    "date_taken": "2021-08-29",
+    "description": "Granite boulders and subalpine fir near Snoqualmie Pass."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_7889.JPG",
-    "name": "IMG 7889",
-    "date_taken": "2021-09-26"
+    "name": "Snoqualmie Pass (7)",
+    "date_taken": "2021-09-26",
+    "description": "Alpine lakes and rugged peaks along the Cascade crest near Snoqualmie Pass."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_6771.JPG",
-    "name": "IMG 6771",
-    "date_taken": "2021-08-21"
+    "name": "Snoqualmie Pass (2)",
+    "date_taken": "2021-08-21",
+    "description": "Forested ridges and mountain meadows in the central Cascades."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_3190.JPG",
-    "name": "IMG 3190",
+    "name": "Snoqualmie Pass 7",
     "lat": 47.467219,
     "lng": -121.448067,
-    "date_taken": "2025-08-25"
+    "date_taken": "2025-08-25",
+    "description": "Granite boulders and subalpine fir near Snoqualmie Pass."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_7647.JPG",
-    "name": "IMG 7647",
-    "date_taken": "2021-09-11"
+    "name": "Snoqualmie Pass (6)",
+    "date_taken": "2021-09-11",
+    "description": "Alpine lakes and rugged peaks along the Cascade crest near Snoqualmie Pass."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_5125.JPG",
-    "name": "IMG 5125",
-    "date_taken": "2021-07-10"
+    "name": "Snoqualmie Pass (1)",
+    "date_taken": "2021-07-10",
+    "description": "Forested ridges and mountain meadows in the central Cascades."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_8398.JPG",
-    "name": "IMG 8398",
-    "date_taken": "2021-10-02"
+    "name": "Snoqualmie Pass (8)",
+    "date_taken": "2021-10-02",
+    "description": "Granite boulders and subalpine fir near Snoqualmie Pass."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_7497.JPG",
-    "name": "IMG 7497",
-    "date_taken": "2021-09-06"
+    "name": "Snoqualmie Pass (4)",
+    "date_taken": "2021-09-06",
+    "description": "Alpine lakes and rugged peaks along the Cascade crest near Snoqualmie Pass."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_7642.JPG",
-    "name": "IMG 7642",
-    "date_taken": "2021-09-11"
+    "name": "Snoqualmie Pass (5)",
+    "date_taken": "2021-09-11",
+    "description": "Forested ridges and mountain meadows in the central Cascades."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/8AE2D71E-9E95-40FB-A4BE-40C67C54DBA8.jpg",
-    "name": "8AE2D71E 9E95 40FB A4BE 40C67C54DBA8"
+    "name": "Broken Top Alpine Lake",
+    "description": "Dog standing at the shore of a high alpine lake beneath the jagged, snow-streaked volcanic spire of Broken Top, with vivid red and rust-colored cinder exposed across the peak.",
+    "lat": 44.08,
+    "lng": -121.7
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_6993.JPG",
-    "name": "IMG 6993",
-    "date_taken": "2021-08-25"
+    "name": "North Cascades (8)",
+    "date_taken": "2021-08-25",
+    "description": "Glaciated valleys and dense forest in the North Cascades wilderness."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_7253.JPG",
-    "name": "IMG 7253",
-    "date_taken": "2021-08-29"
+    "name": "North Cascades (10)",
+    "date_taken": "2021-08-29",
+    "description": "Alpine ridgeline with views of distant glaciers in the North Cascades."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_5493.JPG",
-    "name": "IMG 5493",
-    "date_taken": "2021-07-17"
+    "name": "North Cascades (6)",
+    "date_taken": "2021-07-17",
+    "description": "Jagged peaks and alpine terrain in the North Cascades."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_7721.JPG",
-    "name": "IMG 7721",
-    "date_taken": "2021-09-15"
+    "name": "North Cascades (19)",
+    "date_taken": "2021-09-15",
+    "description": "Glaciated valleys and dense forest in the North Cascades wilderness."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_9240.JPG",
-    "name": "IMG 9240",
-    "date_taken": "2021-10-23"
+    "name": "North Cascades (24)",
+    "date_taken": "2021-10-23",
+    "description": "Alpine ridgeline with views of distant glaciers in the North Cascades."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_8980.JPG",
-    "name": "IMG 8980",
+    "name": "North Cascades 15",
     "lat": 48.903847,
     "lng": -121.464569,
-    "date_taken": "2020-07-29"
+    "date_taken": "2020-07-29",
+    "description": "Jagged peaks and alpine terrain in the North Cascades."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_7640.JPG",
-    "name": "IMG 7640",
-    "date_taken": "2021-09-11"
+    "name": "North Cascades (17)",
+    "date_taken": "2021-09-11",
+    "description": "Glaciated valleys and dense forest in the North Cascades wilderness."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_7442.JPG",
-    "name": "IMG 7442",
-    "date_taken": "2021-09-04"
+    "name": "North Cascades (12)",
+    "date_taken": "2021-09-04",
+    "description": "Alpine ridgeline with views of distant glaciers in the North Cascades."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_4771.JPG",
-    "name": "IMG 4771",
-    "date_taken": "2021-07-02"
+    "name": "North Cascades (1)",
+    "date_taken": "2021-07-02",
+    "description": "Jagged peaks and alpine terrain in the North Cascades."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_9072.JPG",
-    "name": "IMG 9072",
+    "name": "North Cascades 16",
     "lat": 48.9155,
     "lng": -121.450731,
-    "date_taken": "2020-07-29"
+    "date_taken": "2020-07-29",
+    "description": "Glaciated valleys and dense forest in the North Cascades wilderness."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_4783.JPG",
-    "name": "IMG 4783",
-    "date_taken": "2021-07-02"
+    "name": "North Cascades (2)",
+    "date_taken": "2021-07-02",
+    "description": "Alpine ridgeline with views of distant glaciers in the North Cascades."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_5502.JPG",
-    "name": "IMG 5502",
-    "date_taken": "2021-07-17"
+    "name": "North Cascades (7)",
+    "date_taken": "2021-07-17",
+    "description": "Jagged peaks and alpine terrain in the North Cascades."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_7857.JPG",
-    "name": "IMG 7857",
-    "date_taken": "2021-09-25"
+    "name": "North Cascades (22)",
+    "date_taken": "2021-09-25",
+    "description": "Glaciated valleys and dense forest in the North Cascades wilderness."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_5139.JPG",
-    "name": "IMG 5139",
-    "date_taken": "2021-07-10"
+    "name": "North Cascades (4)",
+    "date_taken": "2021-07-10",
+    "description": "Alpine ridgeline with views of distant glaciers in the North Cascades."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_7289.JPG",
-    "name": "IMG 7289",
-    "date_taken": "2021-08-29"
+    "name": "North Cascades (11)",
+    "date_taken": "2021-08-29",
+    "description": "Jagged peaks and alpine terrain in the North Cascades."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_8970.JPG",
-    "name": "IMG 8970",
-    "date_taken": "2021-10-13"
+    "name": "North Cascades (23)",
+    "date_taken": "2021-10-13",
+    "description": "Glaciated valleys and dense forest in the North Cascades wilderness."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_8781.JPG",
-    "name": "IMG 8781",
+    "name": "North Cascades 17",
     "lat": 48.899158,
     "lng": -121.570336,
-    "date_taken": "2020-07-28"
+    "date_taken": "2020-07-28",
+    "description": "Alpine ridgeline with views of distant glaciers in the North Cascades."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_8829.JPG",
-    "name": "IMG 8829",
+    "name": "North Cascades 18",
     "lat": 48.881256,
     "lng": -121.537108,
-    "date_taken": "2020-07-28"
+    "date_taken": "2020-07-28",
+    "description": "Jagged peaks and alpine terrain in the North Cascades."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_4949.JPG",
-    "name": "IMG 4949",
-    "date_taken": "2021-07-04"
+    "name": "North Cascades (3)",
+    "date_taken": "2021-07-04",
+    "description": "Glaciated valleys and dense forest in the North Cascades wilderness."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_5464.JPG",
-    "name": "IMG 5464",
-    "date_taken": "2021-07-17"
+    "name": "North Cascades (5)",
+    "date_taken": "2021-07-17",
+    "description": "Alpine ridgeline with views of distant glaciers in the North Cascades."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_7449.JPG",
-    "name": "IMG 7449",
-    "date_taken": "2021-09-04"
+    "name": "North Cascades (13)",
+    "date_taken": "2021-09-04",
+    "description": "Jagged peaks and alpine terrain in the North Cascades."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/6FA9E852-9467-4F64-B7B3-8379D9EC9CE7.jpg",
-    "name": "6FA9E852 9467 4F64 B7B3 8379D9EC9CE7"
+    "name": "Three Sisters Summit View",
+    "description": "Panoramic view from a volcanic summit showing the Three Sisters and Broken Top, with red cinder slopes, snowfields, and small turquoise meltwater pools in central Oregon's Cascade Range.",
+    "lat": 44.08,
+    "lng": -121.77
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_7112.JPG",
-    "name": "IMG 7112",
-    "date_taken": "2021-08-28"
+    "name": "North Cascades (9)",
+    "date_taken": "2021-08-28",
+    "description": "Glaciated valleys and dense forest in the North Cascades wilderness."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_7674.JPG",
-    "name": "IMG 7674",
-    "date_taken": "2021-09-11"
+    "name": "North Cascades (18)",
+    "date_taken": "2021-09-11",
+    "description": "Alpine ridgeline with views of distant glaciers in the North Cascades."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_5993.JPG",
-    "name": "IMG 5993",
-    "date_taken": "2021-07-31"
+    "name": "Leavenworth (7)",
+    "date_taken": "2021-07-31",
+    "description": "Golden larches framing granite peaks in the Stuart Range."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_4907.JPG",
-    "name": "IMG 4907",
-    "date_taken": "2021-07-03"
+    "name": "Leavenworth (2)",
+    "date_taken": "2021-07-03",
+    "description": "Subalpine meadows and rocky ridges near Leavenworth."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_6862.JPG",
-    "name": "IMG 6862",
-    "date_taken": "2021-08-22"
+    "name": "Leavenworth (10)",
+    "date_taken": "2021-08-22",
+    "description": "Crystal lake surrounded by alpine larches and granite walls."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_5416.JPG",
-    "name": "IMG 5416",
-    "date_taken": "2021-07-16"
+    "name": "Leavenworth (5)",
+    "date_taken": "2021-07-16",
+    "description": "Jagged Cascade peaks rising above a high alpine basin."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/66897172-177E-47B4-AF07-C143F59AFE0E.jpg",
-    "name": "66897172 177E 47B4 AF07 C143F59AFE0E"
+    "name": "Grand Prismatic Spring",
+    "description": "Grand Prismatic Spring billowing steam at sunset, its turquoise center and orange thermophile rings visible from the overlook in Yellowstone's Midway Geyser Basin.",
+    "lat": 44.525,
+    "lng": -110.838,
+    "featured": true
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_6282.JPG",
-    "name": "IMG 6282",
-    "date_taken": "2021-08-07"
+    "name": "Leavenworth (8)",
+    "date_taken": "2021-08-07",
+    "description": "Alpine scenery in the Enchantments area near Leavenworth, Washington."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_7163.JPG",
-    "name": "IMG 7163",
-    "date_taken": "2021-08-28"
+    "name": "Leavenworth (13)",
+    "date_taken": "2021-08-28",
+    "description": "Cascade peaks and evergreen forest in the Leavenworth backcountry."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_3066.JPG",
-    "name": "IMG 3066",
+    "name": "Leavenworth 9",
     "lat": 47.653317,
     "lng": -120.728339,
-    "date_taken": "2025-08-23"
+    "date_taken": "2025-08-23",
+    "description": "Larches and granite along a mountain trail near Leavenworth."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_3099.JPG",
-    "name": "IMG 3099",
+    "name": "Leavenworth 10",
     "lat": 47.469128,
     "lng": -120.940039,
-    "date_taken": "2025-08-23"
+    "date_taken": "2025-08-23",
+    "description": "Golden larches framing granite peaks in the Stuart Range."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_8447.JPG",
-    "name": "IMG 8447",
-    "date_taken": "2021-10-03"
+    "name": "Leavenworth (18)",
+    "date_taken": "2021-10-03",
+    "description": "Subalpine meadows and rocky ridges near Leavenworth."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_6697.JPG",
-    "name": "IMG 6697",
-    "date_taken": "2021-08-20"
+    "name": "Leavenworth (9)",
+    "date_taken": "2021-08-20",
+    "description": "Crystal lake surrounded by alpine larches and granite walls."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_6898.JPG",
-    "name": "IMG 6898",
-    "date_taken": "2021-08-22"
+    "name": "Leavenworth (11)",
+    "date_taken": "2021-08-22",
+    "description": "Jagged Cascade peaks rising above a high alpine basin."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_7615.JPG",
-    "name": "IMG 7615",
-    "date_taken": "2021-09-11"
+    "name": "Central Oregon (2)",
+    "date_taken": "2021-09-11",
+    "description": "Ponderosa pines and volcanic landscape in the high desert of central Oregon."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_8650.JPG",
-    "name": "IMG 8650",
-    "date_taken": "2021-10-10"
+    "name": "Central Oregon (3)",
+    "date_taken": "2021-10-10",
+    "description": "Ponderosa pines and volcanic landscape in the high desert of central Oregon."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_7603.JPG",
-    "name": "IMG 7603",
-    "date_taken": "2021-09-11"
+    "name": "Central Oregon (1)",
+    "date_taken": "2021-09-11",
+    "description": "Ponderosa pines and volcanic landscape in the high desert of central Oregon."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_8337.JPG",
-    "name": "IMG 8337",
+    "name": "Central Oregon 3",
     "date_taken": "2021-10-02",
     "lat": 44.083779084745814,
-    "lng": -121.95158831783004
+    "lng": -121.95158831783004,
+    "description": "Ponderosa pines and volcanic landscape in the high desert of central Oregon."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_8492.JPG",
-    "name": "IMG 8492",
+    "name": "Central Oregon 4",
     "date_taken": "2021-10-03",
     "lat": 43.97901364151483,
-    "lng": -121.80836017360481
+    "lng": -121.80836017360481,
+    "description": "Ponderosa pines and volcanic landscape in the high desert of central Oregon."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_4931.jpg",
-    "name": "",
+    "name": "Vancouver Island",
     "lat": 48.923219,
     "lng": -125.542114,
-    "date_taken": "2026-02-16"
+    "date_taken": "2026-02-16",
+    "description": "Temperate rainforest and rocky shoreline on Vancouver Island."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_4891.jpg",
-    "name": "",
+    "name": "Tofino",
     "lat": 49.042294,
     "lng": -125.704506,
-    "date_taken": "2026-02-15"
+    "date_taken": "2026-02-15",
+    "description": "Rainforest meeting the Pacific on Vancouver Island's wild west coast near Tofino."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_4825.jpg",
-    "name": "",
+    "name": "Olympic Peninsula",
     "lat": 48.419922,
     "lng": -124.047158,
-    "date_taken": "2026-02-13"
+    "date_taken": "2026-02-13",
+    "description": "Moss-draped temperate rainforest on Washington's Olympic Peninsula."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_6029.jpg",
@@ -986,377 +1156,548 @@
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_3470.jpg",
-    "name": "",
+    "name": "Aspen 1",
     "lat": 39.1,
-    "lng": -106.94
+    "lng": -106.94,
+    "description": "Mountain meadows and aspen groves near Aspen, Colorado."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_2947.jpg",
-    "name": "",
+    "name": "Oahu West Shore 1",
     "lat": 21.580014,
     "lng": -158.237183,
-    "date_taken": "2023-05-18"
+    "date_taken": "2023-05-18",
+    "description": "Sunset colors over Oahu's western coastline."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_3534.jpg",
-    "name": "",
+    "name": "Kauai 1",
     "lat": 22.173403,
     "lng": -159.660081,
-    "date_taken": "2023-05-21"
+    "date_taken": "2023-05-21",
+    "description": "Lush tropical coastline along Kauai's dramatic Na Pali shore."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_4542.jpg",
-    "name": "",
+    "name": "Kauai 2",
     "lat": 22.179306,
     "lng": -159.653489,
-    "date_taken": "2023-05-21"
+    "date_taken": "2023-05-21",
+    "description": "Emerald ridges and deep valleys on the Garden Isle."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_4189.jpg",
-    "name": "",
+    "name": "Oahu 1",
     "lat": 21.28,
     "lng": -157.66,
-    "date_taken": "2023-05-18"
+    "date_taken": "2023-05-18",
+    "description": "Volcanic ridges and tropical shoreline on Oahu."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_4235.jpg",
-    "name": "",
+    "name": "Oahu West Shore 2",
     "lat": 21.53,
     "lng": -158.23,
-    "date_taken": "2023-05-20"
+    "date_taken": "2023-05-20",
+    "description": "Calm waters and distant ridgelines along Oahu's west shore."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_4268.jpg",
-    "name": "",
+    "name": "Oahu 2",
     "lat": 21.27,
     "lng": -157.69,
-    "date_taken": "2023-05-21"
+    "date_taken": "2023-05-21",
+    "description": "Pacific breakers rolling onto Oahu's windward coast."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_4286.jpg",
-    "name": "",
+    "name": "Kauai 3",
     "lat": 21.9,
     "lng": -159.4,
-    "date_taken": "2023-05-22"
+    "date_taken": "2023-05-22",
+    "description": "Turquoise waters and coral reef along Kauai's north shore."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_4321.jpg",
-    "name": "",
+    "name": "Kauai 4",
     "lat": 22.15,
     "lng": -159.63,
-    "date_taken": "2023-05-22"
+    "date_taken": "2023-05-22",
+    "description": "Tropical vegetation cascading down fluted sea cliffs on Kauai."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_4383.jpg",
-    "name": "",
+    "name": "Kauai 5",
     "lat": 22.17,
     "lng": -159.6,
-    "date_taken": "2023-05-23"
+    "date_taken": "2023-05-23",
+    "description": "Na Pali Coast cliffs plunging into the Pacific."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_4403.jpg",
-    "name": "",
+    "name": "Kauai 6",
     "lat": 22.17,
     "lng": -159.66,
-    "date_taken": "2023-05-23"
+    "date_taken": "2023-05-23",
+    "description": "Red-earth trails winding through Kauai's Waimea Canyon."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_4410.jpg",
-    "name": "",
+    "name": "Kauai 7",
     "lat": 22.18,
     "lng": -159.68,
-    "date_taken": "2023-05-23"
+    "date_taken": "2023-05-23",
+    "description": "Misty mountain ridges and waterfalls on the island of Kauai."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_4488.jpg",
-    "name": "",
+    "name": "Oahu West Shore 3",
     "lat": 21.53,
     "lng": -158.25,
-    "date_taken": "2023-05-25"
+    "date_taken": "2023-05-25",
+    "description": "Golden hour light on the leeward coast of Oahu."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/06AE666C-E269-4F01-8312-7A88958E0037.jpg",
-    "name": "",
+    "name": "North Cascades 1",
     "lat": 48.51,
-    "lng": -120.74
+    "lng": -120.74,
+    "description": "Jagged peaks and alpine terrain in the North Cascades."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/56DCC198-3690-4AA1-B4B1-B3E2A801D02E.jpg",
-    "name": "",
+    "name": "Stevens Pass",
     "lat": 47.93,
-    "lng": -121.33
+    "lng": -121.33,
+    "description": "Cascade peaks and alpine terrain near Stevens Pass, Washington."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_4154.jpg",
-    "name": "",
+    "name": "White Mountains 1",
     "lat": 44.16,
     "lng": -71.64,
-    "date_taken": "2021-06-04"
+    "date_taken": "2021-06-04",
+    "description": "Granite ridges and boreal forest in New Hampshire's White Mountains."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_4180.jpg",
-    "name": "",
+    "name": "White Mountains 2",
     "lat": 44.27,
     "lng": -71.3,
-    "date_taken": "2021-06-05"
+    "date_taken": "2021-06-05",
+    "description": "Alpine views from the Presidential Range in the White Mountains."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_4797.JPG",
-    "name": "",
+    "name": "Aspen 2",
     "lat": 39.1,
     "lng": -106.94,
-    "date_taken": "2021-07-02"
+    "date_taken": "2021-07-02",
+    "description": "High alpine terrain in the Elk Mountains above Aspen."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_4950.JPG",
-    "name": "",
+    "name": "Black Canyon",
     "lat": 38.57,
     "lng": -107.72,
-    "date_taken": "2021-07-04"
+    "date_taken": "2021-07-04",
+    "description": "Sheer dark rock walls plunging into the depths of Black Canyon of the Gunnison."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_4983.JPG",
-    "name": "",
+    "name": "San Juan Mountains",
     "lat": 37.97,
     "lng": -107.67,
-    "date_taken": "2021-07-04"
+    "date_taken": "2021-07-04",
+    "description": "Rugged alpine terrain and old mining roads in Colorado's San Juan Mountains."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_5126.JPG",
-    "name": "",
+    "name": "Grand Teton 1",
     "lat": 43.77,
     "lng": -110.74,
-    "date_taken": "2021-07-10"
+    "date_taken": "2021-07-10",
+    "description": "The dramatic spires of the Teton Range rising from the valley floor."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_5142.JPG",
-    "name": "",
+    "name": "Grand Teton 2",
     "lat": 43.76,
     "lng": -110.78,
-    "date_taken": "2021-07-10"
+    "date_taken": "2021-07-10",
+    "description": "Wildflower meadows below the towering Grand Teton."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_5172.JPG",
-    "name": "",
+    "name": "Grand Teton 3",
     "lat": 43.75,
     "lng": -110.8,
-    "date_taken": "2021-07-10"
+    "date_taken": "2021-07-10",
+    "description": "Morning light illuminating the Teton Range across Jackson Hole."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_5296.JPG",
-    "name": "",
+    "name": "Yellowstone 1",
     "lat": 44.52,
     "lng": -110.84,
-    "date_taken": "2021-07-11"
+    "date_taken": "2021-07-11",
+    "description": "Geothermal features steaming in Yellowstone's vast volcanic landscape."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_5341.JPG",
-    "name": "",
+    "name": "Yellowstone 2",
     "lat": 44.65,
     "lng": -110.87,
-    "date_taken": "2021-07-12"
+    "date_taken": "2021-07-12",
+    "description": "Sweeping views of Yellowstone's high plateau and forested ridges."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_5412.JPG",
-    "name": "",
+    "name": "Glacier National Park 1",
     "lat": 48.8,
     "lng": -113.67,
-    "date_taken": "2021-07-16"
+    "date_taken": "2021-07-16",
+    "description": "Towering peaks and alpine meadows in Glacier National Park."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_5442.JPG",
-    "name": "",
+    "name": "Glacier National Park 2",
     "lat": 48.8,
     "lng": -113.55,
-    "date_taken": "2021-07-17"
+    "date_taken": "2021-07-17",
+    "description": "Glacial lakes and rugged mountain terrain in Montana's Glacier National Park."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_5562.JPG",
-    "name": "",
+    "name": "Glacier National Park 3",
     "lat": 48.7,
     "lng": -113.72,
-    "date_taken": "2021-07-18"
+    "date_taken": "2021-07-18",
+    "description": "Continental Divide scenery with snow-capped peaks in Glacier."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_5615.JPG",
-    "name": "",
+    "name": "Glacier National Park 4",
     "lat": 48.56,
     "lng": -113.92,
-    "date_taken": "2021-07-18"
+    "date_taken": "2021-07-18",
+    "description": "Crystal-clear mountain streams flowing through Glacier's backcountry."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_5931.JPG",
-    "name": "",
+    "name": "Denali",
     "lat": 63.87,
     "lng": -149.1,
-    "date_taken": "2021-07-31"
+    "date_taken": "2021-07-31",
+    "description": "Vast tundra and the Alaska Range stretching beneath North America's highest peak."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_6972.JPG",
-    "name": "",
+    "name": "Snoqualmie Pass",
     "lat": 47.43,
     "lng": -121.77,
-    "date_taken": "2021-08-25"
+    "date_taken": "2021-08-25",
+    "description": "Granite boulders and subalpine fir near Snoqualmie Pass."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_7107.JPG",
-    "name": "",
+    "name": "Leavenworth 1",
     "lat": 47.53,
     "lng": -120.82,
-    "date_taken": "2021-08-28"
+    "date_taken": "2021-08-28",
+    "description": "Alpine scenery in the Enchantments area near Leavenworth, Washington."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_7220.JPG",
-    "name": "",
+    "name": "Seattle",
     "lat": 47.66,
     "lng": -122.3,
-    "date_taken": "2021-08-29"
+    "date_taken": "2021-08-29",
+    "description": "Pacific Northwest cityscape and surrounding natural beauty."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_7247.JPG",
-    "name": "",
+    "name": "Leavenworth 2",
     "lat": 47.53,
     "lng": -120.82,
-    "date_taken": "2021-08-29"
+    "date_taken": "2021-08-29",
+    "description": "Cascade peaks and evergreen forest in the Leavenworth backcountry."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_7460.JPG",
-    "name": "",
+    "name": "North Cascades 2",
     "lat": 48.86,
     "lng": -121.69,
-    "date_taken": "2021-09-04"
+    "date_taken": "2021-09-04",
+    "description": "Glaciated valleys and dense forest in the North Cascades wilderness."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_7590.JPG",
-    "name": "",
+    "name": "Leavenworth 3",
     "lat": 47.53,
     "lng": -120.82,
-    "date_taken": "2021-09-11"
+    "date_taken": "2021-09-11",
+    "description": "Larches and granite along a mountain trail near Leavenworth."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_7614.JPG",
-    "name": "",
+    "name": "Leavenworth 4",
     "lat": 47.53,
     "lng": -120.82,
-    "date_taken": "2021-09-11"
+    "date_taken": "2021-09-11",
+    "description": "Golden larches framing granite peaks in the Stuart Range."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_7622.JPG",
-    "name": "",
+    "name": "Leavenworth 5",
     "lat": 47.53,
     "lng": -120.82,
-    "date_taken": "2021-09-11"
+    "date_taken": "2021-09-11",
+    "description": "Subalpine meadows and rocky ridges near Leavenworth."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_7640.JPG",
-    "name": "",
+    "name": "Leavenworth 6",
     "lat": 47.53,
     "lng": -120.82,
-    "date_taken": "2021-09-11"
+    "date_taken": "2021-09-11",
+    "description": "Crystal lake surrounded by alpine larches and granite walls."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_7647.JPG",
-    "name": "",
+    "name": "Leavenworth 7",
     "lat": 47.53,
     "lng": -120.82,
-    "date_taken": "2021-09-11"
+    "date_taken": "2021-09-11",
+    "description": "Jagged Cascade peaks rising above a high alpine basin."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_7864.JPG",
-    "name": "",
+    "name": "Mt. Rainier",
     "lat": 46.79,
     "lng": -121.74,
-    "date_taken": "2021-09-25"
+    "date_taken": "2021-09-25",
+    "description": "The glaciated volcanic cone of Mt. Rainier rising above wildflower meadows."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_7908.JPG",
-    "name": "",
+    "name": "Mt. St. Helens",
     "lat": 46.23,
     "lng": -122.18,
-    "date_taken": "2021-09-26"
+    "date_taken": "2021-09-26",
+    "description": "The blast zone and regrowth landscape around Mt. St. Helens."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_8093.JPG",
-    "name": "",
+    "name": "Central Oregon",
     "lat": 44.37,
     "lng": -121.14,
-    "date_taken": "2021-09-29"
+    "date_taken": "2021-09-29",
+    "description": "Ponderosa pines and volcanic landscape in the high desert of central Oregon."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_8112.JPG",
-    "name": "",
+    "name": "Bend 1",
     "lat": 43.97,
     "lng": -121.76,
-    "date_taken": "2021-09-30"
+    "date_taken": "2021-09-30",
+    "description": "Volcanic terrain and ponderosa forest near Bend, Oregon."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_1850.JPG",
-    "name": "",
+    "name": "White Mountains 3",
     "lat": 44.77,
     "lng": -71.06,
-    "date_taken": "2022-07-24"
+    "date_taken": "2022-07-24",
+    "description": "Forest-covered slopes and rocky summits in the White Mountains of New Hampshire."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_7536.JPG",
-    "name": "",
+    "name": "North Cascades 3",
     "lat": 48.83,
     "lng": -121.69,
-    "date_taken": "2024-07-03"
+    "date_taken": "2024-07-03",
+    "description": "Alpine ridgeline with views of distant glaciers in the North Cascades."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_8331.JPG",
-    "name": "",
+    "name": "Bend 2",
     "lat": 44.08,
     "lng": -121.7,
-    "date_taken": "2021-10-02"
+    "date_taken": "2021-10-02",
+    "description": "Cascade peaks visible across the high desert plateau near Bend."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_8373.JPG",
-    "name": "",
+    "name": "Bend 3",
     "lat": 44.08,
     "lng": -121.7,
-    "date_taken": "2021-10-02"
+    "date_taken": "2021-10-02",
+    "description": "River and forest scene in the central Oregon landscape near Bend."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_8379.JPG",
-    "name": "",
+    "name": "Bend 4",
     "lat": 44.08,
     "lng": -121.7,
-    "date_taken": "2021-10-02"
+    "date_taken": "2021-10-02",
+    "description": "Clear skies over the volcanic landscape of central Oregon."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_8387.JPG",
-    "name": "",
+    "name": "Bend 5",
     "lat": 44.08,
     "lng": -121.72,
-    "date_taken": "2021-10-02"
+    "date_taken": "2021-10-02",
+    "description": "Pine-studded lava flows with distant Cascade peaks."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_8420.JPG",
-    "name": "",
+    "name": "Crater Lake 1",
     "lat": 43.73,
     "lng": -122.05,
-    "date_taken": "2021-10-03"
+    "date_taken": "2021-10-03",
+    "description": "The impossibly blue waters of Crater Lake framed by volcanic rim walls."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_8492.JPG",
-    "name": "",
+    "name": "Crater Lake 2",
     "lat": 43.73,
     "lng": -122.05,
-    "date_taken": "2021-10-03"
+    "date_taken": "2021-10-03",
+    "description": "Snow-dusted caldera walls surrounding the deep blue expanse of Crater Lake."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_8651.JPG",
-    "name": "",
+    "name": "Lake Tahoe",
     "lat": 39.0,
     "lng": -120.04,
-    "date_taken": "2021-10-10"
+    "date_taken": "2021-10-10",
+    "description": "Crystal-clear waters and granite shoreline at Lake Tahoe."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_8863.JPG",
-    "name": "",
+    "name": "Sequoia",
     "lat": 36.61,
     "lng": -118.11,
-    "date_taken": "2021-10-12"
+    "date_taken": "2021-10-12",
+    "description": "Ancient giant sequoias towering above the Sierra Nevada understory."
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/north-cascades-alpine-tarn.jpeg",
+    "name": "North Cascades Alpine Tarn",
+    "lat": 48.854894,
+    "lng": -121.6904,
+    "date_taken": "2026-07-23",
+    "featured": false,
+    "description": "Alpine tarn nestled among subalpine firs in the North Cascades, with moss-covered boulders and a gentle stream feeding in from the surrounding slopes."
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/north-cascades-wildflower-meadow.jpeg",
+    "name": "North Cascades Wildflower Meadow",
+    "lat": 48.854786,
+    "lng": -121.688689,
+    "date_taken": "2026-07-23",
+    "featured": false,
+    "description": "Wildflower meadow bursting with yellow arnica and pink heather below hazy peaks in the North Cascades."
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/north-cascades-mountain-reflection.jpeg",
+    "name": "North Cascades Mountain Reflection",
+    "lat": 48.865994,
+    "lng": -121.677611,
+    "date_taken": "2026-07-24",
+    "featured": true,
+    "description": "Snow-capped peaks perfectly reflected in a still alpine lake, framed by dark conifers in the North Cascades."
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/north-cascades-dog-summit.jpeg",
+    "name": "North Cascades Summit Dog",
+    "lat": 48.555156,
+    "lng": -120.70015,
+    "date_taken": "2026-07-26",
+    "featured": true,
+    "description": "Dog standing on a granite overlook with a sweeping panorama of snow-patched North Cascades peaks."
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/north-cascades-rugged-peak.jpeg",
+    "name": "North Cascades Rugged Peak",
+    "lat": 48.525839,
+    "lng": -120.647225,
+    "date_taken": "2026-07-26",
+    "featured": false,
+    "description": "Rugged granite peak with lingering snow rising above dense evergreen forest near Washington Pass."
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/beartooth-glacial-stream.jpeg",
+    "name": "Beartooth Glacial Stream",
+    "lat": 45.182156,
+    "lng": -109.646706,
+    "date_taken": "2026-07-31",
+    "featured": false,
+    "description": "Glacial meltwater cutting through a vast boulder field beneath towering granite walls in the Beartooth Wilderness."
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/beartooth-alpine-lake.jpeg",
+    "name": "Beartooth Alpine Lake",
+    "lat": 45.164792,
+    "lng": -109.658753,
+    "date_taken": "2026-07-31",
+    "featured": true,
+    "description": "Crystal-clear alpine lake reflecting sheer granite canyon walls in the Beartooth Wilderness, with fire-scarred trees along the shore."
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/lamar-valley-bison-sunset.jpeg",
+    "name": "Lamar Valley Bison at Sunset",
+    "lat": 44.955628,
+    "lng": -110.246847,
+    "date_taken": "2026-08-03",
+    "featured": true,
+    "description": "Lone bison grazing in a wide meadow at sunset with hazy mountain silhouettes in Yellowstone's Lamar Valley."
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/lamar-valley-bison-river.jpeg",
+    "name": "Lamar Valley Bison and River",
+    "lat": 44.950283,
+    "lng": -110.266983,
+    "date_taken": "2026-08-03",
+    "featured": false,
+    "description": "Bison grazing along the winding Lamar River under hazy summer skies, with rolling hills stretching to the horizon."
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/lamar-valley-river-bend.jpeg",
+    "name": "Lamar Valley River Bend",
+    "lat": 44.9519,
+    "lng": -110.280175,
+    "date_taken": "2026-08-03",
+    "featured": false,
+    "description": "The Lamar River winding past a granite outcrop topped with fire-scarred trees in warm evening light."
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/yellowstone-hot-spring.jpeg",
+    "name": "Yellowstone Hot Spring",
+    "lat": 44.550261,
+    "lng": -110.806,
+    "date_taken": "2026-08-03",
+    "featured": true,
+    "description": "Vivid turquoise hot spring rimmed with orange thermophile mats, steam rising into the clear Yellowstone sky."
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/grand-teton-river-reflection.jpeg",
+    "name": "Grand Teton River Reflection",
+    "lat": 43.712139,
+    "lng": -110.671189,
+    "date_taken": "2026-08-04",
+    "featured": true,
+    "description": "The Teton Range reflected in a quiet stretch of the Snake River, with willows and wetland grasses lining the bank."
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/wind-river-mountain-stream.jpeg",
+    "name": "Wind River Mountain Stream",
+    "lat": 42.715814,
+    "lng": -109.241081,
+    "date_taken": "2026-08-04",
+    "featured": false,
+    "description": "Crystal-clear stream meandering through a lush mountain meadow in the Wind River Range, with a granite peak rising beyond the pines."
   }
 ]
