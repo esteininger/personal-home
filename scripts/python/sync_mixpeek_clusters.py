@@ -20,7 +20,7 @@ API_KEY = os.environ.get(
 )
 NAMESPACE = "ns_ff4ce153f3"
 COLLECTION_ID = "col_961b58b0a5"
-CLUSTER_ID = "clust_87f5e1abc2"
+CLUSTER_ID = "clust_4255b2e3e4"
 BASE_URL = "https://api.mixpeek.com/v1"
 
 GALLERY_PATH = os.path.join(os.path.dirname(__file__), "..", "..", "images", "gallery.json")
