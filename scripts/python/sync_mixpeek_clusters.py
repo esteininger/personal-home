@@ -67,9 +67,9 @@ def fetch_all_documents():
 def build_cluster_map(documents):
     url_to_cluster = {}
     for doc in documents:
-        internal_meta = doc.get("_internal", {}).get("metadata", {})
+        internal_meta = (doc.get("_internal") or {}).get("metadata") or {}
         filename = internal_meta.get("filename", "")
-        top_meta = doc.get("metadata", {})
+        top_meta = doc.get("metadata") or {}
         if not filename:
             filename = top_meta.get("filename", "")
 
