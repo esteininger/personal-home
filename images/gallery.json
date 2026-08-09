@@ -1753,5 +1753,23 @@
     "date_taken": null,
     "featured": true,
     "description": "Dog wading through a calm Laurentian lake with a ball at sunset, boulders breaking the surface and forested mountains silhouetted against a golden sky."
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/cabo-da-roca-lighthouse.jpeg",
+    "name": "Cabo da Roca Lighthouse",
+    "lat": 38.781200,
+    "lng": -9.498000,
+    "date_taken": null,
+    "featured": true,
+    "description": "Trail through ice plant leading to the Farol de Cabo da Roca, the westernmost lighthouse of continental Europe, perched above the Atlantic on the Portuguese coast."
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/cabo-da-roca-cliffs.jpeg",
+    "name": "Cabo da Roca Sea Cliffs",
+    "lat": 38.780300,
+    "lng": -9.499800,
+    "date_taken": null,
+    "featured": false,
+    "description": "Dramatic sea cliffs and rock stacks at Cabo da Roca where the Atlantic crashes against the westernmost edge of continental Europe, with ice plant carpeting the clifftop."
   }
 ]
