@@ -5,8 +5,9 @@ Fetch cluster data from Mixpeek and enrich gallery.json with cluster labels/colo
 Usage:
     python scripts/python/sync_mixpeek_clusters.py
 
-Reads images/gallery.json, queries Mixpeek for cluster assignments,
-and writes back enriched gallery.json with cluster_id, cluster_label, and cluster_color.
+Reads images/gallery.json, queries Mixpeek for cluster assignments
+(written onto source docs by enrich_source_collection), and writes back
+enriched gallery.json with cluster_id, cluster_label, and cluster_color.
 """
 
 import json
@@ -20,7 +21,7 @@ API_KEY = os.environ.get(
 )
 NAMESPACE = "ns_ff4ce153f3"
 COLLECTION_ID = "col_961b58b0a5"
-CLUSTER_ID = "clust_4255b2e3e4"
+CLUSTER_ID = "clust_332e992d28"
 BASE_URL = "https://api.mixpeek.com/v1"
 
 GALLERY_PATH = os.path.join(os.path.dirname(__file__), "..", "..", "images", "gallery.json")
@@ -39,7 +40,6 @@ headers = {
 
 
 def fetch_all_documents():
-    """Fetch all documents from the collection with pagination."""
     docs = []
     cursor = None
     while True:
@@ -47,7 +47,7 @@ def fetch_all_documents():
         if cursor:
             params["cursor"] = cursor
         resp = requests.get(
-            f"{BASE_URL}/documents",
+            f"{BASE_URL}/collections/{COLLECTION_ID}/documents",
             headers=headers,
             params=params,
             timeout=30,
@@ -64,26 +64,17 @@ def fetch_all_documents():
     return docs
 
 
-def fetch_cluster_results():
-    """Fetch cluster execution results."""
-    resp = requests.get(
-        f"{BASE_URL}/clusters/{CLUSTER_ID}",
-        headers=headers,
-        timeout=30,
-    )
-    resp.raise_for_status()
-    return resp.json()
-
-
 def build_cluster_map(documents):
-    """Build a mapping from CloudFront URL to cluster info."""
     url_to_cluster = {}
     for doc in documents:
-        payload = doc.get("payload", {})
-        filename = payload.get("filename", "")
-        cluster_info = payload.get("cluster", {})
-        cluster_id = cluster_info.get("cluster_id")
-        cluster_label = cluster_info.get("label", "")
+        internal_meta = doc.get("_internal", {}).get("metadata", {})
+        filename = internal_meta.get("filename", "")
+        top_meta = doc.get("metadata", {})
+        if not filename:
+            filename = top_meta.get("filename", "")
+
+        cluster_id = doc.get("cluster_id")
+        cluster_label = doc.get("cluster_label", "")
 
         if not filename:
             continue
@@ -96,8 +87,7 @@ def build_cluster_map(documents):
     return url_to_cluster
 
 
-def enrich_gallery(gallery, url_to_cluster, cluster_labels):
-    """Add cluster data to each gallery entry."""
+def enrich_gallery(gallery, url_to_cluster):
     color_map = {}
     color_idx = 0
 
@@ -111,7 +101,7 @@ def enrich_gallery(gallery, url_to_cluster, cluster_labels):
                 color_map[cid] = CLUSTER_COLORS[color_idx % len(CLUSTER_COLORS)]
                 color_idx += 1
             entry["cluster_id"] = cid
-            entry["cluster_label"] = info.get("cluster_label", cluster_labels.get(cid, f"Cluster {cid}"))
+            entry["cluster_label"] = info.get("cluster_label", f"Cluster {cid}")
             entry["cluster_color"] = color_map[cid]
         else:
             entry["cluster_id"] = None
@@ -132,31 +122,14 @@ def main():
     print(f"  Got {len(documents)} documents")
 
     if not documents:
-        print("No documents found — batch processing may still be running.")
-        print("Check status: curl -s -H 'Authorization: Bearer $MIXPEEK_API_KEY' "
-              f"-H 'X-Namespace: {NAMESPACE}' "
-              f"'{BASE_URL}/tasks/<task_id>'")
+        print("No documents found — check collection or batch processing status.")
         sys.exit(1)
-
-    print("Fetching cluster info...")
-    try:
-        cluster_data = fetch_cluster_results()
-        cluster_labels = {}
-        for group in cluster_data.get("cluster_groups", []):
-            cid = group.get("cluster_id")
-            label = group.get("label", "")
-            if cid is not None:
-                cluster_labels[cid] = label
-        print(f"  Found {len(cluster_labels)} cluster labels")
-    except Exception as e:
-        print(f"  Warning: could not fetch cluster labels: {e}")
-        cluster_labels = {}
 
     url_to_cluster = build_cluster_map(documents)
     matched = sum(1 for p in gallery if p.get("url") in url_to_cluster)
     print(f"  Matched {matched}/{len(gallery)} photos to Mixpeek documents")
 
-    gallery = enrich_gallery(gallery, url_to_cluster, cluster_labels)
+    gallery = enrich_gallery(gallery, url_to_cluster)
 
     with open(gallery_path, "w") as f:
         json.dump(gallery, f, indent=2)
