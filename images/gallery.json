@@ -1699,5 +1699,50 @@
     "date_taken": "2026-08-04",
     "featured": false,
     "description": "Crystal-clear stream meandering through a lush mountain meadow in the Wind River Range, with a granite peak rising beyond the pines."
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/wind-river-granite-lake.jpeg",
+    "name": "Wind River Granite Lake",
+    "lat": 42.736172,
+    "lng": -109.211250,
+    "date_taken": "2026-08-04",
+    "featured": true,
+    "description": "An alpine lake nestled beneath granite cliffs in the Wind River Range, ringed by evergreens and lush meadow grasses in late summer light."
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/wind-river-desert-van.jpeg",
+    "name": "Wind River Desert Overlook",
+    "lat": 42.498008,
+    "lng": -109.220619,
+    "date_taken": "2026-08-05",
+    "featured": false,
+    "description": "Dog surveying the vast sagebrush steppe near the Wind River Range, with a van parked at the end of a winding dirt road through open desert."
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/snowy-range-mountain-cascade.jpeg",
+    "name": "Snowy Range Mountain Cascade",
+    "lat": 41.332606,
+    "lng": -106.324944,
+    "date_taken": "2026-08-06",
+    "featured": false,
+    "description": "A mountain cascade tumbles over boulders beside the road through the Snowy Range, with wildflowers and a lone fir framing the granite peaks beyond."
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/snowy-range-snowfield-lake.jpeg",
+    "name": "Snowy Range Snowfield Lake",
+    "lat": 41.376767,
+    "lng": -106.256050,
+    "date_taken": "2026-08-07",
+    "featured": true,
+    "description": "A pristine alpine lake at the foot of the Snowy Range, with a late-summer snowfield clinging to the granite ridgeline and clear water reflecting the mountainside."
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/snowy-range-dog-lakeside.jpeg",
+    "name": "Snowy Range Dog Lakeside",
+    "lat": 41.376892,
+    "lng": -106.258103,
+    "date_taken": "2026-08-07",
+    "featured": false,
+    "description": "Dog exploring the rocky shore of an alpine lake in the Snowy Range, surrounded by wildflowers, boulders, and dense spruce forest beneath bare granite peaks."
   }
 ]
