@@ -1744,5 +1744,14 @@
     "date_taken": "2026-08-07",
     "featured": false,
     "description": "Dog exploring the rocky shore of an alpine lake in the Snowy Range, surrounded by wildflowers, boulders, and dense spruce forest beneath bare granite peaks."
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/laurentians-dog-lake-sunset.jpeg",
+    "name": "Laurentians Dog Lake Sunset",
+    "lat": 46.350000,
+    "lng": -74.180000,
+    "date_taken": null,
+    "featured": true,
+    "description": "Dog wading through a calm Laurentian lake with a ball at sunset, boulders breaking the surface and forested mountains silhouetted against a golden sky."
   }
 ]
