@@ -1771,5 +1771,41 @@
     "date_taken": null,
     "featured": false,
     "description": "Dramatic sea cliffs and rock stacks at Cabo da Roca where the Atlantic crashes against the westernmost edge of continental Europe, with ice plant carpeting the clifftop."
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/bryce-canyon-hoodoos.jpeg",
+    "name": "Bryce Canyon Hoodoos",
+    "lat": 37.619300,
+    "lng": -112.167100,
+    "date_taken": null,
+    "featured": true,
+    "description": "Thousands of orange and white hoodoos filling the Bryce Amphitheater under a stormy sky, with ponderosa pines scattered among the eroded sandstone spires."
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/zion-watchman-sunset.jpeg",
+    "name": "Zion Watchman Sunset",
+    "lat": 37.208800,
+    "lng": -112.984100,
+    "date_taken": null,
+    "featured": true,
+    "description": "The Watchman peak at sunset from the Virgin River bridge in Zion National Park, with pink clouds glowing above the red sandstone cliffs and cottonwoods lining the river."
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/horseshoe-bend.jpeg",
+    "name": "Horseshoe Bend",
+    "lat": 36.879275,
+    "lng": -111.510650,
+    "date_taken": "2018-08-13",
+    "featured": true,
+    "description": "The Colorado River curving around a massive sandstone mesa at Horseshoe Bend near Page, Arizona, seen from the cliff edge a thousand feet above the water."
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/mount-batur-sunrise.jpeg",
+    "name": "Mount Batur Sunrise",
+    "lat": -8.238506,
+    "lng": 115.379075,
+    "date_taken": "2018-01-17",
+    "featured": true,
+    "description": "Mount Batur volcano silhouetted against a pre-dawn sky in Bali, with tropical palms in the foreground and village lights dotting the caldera below."
   }
 ]
