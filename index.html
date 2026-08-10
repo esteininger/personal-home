@@ -1217,7 +1217,7 @@
 
         // Filter current gallery by visible map bounds
         function filterGalleryByMapBounds() {
-            if (!leafletMap || !Array.isArray(galleryAll)) return;
+            if (!leafletMap || !Array.isArray(galleryAll) || isSearchActive) return;
             const b = leafletMap.getBounds();
             galleryView = galleryAll.filter(img =>
                 typeof img.lat === 'number' && typeof img.lng === 'number' && b.contains([img.lat, img.lng])
