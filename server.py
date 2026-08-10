@@ -78,9 +78,11 @@ def run_build():
 if __name__ == '__main__':
     HOST = os.environ.get('HOST', '127.0.0.1')
     PORT = int(os.environ.get('PORT', '8100'))
-    
+
+    os.chdir(Path(__file__).resolve().parent)
     run_build()
 
+    socketserver.TCPServer.allow_reuse_address = True
     with socketserver.TCPServer((HOST, PORT), SPAHTTPRequestHandler) as httpd:
         print(f"Server running at http://{HOST}:{PORT}/")
         print("Press Ctrl+C to stop")

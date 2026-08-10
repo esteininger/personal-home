@@ -164,29 +164,51 @@
 
         <!-- Adventures Page -->
         <div id="album" class="page">
-            <!-- <h1>Album</h1> -->
-            <div class="map-section" id="map-section">
-                <!-- Map will be rendered here -->
+            <div class="album-tabs">
+                <button class="album-tab active" data-tab="gallery" onclick="switchAlbumTab('gallery')">Gallery</button>
+                <button class="album-tab" data-tab="clusters" onclick="switchAlbumTab('clusters')">Clusters</button>
             </div>
-            <div class="cluster-legend" id="cluster-legend" style="display:none"></div>
-            <div class="gallery-controls">
-                <label for="gallery-shuffle">Shuffle:</label>
-                <button id="gallery-shuffle" class="icon-button" aria-label="Shuffle" title="Shuffle">
-                    <svg width="16" height="16" viewBox="0 0 512 512" fill="currentColor" aria-hidden="true"><path d="M403.8 34.4c12-5 25.7-2.2 34.9 6.9l64 64c6 6 9.4 14.1 9.4 22.6s-3.4 16.6-9.4 22.6l-64 64c-9.2 9.2-22.9 11.9-34.9 6.9S384 205.8 384 192.8V160h-32c-10.1 0-19.6 4.7-25.6 12.8L284 229.3 244 176l31.2-41.6C293.3 110.2 321.8 96 352 96h32V63.2c0-12.9 7.8-24.6 19.8-29.6zM164 282.7l40 53.3-31.2 41.6C154.7 401.8 126.2 416 96 416H32c-17.7 0-32-14.3-32-32s14.3-32 32-32h64c10.1 0 19.6-4.7 25.6-12.8L164 282.7zm274.6 188c-12 5-25.7 2.2-34.9-6.9l-64-64c-6-6-9.4-14.1-9.4-22.6s3.4-16.6 9.4-22.6l64-64c9.2-9.2 22.9-11.9 34.9-6.9s19.8 16.6 19.8 29.6V352h-32c-30.2 0-58.7-14.2-76.8-38.4L217.6 153.6C199.6 129.8 171.1 116 141 116H32c-17.7 0-32-14.3-32-32S14.3 52 32 52h109c45.3 0 87.9 21.2 115.2 57.6L368.4 270.4c18 23.8 46.5 37.6 76.6 37.6h-61V345.2c0 12.9 7.8 24.6 19.8 29.6z"/></svg>
-                </button>
-                <label for="gallery-sort-field">Sort by:</label>
-                <select id="gallery-sort-field">
-                    <option value="date">date</option>
-                    <option value="name">name</option>
-                </select>
-                <label for="gallery-sort-order" style="margin-left:8px;">Order:</label>
-                <select id="gallery-sort-order">
-                    <option value="desc">desc</option>
-                    <option value="asc">asc</option>
-                </select>
+
+            <div id="album-gallery-tab" class="album-tab-content active">
+                <div class="album-search">
+                    <div class="search-input-wrap">
+                        <svg class="search-icon" width="16" height="16" viewBox="0 0 512 512" fill="currentColor" aria-hidden="true"><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0s208 93.1 208 208zM208 352a144 144 0 100-288 144 144 0 000 288z"/></svg>
+                        <input type="text" id="album-search-input" placeholder="Search photos..." autocomplete="off">
+                        <button id="album-search-clear" class="search-clear" style="display:none" onclick="clearAlbumSearch()" aria-label="Clear search">
+                            <svg width="14" height="14" viewBox="0 0 384 512" fill="currentColor"><path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3l105.4 105.3c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256l105.3-105.4z"/></svg>
+                        </button>
+                    </div>
+                    <div id="search-status" class="search-status" style="display:none"></div>
+                </div>
+
+                <div class="map-section" id="map-section">
+                    <!-- Map will be rendered here -->
+                </div>
+                <div class="cluster-legend" id="cluster-legend" style="display:none"></div>
+                <div class="gallery-controls">
+                    <label for="gallery-shuffle">Shuffle:</label>
+                    <button id="gallery-shuffle" class="icon-button" aria-label="Shuffle" title="Shuffle">
+                        <svg width="16" height="16" viewBox="0 0 512 512" fill="currentColor" aria-hidden="true"><path d="M403.8 34.4c12-5 25.7-2.2 34.9 6.9l64 64c6 6 9.4 14.1 9.4 22.6s-3.4 16.6-9.4 22.6l-64 64c-9.2 9.2-22.9 11.9-34.9 6.9S384 205.8 384 192.8V160h-32c-10.1 0-19.6 4.7-25.6 12.8L284 229.3 244 176l31.2-41.6C293.3 110.2 321.8 96 352 96h32V63.2c0-12.9 7.8-24.6 19.8-29.6zM164 282.7l40 53.3-31.2 41.6C154.7 401.8 126.2 416 96 416H32c-17.7 0-32-14.3-32-32s14.3-32 32-32h64c10.1 0 19.6-4.7 25.6-12.8L164 282.7zm274.6 188c-12 5-25.7 2.2-34.9-6.9l-64-64c-6-6-9.4-14.1-9.4-22.6s3.4-16.6 9.4-22.6l64-64c9.2-9.2 22.9-11.9 34.9-6.9s19.8 16.6 19.8 29.6V352h-32c-30.2 0-58.7-14.2-76.8-38.4L217.6 153.6C199.6 129.8 171.1 116 141 116H32c-17.7 0-32-14.3-32-32S14.3 52 32 52h109c45.3 0 87.9 21.2 115.2 57.6L368.4 270.4c18 23.8 46.5 37.6 76.6 37.6h-61V345.2c0 12.9 7.8 24.6 19.8 29.6z"/></svg>
+                    </button>
+                    <label for="gallery-sort-field">Sort by:</label>
+                    <select id="gallery-sort-field">
+                        <option value="date">date</option>
+                        <option value="name">name</option>
+                    </select>
+                    <label for="gallery-sort-order" style="margin-left:8px;">Order:</label>
+                    <select id="gallery-sort-order">
+                        <option value="desc">desc</option>
+                        <option value="asc">asc</option>
+                    </select>
+                </div>
+                <div class="gallery" id="gallery">
+                    <!-- Gallery items will be rendered here -->
+                </div>
             </div>
-            <div class="gallery" id="gallery">
-                <!-- Gallery items will be rendered here -->
+
+            <div id="album-clusters-tab" class="album-tab-content">
+                <div id="clusters-loading" class="clusters-loading">Loading clusters...</div>
+                <div id="clusters-container" class="clusters-container"></div>
             </div>
         </div>
         <!-- Road Page -->
@@ -1308,6 +1330,9 @@
 
                 item.innerHTML = `
                     <img src="${image.url}" alt="${image.name || ''}" loading="lazy" decoding="async" onclick="openLightbox('${image.url}')">
+                    <button class="similar-btn" onclick="runReverseSearch('${image.url}'); event.stopPropagation();" title="Find similar" aria-label="Find similar photos">
+                        <svg width="14" height="14" viewBox="0 0 512 512" fill="currentColor"><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0s208 93.1 208 208zM208 352a144 144 0 100-288 144 144 0 000 288z"/></svg>
+                    </button>
                     <div class="location-info">
                         ${nameHtml}
                         ${dateHtml}
@@ -1473,7 +1498,8 @@
                     const description = entry.description ? `<div class="caption-description">${entry.description}</div>` : '';
                     const dateHtml = date ? `<div class="caption-date">${date}</div>` : '';
                     const coordsHtml = (typeof entry.lat === 'number' && typeof entry.lng === 'number') ? `<a href=\"/album\" class=\"caption-coords\" onclick=\"closeLightbox(); navigateAndFocus('${src}'); event.preventDefault(); event.stopPropagation();\">${entry.lat.toFixed(4)}°, ${entry.lng.toFixed(4)}°</a>` : '';
-                    caption.innerHTML = `${title ? `<div class="caption-title">${title}</div>` : ''}${coordsHtml}${dateHtml}${stats}${description}${journal}`;
+                    const similarBtn = `<button class="lightbox-similar-btn" onclick="runReverseSearch('${src}'); event.stopPropagation();">Find similar</button>`;
+                    caption.innerHTML = `${title ? `<div class="caption-title">${title}</div>` : ''}${coordsHtml}${dateHtml}${stats}${description}${journal}${similarBtn}`;
                 } else if (caption) {
                     caption.innerHTML = '';
                 }
@@ -1966,6 +1992,368 @@
             else if (e.key === 'ArrowLeft') { navigateRoadModal(-1); e.preventDefault(); }
             else if (e.key === 'ArrowRight') { navigateRoadModal(1); e.preventDefault(); }
         });
+
+        // ── Mixpeek Search & Clustering ──
+        const MIXPEEK_API = 'https://api.mixpeek.com/v1';
+        const MIXPEEK_KEY = 'mxp_sk_qqmnf1vPmGpyCqLDg2x_47IgVeDdyDhwQkncN3PhqRkR1VOR8MSuJKXYcWwd7T4sdWU';
+        const MIXPEEK_NS = 'ns_ff4ce153f3';
+        const MIXPEEK_COLLECTION = 'col_961b58b0a5';
+        const MIXPEEK_FEATURE_URI = 'mixpeek://image_extractor@v1/google_siglip_base_v1';
+
+        let searchAbort = null;
+        let isSearchActive = false;
+
+        function mixpeekHeaders() {
+            return {
+                'Authorization': 'Bearer ' + MIXPEEK_KEY,
+                'X-Namespace': MIXPEEK_NS,
+                'Content-Type': 'application/json'
+            };
+        }
+
+        async function mixpeekSearch(queryObj, topK) {
+            const resp = await fetch(MIXPEEK_API + '/features/search', {
+                method: 'POST',
+                headers: mixpeekHeaders(),
+                body: JSON.stringify({
+                    collection_identifiers: [MIXPEEK_COLLECTION],
+                    feature_uri: MIXPEEK_FEATURE_URI,
+                    query: queryObj,
+                    top_k: topK || 20
+                })
+            });
+            const data = await resp.json();
+            if (data.success === false) throw new Error(data.error?.message || 'Search failed');
+            return data.documents || data.results || [];
+        }
+
+        function matchResultsToGallery(results) {
+            const thumbSeen = new Set();
+            const deduped = [];
+            for (const r of results) {
+                const t = r.thumbnail_url || '';
+                const key = t.split('?')[0];
+                if (key && thumbSeen.has(key)) continue;
+                if (key) thumbSeen.add(key);
+                deduped.push(r);
+            }
+
+            const matched = [];
+            const seen = new Set();
+            for (const r of deduped) {
+                const meta = r.metadata || {};
+                const lat = meta.lat;
+                const lng = meta.lng;
+                const name = (meta.name || '').replace(/\s+/g, '_');
+                let best = null;
+                let bestScore = -1;
+                for (const g of galleryAll) {
+                    if (seen.has(g.url)) continue;
+                    const url = g.url || '';
+                    const fname = url.split('/').pop().replace(/\.[^.]+$/, '');
+                    if (name && fname.toLowerCase() === name.toLowerCase()) {
+                        best = g;
+                        break;
+                    }
+                    if (typeof lat === 'number' && typeof lng === 'number' &&
+                        typeof g.lat === 'number' && typeof g.lng === 'number') {
+                        const d = Math.abs(g.lat - lat) + Math.abs(g.lng - lng);
+                        if (d < 0.001 && (bestScore < 0 || d < bestScore)) {
+                            best = g;
+                            bestScore = d;
+                        }
+                    }
+                }
+                if (best && !seen.has(best.url)) {
+                    seen.add(best.url);
+                    matched.push({ ...best, _score: r.score });
+                }
+            }
+            return matched;
+        }
+
+        // Semantic text search
+        let searchDebounce = null;
+        function initAlbumSearch() {
+            const input = document.getElementById('album-search-input');
+            if (!input || input.dataset.bound) return;
+            input.dataset.bound = '1';
+            input.addEventListener('input', function() {
+                clearTimeout(searchDebounce);
+                const q = input.value.trim();
+                const clearBtn = document.getElementById('album-search-clear');
+                if (clearBtn) clearBtn.style.display = q ? 'flex' : 'none';
+                if (!q) {
+                    clearAlbumSearch();
+                    return;
+                }
+                searchDebounce = setTimeout(() => runTextSearch(q), 400);
+            });
+            input.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    clearAlbumSearch();
+                    input.blur();
+                }
+            });
+        }
+
+        async function runTextSearch(query) {
+            if (searchAbort) searchAbort.abort();
+            searchAbort = new AbortController();
+            const status = document.getElementById('search-status');
+            const mapSection = document.getElementById('map-section');
+            const controls = document.querySelector('.gallery-controls');
+            if (status) { status.textContent = 'Searching...'; status.style.display = 'block'; }
+            if (mapSection) mapSection.style.display = 'none';
+            if (controls) controls.style.display = 'none';
+            isSearchActive = true;
+            try {
+                const results = await mixpeekSearch({ input_mode: 'text', text: query }, 20);
+                const matched = matchResultsToGallery(results);
+                if (status) {
+                    status.textContent = matched.length
+                        ? matched.length + ' result' + (matched.length > 1 ? 's' : '')
+                        : 'No results';
+                    status.style.display = 'block';
+                }
+                galleryView = matched;
+                galleryShuffled = true;
+                renderGallery();
+            } catch (err) {
+                if (err.name === 'AbortError') return;
+                if (status) { status.textContent = 'Search error'; status.style.display = 'block'; }
+                console.error('Search error:', err);
+            }
+        }
+
+        async function runReverseSearch(imageUrl) {
+            const input = document.getElementById('album-search-input');
+            if (input) input.value = '';
+            const status = document.getElementById('search-status');
+            if (status) { status.textContent = 'Finding similar...'; status.style.display = 'block'; }
+            const clearBtn = document.getElementById('album-search-clear');
+            if (clearBtn) clearBtn.style.display = 'flex';
+            const mapSection = document.getElementById('map-section');
+            const controls = document.querySelector('.gallery-controls');
+            if (mapSection) mapSection.style.display = 'none';
+            if (controls) controls.style.display = 'none';
+            isSearchActive = true;
+            closeLightbox();
+            switchAlbumTab('gallery');
+            try {
+                const results = await mixpeekSearch({ input_mode: 'url', url: imageUrl }, 20);
+                const matched = matchResultsToGallery(results);
+                if (status) {
+                    status.textContent = matched.length + ' similar photo' + (matched.length > 1 ? 's' : '');
+                    status.style.display = 'block';
+                }
+                galleryView = matched;
+                galleryShuffled = true;
+                renderGallery();
+                const gallery = document.getElementById('gallery');
+                if (gallery) gallery.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            } catch (err) {
+                if (status) { status.textContent = 'Search error'; status.style.display = 'block'; }
+                console.error('Reverse search error:', err);
+            }
+        }
+
+        function clearAlbumSearch() {
+            isSearchActive = false;
+            const input = document.getElementById('album-search-input');
+            const status = document.getElementById('search-status');
+            const clearBtn = document.getElementById('album-search-clear');
+            const mapSection = document.getElementById('map-section');
+            const controls = document.querySelector('.gallery-controls');
+            if (input) input.value = '';
+            if (status) { status.textContent = ''; status.style.display = 'none'; }
+            if (clearBtn) clearBtn.style.display = 'none';
+            if (mapSection) mapSection.style.display = '';
+            if (controls) controls.style.display = '';
+            if (leafletMap) {
+                filterGalleryByMapBounds();
+            } else {
+                galleryView = galleryAll.slice();
+                galleryShuffled = false;
+                renderGallery();
+            }
+        }
+
+        // Album sub-tabs
+        function switchAlbumTab(tabId) {
+            document.querySelectorAll('.album-tab').forEach(t => t.classList.toggle('active', t.dataset.tab === tabId));
+            document.querySelectorAll('.album-tab-content').forEach(c => c.classList.remove('active'));
+            const content = document.getElementById('album-' + tabId + '-tab');
+            if (content) content.classList.add('active');
+            if (tabId === 'clusters') {
+                loadClusters();
+            }
+            if (tabId === 'gallery' && leafletMap) {
+                setTimeout(() => leafletMap.invalidateSize(true), 50);
+            }
+        }
+
+        // Clustering
+        let clustersLoaded = false;
+        async function loadClusters() {
+            if (clustersLoaded) return;
+            const container = document.getElementById('clusters-container');
+            const loading = document.getElementById('clusters-loading');
+            if (!container) return;
+
+            try {
+                if (loading) loading.style.display = 'block';
+                const resp = await fetch(MIXPEEK_API + '/clusters?collection_id=' + MIXPEEK_COLLECTION, {
+                    headers: mixpeekHeaders()
+                });
+                const data = await resp.json();
+                const clusters = (Array.isArray(data) ? data : data.results || [])
+                    .filter(c => c.status === 'COMPLETED');
+
+                if (!clusters.length) {
+                    if (loading) loading.textContent = 'No clusters found. Running clustering...';
+                    await runNewCluster();
+                    return;
+                }
+
+                const latest = clusters.sort((a, b) =>
+                    new Date(b.completed_at || b.created_at) - new Date(a.completed_at || a.created_at)
+                )[0];
+
+                await renderClusterView(latest);
+                clustersLoaded = true;
+                if (loading) loading.style.display = 'none';
+            } catch (err) {
+                console.error('Cluster load error:', err);
+                if (loading) loading.textContent = 'Failed to load clusters';
+            }
+        }
+
+        async function runNewCluster() {
+            const loading = document.getElementById('clusters-loading');
+            try {
+                const resp = await fetch(MIXPEEK_API + '/clusters', {
+                    method: 'POST',
+                    headers: mixpeekHeaders(),
+                    body: JSON.stringify({
+                        cluster_name: 'album-kmeans-' + Date.now(),
+                        input_collections: [MIXPEEK_COLLECTION],
+                        algorithm: 'kmeans',
+                        algorithm_params: { n_clusters: 10 },
+                        clustered_attributes: [MIXPEEK_FEATURE_URI],
+                        llm_labeling: true
+                    })
+                });
+                const data = await resp.json();
+                if (data.success === false) throw new Error(data.error?.message || 'Cluster creation failed');
+                if (loading) loading.textContent = 'Clustering in progress... (refresh in a few minutes)';
+            } catch (err) {
+                console.error('Cluster create error:', err);
+                if (loading) loading.textContent = 'Clustering failed: ' + err.message;
+            }
+        }
+
+        async function renderClusterView(cluster) {
+            const container = document.getElementById('clusters-container');
+            if (!container) return;
+
+            const [vizResp, docsResp] = await Promise.all([
+                fetch(MIXPEEK_API + '/clusters/' + cluster.cluster_id + '/visualization', {
+                    headers: mixpeekHeaders()
+                }),
+                fetch(MIXPEEK_API + '/collections/' + MIXPEEK_COLLECTION + '/documents?page_size=500', {
+                    headers: mixpeekHeaders()
+                })
+            ]);
+            const viz = await vizResp.json();
+            const docsData = await docsResp.json();
+            const points = viz.points || [];
+            const allDocs = docsData.documents || docsData.results || [];
+
+            const docById = {};
+            for (const doc of allDocs) docById[doc.document_id] = doc;
+
+            const groups = {};
+            for (const pt of points) {
+                const cid = pt.cluster_id;
+                if (!cid) continue;
+                if (!groups[cid]) groups[cid] = { label: 'Cluster', docs: [] };
+                if (pt.is_centroid && pt.cluster_label) groups[cid].label = pt.cluster_label;
+                if (pt.is_centroid) continue;
+                const srcId = pt.source_document_id;
+                const doc = srcId ? docById[srcId] : docById[pt.document_id];
+                if (doc) groups[cid].docs.push(doc);
+            }
+
+            if (Object.keys(groups).length === 0) {
+                container.innerHTML = '<p class="clusters-empty">Cluster data not yet available.</p>';
+                return;
+            }
+
+            renderClusterGroups(container, groups);
+        }
+
+        function renderClusterGroups(container, groups) {
+            const colors = ['#3b82f6','#ef4444','#22c55e','#f59e0b','#8b5cf6','#ec4899','#06b6d4','#f97316','#14b8a6','#a855f7'];
+            let html = '';
+            let colorIdx = 0;
+
+            const sortedIds = Object.keys(groups).sort((a, b) => groups[b].docs.length - groups[a].docs.length);
+
+            for (const id of sortedIds) {
+                const g = groups[id];
+                const color = colors[colorIdx % colors.length];
+                colorIdx++;
+
+                const matchedPhotos = [];
+                const seen = new Set();
+                for (const doc of g.docs) {
+                    const meta = doc.metadata || {};
+                    const name = (meta.name || '').replace(/\s+/g, '_');
+                    let match = null;
+                    for (const img of galleryAll) {
+                        if (seen.has(img.url)) continue;
+                        const fname = (img.url || '').split('/').pop().replace(/\.[^.]+$/, '');
+                        if (name && fname.toLowerCase() === name.toLowerCase()) {
+                            match = img;
+                            break;
+                        }
+                    }
+                    if (!match && typeof meta.lat === 'number' && typeof meta.lng === 'number') {
+                        let bestDist = 0.001;
+                        for (const img of galleryAll) {
+                            if (seen.has(img.url)) continue;
+                            if (typeof img.lat === 'number' && typeof img.lng === 'number') {
+                                const d = Math.abs(img.lat - meta.lat) + Math.abs(img.lng - meta.lng);
+                                if (d < bestDist) { bestDist = d; match = img; }
+                            }
+                        }
+                    }
+                    if (match) { matchedPhotos.push(match); seen.add(match.url); }
+                }
+
+                if (!matchedPhotos.length) continue;
+
+                html += '<div class="cluster-group">';
+                html += '<div class="cluster-group-header">';
+                html += '<span class="cluster-dot" style="background:' + color + '"></span>';
+                html += '<span class="cluster-group-label">' + g.label + '</span>';
+                html += '<span class="cluster-group-count">' + matchedPhotos.length + '</span>';
+                html += '</div>';
+                html += '<div class="cluster-group-grid">';
+                for (const img of matchedPhotos) {
+                    html += '<div class="cluster-thumb" onclick="openLightbox(\'' + img.url + '\')">';
+                    html += '<img src="' + img.url + '" alt="' + (img.name || '') + '" loading="lazy">';
+                    html += '</div>';
+                }
+                html += '</div></div>';
+            }
+
+            container.innerHTML = html || '<p class="clusters-empty">No cluster data matched to gallery photos.</p>';
+        }
+
+        // Initialize search on page load
+        window.addEventListener('DOMContentLoaded', initAlbumSearch);
 
     </script>
 </body>

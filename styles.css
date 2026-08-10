@@ -634,6 +634,181 @@ html.theme-dark .theme-switch { background: #111218; }
 }
 
 /* Gallery page */
+/* Album tabs */
+.album-tabs {
+    display: flex;
+    gap: 0;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 1rem;
+}
+.album-tab {
+    padding: 0.5rem 1.2rem;
+    background: none;
+    border: none;
+    border-bottom: 2px solid transparent;
+    color: var(--text-dim);
+    font-size: 0.9rem;
+    font-family: var(--font-body);
+    cursor: pointer;
+    transition: color 0.2s, border-color 0.2s;
+}
+.album-tab:hover { color: var(--text); }
+.album-tab.active {
+    color: var(--accent);
+    border-bottom-color: var(--accent);
+}
+.album-tab-content { display: none; }
+.album-tab-content.active { display: block; }
+
+/* Album search */
+.album-search {
+    margin-bottom: 0.75rem;
+}
+.search-input-wrap {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+.search-icon {
+    position: absolute;
+    left: 12px;
+    color: var(--text-dim);
+    pointer-events: none;
+}
+#album-search-input {
+    width: 100%;
+    padding: 10px 36px 10px 36px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text);
+    font-size: 0.9rem;
+    font-family: var(--font-body);
+    outline: none;
+    transition: border-color 0.2s;
+}
+#album-search-input:focus {
+    border-color: var(--text-dim);
+}
+#album-search-input::placeholder {
+    color: var(--text-dim);
+    opacity: 0.6;
+}
+.search-clear {
+    position: absolute;
+    right: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    border: none;
+    background: none;
+    color: var(--text-dim);
+    cursor: pointer;
+    border-radius: 4px;
+    transition: color 0.15s;
+}
+.search-clear:hover { color: var(--text); }
+.search-status {
+    font-size: 0.8rem;
+    color: var(--text-dim);
+    margin-top: 0.4rem;
+    padding-left: 2px;
+}
+
+/* Similar button on gallery items */
+.similar-btn {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    width: 30px;
+    height: 30px;
+    border: none;
+    border-radius: 6px;
+    background: rgba(0,0,0,0.55);
+    color: rgba(255,255,255,0.85);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.2s, background 0.15s;
+    z-index: 2;
+}
+.gallery-item:hover .similar-btn { opacity: 1; }
+.similar-btn:hover { background: rgba(0,0,0,0.8); color: #fff; }
+
+/* Lightbox similar button */
+.lightbox-similar-btn {
+    display: inline-block;
+    margin-top: 0.5rem;
+    padding: 4px 12px;
+    border: 1px solid rgba(255,255,255,0.3);
+    border-radius: 6px;
+    background: rgba(255,255,255,0.08);
+    color: rgba(255,255,255,0.8);
+    font-size: 0.8rem;
+    font-family: var(--font-body);
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s;
+}
+.lightbox-similar-btn:hover {
+    background: rgba(255,255,255,0.18);
+    color: #fff;
+}
+
+/* Clusters tab */
+.clusters-loading {
+    text-align: center;
+    color: var(--text-dim);
+    padding: 3rem 0;
+    font-size: 0.9rem;
+}
+.clusters-empty {
+    text-align: center;
+    color: var(--text-dim);
+    padding: 2rem 0;
+}
+.cluster-group {
+    margin-bottom: 2rem;
+}
+.cluster-group-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.75rem;
+    padding-bottom: 0.4rem;
+    border-bottom: 1px solid var(--border);
+}
+.cluster-group-label {
+    font-size: 1rem;
+    color: var(--text);
+}
+.cluster-group-count {
+    font-size: 0.8rem;
+    color: var(--text-dim);
+    margin-left: auto;
+}
+.cluster-group-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.75rem;
+}
+.cluster-thumb {
+    cursor: pointer;
+    border-radius: 6px;
+    overflow: hidden;
+    transition: transform 0.2s;
+}
+.cluster-thumb:hover { transform: scale(1.03); }
+.cluster-thumb img {
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+    display: block;
+}
+
 /* Grid-based gallery to preserve DOM (row-major) order */
 .gallery {
     display: grid;
@@ -1233,6 +1408,10 @@ body.lightbox-open .leaflet-tooltip-pane {
         grid-template-columns: repeat(2, 1fr);
     }
 
+    .cluster-group-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
     .road-list {
         grid-template-columns: 1fr;
     }
@@ -1264,6 +1443,10 @@ body.lightbox-open .leaflet-tooltip-pane {
 
     .gallery {
         grid-template-columns: 1fr;
+    }
+
+    .cluster-group-grid {
+        grid-template-columns: repeat(2, 1fr);
     }
 
     .utilities-list {
