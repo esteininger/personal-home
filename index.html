@@ -2400,6 +2400,109 @@
         // Initialize search on page load
         window.addEventListener('DOMContentLoaded', initAlbumSearch);
 
+        // Motion.js animations & IntersectionObserver reveal system
+        let motionModule = null;
+        async function ensureMotion() {
+            if (motionModule) return motionModule;
+            try {
+                motionModule = await import('https://cdn.jsdelivr.net/npm/motion@11/+esm');
+            } catch (e) {
+                console.warn('Motion.js unavailable:', e);
+                motionModule = null;
+            }
+            return motionModule;
+        }
+
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const el = entry.target;
+                    revealObserver.unobserve(el);
+                    ensureMotion().then(m => {
+                        if (m) {
+                            m.animate(el, { opacity: [0, 1], y: [16, 0] }, {
+                                duration: 0.45,
+                                easing: [0.16, 1, 0.3, 1],
+                                delay: parseFloat(el.dataset.revealDelay || 0)
+                            }).finished.then(() => el.classList.add('revealed'));
+                        } else {
+                            el.classList.add('revealed');
+                        }
+                    });
+                }
+            });
+        }, { threshold: 0.08 });
+
+        function observeRevealItems(selector, container) {
+            const items = (container || document).querySelectorAll(selector);
+            items.forEach((el, i) => {
+                el.dataset.revealDelay = (Math.min(i, 8) * 0.04).toFixed(3);
+                revealObserver.observe(el);
+            });
+        }
+
+        // Animate page entrance on navigation
+        async function animatePageIn(pageEl) {
+            const m = await ensureMotion();
+            if (!m || !pageEl) return;
+            m.animate(pageEl, { opacity: [0, 1], y: [10, 0] }, {
+                duration: 0.35,
+                easing: [0.16, 1, 0.3, 1]
+            });
+        }
+
+        // Hook into navigateToPath for page transition animations
+        const _origNavigate = navigateToPath;
+        navigateToPath = function(path, options) {
+            _origNavigate(path, options);
+            const pageId = (path || '').replace(basePath, '').replace(/^\/+/, '') || 'about';
+            const pageEl = document.getElementById(pageId);
+            if (pageEl) animatePageIn(pageEl);
+
+            if (pageId === 'album') {
+                requestAnimationFrame(() => observeRevealItems('.gallery-item'));
+            }
+            if (pageId === 'road') {
+                requestAnimationFrame(() => observeRevealItems('.road-card'));
+            }
+            if (pageId === 'about') {
+                requestAnimationFrame(() => animateAboutPage());
+            }
+        };
+
+        async function animateAboutPage() {
+            const m = await ensureMotion();
+            if (!m) return;
+            const profile = document.querySelector('.profile-section');
+            const bio = document.querySelector('.bio-content');
+            if (profile) m.animate(profile, { opacity: [0, 1], x: [-20, 0] }, { duration: 0.5, easing: [0.16, 1, 0.3, 1] });
+            if (bio) m.animate(bio, { opacity: [0, 1], x: [20, 0] }, { duration: 0.5, easing: [0.16, 1, 0.3, 1], delay: 0.1 });
+        }
+
+        // Re-observe gallery items after renderGallery
+        const _origRenderGallery = renderGallery;
+        renderGallery = function() {
+            _origRenderGallery();
+            requestAnimationFrame(() => observeRevealItems('.gallery-item'));
+        };
+
+        // Re-observe road cards after renderRoadList
+        const _origRenderRoadList = renderRoadList;
+        renderRoadList = function() {
+            _origRenderRoadList();
+            requestAnimationFrame(() => observeRevealItems('.road-card'));
+        };
+
+        // Animate about page on initial load
+        window.addEventListener('DOMContentLoaded', () => {
+            const aboutPage = document.getElementById('about');
+            if (aboutPage && aboutPage.classList.contains('active')) {
+                animateAboutPage();
+            }
+            observeRevealItems('.gallery-item');
+            observeRevealItems('.road-card');
+        });
+
     </script>
 </body>
 

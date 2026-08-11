@@ -629,9 +629,11 @@
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_7536.JPG",
-    "name": "Mt. Rainier (6)",
+    "name": "North Cascades 3",
+    "lat": 48.83,
+    "lng": -121.69,
     "date_taken": "2024-07-03",
-    "description": "The glaciated volcanic cone of Mt. Rainier rising above wildflower meadows."
+    "description": "Alpine ridgeline with views of distant glaciers in the North Cascades."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_2847.JPG",
@@ -733,9 +735,11 @@
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_7590.JPG",
-    "name": "Leavenworth (14)",
+    "name": "Leavenworth 3",
+    "lat": 47.53,
+    "lng": -120.82,
     "date_taken": "2021-09-11",
-    "description": "Alpine scenery in the Enchantments area near Leavenworth, Washington."
+    "description": "Larches and granite along a mountain trail near Leavenworth."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_5340.JPG",
@@ -821,9 +825,11 @@
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_7647.JPG",
-    "name": "Snoqualmie Pass (6)",
+    "name": "Leavenworth 7",
+    "lat": 47.53,
+    "lng": -120.82,
     "date_taken": "2021-09-11",
-    "description": "Alpine lakes and rugged peaks along the Cascade crest near Snoqualmie Pass."
+    "description": "Jagged Cascade peaks rising above a high alpine basin."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_5125.JPG",
@@ -896,9 +902,11 @@
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_7640.JPG",
-    "name": "North Cascades (17)",
+    "name": "Leavenworth 6",
+    "lat": 47.53,
+    "lng": -120.82,
     "date_taken": "2021-09-11",
-    "description": "Glaciated valleys and dense forest in the North Cascades wilderness."
+    "description": "Crystal lake surrounded by alpine larches and granite walls."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_7442.JPG",
@@ -1432,14 +1440,6 @@
     "description": "Glaciated valleys and dense forest in the North Cascades wilderness."
   },
   {
-    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_7590.JPG",
-    "name": "Leavenworth 3",
-    "lat": 47.53,
-    "lng": -120.82,
-    "date_taken": "2021-09-11",
-    "description": "Larches and granite along a mountain trail near Leavenworth."
-  },
-  {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_7614.JPG",
     "name": "Leavenworth 4",
     "lat": 47.53,
@@ -1454,22 +1454,6 @@
     "lng": -120.82,
     "date_taken": "2021-09-11",
     "description": "Subalpine meadows and rocky ridges near Leavenworth."
-  },
-  {
-    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_7640.JPG",
-    "name": "Leavenworth 6",
-    "lat": 47.53,
-    "lng": -120.82,
-    "date_taken": "2021-09-11",
-    "description": "Crystal lake surrounded by alpine larches and granite walls."
-  },
-  {
-    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_7647.JPG",
-    "name": "Leavenworth 7",
-    "lat": 47.53,
-    "lng": -120.82,
-    "date_taken": "2021-09-11",
-    "description": "Jagged Cascade peaks rising above a high alpine basin."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_7864.JPG",
@@ -1512,14 +1496,6 @@
     "description": "Forest-covered slopes and rocky summits in the White Mountains of New Hampshire."
   },
   {
-    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_7536.JPG",
-    "name": "North Cascades 3",
-    "lat": 48.83,
-    "lng": -121.69,
-    "date_taken": "2024-07-03",
-    "description": "Alpine ridgeline with views of distant glaciers in the North Cascades."
-  },
-  {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_8331.JPG",
     "name": "Bend 2",
     "lat": 44.08,
@@ -1558,14 +1534,6 @@
     "lng": -122.05,
     "date_taken": "2021-10-03",
     "description": "The impossibly blue waters of Crater Lake framed by volcanic rim walls."
-  },
-  {
-    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_8492.JPG",
-    "name": "Crater Lake 2",
-    "lat": 43.73,
-    "lng": -122.05,
-    "date_taken": "2021-10-03",
-    "description": "Snow-dusted caldera walls surrounding the deep blue expanse of Crater Lake."
   },
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_8651.JPG",

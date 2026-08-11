@@ -123,16 +123,10 @@ nav a.active::after {
 /* Page sections */
 .page {
     display: none;
-    animation: fadeIn 0.3s;
 }
 
 .page.active {
     display: block;
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
 }
 
 /* Two column layout for Bio */
@@ -930,6 +924,13 @@ html.theme-dark .theme-switch { background: #111218; }
     break-inside: avoid;
     -webkit-column-break-inside: avoid;
     margin-bottom: 0;
+    opacity: 0;
+    transform: translateY(16px);
+}
+
+.gallery-item.revealed {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 .gallery-item img {
@@ -978,19 +979,21 @@ html.theme-dark .theme-switch { background: #111218; }
 
 /* Lightbox */
 .lightbox {
-    display: none;
+    display: flex;
     visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
     background: rgba(0, 0, 0, 0.95);
-    /* Ensure the lightbox is always above the map and overlays */
     z-index: 20000;
     align-items: center;
     justify-content: center;
     cursor: pointer;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
 }
 
 .lightbox-close {
@@ -1042,8 +1045,9 @@ html.theme-dark .theme-switch { background: #111218; }
 .lightbox-download:active { transform: scale(0.96); }
 
 .lightbox.active {
-    display: flex;
     visibility: visible;
+    opacity: 1;
+    pointer-events: auto;
 }
 
 .lightbox img {
@@ -1051,10 +1055,15 @@ html.theme-dark .theme-switch { background: #111218; }
     max-height: 90vh;
     object-fit: contain;
     cursor: zoom-in;
-    transition: transform 0.2s ease-in-out;
+    transform: scale(0.92);
+    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.lightbox img.zoomed {
+.lightbox.active img {
+    transform: scale(1);
+}
+
+.lightbox.active img.zoomed {
     cursor: zoom-out;
     transform: scale(1.6);
 }
@@ -1284,6 +1293,13 @@ body.lightbox-open .leaflet-tooltip-pane {
     display: flex;
     flex-direction: column;
     cursor: pointer;
+    opacity: 0;
+    transform: translateY(16px);
+}
+
+.road-card.revealed {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 .road-card:hover {
