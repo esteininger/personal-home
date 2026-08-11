@@ -1704,7 +1704,7 @@
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/wind-river-granite-lake.jpeg",
     "name": "Wind River Granite Lake",
     "lat": 42.736172,
-    "lng": -109.211250,
+    "lng": -109.21125,
     "date_taken": "2026-08-04",
     "featured": true,
     "description": "An alpine lake nestled beneath granite cliffs in the Wind River Range, ringed by evergreens and lush meadow grasses in late summer light."
@@ -1731,7 +1731,7 @@
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/snowy-range-snowfield-lake.jpeg",
     "name": "Snowy Range Snowfield Lake",
     "lat": 41.376767,
-    "lng": -106.256050,
+    "lng": -106.25605,
     "date_taken": "2026-08-07",
     "featured": true,
     "description": "A pristine alpine lake at the foot of the Snowy Range, with a late-summer snowfield clinging to the granite ridgeline and clear water reflecting the mountainside."
@@ -1748,8 +1748,8 @@
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/laurentians-dog-lake-sunset.jpeg",
     "name": "Laurentians Dog Lake Sunset",
-    "lat": 46.350000,
-    "lng": -74.180000,
+    "lat": 46.35,
+    "lng": -74.18,
     "date_taken": null,
     "featured": true,
     "description": "Dog wading through a calm Laurentian lake with a ball at sunset, boulders breaking the surface and forested mountains silhouetted against a golden sky."
@@ -1757,8 +1757,8 @@
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/cabo-da-roca-lighthouse.jpeg",
     "name": "Cabo da Roca Lighthouse",
-    "lat": 38.781200,
-    "lng": -9.498000,
+    "lat": 38.7812,
+    "lng": -9.498,
     "date_taken": null,
     "featured": true,
     "description": "Trail through ice plant leading to the Farol de Cabo da Roca, the westernmost lighthouse of continental Europe, perched above the Atlantic on the Portuguese coast."
@@ -1766,8 +1766,8 @@
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/cabo-da-roca-cliffs.jpeg",
     "name": "Cabo da Roca Sea Cliffs",
-    "lat": 38.780300,
-    "lng": -9.499800,
+    "lat": 38.7803,
+    "lng": -9.4998,
     "date_taken": null,
     "featured": false,
     "description": "Dramatic sea cliffs and rock stacks at Cabo da Roca where the Atlantic crashes against the westernmost edge of continental Europe, with ice plant carpeting the clifftop."
@@ -1775,8 +1775,8 @@
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/bryce-canyon-hoodoos.jpeg",
     "name": "Bryce Canyon Hoodoos",
-    "lat": 37.619300,
-    "lng": -112.167100,
+    "lat": 37.6193,
+    "lng": -112.1671,
     "date_taken": null,
     "featured": true,
     "description": "Thousands of orange and white hoodoos filling the Bryce Amphitheater under a stormy sky, with ponderosa pines scattered among the eroded sandstone spires."
@@ -1784,8 +1784,8 @@
   {
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/zion-watchman-sunset.jpeg",
     "name": "Zion Watchman Sunset",
-    "lat": 37.208800,
-    "lng": -112.984100,
+    "lat": 37.2088,
+    "lng": -112.9841,
     "date_taken": null,
     "featured": true,
     "description": "The Watchman peak at sunset from the Virgin River bridge in Zion National Park, with pink clouds glowing above the red sandstone cliffs and cottonwoods lining the river."
@@ -1794,7 +1794,7 @@
     "url": "https://diyjmz7hrjx3w.cloudfront.net/album/horseshoe-bend.jpeg",
     "name": "Horseshoe Bend",
     "lat": 36.879275,
-    "lng": -111.510650,
+    "lng": -111.51065,
     "date_taken": "2018-08-13",
     "featured": true,
     "description": "The Colorado River curving around a massive sandstone mesa at Horseshoe Bend near Page, Arizona, seen from the cliff edge a thousand feet above the water."
@@ -1807,5 +1807,320 @@
     "date_taken": "2018-01-17",
     "featured": true,
     "description": "Mount Batur volcano silhouetted against a pre-dawn sky in Bali, with tropical palms in the foreground and village lights dotting the caldera below."
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/C8E18D54-6AB0-421A-B74C-D0E90E9B61B6.jpg",
+    "name": "Maroon Bells Reflection",
+    "lat": 39.0969,
+    "lng": -106.9388,
+    "date_taken": "2025-07-22",
+    "featured": false,
+    "description": "The twin Maroon Bells peaks reflect perfectly in the still waters of Maroon Lake at golden hour, ringed by dark evergreens."
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_4687.JPG",
+    "name": "Crater Lake Reflection",
+    "lat": 39.0739,
+    "lng": -106.9518,
+    "date_taken": "2025-07-23",
+    "featured": false,
+    "description": "A small alpine lake mirrors jagged peaks and talus slopes in the Maroon Bells Wilderness under soft morning light."
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_4703.JPG",
+    "name": "Maroon Bells Valley Trail",
+    "lat": 39.078,
+    "lng": -106.95,
+    "date_taken": "2025-07-23",
+    "featured": false,
+    "description": "A dirt trail winds through a lush green valley flanked by towering red-brown peaks in the Maroon Bells Wilderness near Aspen."
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_4800.JPG",
+    "name": "Maroon Bells Alpine Meadow",
+    "lat": 39.07,
+    "lng": -106.955,
+    "date_taken": "2025-07-24",
+    "featured": false,
+    "description": "Wildflowers carpet an alpine meadow beneath the iconic burgundy pyramid of Maroon Peak on a bluebird summer day."
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_4832.JPG",
+    "name": "Maroon Bells Creekside",
+    "lat": 39.095,
+    "lng": -106.94,
+    "date_taken": "2025-07-24",
+    "featured": false,
+    "description": "A clear mountain creek tumbles over mossy rocks through dense aspen forest with the Maroon Bells rising beyond the canopy."
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_4836.JPG",
+    "name": "Sievers Mountain Spires",
+    "lat": 39.08,
+    "lng": -106.96,
+    "date_taken": "2025-07-24",
+    "featured": false,
+    "description": "Sharp red rock spires of Sievers Mountain catch afternoon light against a deep blue sky in the Elk Mountains near Aspen."
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_5166.JPG",
+    "name": "Mountain Sun Flare",
+    "lat": 48.5,
+    "lng": -121.1,
+    "date_taken": "2025-08-10",
+    "featured": false,
+    "description": "The sun crests a craggy ridgeline sending golden rays flaring through a high mountain pass in the North Cascades."
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_5687.JPG",
+    "name": "Kootenai Falls Gorge",
+    "lat": 48.43,
+    "lng": -115.75,
+    "date_taken": "2025-08-25",
+    "featured": false,
+    "description": "The Kootenai River surges through a forested granite gorge in northwest Montana, swirling around massive boulders below a swinging bridge."
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_5755.JPG",
+    "name": "Colchuck Lake Reflection",
+    "lat": 47.528,
+    "lng": -120.834,
+    "date_taken": "2025-09-05",
+    "featured": false,
+    "description": "The turquoise waters of Colchuck Lake perfectly mirror the jagged granite walls of Dragontail and Colchuck peaks in Washington's Enchantments."
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_5871.JPG",
+    "name": "Alaskan Glacial River",
+    "lat": 62.8,
+    "lng": -145.5,
+    "date_taken": "2025-09-10",
+    "featured": false,
+    "description": "A silty glacial river braids across vast tundra dotted with spruce beneath the distant Alaska Range along the Richardson Highway."
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_6995.JPG",
+    "name": "Island in PNW Lake",
+    "lat": 48.65,
+    "lng": -122.9,
+    "date_taken": "2025-08-15",
+    "featured": false,
+    "description": "A small tree-covered island sits in a calm lake surrounded by forested Pacific Northwest mountains under soft light."
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_7083.JPG",
+    "name": "Alpine Lake Overlook",
+    "lat": 47.5,
+    "lng": -121.1,
+    "date_taken": "2025-08-20",
+    "featured": false,
+    "description": "A deep blue alpine lake viewed from above reflects surrounding peaks perfectly under a clear sky in the Alpine Lakes Wilderness."
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_7290.JPG",
+    "name": "Dog at Lake Ann",
+    "lat": 48.51,
+    "lng": -120.74,
+    "date_taken": "2025-09-25",
+    "featured": false,
+    "description": "A dog looks out over a turquoise alpine lake surrounded by fall colors with a pointed peak rising behind in the North Cascades."
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_7408.JPG",
+    "name": "Mount Shuksan Vista",
+    "lat": 48.85,
+    "lng": -121.68,
+    "date_taken": "2025-08-25",
+    "featured": false,
+    "description": "Glaciated Mount Shuksan rises dramatically above a rocky alpine slope under dramatic clouds near Artist Point."
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_7426.JPG",
+    "name": "Dog at Chain Lakes",
+    "lat": 48.85,
+    "lng": -121.7,
+    "date_taken": "2025-08-25",
+    "featured": false,
+    "description": "A dog stands on a trail overlooking a turquoise alpine lake under overcast skies in the Mount Baker Wilderness."
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_7463.JPG",
+    "name": "Alpine Basin Wildflowers",
+    "lat": 48.84,
+    "lng": -121.72,
+    "date_taken": "2025-08-25",
+    "featured": false,
+    "description": "A mountain basin with small tarns, fireweed, lingering snow patches, and rocky peaks in the Mount Baker Wilderness."
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_7601.JPG",
+    "name": "Enchantments Granite Stream",
+    "lat": 47.53,
+    "lng": -120.83,
+    "date_taken": "2025-10-05",
+    "featured": false,
+    "description": "Lone golden larches stand amid polished granite slabs with a creek and pool below jagged Dragontail Peak."
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_7646.JPG",
+    "name": "Enchantments Deep Lake",
+    "lat": 47.52,
+    "lng": -120.83,
+    "date_taken": "2025-10-05",
+    "featured": false,
+    "description": "A deep blue-teal lake ringed by granite walls with golden larch trees in the Enchantments basin."
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_7664.JPG",
+    "name": "Colchuck Lake Shore",
+    "lat": 47.53,
+    "lng": -120.83,
+    "date_taken": "2025-10-05",
+    "featured": false,
+    "description": "Turquoise alpine water meets a rocky granite shoreline with jagged peaks and evergreens rising above at Colchuck Lake."
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_7685.JPG",
+    "name": "Forest Lake Reflection",
+    "lat": 47.52,
+    "lng": -120.8,
+    "date_taken": "2025-10-05",
+    "featured": false,
+    "description": "A calm forest-ringed lake perfectly reflects surrounding evergreens and a rocky peak under blue sky along the Enchantments trail."
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_8025.JPG",
+    "name": "Smith Rock Canyon",
+    "lat": 44.368,
+    "lng": -121.14,
+    "date_taken": "2025-09-20",
+    "featured": false,
+    "description": "Crooked River winding through towering tuff canyon walls at Smith Rock State Park, golden light warming the volcanic cliffs"
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_8069.JPG",
+    "name": "Monkey Face Panorama",
+    "lat": 44.367,
+    "lng": -121.142,
+    "date_taken": "2025-09-20",
+    "featured": true,
+    "description": "Monkey Face spire rising above Smith Rock with the Cascade Range panorama stretching to the horizon, Bend visible far below"
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_8161.JPG",
+    "name": "Paddleboarding Hosmer Lake",
+    "lat": 43.985,
+    "lng": -121.76,
+    "date_taken": "2025-09-22",
+    "featured": true,
+    "description": "Standup paddleboard gliding across glassy Hosmer Lake with snow-capped Mt. Bachelor rising ahead through morning mist"
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_8174.JPG",
+    "name": "Hosmer Lake Reflection",
+    "lat": 43.984,
+    "lng": -121.761,
+    "date_taken": "2025-09-22",
+    "featured": false,
+    "description": "Perfect mirror reflection of Mt. Bachelor on the still surface of Hosmer Lake, fall shrubs adding warm tones to the shore"
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_8210.JPG",
+    "name": "Tumalo Falls",
+    "lat": 44.0333,
+    "lng": -121.5667,
+    "date_taken": "2025-09-22",
+    "featured": true,
+    "description": "Tumalo Falls cascading nearly a hundred feet over a basalt cliff face with a rainbow catching in the mist at the base"
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_8299.JPG",
+    "name": "Broken Top Approach",
+    "lat": 44.075,
+    "lng": -121.685,
+    "date_taken": "2025-09-23",
+    "featured": false,
+    "description": "Volcanic pumice plain stretching toward the jagged peaks of Broken Top with sparse alpine conifers dotting the landscape"
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_8316.JPG",
+    "name": "Alpine Creek at Broken Top",
+    "lat": 44.078,
+    "lng": -121.688,
+    "date_taken": "2025-09-23",
+    "featured": false,
+    "description": "Rocky alpine creek tumbling through conifers on the flanks of Broken Top with mountain slopes rising beyond"
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_8361.JPG",
+    "name": "Three Sisters Panorama",
+    "lat": 44.085,
+    "lng": -121.7,
+    "date_taken": "2025-09-23",
+    "featured": true,
+    "description": "South Sister, Middle Sister, and North Sister stretching across the horizon from the flanks of Broken Top with alpine tarns below"
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_8397.JPG",
+    "name": "Broken Top Meadow",
+    "lat": 44.079,
+    "lng": -121.687,
+    "date_taken": "2025-09-23",
+    "featured": false,
+    "description": "Alpine meadow with a meandering snowmelt stream below Broken Top's red and black jagged summit under clear blue sky"
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_8649.JPG",
+    "name": "Mt. Tallac Sunset",
+    "lat": 38.905,
+    "lng": -120.096,
+    "date_taken": "2025-10-04",
+    "featured": true,
+    "description": "Golden sunset from the Mt. Tallac trail with Lake Tahoe gleaming through haze below and Sierra ridgelines layered to the horizon"
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_8667.JPG",
+    "name": "Lone Pine on Tallac",
+    "lat": 38.906,
+    "lng": -120.097,
+    "date_taken": "2025-10-04",
+    "featured": false,
+    "description": "Solitary weathered pine standing resilient on the rocky talus slope of Mt. Tallac against deep blue sky"
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_8746.JPG",
+    "name": "Tallac Summit View",
+    "lat": 38.9056,
+    "lng": -120.0964,
+    "date_taken": "2025-10-04",
+    "featured": true,
+    "description": "Panoramic view from Mt. Tallac summit over all of Lake Tahoe with Fallen Leaf Lake below and granite ridges framing the basin"
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_8804.JPG",
+    "name": "Tahoe South Shore",
+    "lat": 38.94,
+    "lng": -120.05,
+    "date_taken": "2025-10-05",
+    "featured": false,
+    "description": "Crystal clear Lake Tahoe water at the south shore with golden fall aspens lining the beach and Sierra peaks rising behind"
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_8848.JPG",
+    "name": "Alabama Hills Golden Hour",
+    "lat": 36.6089,
+    "lng": -118.1131,
+    "date_taken": "2025-11-15",
+    "featured": false,
+    "description": "Warm golden-hour light bathes the rounded granite boulders of the Alabama Hills with the snow-dusted Sierra Nevada crest rising behind, a dog exploring at the edge of the frame."
+  },
+  {
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/IMG_8855.JPG",
+    "name": "Sierra Crest from Alabama Hills",
+    "lat": 36.6075,
+    "lng": -118.1145,
+    "date_taken": "2025-11-15",
+    "featured": false,
+    "description": "Snow-capped Sierra Nevada peaks including Lone Pine Peak and Mt. Whitney tower beyond the weathered granite formations and sage-covered desert floor of the Alabama Hills."
   }
 ]
