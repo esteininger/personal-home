@@ -2273,83 +2273,128 @@
             const docById = {};
             for (const doc of allDocs) docById[doc.document_id] = doc;
 
-            const groups = {};
-            for (const pt of points) {
-                const cid = pt.cluster_id;
-                if (!cid) continue;
-                if (!groups[cid]) groups[cid] = { label: 'Cluster', docs: [] };
-                if (pt.is_centroid && pt.cluster_label) groups[cid].label = pt.cluster_label;
-                if (pt.is_centroid) continue;
-                const srcId = pt.source_document_id;
-                const doc = srcId ? docById[srcId] : docById[pt.document_id];
-                if (doc) groups[cid].docs.push(doc);
-            }
-
-            if (Object.keys(groups).length === 0) {
+            if (!points.length) {
                 container.innerHTML = '<p class="clusters-empty">Cluster data not yet available.</p>';
                 return;
             }
 
-            renderClusterGroups(container, groups);
+            await renderScatterPlot(container, points, docById);
         }
 
-        function renderClusterGroups(container, groups) {
+        async function renderScatterPlot(container, points, docById) {
             const colors = ['#3b82f6','#ef4444','#22c55e','#f59e0b','#8b5cf6','#ec4899','#06b6d4','#f97316','#14b8a6','#a855f7'];
-            let html = '';
-            let colorIdx = 0;
+            const centroids = points.filter(p => p.is_centroid);
+            const members = points.filter(p => !p.is_centroid);
 
-            const sortedIds = Object.keys(groups).sort((a, b) => groups[b].docs.length - groups[a].docs.length);
+            const clusterColors = {};
+            centroids.forEach((c, i) => { clusterColors[c.cluster_id] = colors[i % colors.length]; });
 
-            for (const id of sortedIds) {
-                const g = groups[id];
-                const color = colors[colorIdx % colors.length];
-                colorIdx++;
+            const xs = points.map(p => p.x);
+            const ys = points.map(p => p.y);
+            const xMin = Math.min(...xs), xMax = Math.max(...xs);
+            const yMin = Math.min(...ys), yMax = Math.max(...ys);
+            const pad = 0.08;
+            const xRange = xMax - xMin || 1;
+            const yRange = yMax - yMin || 1;
 
-                const matchedPhotos = [];
-                const seen = new Set();
-                for (const doc of g.docs) {
-                    const meta = doc.metadata || {};
-                    const name = (meta.name || '').replace(/\s+/g, '_');
-                    let match = null;
-                    for (const img of galleryAll) {
-                        if (seen.has(img.url)) continue;
-                        const fname = (img.url || '').split('/').pop().replace(/\.[^.]+$/, '');
-                        if (name && fname.toLowerCase() === name.toLowerCase()) {
-                            match = img;
-                            break;
-                        }
-                    }
-                    if (!match && typeof meta.lat === 'number' && typeof meta.lng === 'number') {
-                        let bestDist = 0.001;
-                        for (const img of galleryAll) {
-                            if (seen.has(img.url)) continue;
-                            if (typeof img.lat === 'number' && typeof img.lng === 'number') {
-                                const d = Math.abs(img.lat - meta.lat) + Math.abs(img.lng - meta.lng);
-                                if (d < bestDist) { bestDist = d; match = img; }
-                            }
-                        }
-                    }
-                    if (match) { matchedPhotos.push(match); seen.add(match.url); }
-                }
-
-                if (!matchedPhotos.length) continue;
-
-                html += '<div class="cluster-group">';
-                html += '<div class="cluster-group-header">';
-                html += '<span class="cluster-dot" style="background:' + color + '"></span>';
-                html += '<span class="cluster-group-label">' + g.label + '</span>';
-                html += '<span class="cluster-group-count">' + matchedPhotos.length + '</span>';
-                html += '</div>';
-                html += '<div class="cluster-group-grid">';
-                for (const img of matchedPhotos) {
-                    html += '<div class="cluster-thumb" onclick="openLightbox(\'' + img.url + '\')">';
-                    html += '<img src="' + img.url + '" alt="' + (img.name || '') + '" loading="lazy">';
-                    html += '</div>';
-                }
-                html += '</div></div>';
+            function toPos(x, y) {
+                return {
+                    left: (pad + (1 - 2 * pad) * (x - xMin) / xRange) * 100,
+                    top: (pad + (1 - 2 * pad) * (1 - (y - yMin) / yRange)) * 100
+                };
             }
 
-            container.innerHTML = html || '<p class="clusters-empty">No cluster data matched to gallery photos.</p>';
+            const pointData = [];
+            const seen = new Set();
+            for (const pt of members) {
+                const doc = docById[pt.source_document_id] || docById[pt.document_id];
+                if (!doc) continue;
+                const meta = doc.metadata || {};
+                const name = (meta.name || '').replace(/\s+/g, '_');
+                let match = null;
+                for (const img of galleryAll) {
+                    if (seen.has(img.url)) continue;
+                    const fname = (img.url || '').split('/').pop().replace(/\.[^.]+$/, '');
+                    if (name && fname.toLowerCase() === name.toLowerCase()) { match = img; break; }
+                }
+                if (!match && typeof meta.lat === 'number' && typeof meta.lng === 'number') {
+                    let bestDist = 0.001;
+                    for (const img of galleryAll) {
+                        if (seen.has(img.url)) continue;
+                        if (typeof img.lat === 'number' && typeof img.lng === 'number') {
+                            const d = Math.abs(img.lat - meta.lat) + Math.abs(img.lng - meta.lng);
+                            if (d < bestDist) { bestDist = d; match = img; }
+                        }
+                    }
+                }
+                if (match) {
+                    seen.add(match.url);
+                    const pos = toPos(pt.x, pt.y);
+                    pointData.push({ left: pos.left, top: pos.top, color: clusterColors[pt.cluster_id], url: match.url, name: match.name || '' });
+                }
+            }
+
+            let html = '<div class="cluster-legend">';
+            for (const c of centroids) {
+                const color = clusterColors[c.cluster_id];
+                html += '<span class="cluster-chip active" style="--chip-color:' + color + '">';
+                html += '<span class="cluster-dot" style="background:' + color + '"></span>';
+                html += c.cluster_label + ' (' + (c.num_members || '') + ')';
+                html += '</span>';
+            }
+            html += '</div>';
+
+            html += '<div class="tsne-plot">';
+            for (const p of pointData) {
+                html += '<div class="tsne-point" style="left:' + p.left.toFixed(2) + '%;top:' + p.top.toFixed(2) + '%;--point-color:' + p.color + '" ';
+                html += 'data-url="' + p.url + '" data-name="' + (p.name || '').replace(/"/g, '&quot;') + '" aria-label="' + (p.name || '').replace(/"/g, '&quot;') + '"></div>';
+            }
+            for (const c of centroids) {
+                const pos = toPos(c.x, c.y);
+                const color = clusterColors[c.cluster_id];
+                html += '<div class="tsne-label" style="left:' + pos.left.toFixed(2) + '%;top:' + pos.top.toFixed(2) + '%;color:' + color + '">' + c.cluster_label + '</div>';
+            }
+            html += '</div>';
+
+            html += '<div class="tsne-tooltip" id="tsne-tooltip"><img id="tsne-tooltip-img" src="" alt=""><span id="tsne-tooltip-name"></span></div>';
+
+            container.innerHTML = html;
+
+            const tooltip = document.getElementById('tsne-tooltip');
+            const tooltipImg = document.getElementById('tsne-tooltip-img');
+            const tooltipName = document.getElementById('tsne-tooltip-name');
+            const plot = container.querySelector('.tsne-plot');
+            let activePoint = null;
+
+            plot.addEventListener('pointermove', e => {
+                const pt = e.target.closest('.tsne-point');
+                if (!pt) { if (activePoint) { tooltip.style.display = 'none'; activePoint = null; } return; }
+                if (pt !== activePoint) {
+                    activePoint = pt;
+                    tooltipImg.src = pt.dataset.url;
+                    tooltipName.textContent = pt.dataset.name;
+                }
+                tooltip.style.display = 'block';
+                tooltip.style.left = e.clientX + 'px';
+                tooltip.style.top = (e.clientY - 12) + 'px';
+            });
+            plot.addEventListener('pointerleave', () => { tooltip.style.display = 'none'; activePoint = null; });
+            plot.addEventListener('click', e => {
+                const pt = e.target.closest('.tsne-point');
+                if (pt && pt.dataset.url) openLightbox(pt.dataset.url);
+            });
+
+            try {
+                const { animate, stagger } = await import('https://cdn.jsdelivr.net/npm/motion@11/+esm');
+                const dots = container.querySelectorAll('.tsne-point');
+                animate(dots, { opacity: [0, 1] }, { duration: 0.4, delay: stagger(0.006) });
+                const labels = container.querySelectorAll('.tsne-label');
+                animate(labels, { opacity: [0, 1] }, { duration: 0.3, delay: stagger(0.04, { start: 0.3 }) });
+            } catch (err) {
+                console.warn('Motion.js unavailable:', err);
+                container.querySelectorAll('.tsne-point').forEach(el => el.style.opacity = '1');
+                container.querySelectorAll('.tsne-label').forEach(el => el.style.opacity = '1');
+            }
         }
 
         // Initialize search on page load
