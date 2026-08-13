@@ -1036,14 +1036,10 @@
                 if (shuffleBtn && !shuffleBtn.dataset.bound) {
                     shuffleBtn.dataset.bound = '1';
                     shuffleBtn.addEventListener('click', () => {
-                        // Fisher–Yates shuffle of non-featured items only, within current view
-                        const featuredItems = galleryView.filter(g => g.featured);
-                        const rest = galleryView.filter(g => !g.featured);
-                        for (let i = rest.length - 1; i > 0; i--) {
+                        for (let i = galleryView.length - 1; i > 0; i--) {
                             const j = Math.floor(Math.random() * (i + 1));
-                            [rest[i], rest[j]] = [rest[j], rest[i]];
+                            [galleryView[i], galleryView[j]] = [galleryView[j], galleryView[i]];
                         }
-                        galleryView = [...featuredItems, ...rest];
                         galleryShuffled = true;
                         renderGallery();
                     });
@@ -1287,32 +1283,30 @@
                 return NaN;
             }
 
-            // Apply sorting (keep featured items at top) within the current view
-            const featuredItems = galleryView.filter(g => g.featured);
-            const rest = galleryView.filter(g => !g.featured);
+            // Apply sorting — featured items participate in sort order
             const orderFactor = (gallerySortOrder === 'asc') ? 1 : -1;
             if (!galleryShuffled && gallerySortField === 'date') {
-                rest.sort((a, b) => {
+                galleryView.sort((a, b) => {
                     const ta = parseDateMs(a.date_taken);
                     const tb = parseDateMs(b.date_taken);
                     const aMissing = Number.isNaN(ta);
                     const bMissing = Number.isNaN(tb);
                     if (aMissing && bMissing) return 0;
-                    if (aMissing) return 1; // missing dates go to bottom
+                    if (aMissing) return 1;
                     if (bMissing) return -1;
                     return (ta - tb) * orderFactor;
                 });
             } else if (!galleryShuffled && gallerySortField === 'name') {
-                rest.sort((a, b) => {
+                galleryView.sort((a, b) => {
                     const na = (a.name || '').toLocaleLowerCase();
                     const nb = (b.name || '').toLocaleLowerCase();
                     if (!na && !nb) return 0;
-                    if (!na) return 1; // blanks last by default before applying order
+                    if (!na) return 1;
                     if (!nb) return -1;
                     return na.localeCompare(nb) * orderFactor;
                 });
             }
-            const toRender = [...featuredItems, ...rest];
+            const toRender = galleryView;
 
             toRender.forEach((image, index) => {
                 const item = document.createElement('div');
@@ -2216,11 +2210,23 @@
                     return;
                 }
 
-                const latest = clusters.sort((a, b) =>
+                clusters.sort((a, b) =>
                     new Date(b.completed_at || b.created_at) - new Date(a.completed_at || a.created_at)
-                )[0];
+                );
 
-                await renderClusterView(latest);
+                let picked = null;
+                for (const c of clusters) {
+                    try {
+                        const vr = await fetch(MIXPEEK_API + '/clusters/' + c.cluster_id + '/visualization', { headers: mixpeekHeaders() });
+                        const vd = await vr.json();
+                        const pts = vd.points || [];
+                        const cIds = pts.filter(p => p.is_centroid).map(p => p.cluster_id);
+                        if (new Set(cIds).size === cIds.length) { picked = c; break; }
+                    } catch (_) { /* skip broken */ }
+                }
+                if (!picked) picked = clusters[0];
+
+                await renderClusterView(picked);
                 clustersLoaded = true;
                 if (loading) loading.style.display = 'none';
             } catch (err) {
