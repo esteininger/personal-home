@@ -1038,10 +1038,13 @@
                 if (shuffleBtn && !shuffleBtn.dataset.bound) {
                     shuffleBtn.dataset.bound = '1';
                     shuffleBtn.addEventListener('click', () => {
-                        for (let i = galleryView.length - 1; i > 0; i--) {
+                        const pinned = galleryView.filter(x => x.featured);
+                        const rest = galleryView.filter(x => !x.featured);
+                        for (let i = rest.length - 1; i > 0; i--) {
                             const j = Math.floor(Math.random() * (i + 1));
-                            [galleryView[i], galleryView[j]] = [galleryView[j], galleryView[i]];
+                            [rest[i], rest[j]] = [rest[j], rest[i]];
                         }
+                        galleryView = [...pinned, ...rest];
                         galleryShuffled = true;
                         renderGallery();
                     });
@@ -1285,10 +1288,12 @@
                 return NaN;
             }
 
-            // Apply sorting — featured items participate in sort order
+            // Apply sorting — featured items pinned to top, rest sorted
             const orderFactor = (gallerySortOrder === 'asc') ? 1 : -1;
             if (!galleryShuffled && gallerySortField === 'date') {
                 galleryView.sort((a, b) => {
+                    if (a.featured && !b.featured) return -1;
+                    if (!a.featured && b.featured) return 1;
                     const ta = parseDateMs(a.date_taken);
                     const tb = parseDateMs(b.date_taken);
                     const aMissing = Number.isNaN(ta);
@@ -1300,6 +1305,8 @@
                 });
             } else if (!galleryShuffled && gallerySortField === 'name') {
                 galleryView.sort((a, b) => {
+                    if (a.featured && !b.featured) return -1;
+                    if (!a.featured && b.featured) return 1;
                     const na = (a.name || '').toLocaleLowerCase();
                     const nb = (b.name || '').toLocaleLowerCase();
                     if (!na && !nb) return 0;
