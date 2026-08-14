@@ -723,6 +723,10 @@
                         <div class="stat-label">Location Points</div>
                     </div>
                     <div class="stat-item">
+                        <div class="stat-value" id="totalMileage">0</div>
+                        <div class="stat-label">Miles Traveled</div>
+                    </div>
+                    <div class="stat-item">
                         <div class="stat-value" id="dateRange">-</div>
                         <div class="stat-label">Date Range</div>
                     </div>
@@ -1002,6 +1006,8 @@
             const gridWeight = document.getElementById('gridWeight');
             const gridWeightValue = document.getElementById('gridWeightValue');
 
+            const totalMileage = document.getElementById('totalMileage');
+
             let loadedData = [];
             let map = null;
             let markers = [];
@@ -1009,6 +1015,25 @@
             let currentTileLayer = null;
             let gridLayer = null;
             let scaleControl = null;
+
+            function haversineDistance(lat1, lng1, lat2, lng2) {
+                const R = 3958.8;
+                const dLat = (lat2 - lat1) * Math.PI / 180;
+                const dLng = (lng2 - lng1) * Math.PI / 180;
+                const a = Math.sin(dLat / 2) ** 2 +
+                    Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+                    Math.sin(dLng / 2) ** 2;
+                return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+            }
+
+            function computeTotalMiles(points) {
+                let total = 0;
+                for (let i = 1; i < points.length; i++) {
+                    const seg = haversineDistance(points[i - 1].lat, points[i - 1].lng, points[i].lat, points[i].lng);
+                    if (seg < 500) total += seg;
+                }
+                return total;
+            }
 
             function showError(message) {
                 if (message) {
@@ -1567,6 +1592,8 @@
 
                         // Update stats
                         totalPoints.textContent = filtered.length.toLocaleString();
+                        const miles = computeTotalMiles(filtered);
+                        totalMileage.textContent = miles >= 1000 ? Math.round(miles).toLocaleString() : miles.toFixed(1);
                         const firstDate = filtered[0].timestamp;
                         const lastDate = filtered[filtered.length - 1].timestamp;
                         dateRange.textContent = `${firstDate.toLocaleDateString()} - ${lastDate.toLocaleDateString()}`;
@@ -1791,7 +1818,7 @@
                 });
             }
 
-            // Export map as PNG
+            // Export map as Instagram story-worthy PNG (1080×1920, 9:16)
             if (exportBtn && mapContainer) {
                 exportBtn.addEventListener('click', async () => {
                 const originalIcon = exportBtn.innerHTML;
@@ -1799,14 +1826,88 @@
                 exportBtn.disabled = true;
 
                 try {
-                    // Use dom-to-image to capture the map (better handling of CSS transforms)
-                    const dataUrl = await domtoimage.toPng(mapContainer, {
+                    const filtered = getFilteredData();
+                    const W = 1080, H = 1920;
+
+                    // Build an offscreen container sized to 9:16
+                    const offscreen = document.createElement('div');
+                    offscreen.style.cssText = `position:fixed;left:-9999px;top:0;width:${W}px;height:${H}px;z-index:-1;`;
+                    document.body.appendChild(offscreen);
+
+                    const offMap = L.map(offscreen, { zoomControl: false, attributionControl: false });
+                    const config = getTileLayerConfig(baseLayer.value);
+                    const tileLayer = L.tileLayer(config.url, { maxZoom: 19 });
+                    tileLayer.addTo(offMap);
+
+                    // Fit to trail bounds
+                    const bounds = L.latLngBounds();
+                    const pts = [];
+                    const step = Math.max(1, Math.floor(filtered.length / 5000));
+                    filtered.forEach((loc, i) => {
+                        if (i % step !== 0 && i !== filtered.length - 1) return;
+                        const ll = [loc.lat, loc.lng];
+                        bounds.extend(ll);
+                        pts.push(ll);
+                    });
+
+                    if (bounds.isValid()) offMap.fitBounds(bounds.pad(0.08));
+
+                    // Draw route
+                    if (pts.length > 1 && showRoute.checked) {
+                        L.polyline(pts, {
+                            color: routeColor.value,
+                            weight: parseFloat(routeWidth.value) * 2,
+                            opacity: parseInt(routeOpacity.value) / 100
+                        }).addTo(offMap);
+                    }
+
+                    // Draw pins
+                    if (showPins.checked) {
+                        pts.forEach(ll => {
+                            L.circleMarker(ll, {
+                                radius: parseInt(pinSize.value),
+                                color: pinColor.value,
+                                weight: 2,
+                                fillColor: '#ffffff',
+                                fillOpacity: 1
+                            }).addTo(offMap);
+                        });
+                    }
+
+                    // Add stats overlay
+                    const miles = computeTotalMiles(filtered);
+                    const milesStr = miles >= 1000 ? Math.round(miles).toLocaleString() : miles.toFixed(1);
+                    const first = filtered[0]?.timestamp;
+                    const last = filtered[filtered.length - 1]?.timestamp;
+                    const rangeStr = first && last ? `${first.toLocaleDateString()} — ${last.toLocaleDateString()}` : '';
+                    const statsOverlay = document.createElement('div');
+                    statsOverlay.style.cssText = 'position:absolute;bottom:40px;left:0;right:0;z-index:1000;text-align:center;pointer-events:none;';
+                    statsOverlay.innerHTML = `<div style="display:inline-block;background:rgba(0,0,0,0.7);backdrop-filter:blur(8px);padding:20px 32px;border-radius:16px;color:white;font-family:system-ui,-apple-system,sans-serif;">
+                        <div style="font-size:48px;font-weight:700;letter-spacing:-1px;">${milesStr} mi</div>
+                        <div style="font-size:16px;opacity:0.8;margin-top:4px;">${rangeStr}</div>
+                        <div style="font-size:13px;opacity:0.5;margin-top:8px;">ethan.dev</div>
+                    </div>`;
+                    offscreen.appendChild(statsOverlay);
+
+                    // Wait for tiles to load, then capture
+                    await new Promise(resolve => {
+                        let loaded = false;
+                        tileLayer.on('load', () => { if (!loaded) { loaded = true; setTimeout(resolve, 500); } });
+                        setTimeout(() => { if (!loaded) { loaded = true; resolve(); } }, 4000);
+                    });
+
+                    offMap.invalidateSize();
+
+                    const dataUrl = await domtoimage.toPng(offscreen, {
+                        width: W, height: H,
                         bgcolor: exportBgColor.value,
                         quality: 1.0,
                         cacheBust: true
                     });
 
-                    // Download the image
+                    offMap.remove();
+                    offscreen.remove();
+
                     const link = document.createElement('a');
                     link.download = `location-history-${new Date().toISOString().split('T')[0]}.png`;
                     link.href = dataUrl;
