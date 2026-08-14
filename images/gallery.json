@@ -2101,5 +2101,54 @@
     "lat": 37.80475555555555,
     "lng": -107.76680833333333,
     "date_taken": "2026-08-13"
+  },
+  {
+    "name": "San Juan Fly Agaric Mushrooms",
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/san-juan-fly-agaric-mushrooms.jpeg",
+    "date_taken": "2026-08-14",
+    "lat": 37.808581,
+    "lng": -107.776839
+  },
+  {
+    "name": "San Juan Alpine Creek Wildflowers",
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/san-juan-alpine-creek-wildflowers.jpeg",
+    "date_taken": "2026-08-14",
+    "lat": 37.811939,
+    "lng": -107.798714
+  },
+  {
+    "name": "San Juan Valley Overlook",
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/san-juan-valley-overlook.jpeg",
+    "date_taken": "2026-08-14",
+    "lat": 37.809647,
+    "lng": -107.803222
+  },
+  {
+    "name": "Ice Lake Basin Reflection",
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/ice-lake-basin-reflection.jpeg",
+    "date_taken": "2026-08-14",
+    "lat": 37.814686,
+    "lng": -107.807511
+  },
+  {
+    "name": "Ice Lake Ridge Panorama",
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/ice-lake-ridge-panorama.jpeg",
+    "date_taken": "2026-08-14",
+    "lat": 37.814231,
+    "lng": -107.807472
+  },
+  {
+    "name": "San Juan Alpine Basin Vista",
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/san-juan-alpine-basin-vista.jpeg",
+    "date_taken": "2026-08-14",
+    "lat": 37.815764,
+    "lng": -107.802461
+  },
+  {
+    "name": "Island Lake Emerald Boulder",
+    "url": "https://diyjmz7hrjx3w.cloudfront.net/album/island-lake-emerald-boulder.jpeg",
+    "date_taken": "2026-08-14",
+    "lat": 37.819192,
+    "lng": -107.801078
   }
 ]
