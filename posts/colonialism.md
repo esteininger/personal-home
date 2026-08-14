@@ -1,47 +1,45 @@
 ---
 title: colonialism
 date: "2025-10-29"
-description: a short reflection on why calling israel a colonial project misses the point—it's not empire building, it's survival.
+description: a short reflection on why calling israel a colonial project misses the point, and why the comparison collapses under the weight of the actual history.
 ---
 
-people call israel a colonial project because it's the easiest story to tell. europeans show up, take land, build power. that pattern feels familiar. but that's not what happened. jews weren't sent by an empire. they were the people empire crushed. they came from exile, not conquest, trying to rebuild the only home that ever defined them.
+people call israel a colonial project because the story is easy to tell. europeans show up, take land, build power. the pattern feels familiar. but jews who came to mandate palestine were refugees, not agents of an empire. empires had crushed them. they came from exile trying to rebuild the only home that ever defined them.
 
-the "but it was 4,000 years" objection misses what makes a people indigenous. indigeneity isn't just about continuous physical presence—it's about unbroken connection. jews never stopped facing jerusalem in prayer, never stopped marking time by the jewish calendar, never stopped speaking about return in every ritual. hebrew wasn't a dead language preserved in museums; it was alive in liturgy, waiting to be revived. that's different from everyone's generic connection to africa or some ancient ancestor. it was specific, maintained, and definitional to jewish identity in a way that has no parallel.
+the "but it was 4,000 years" objection misses what makes a people indigenous. indigeneity runs on unbroken connection, not continuous physical presence alone. jews never stopped facing jerusalem in prayer, never stopped marking time by the jewish calendar, never stopped speaking about return in every ritual. hebrew lived in liturgy, waiting to be revived. compare that to a generic ancestral link to africa or some ancient migration. jewish ties to the land were specific, maintained, and central to identity in a way that has no parallel.
 
-and this isn't about inheriting property rights from distant ancestors. it's about where a stateless people whose entire identity pointed to one specific place could actually go in crisis. after the holocaust, where were they supposed to seek refuge? europe had just tried to exterminate them. arab countries would expel 850,000 jews after 1948. there was no "just stay where you currently live"—they were already refugees with nowhere else that made sense. the logic that displaced peoples lose all claim after enough time passes would invalidate indigenous movements worldwide. native hawaiians haven't governed in over a century. armenians were expelled from artsakh. the rohingya are stateless. do they all lose claims because time passed? the question isn't whether displaced peoples can reclaim homeland—it's how you resolve competing claims when two groups both have ties to the same land. that's what partition tried to do.
+and this has nothing to do with inheriting property rights from distant ancestors. a stateless people whose entire identity pointed to one specific place needed somewhere to go in crisis. after the holocaust, europe had tried to exterminate them. arab countries would expel 850,000 jews after 1948. they were already refugees with nowhere that made sense. the logic that displaced peoples lose all claim after enough time passes would invalidate indigenous movements worldwide. native hawaiians haven't governed in over a century. armenians were expelled from artsakh. the rohingya are stateless. do they all lose claims because time passed? the harder question is how you resolve competing claims when two groups both have ties to the same land. partition tried to do that.
 
-zionism wasn't colonial ambition, it was self-rescue. europe's collapse exposed that no country would protect jews. so they turned inward—to language, to memory, to land. hebrew was revived, cities rebuilt, and a culture reborn where it began.
+zionism was self-rescue. europe's collapse exposed that no country would protect jews. so they turned inward, to language, to memory, to land. they revived hebrew, rebuilt cities, and restarted a culture where it began.
 
-and this wasn't britain carving up foreign territory for extraction. jews had been legally purchasing land under ottoman rule since the 1880s—long before the mandate. the british didn't create jewish claims; if anything, they restricted them, limiting immigration even during the holocaust. the 1947 partition wasn't a colonial power imposing control—it was the un trying to resolve two peoples' competing claims to the same land. messy, imperfect, but fundamentally about self-determination, not empire.
+jews had been purchasing land legally under ottoman rule since the 1880s, long before the mandate. the british restricted jewish immigration, even during the holocaust. the 1947 partition was the un trying to resolve two peoples' competing claims. messy, imperfect, but oriented around self-determination.
 
-**why this wasn't colonialism:**
+**what israel was:**
 
-- **no metropole.** colonial projects serve a mother country. there was no empire extracting resources, no london or paris to ship goods to. israel had no imperial sponsor—it was refugees building self-governance.
+- **a refugee project with no imperial sponsor.** colonial projects serve a mother country. refugees built israel's government themselves. no london or paris received extracted goods.
 
-- **indigenous return, not foreign settlement.** jews maintained unbroken cultural, religious, and linguistic ties to the land for millennia. this wasn't settlers arriving from elsewhere—it was a people returning to the only place their identity ever pointed.
+- **an indigenous return.** jews maintained unbroken cultural, religious, and linguistic ties to the land for millennia. their identity pointed to one place. they went back to it.
 
-- **continuous presence facing violence.** jews had lived in the region continuously for millennia. in the 1920s-30s, they faced pogroms—the hebron massacre (1929), riots, attacks on jewish communities. the holocaust then proved that depending on others for protection was fatal. forming a defense force wasn't colonial aggression; it was survival after watching their community be murdered for being defenseless.
+- **a community under continuous attack.** jews had lived in the region for millennia. in the 1920s-30s, they faced pogroms: the hebron massacre (1929), riots, attacks on jewish communities. the holocaust proved that depending on others for protection was fatal. they formed a defense force after watching their community get murdered for being defenseless.
 
-- **purchased land legally.** most early jewish settlement came through legal land purchases under ottoman and british rule, not military seizure. the ottomans even banned sales in 1892 because they recognized what was happening—land changing hands legally, not colonial conquest.
+- **legal land acquisition.** most early jewish settlement came through land purchases under ottoman and british rule. the ottomans banned sales in 1892 because they saw what was happening: land changing hands through commerce.
 
-- **no extraction economy.** colonial projects existed to extract: cotton, sugar, gold, oil. israel's economy was built by refugees farming swamps and building cities from nothing. there was no resource extraction scheme.
+- **a production economy built from nothing.** colonial projects existed to extract cotton, sugar, gold, oil. refugees farmed swamps and built cities from scratch.
 
-- **decolonization era, not colonial expansion.** israel's founding (1948) came during the wave of decolonization—india, pakistan, indonesia, ghana. nations were throwing off colonial rule, not extending it. israel fit that pattern: a people reclaiming self-determination.
+- **founded during decolonization.** israel's founding (1948) came alongside india, pakistan, indonesia, ghana. nations were throwing off colonial rule. israel fit that pattern: a people reclaiming self-determination.
 
-- **rejected by the empire.** britain restricted jewish immigration and ultimately abstained from the partition vote. if this was a colonial project, the "colonizer" tried to stop it. that's the opposite of how colonialism works.
+- **opposed by the supposed colonizer.** britain restricted jewish immigration and abstained from the partition vote. the "colonizer" tried to stop it.
 
-- **no alternatives.** colonialism is about choice and expansion. america could have stayed in britain. french colonists had france. jews were stateless refugees with nowhere else to go and no other homeland to reclaim.
+- **born of necessity.** colonialism requires alternatives. america could have stayed in britain. french colonists had france. jews were stateless refugees with nowhere else to go.
 
-when people say "colonial," they erase all of this. they suggest a clean villain and victim when the reality is two peoples with legitimate ties to the same land, trying to survive after centuries of foreign domination.
+when people say "colonial," they flatten all of this into a clean villain-and-victim frame. the reality is two peoples with legitimate ties to the same land, trying to survive after centuries of foreign domination.
 
-and while the british mandate was still in place, it wasn’t just jews versus locals. arab politics were fractured too. some leaders, like the grand mufti of jerusalem, openly courted the axis powers, betting that a german victory would end british control and block jewish return. others fought for the british against the nazis. the region wasn’t a monolith; it was a battlefield of desperate alignments in a collapsing world.
+while the british mandate was still in place, arab politics were fractured too. the grand mufti of jerusalem courted the axis powers, betting that a german victory would end british control and block jewish return. others fought for the british against the nazis. the region was a battlefield of desperate alignments in a collapsing world.
 
-that period of violence—riots, revolts, bombings—wasn’t about empire in the european sense. it was two peoples, both reacting to centuries of foreign domination, each trying to control their future before someone else did.
+the violence of that period, the riots, revolts, bombings, grew from two peoples reacting to centuries of foreign domination. each side tried to control its future before someone else did.
 
-some say "both can be true—it was colonial in form but necessary for survival." but that concedes too much. colonialism isn't just "people moving and displacement happening." look at actual colonial projects: america expanded for land and cotton. hawaii was taken by business interests for sugar and naval bases. south africa was about diamonds and gold. these weren't refugees—they were empires with alternatives.
+the argument that the project was "colonial in form but necessary for survival" concedes too much. colonialism requires more than people moving and displacement happening. look at actual colonial projects: america expanded for land and cotton. hawaii was taken by business interests for sugar and naval bases. south africa was about diamonds and gold. those were empires with alternatives, not refugees with none.
 
-and yes, arab families were displaced, villages lost, lives upended. that's real and tragic. but it happened in the context of a war that arab states started by rejecting partition—not as planned colonial extraction. many left expecting to return after an arab victory; others were forced out in the chaos of war. it was a refugee crisis born of conflict and mutual fear, not a systematic colonial project. calling it colonialism doesn't clarify what happened; it obscures it.
+arab families were displaced, villages lost, lives upended. that is real and tragic. but it happened in a war that arab states started by rejecting partition. many left expecting to return after an arab victory; others were forced out in the chaos of fighting. a refugee crisis born of conflict and mutual fear is a different thing from systematic colonial extraction. calling it colonialism obscures what happened.
 
-the jewish return wasn't foreign occupation; it was the end of foreignness itself. it wasn't "we want this land"—it was "this is the only land that's ours, and we have nowhere else to go."
-
-and if we start every conversation by misnaming what it is, we guarantee it never moves forward. you can't solve a story you refuse to understand.
+jews returned to the only land their identity ever pointed to, with nowhere else to go. getting the name wrong at the start of the conversation makes the rest of it impossible.
