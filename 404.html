@@ -211,6 +211,93 @@
             <div id="album-clusters-tab" class="album-tab-content">
                 <div id="clusters-loading" class="clusters-loading">Loading clusters...</div>
                 <div id="clusters-container" class="clusters-container"></div>
+                <div class="manifest-section">
+                    <button class="manifest-toggle" onclick="toggleManifest()">
+                        <svg width="14" height="14" viewBox="0 0 384 512" fill="currentColor" style="vertical-align:-1px"><path d="M64 0C28.7 0 0 28.7 0 64v384c0 35.3 28.7 64 64 64h256c35.3 0 64-28.7 64-64V160H256c-17.7 0-32-14.3-32-32V0H64zM256 0v128h128L256 0zM112 256h160c8.8 0 16 7.2 16 16s-7.2 16-16 16H112c-8.8 0-16-7.2-16-16s7.2-16 16-16zm0 64h160c8.8 0 16 7.2 16 16s-7.2 16-16 16H112c-8.8 0-16-7.2-16-16s7.2-16 16-16zm0 64h160c8.8 0 16 7.2 16 16s-7.2 16-16 16H112c-8.8 0-16-7.2-16-16s7.2-16 16-16z"/></svg>
+                        Recreate this with Mixpeek
+                    </button>
+                    <div id="manifest-panel" class="manifest-panel" style="display:none">
+                        <div class="manifest-header">
+                            <span class="manifest-title">Namespace Manifest</span>
+                            <button class="manifest-copy" onclick="copyManifest()">Copy</button>
+                        </div>
+                        <p class="manifest-desc">Give this manifest to your AI agent. It will set up image embedding, visual clustering with LLM-generated labels, and scheduled re-clustering on your own Mixpeek namespace.</p>
+                        <pre class="manifest-code" id="manifest-code">version: '1.0'
+namespaces:
+- name: my-photo-album
+  description: Photo album with image embeddings and visual clustering
+  feature_extractors:
+  - name: image_extractor
+    version: v1
+
+collections:
+- name: album-collection
+  namespace: my-photo-album
+  description: Photos with image embeddings for clustering and search
+  source:
+    type: bucket
+    bucket: album-photos
+  feature_extractor:
+    name: image_extractor
+    version: v1
+    input_mappings:
+      image: image
+  enabled: true
+
+buckets:
+- name: album-photos
+  namespace: my-photo-album
+  description: Source photos
+  schema:
+    properties: {}
+
+clusters:
+- name: album-visual-clusters
+  namespace: my-photo-album
+  source_collections:
+  - album-collection
+  algorithm:
+    name: hdbscan
+    parameters: {}
+  output_mode: enrich_source
+  cluster_type: vector
+  llm_labeling:
+    enabled: true
+    provider: google
+    model_name: gemini-2.5-flash-lite
+    include_summary: true
+    include_keywords: true
+    sample_selection_strategy: nearest
+    use_embedding_dedup: true
+    embedding_similarity_threshold: 0.8
+
+triggers:
+- name: reprocess-collection
+  namespace: my-photo-album
+  description: Re-process collection every 6h for new uploads
+  action_type: collection_trigger
+  action_config:
+    collection: album-collection
+  trigger_type: cron
+  schedule_config:
+    cron_expression: '0 */6 * * *'
+    timezone: America/New_York
+  status: active
+
+- name: recluster-daily
+  namespace: my-photo-album
+  description: Daily re-cluster at 6am
+  action_type: cluster
+  action_config:
+    cluster: album-visual-clusters
+  trigger_type: cron
+  schedule_config:
+    cron_expression: '0 6 * * *'
+    timezone: America/New_York
+  status: active</pre>
+                        <p class="manifest-usage">Apply with: <code>POST /v1/manifest/apply</code> &mdash; <a href="https://mixpeek.com/docs" target="_blank" rel="noopener">Mixpeek docs</a></p>
+                    </div>
+                </div>
             </div>
         </div>
         <!-- Road Page -->
@@ -2183,6 +2270,19 @@
         }
 
         // Album sub-tabs
+        function toggleManifest() {
+            const panel = document.getElementById('manifest-panel');
+            panel.style.display = panel.style.display === 'none' ? 'block' : 'none';
+        }
+        function copyManifest() {
+            const code = document.getElementById('manifest-code').textContent;
+            navigator.clipboard.writeText(code).then(() => {
+                const btn = document.querySelector('.manifest-copy');
+                btn.textContent = 'Copied!';
+                setTimeout(() => btn.textContent = 'Copy', 1500);
+            });
+        }
+
         function switchAlbumTab(tabId) {
             document.querySelectorAll('.album-tab').forEach(t => t.classList.toggle('active', t.dataset.tab === tabId));
             document.querySelectorAll('.album-tab-content').forEach(c => c.classList.remove('active'));

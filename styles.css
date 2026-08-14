@@ -877,6 +877,93 @@ html.theme-dark .theme-switch { background: #111218; }
     margin-bottom: 4px;
 }
 
+.manifest-section {
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border);
+}
+.manifest-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.4rem 0.8rem;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    background: var(--bg);
+    color: var(--text);
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: border-color 0.15s;
+}
+.manifest-toggle:hover {
+    border-color: var(--text-dim);
+}
+.manifest-panel {
+    margin-top: 0.75rem;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1rem;
+    background: var(--bg);
+}
+.manifest-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+.manifest-title {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text);
+}
+.manifest-copy {
+    padding: 0.25rem 0.6rem;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    background: var(--bg);
+    color: var(--text);
+    font-size: 0.75rem;
+    cursor: pointer;
+    transition: border-color 0.15s;
+}
+.manifest-copy:hover {
+    border-color: var(--text-dim);
+}
+.manifest-desc {
+    font-size: 0.78rem;
+    color: var(--text-dim);
+    margin: 0 0 0.75rem;
+    line-height: 1.5;
+}
+.manifest-code {
+    background: rgba(0,0,0,0.25);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 0.75rem 1rem;
+    font-size: 0.72rem;
+    line-height: 1.45;
+    color: var(--text);
+    overflow-x: auto;
+    white-space: pre;
+    margin: 0;
+    max-height: 400px;
+    overflow-y: auto;
+}
+.manifest-usage {
+    font-size: 0.75rem;
+    color: var(--text-dim);
+    margin: 0.5rem 0 0;
+}
+.manifest-usage code {
+    background: rgba(0,0,0,0.2);
+    padding: 0.15rem 0.35rem;
+    border-radius: 3px;
+    font-size: 0.72rem;
+}
+.manifest-usage a {
+    color: var(--accent, #3b82f6);
+}
+
 .gallery-controls {
     display: flex;
     align-items: center;
