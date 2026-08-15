@@ -14,9 +14,19 @@ the cleanest way to see it is as a spectrum, three degrees of separation from th
 2. **the people supporting the people committing the acts.** the figures and activists who celebrate, justify, or run cover for the actors.
 3. **the people who wave it away.** the ones who, at every synagogue attack, every assault on a jew, every wave of hateful rhetoric online and in the streets, say "that's terrible, that's awful," and then change nothing, because the coalition is worth more to them than the pattern is disqualifying. this third tier is what makes the whole machine run.
 
-take zohran mamdani as an illustration of the third tier. read his public record on this and the shape is consistent: israel comes up constantly, and the actor that started the war, hamas, goes unnamed. condemnation stays abstract while the fixation stays specific. that is what the third degree looks like in a politician: a studied refusal to see it plainly.
+the mamdani family puts all three degrees in one household.
 
-rashida tlaib is the same shape at the level of a sitting member of congress, and here the record is formal. the house censured her on november 7, 2023, by a vote of 234 to 188, with 22 democrats joining, for "promoting false narratives regarding the october 7, 2023, hamas attack on israel" and for rhetoric read as calling for israel's destruction, the "from the river to the sea" line she has defended as aspirational.[^1][^2] whatever you make of the censure itself, the pattern is the argument: israel is named without end, hamas is never the subject, and the attack that started the war is minimized or reframed on the day it is invoked. that is the third degree, on the floor of the house.
+mahmood mamdani, zohran's father, is a columbia professor who wrote in *good muslim, bad muslim* (2004) that "suicide bombing needs to be understood as a feature of modern political violence rather than stigmatized as a mark of barbarism" and that "we need to recognize the suicide bomber, first and foremost, as a category of soldier."[^1] he sits on the advisory council of the gaza tribunal. that is the first degree: legitimizing the act.
+
+rama duwaji, zohran's wife, liked instagram posts on october 7 and 8, 2023, celebrating the hamas breach of the border. one framed the attack as "breaking the walls of apartheid." others came from the dsa-organized times square rally where crowds chanted "every colonized people has the right to self-defense," the same rally mamdani himself criticized for "making light" of what hamas did.[^2] that is the second degree: supporting the actors while they act.
+
+and mamdani, now mayor of new york city, responded to all of it with the familiar formula. he condemned the violence. he said his wife does not speak for him. he changed nothing. that is the third degree.
+
+## the pattern in congress
+
+rashida tlaib shows the same shape on the floor of the house. search her public statements for hamas and you will find condemnation withheld at every turn. search for israel and you will find fixation without limit. her first statement after october 7 grieved "palestinian and israeli lives" without naming hamas. when the house passed a resolution condemning hamas for sexual violence on october 7, tlaib voted "present."[^3] the house censured her on november 7, 2023, by a vote of 234 to 188, with 22 democrats joining, for "promoting false narratives regarding the october 7, 2023, hamas attack on israel" and for the "from the river to the sea" line she has defended as aspirational.[^4][^5] the actor that started the war stays absent from her vocabulary. the country it targeted is the only subject.
+
+abdul el-sayed, now running for u.s. senate in michigan, is the same structure one generation removed. his half-sister eman abdelhadi, a university of chicago professor, posted a video on the anniversary of the attack, october 7, 2024, delivering what she called an "october 7 blessing." she opened with "allahu akbar," wore a keffiyeh, and made no mention of the jews killed. the adl included her in its report on u.s. professors praising the october 7 attacks.[^6] el-sayed's campaign responded: "abdul loves his sister and also disagrees with her on certain political matters." the pattern holds: someone in the orbit celebrates, and the candidate waves it away with a sentence that changes nothing.
 
 ## the double standard is the tell
 
@@ -40,9 +50,17 @@ so when the demand persists anyway, and especially when it arrives in its maxima
 
 ## why it keeps growing
 
-this is the engine. as long as the party uses these platforms to unite its voters, it will always have a way to absorb more of them. the underlying issues are not going away, so the absorption never stops. and a meaningful share of the people being absorbed are genuinely antisemitic, many of them islamist, hostile to jews and to anything outside their own frame. the people steering the coalition see all of it as the cost of doing business.
+this is the engine. as long as the party uses these platforms to unite its voters, it will always have a way to absorb more of them. the underlying issues are not going away, so the absorption never stops.
+
+the coalition absorbs two distinct strains of antisemitism. the islamist strain is visible: people hostile to jews and to anything outside their own frame. but there is also a marxist strain, older and quieter, that treats jews as the embodiment of capitalist power structures. in this reading, jewish success becomes evidence of systemic privilege, and israel becomes the colonial arm of western capital. both strains arrive at the same place by different routes, and both find a home in the same coalition. that is the red-green alliance: marxists and islamists, united by the one target they share.
+
+the people steering the coalition see all of it as the cost of doing business.
 
 that is the part worth staying awake to. a party does not have to endorse the worst people it recruits. it only has to decide they are worth the votes. once it makes that trade quietly enough, often enough, the character of the coalition changes without anyone ever having to admit it did.
 
-[^1]: [H.Res.845, 118th Congress](https://www.congress.gov/bill/118th-congress/house-resolution/845)
-[^2]: [NBC News, Nov 7 2023](https://www.nbcnews.com/politics/congress/house-vote-censure-rashida-tlaib-israel-hamas-palestine-remarks-rcna124005)
+[^1]: Mahmood Mamdani, *Good Muslim, Bad Muslim: America, the Cold War, and the Roots of Terror* (Pantheon, 2004)
+[^2]: [Jewish Insider, Mar 2026](https://jewishinsider.com/2026/03/zohran-mamdani-wife-rama-duwaji-social-media-oct-7/)
+[^3]: [JNS: Tlaib votes "present" on resolution condemning Hamas for rape](https://www.jns.org/tlaib-present-as-house-votes-unanimously-to-condemn-hamas-for-rape/)
+[^4]: [H.Res.845, 118th Congress](https://www.congress.gov/bill/118th-congress/house-resolution/845)
+[^5]: [NBC News, Nov 7 2023](https://www.nbcnews.com/politics/congress/house-vote-censure-rashida-tlaib-israel-hamas-palestine-remarks-rcna124005)
+[^6]: [Fox News: El-Sayed's half sister offered Oct 7 "blessing"](https://www.foxnews.com/politics/el-sayeds-half-sister-offered-oct-7-blessing-one-year-after-hamas-attack-allahu-akbar)
