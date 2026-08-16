@@ -279,30 +279,32 @@
     }
     .comparison-table tbody td:first-child {
         text-align: left;
-        font-size: 0.9rem;
+        font-size: 0.95rem;
         font-weight: 700;
-        background: rgba(255,255,255,0.04);
+        background: rgba(255,255,255,0.06);
         border-right: none;
+        padding: 0.7rem 1rem;
+        color: var(--text);
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+    }
+    .comparison-table tbody td:nth-child(2)::before,
+    .comparison-table tbody td:nth-child(3)::before {
+        display: block;
+        font-weight: 700;
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        margin-bottom: 0.5rem;
+        padding-bottom: 0.35rem;
+        border-bottom: 1px solid var(--border);
+        color: var(--text);
     }
     .comparison-table tbody td:nth-child(2)::before {
         content: "israel";
-        display: block;
-        font-weight: 600;
-        font-size: 0.75rem;
-        text-transform: uppercase;
-        letter-spacing: 0.06em;
-        margin-bottom: 0.4rem;
-        opacity: 0.5;
     }
     .comparison-table tbody td:nth-child(3)::before {
         content: "its adversaries";
-        display: block;
-        font-weight: 600;
-        font-size: 0.75rem;
-        text-transform: uppercase;
-        letter-spacing: 0.06em;
-        margin-bottom: 0.4rem;
-        opacity: 0.5;
     }
     .comparison-table tbody td:nth-child(2),
     .comparison-table tbody td:nth-child(3) {
