@@ -1009,7 +1009,7 @@ triggers:
                 .map(para => {
                     para = para.trim();
                     if (!para) return '';
-                    if (para.match(/^<[h|l|p|u|o]/)) {
+                    if (para.match(/^<[a-z]/i)) {
                         return para;
                     }
                     return `<p>${para}</p>`;
