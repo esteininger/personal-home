@@ -1859,7 +1859,7 @@ triggers:
                 const id = route.id || route.name || Math.random().toString(36).slice(2);
                 const name = escapeHtml(route.name || 'Untitled Route');
                 const desc = escapeHtml(route.description || '');
-                const date = route.date ? new Date(route.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) : '';
+                const date = route.date ? new Date(route.date + 'T00:00:00').toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) : '';
                 const tags = Array.isArray(route.tags)
                     ? route.tags.map(t => {
                         const c = tagColorMap[t] || '#888';
@@ -1948,7 +1948,7 @@ triggers:
 
             const name = escapeHtml(route.name || 'Untitled Route');
             const desc = escapeHtml(route.description || '');
-            const date = route.date ? new Date(route.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) : '';
+            const date = route.date ? new Date(route.date + 'T00:00:00').toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) : '';
             const tags = Array.isArray(route.tags)
                 ? route.tags.map(t => {
                     const c = tagColorMap[t] || '#888';
@@ -1986,11 +1986,15 @@ triggers:
                     const routeColor = route.color || '#3388ff';
                     L.polyline(latlngs, { color: routeColor, weight: 3, opacity: 0.8 }).addTo(m);
 
-                    // Add clickable markers at each point
+                    // Add clickable markers along the route. Dense GPS tracks get
+                    // thinned to keep the markers apart and clickable; the polyline
+                    // above still draws every point.
+                    const markerStride = Math.max(1, Math.ceil(route.coordinates.length / 150));
                     route.coordinates.forEach((c, i) => {
                         const lat = c[0], lng = c[1], ts = c[2];
                         const isStart = i === 0;
                         const isEnd = i === route.coordinates.length - 1;
+                        if (!isStart && !isEnd && i % markerStride !== 0) return;
                         const color = isStart ? '#22c55e' : isEnd ? '#ef4444' : routeColor;
                         const radius = (isStart || isEnd) ? 6 : 4;
 
