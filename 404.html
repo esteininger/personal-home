@@ -1901,6 +1901,16 @@ triggers:
             });
         }
 
+        // Basemap for the road maps. Esri's National Geographic style keeps its
+        // green landcover and terrain shading when zoomed out far enough to fit a
+        // multi-state route, where OSM's standard style drops to flat pale beige.
+        // Its tiles stop at zoom 16, so cap it or Leaflet asks for blank ones.
+        const ROAD_TILE_URL = 'https://server.arcgisonline.com/ArcGIS/rest/services/NatGeo_World_Map/MapServer/tile/{z}/{y}/{x}';
+        const ROAD_TILE_OPTS = {
+            maxZoom: 16,
+            attribution: 'Tiles &copy; Esri - National Geographic, Esri, DeLorme, NAVTEQ, UNEP-WCMC, USGS, NASA, ESA, METI, NRCAN, GEBCO, NOAA, iPC'
+        };
+
         async function initPreviewMap(id) {
             await ensureLeaflet();
             const route = routesData.find(r => (r.id || r.name) === id);
@@ -1914,7 +1924,7 @@ triggers:
                 touchZoom: false, doubleClickZoom: false, boxZoom: false,
                 keyboard: false, attributionControl: false
             });
-            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(m);
+            L.tileLayer(ROAD_TILE_URL, ROAD_TILE_OPTS).addTo(m);
 
             const latlngs = route.coordinates.map(c => [c[0], c[1]]);
             L.polyline(latlngs, { color: route.color || '#3388ff', weight: 3, opacity: 0.8 }).addTo(m);
@@ -1978,9 +1988,7 @@ triggers:
                 mapEl.style.display = '';
                 setTimeout(() => {
                     const m = L.map(mapEl, { zoomControl: true, scrollWheelZoom: true });
-                    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                        attribution: '&copy; OpenStreetMap contributors'
-                    }).addTo(m);
+                    L.tileLayer(ROAD_TILE_URL, ROAD_TILE_OPTS).addTo(m);
 
                     const latlngs = route.coordinates.map(c => [c[0], c[1]]);
                     const routeColor = route.color || '#3388ff';
