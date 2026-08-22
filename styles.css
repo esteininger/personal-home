@@ -1570,10 +1570,40 @@ body.lightbox-open .leaflet-tooltip-pane {
     }
 
     nav ul {
-        gap: 0.75rem;
-        font-size: 0.85rem;
+        gap: 0.5rem;
+        font-size: 0.8rem;
     }
 
+    .theme-toggle {
+        margin-left: 0.5rem;
+    }
+
+    .theme-switch {
+        width: 48px;
+        height: 28px;
+    }
+
+    .switch-thumb {
+        width: 22px;
+        height: 22px;
+    }
+
+    .switch-icon svg {
+        width: 11px;
+        height: 11px;
+    }
+
+    .switch-icon.sun { padding-left: 5px; }
+    .switch-icon.moon { padding-right: 5px; }
+
+    html.theme-dark .switch-thumb { transform: translateX(20px); }
+}
+
+@media (max-width: 768px) and (prefers-color-scheme: dark) {
+    html:not(.theme-light):not(.theme-dark) .switch-thumb { transform: translateX(20px); }
+}
+
+@media (max-width: 768px) {
     .gallery {
         grid-template-columns: 1fr;
     }
