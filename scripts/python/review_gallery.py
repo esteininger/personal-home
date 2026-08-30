@@ -18,11 +18,13 @@ The script resumes: images already scored in the output file are skipped.
 
 import argparse
 import base64
+import concurrent.futures
 import io
 import json
 import os
 import re
 import sys
+import threading
 import time
 import urllib.request
 
@@ -134,6 +136,7 @@ def main():
     ap.add_argument("--start", type=int, default=0, help="skip the first N images")
     ap.add_argument("--max-dim", type=int, default=2048, help="longest edge in pixels when downsizing")
     ap.add_argument("--out", default="gallery-review.json")
+    ap.add_argument("--workers", type=int, default=1, help="number of parallel workers (1 = sequential)")
     args = ap.parse_args()
 
     gallery = load_gallery(args.gallery)
@@ -151,7 +154,13 @@ def main():
         todo = todo[: args.limit]
 
     log(f"Reviewing {len(todo)} images with '{args.model}' (already scored: {len(results)})")
-    for i, entry in enumerate(todo, 1):
+
+    results_lock = threading.Lock()
+    counter_lock = threading.Lock()
+    completed_counter = 0
+
+    def process_one(entry):
+        nonlocal completed_counter
         name, url = entry["name"], entry["url"]
         t0 = time.time()
         try:
@@ -164,16 +173,27 @@ def main():
             raw = ask_model(args.base_url, args.model, b64)
             res = extract_result(raw)
         except Exception as exc:
-            log(f"[{i}/{len(todo)}] {name}  ERROR: {exc}")
             res = {"description": "", "strengths": "", "weaknesses": "", "score": None, "raw": f"ERROR: {exc}"}
 
-        record = {"name": name, "url": url, **res}
-        results[url] = record
-        with open(args.out, "w") as f:
-            json.dump(list(results.values()), f, indent=2)
+        with results_lock:
+            record = {"name": name, "url": url, **res}
+            results[url] = record
+            with open(args.out, "w") as f:
+                json.dump(list(results.values()), f, indent=2)
+
+        with counter_lock:
+            completed_counter += 1
+            current_i = completed_counter
 
         score = "n/a" if res["score"] is None else res["score"]
-        log(f"[{i}/{len(todo)}] {name}  score={score}  ({time.time() - t0:.1f}s)")
+        log(f"[{current_i}/{len(todo)}] {name}  score={score}  ({time.time() - t0:.1f}s)")
+
+    if args.workers > 1:
+        with concurrent.futures.ThreadPoolExecutor(max_workers=args.workers) as executor:
+            executor.map(process_one, todo)
+    else:
+        for entry in todo:
+            process_one(entry)
 
     scored = [r for r in results.values() if r.get("score") is not None]
     scored.sort(key=lambda r: (-r["score"], r["name"]))
@@ -184,7 +204,7 @@ def main():
           "| # | Name | Score | Description | Strengths | Weaknesses |",
           "|---|------|-------|-------------|-----------|------------|"]
     for rank, r in enumerate(scored, 1):
-        md.append(f"| {rank} | {r['name']} | {r['score']} | {r['description']} | {r['strengths']} | {r['weaknesses']} |")
+        md.append(f"| {rank} | [{r['name']}]({r['url']}) | {r['score']} | {r['description']} | {r['strengths']} | {r['weaknesses']} |")
     md_path = os.path.splitext(args.out)[0] + ".md"
     with open(md_path, "w") as f:
         f.write("\n".join(md) + "\n")
