@@ -2323,7 +2323,8 @@ triggers:
                 });
                 const data = await resp.json();
                 const clusters = (Array.isArray(data) ? data : data.results || [])
-                    .filter(c => c.status === 'COMPLETED');
+                    .filter(c => c.status === 'COMPLETED')
+                    .filter(c => (c.output_collection_ids || []).includes(MIXPEEK_COLLECTION));
 
                 if (!clusters.length) {
                     if (loading) loading.textContent = 'No clusters found. Running clustering...';
@@ -2345,7 +2346,14 @@ triggers:
                         if (new Set(cIds).size === cIds.length) { picked = c; break; }
                     } catch (_) { /* skip broken */ }
                 }
-                if (!picked) picked = clusters[0];
+
+                if (!picked) {
+                    if (loading) {
+                        loading.style.display = 'block';
+                        loading.textContent = 'Cluster data is being cleaned up right now — check back soon.';
+                    }
+                    return;
+                }
 
                 await renderClusterView(picked);
                 clustersLoaded = true;
