@@ -17,6 +17,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://diyjmz7hrjx3w.cloudfront.net">
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link rel="preconnect" href="https://unpkg.com">
     <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="articles.css" media="print" onload="this.media='all'">
@@ -83,6 +85,8 @@
 
         <script>
         (function() {
+            // Start the gallery data download now instead of after window load.
+            try { window.__galleryReq = fetch('images/gallery.json'); } catch (_) {}
             var seg = window.location.pathname.replace(/^\/+/, '').split('/')[0] || 'about';
             var valid = {about:1, articles:1, album:1, road:1, utilities:1};
             var p = valid[seg] ? seg : 'about';
@@ -1046,7 +1050,9 @@ triggers:
         // Function to load gallery images from JSON file
         async function loadGalleryImages() {
             try {
-                const response = await fetch('images/gallery.json');
+                const early = window.__galleryReq;
+                window.__galleryReq = null;
+                const response = await (early ? early.catch(() => fetch('images/gallery.json')) : fetch('images/gallery.json'));
                 if (!response.ok) {
                     console.warn('Failed to load gallery images:', response.status);
                     return;
@@ -2669,6 +2675,8 @@ triggers:
             }
             return motionModule;
         }
+        // Fetch the animation module up front so reveals are not gated on it.
+        ensureMotion();
 
         const revealObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
