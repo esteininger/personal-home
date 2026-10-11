@@ -71,13 +71,17 @@ def process_one(file_path: str, args, repo_root: str) -> bool:
         single.upload_to_s3(file_path, args.bucket, key, region=args.region)
         url = f"https://{args.cf_domain}/{key}"
 
+        thumb_key = single.S3_THUMB_PREFIX + single.make_key(file_path)
+        single.upload_thumbnail_to_s3(file_path, args.bucket, thumb_key, region=args.region)
+        thumb_url = f"https://{args.cf_domain}/{thumb_key}"
+
         name = '' if args.name_empty else derive_name_from_filename(file_path)
         date_taken = None
         try:
             date_taken = single.extract_date_taken(file_path)
         except Exception:
             pass
-        single.append_to_gallery(repo_root, url, name, lat, lng, date_taken)
+        single.append_to_gallery(repo_root, url, name, lat, lng, date_taken, thumb_url)
 
         if args.move:
             dest_dir = os.path.join(args.dir, 'processed')

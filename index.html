@@ -16,6 +16,7 @@
     <link rel="canonical" href="https://ethan.dev/about">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://diyjmz7hrjx3w.cloudfront.net">
     <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="articles.css" media="print" onload="this.media='all'">
@@ -1225,7 +1226,7 @@ triggers:
                     <div class="map-popup">
                         ${titleText ? `<div class=\"map-popup-title\" onclick=\"openLightbox('${image.url}'); event.preventDefault(); event.stopPropagation();\">${titleText}</div>` : ''}
                         ${clusterTag}
-                        <img src="${image.url}" alt="${titleText || 'Photo'}" class="map-popup-thumb" onclick="openLightbox('${image.url}'); event.preventDefault(); event.stopPropagation();">
+                        <img src="${image.thumb_url || image.url}" alt="${titleText || 'Photo'}" class="map-popup-thumb" loading="lazy" decoding="async" onclick="openLightbox('${image.url}'); event.preventDefault(); event.stopPropagation();">
                     </div>
                 `;
                 marker.addTo(leafletMap).bindPopup(popupHtml);
@@ -1418,8 +1419,14 @@ triggers:
                     ? `<div class=\"location-date\">${new Date(image.date_taken).toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' })}</div>`
                     : '';
 
+                // First row (above the fold) loads eagerly at high priority; the rest lazy-load as usual.
+                const gridSrc = image.thumb_url || image.url;
+                const loadAttrs = index < 6
+                    ? 'loading="eager" fetchpriority="high" decoding="async"'
+                    : 'loading="lazy" decoding="async"';
+
                 item.innerHTML = `
-                    <img src="${image.url}" alt="${image.name || ''}" loading="lazy" decoding="async" onclick="openLightbox('${image.url}')">
+                    <img src="${gridSrc}" alt="${image.name || ''}" ${loadAttrs} onclick="openLightbox('${image.url}')">
                     <button class="similar-btn" onclick="runReverseSearch('${image.url}'); event.stopPropagation();" title="Find similar" aria-label="Find similar photos">
                         <svg width="14" height="14" viewBox="0 0 512 512" fill="currentColor"><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0s208 93.1 208 208zM208 352a144 144 0 100-288 144 144 0 000 288z"/></svg>
                     </button>

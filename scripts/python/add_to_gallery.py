@@ -30,6 +30,9 @@ from PIL import Image, ExifTags
 # Change these to your values. Script will use these by default
 S3_BUCKET   = "ethan.dev"
 S3_PREFIX   = "album/"           # include trailing slash or leave empty
+S3_THUMB_PREFIX = "album/thumb/"  # resized grid thumbnails, see generate_thumbnails.py
+THUMB_MAX_DIM = 800
+THUMB_QUALITY = 78
 CF_DOMAIN   = "diyjmz7hrjx3w.cloudfront.net"
 AWS_REGION  = "us-east-1"
 
@@ -147,7 +150,30 @@ def upload_to_s3(file_path: str, bucket: str, key: str, region: Optional[str] = 
     s3.upload_file(file_path, bucket, key, ExtraArgs=extra)
 
 
-def append_to_gallery(repo_root: str, url: str, name: str, lat: Optional[float], lng: Optional[float], date_taken: Optional[str] = None):
+def upload_thumbnail_to_s3(file_path: str, bucket: str, key: str, region: Optional[str] = None) -> None:
+    """Resize to a grid-friendly JPEG (see generate_thumbnails.py) and upload it."""
+    from PIL import ImageOps
+    import io
+
+    img = Image.open(file_path)
+    img = ImageOps.exif_transpose(img)
+    if img.mode != "RGB":
+        img = img.convert("RGB")
+    img.thumbnail((THUMB_MAX_DIM, THUMB_MAX_DIM), Image.LANCZOS)
+    buf = io.BytesIO()
+    img.save(buf, format="JPEG", quality=THUMB_QUALITY, optimize=True)
+
+    s3 = boto3.client("s3", region_name=region)
+    s3.put_object(
+        Bucket=bucket,
+        Key=key,
+        Body=buf.getvalue(),
+        ContentType="image/jpeg",
+        CacheControl="public, max-age=31536000, immutable",
+    )
+
+
+def append_to_gallery(repo_root: str, url: str, name: str, lat: Optional[float], lng: Optional[float], date_taken: Optional[str] = None, thumb_url: Optional[str] = None):
     gallery_path = os.path.join(repo_root, "images", "gallery.json")
     with open(gallery_path, "r", encoding="utf-8") as f:
         data = json.load(f)
@@ -159,6 +185,8 @@ def append_to_gallery(repo_root: str, url: str, name: str, lat: Optional[float],
         entry["lng"] = lng
     if date_taken:
         entry["date_taken"] = date_taken
+    if thumb_url:
+        entry["thumb_url"] = thumb_url
     data.append(entry)
     with open(gallery_path, "w", encoding="utf-8") as f:
         json.dump(data, f, indent=2)
@@ -212,12 +240,17 @@ def main():
     upload_to_s3(args.file, args.bucket, key, region=args.region)
     url = f"https://{args.cf_domain}/{key}"
 
+    thumb_key = S3_THUMB_PREFIX + make_key(args.file)
+    upload_thumbnail_to_s3(args.file, args.bucket, thumb_key, region=args.region)
+    thumb_url = f"https://{args.cf_domain}/{thumb_key}"
+
     # repo root = two levels up from this script
     repo_root = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
-    append_to_gallery(repo_root, url, args.name or "", lat, lng, date_taken)
+    append_to_gallery(repo_root, url, args.name or "", lat, lng, date_taken, thumb_url)
 
     print("\n✅ Done")
     print("URL:", url)
+    print("Thumb URL:", thumb_url)
     print("Lat,Lng:", lat, ",", lng)
     print("Appended to:", os.path.join(repo_root, "images", "gallery.json"))
 
