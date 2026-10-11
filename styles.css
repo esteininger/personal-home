@@ -1601,6 +1601,37 @@ body.lightbox-open .leaflet-tooltip-pane {
     nav ul li:has(a[href="/utilities"]) {
         display: none;
     }
+
+    /* Spread the visible tabs across the row instead of bunching left */
+    nav ul {
+        flex: 1;
+        justify-content: space-between;
+        gap: 0.75rem;
+    }
+
+    nav a {
+        font-size: 0.95rem;
+    }
+
+    .theme-toggle {
+        margin-left: 1.25rem;
+    }
+
+    /* Album on mobile: no Gallery/Clusters tabs, no search, no sort row.
+       Map and photos sit directly under the nav. */
+    body:has(#album.active) nav {
+        margin-bottom: 1.25rem;
+    }
+
+    .album-tabs,
+    .album-search,
+    .gallery-controls {
+        display: none;
+    }
+
+    #album .map-section {
+        margin-bottom: 1rem;
+    }
 }
 
 @media (max-width: 768px) and (prefers-color-scheme: dark) {
