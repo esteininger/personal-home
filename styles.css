@@ -730,7 +730,15 @@ html.theme-dark .theme-switch { background: #111218; }
     transition: opacity 0.2s, background 0.15s;
     z-index: 2;
 }
-.gallery-item:hover .similar-btn { opacity: 1; }
+/* Hover reveals only on real pointers. On touch screens iOS Safari spends the
+   first tap on :hover when it changes what is visible, so a tap on a photo
+   would only reveal this button instead of opening the lightbox. */
+@media (hover: hover) and (pointer: fine) {
+    .gallery-item:hover .similar-btn { opacity: 1; }
+}
+@media (hover: none) {
+    .similar-btn { display: none; }
+}
 .similar-btn:hover { background: rgba(0,0,0,0.8); color: #fff; }
 
 /* Lightbox similar button */
@@ -1038,9 +1046,11 @@ html.theme-dark .theme-switch { background: #111218; }
     display: block;
 }
 
-.gallery-item img:hover {
-    transform: scale(1.02);
-    opacity: 0.9;
+@media (hover: hover) and (pointer: fine) {
+    .gallery-item img:hover {
+        transform: scale(1.02);
+        opacity: 0.9;
+    }
 }
 
 .gallery-item .location-info {
