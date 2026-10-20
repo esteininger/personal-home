@@ -2338,7 +2338,7 @@ triggers:
                 const data = await resp.json();
                 const clusters = (Array.isArray(data) ? data : data.results || [])
                     .filter(c => c.status === 'COMPLETED')
-                    .filter(c => (c.output_collection_ids || []).includes(MIXPEEK_COLLECTION));
+                    .filter(c => (c.input_collections || []).includes(MIXPEEK_COLLECTION));
 
                 if (!resp.ok) throw new Error(data.error?.message || ('HTTP ' + resp.status));
 
@@ -2351,26 +2351,39 @@ triggers:
                     new Date(b.completed_at || b.created_at) - new Date(a.completed_at || a.created_at)
                 );
 
-                let picked = null;
+                // A usable run has one centroid per cluster and members that point back
+                // at the photo collection. Runs that wrote back into the photo collection
+                // mix centroids from every run, so they fail the first check.
+                let picked = null, pickedViz = null, fallback = null, fallbackViz = null;
                 for (const c of clusters) {
                     try {
                         const vr = await fetch(MIXPEEK_API + '/clusters/' + c.cluster_id + '/visualization', { headers: mixpeekHeaders() });
+                        if (!vr.ok) continue;
                         const vd = await vr.json();
                         const pts = vd.points || [];
-                        const cIds = pts.filter(p => p.is_centroid).map(p => p.cluster_id);
-                        if (new Set(cIds).size === cIds.length) { picked = c; break; }
+                        const cents = pts.filter(p => p.is_centroid);
+                        const cIds = cents.map(p => p.cluster_id);
+                        const members = pts.filter(p => !p.is_centroid);
+                        const fromPhotos = members.filter(p => p.source_collection_id === MIXPEEK_COLLECTION).length;
+                        const clean = cIds.length >= 2 && new Set(cIds).size === cIds.length
+                            && members.length && fromPhotos / members.length > 0.9;
+                        if (!clean) continue;
+                        const labeled = cents.some(p => p.cluster_label && !/^Cluster \d+$/.test(p.cluster_label));
+                        if (labeled) { picked = c; pickedViz = vd; break; }
+                        if (!fallback) { fallback = c; fallbackViz = vd; }
                     } catch (_) { /* skip broken */ }
                 }
+                if (!picked && fallback) { picked = fallback; pickedViz = fallbackViz; }
 
                 if (!picked) {
                     if (loading) {
                         loading.style.display = 'block';
-                        loading.textContent = 'Cluster data is being cleaned up right now — check back soon.';
+                        loading.textContent = 'Clusters are being rebuilt right now. Check back soon.';
                     }
                     return;
                 }
 
-                await renderClusterView(picked);
+                await renderClusterView(picked, pickedViz);
                 clustersLoaded = true;
                 if (loading) loading.style.display = 'none';
             } catch (err) {
@@ -2380,19 +2393,13 @@ triggers:
         }
 
 
-        async function renderClusterView(cluster) {
+        async function renderClusterView(cluster, viz) {
             const container = document.getElementById('clusters-container');
             if (!container) return;
 
-            const [vizResp, docsResp] = await Promise.all([
-                fetch(MIXPEEK_API + '/clusters/' + cluster.cluster_id + '/visualization', {
-                    headers: mixpeekHeaders()
-                }),
-                fetch(MIXPEEK_API + '/collections/' + MIXPEEK_COLLECTION + '/documents?page_size=500', {
-                    headers: mixpeekHeaders()
-                })
-            ]);
-            const viz = await vizResp.json();
+            const docsResp = await fetch(MIXPEEK_API + '/collections/' + MIXPEEK_COLLECTION + '/documents?page_size=500', {
+                headers: mixpeekHeaders()
+            });
             const docsData = await docsResp.json();
             const points = viz.points || [];
             const allDocs = docsData.documents || docsData.results || [];
