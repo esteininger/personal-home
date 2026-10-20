@@ -2127,20 +2127,42 @@ triggers:
             };
         }
 
+        // Mixpeek bucket object id -> gallery photo URL (scripts/python/sync_mixpeek_object_map.py).
+        let mixpeekObjectMap = null;
+        function loadObjectMap() {
+            if (!mixpeekObjectMap) {
+                mixpeekObjectMap = fetch('images/mixpeek-objects.json')
+                    .then(r => r.ok ? r.json() : {})
+                    .catch(() => ({}));
+            }
+            return mixpeekObjectMap;
+        }
+
         async function mixpeekSearch(queryObj, topK) {
-            const resp = await fetch(MIXPEEK_API + '/features/search', {
-                method: 'POST',
-                headers: mixpeekHeaders(),
-                body: JSON.stringify({
-                    collection_identifiers: [MIXPEEK_COLLECTION],
-                    feature_uri: MIXPEEK_FEATURE_URI,
-                    query: queryObj,
-                    top_k: topK || 20
-                })
-            });
+            const [resp, objMap] = await Promise.all([
+                fetch(MIXPEEK_API + '/features/search', {
+                    method: 'POST',
+                    headers: mixpeekHeaders(),
+                    body: JSON.stringify({
+                        collection_identifiers: [MIXPEEK_COLLECTION],
+                        feature_uri: MIXPEEK_FEATURE_URI,
+                        query: queryObj,
+                        top_k: topK || 20,
+                        // Old cluster runs left copies of every photo in this collection,
+                        // each tagged with a cluster_id. Search the originals only.
+                        filters: { AND: [{ field: 'cluster_id', operator: 'exists', value: false }] }
+                    })
+                }),
+                loadObjectMap()
+            ]);
             const data = await resp.json();
-            if (data.success === false) throw new Error(data.error?.message || 'Search failed');
-            return data.documents || data.results || [];
+            if (!resp.ok || data.success === false) throw new Error(data.error?.message || 'Search failed');
+            const docs = data.documents || data.results || [];
+            for (const d of docs) {
+                const m = (d.thumbnail_url || '').match(/obj_[0-9a-f]+/);
+                d._galleryUrl = m ? objMap[m[0]] : undefined;
+            }
+            return docs;
         }
 
         function matchResultsToGallery(results) {
@@ -2156,7 +2178,16 @@ triggers:
 
             const matched = [];
             const seen = new Set();
+            const byUrl = new Map(galleryAll.map(g => [g.url, g]));
             for (const r of deduped) {
+                const direct = r._galleryUrl && byUrl.get(r._galleryUrl);
+                if (direct) {
+                    if (!seen.has(direct.url)) {
+                        seen.add(direct.url);
+                        matched.push({ ...direct, _score: r.score });
+                    }
+                    continue;
+                }
                 const meta = r.metadata || {};
                 const lat = meta.lat;
                 const lng = meta.lng;
