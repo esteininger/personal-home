@@ -2110,7 +2110,8 @@ triggers:
 
         // ── Mixpeek Search & Clustering ──
         const MIXPEEK_API = 'https://api.mixpeek.com/v1';
-        const MIXPEEK_KEY = 'mxp_sk_qqmnf1vPmGpyCqLDg2x_47IgVeDdyDhwQkncN3PhqRkR1VOR8MSuJKXYcWwd7T4sdWU';
+        // Public, read-only key: scoped to ns_ff4ce153f3 / col_961b58b0a5 and locked to ethan.dev origins.
+        const MIXPEEK_KEY = 'mxp_sk_uaC_5NK3wOYyUbHLpC9Ln41YgpJr05fc5ZZ3HGqRDjsDRa6uR0t8MXtekWON1QoCZe8';
         const MIXPEEK_NS = 'ns_ff4ce153f3';
         const MIXPEEK_COLLECTION = 'col_961b58b0a5';
         const MIXPEEK_FEATURE_URI = 'mixpeek://image_extractor@v1/google_siglip_base_v1';
@@ -2339,9 +2340,10 @@ triggers:
                     .filter(c => c.status === 'COMPLETED')
                     .filter(c => (c.output_collection_ids || []).includes(MIXPEEK_COLLECTION));
 
+                if (!resp.ok) throw new Error(data.error?.message || ('HTTP ' + resp.status));
+
                 if (!clusters.length) {
-                    if (loading) loading.textContent = 'No clusters found. Running clustering...';
-                    await runNewCluster();
+                    if (loading) loading.textContent = 'No clusters yet. Check back soon.';
                     return;
                 }
 
@@ -2377,29 +2379,6 @@ triggers:
             }
         }
 
-        async function runNewCluster() {
-            const loading = document.getElementById('clusters-loading');
-            try {
-                const resp = await fetch(MIXPEEK_API + '/clusters', {
-                    method: 'POST',
-                    headers: mixpeekHeaders(),
-                    body: JSON.stringify({
-                        cluster_name: 'album-kmeans-' + Date.now(),
-                        input_collections: [MIXPEEK_COLLECTION],
-                        algorithm: 'kmeans',
-                        algorithm_params: { n_clusters: 10 },
-                        clustered_attributes: [MIXPEEK_FEATURE_URI],
-                        llm_labeling: true
-                    })
-                });
-                const data = await resp.json();
-                if (data.success === false) throw new Error(data.error?.message || 'Cluster creation failed');
-                if (loading) loading.textContent = 'Clustering in progress... (refresh in a few minutes)';
-            } catch (err) {
-                console.error('Cluster create error:', err);
-                if (loading) loading.textContent = 'Clustering failed: ' + err.message;
-            }
-        }
 
         async function renderClusterView(cluster) {
             const container = document.getElementById('clusters-container');
