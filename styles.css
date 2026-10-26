@@ -111,13 +111,25 @@ nav a.active::after {
     background: var(--accent);
 }
 
-/* Nav row containing links and theme switch */
+/* Nav rows: theme toggle on its own row (top right), links full-width below */
 .nav-row {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
+    flex-direction: column;
+    align-items: stretch;
     border-bottom: 1px solid var(--border);
     padding-bottom: 0.5rem;
+    gap: 0.6rem;
+}
+
+.nav-row .theme-toggle {
+    order: -1;
+    align-self: flex-end;
+    margin: 0;
+}
+
+.nav-row ul {
+    width: 100%;
+    justify-content: space-between;
 }
 
 /* Page sections */
@@ -1580,6 +1592,10 @@ body.lightbox-open .leaflet-tooltip-pane {
     .profile-section {
         border-bottom: 1px solid var(--border);
         padding-bottom: 2rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
     }
 
     .bio-content {
