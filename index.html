@@ -1044,7 +1044,6 @@ triggers:
         let leafletMarkers = [];
         let urlToMarker = {};
         let currentLightboxIndex = -1;
-        let lightboxLoading = false;
         let gallerySortField = 'date';
         let gallerySortOrder = 'desc';
         let galleryShuffled = false;
@@ -1601,8 +1600,6 @@ triggers:
             document.body.classList.add('lightbox-open');
             // reset any zoom state
             img.classList.remove('zoomed');
-            // sync caption width to image width once the image dimensions are known
-            setTimeout(() => syncCaptionWidthToImage(), 0);
 
             // Populate caption from current gallery view
             if (caption && Array.isArray(galleryView)) {
@@ -1630,36 +1627,18 @@ triggers:
             }
         }
 
-        // Preload helper – resolves when the image has fully loaded
-        function preloadImage(url) {
-            return new Promise((resolve) => {
-                const i = new Image();
-                i.onload = () => resolve();
-                i.onerror = () => resolve();
-                i.src = url;
-            });
-        }
-
-        // Navigate lightbox left/right with wrap-around; wait for image to load
-        async function navigateLightbox(delta) {
-            if (lightboxLoading) return;
+        // Navigate lightbox left/right with wrap-around. Advance immediately so
+        // taps feel instant; the <img> paints the new photo as it loads.
+        function navigateLightbox(delta) {
             if (!Array.isArray(galleryView) || galleryView.length === 0) return;
-            if (currentLightboxIndex < 0) {
-                currentLightboxIndex = 0;
-            }
+            if (currentLightboxIndex < 0) currentLightboxIndex = 0;
             const total = galleryView.length;
             let next = (currentLightboxIndex + delta) % total;
             if (next < 0) next += total;
             const nextEntry = galleryView[next];
             if (!(nextEntry && nextEntry.url)) return;
-            try {
-                lightboxLoading = true;
-                await preloadImage(nextEntry.url);
-                currentLightboxIndex = next;
-                openLightbox(nextEntry.url);
-            } finally {
-                lightboxLoading = false;
-            }
+            currentLightboxIndex = next;
+            openLightbox(nextEntry.url);
         }
 
         function closeLightbox() {
@@ -1674,20 +1653,6 @@ triggers:
             if (!img) return;
             img.classList.toggle('zoomed');
         }
-
-        function syncCaptionWidthToImage() {
-            const img = document.getElementById('lightbox-img');
-            const caption = document.getElementById('lightbox-caption');
-            if (!img || !caption) return;
-            // Use the rendered width of the image element
-            const w = img.getBoundingClientRect().width;
-            if (w && isFinite(w)) {
-                caption.style.width = Math.min(w, window.innerWidth * 0.9) + 'px';
-            }
-        }
-
-        // keep caption aligned with image width on resize
-        window.addEventListener('resize', syncCaptionWidthToImage);
 
         // Download the currently open image by URL
         function downloadCurrentImage() {

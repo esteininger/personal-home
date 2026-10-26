@@ -194,7 +194,7 @@ nav a.active::after {
     border-radius: 999px;
     background: #111218;
     border: 1px solid var(--border);
-    box-shadow: 0 2px 10px rgba(0,0,0,0.25), inset 0 0 0 1px rgba(255,255,255,0.02);
+    box-shadow: none;
     cursor: pointer;
     transition: background 0.2s ease, border-color 0.2s ease;
     display: grid;
@@ -227,7 +227,7 @@ nav a.active::after {
     height: 26px;
     border-radius: 999px;
     background: #ffffff;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.35);
+    box-shadow: 0 1px 2px rgba(0,0,0,0.25);
     transition: transform 0.18s ease-in-out, background 0.2s ease;
 }
 
@@ -1174,17 +1174,22 @@ html.theme-dark .theme-switch { background: #111218; }
 /* Lightbox caption */
 #lightbox-caption {
     position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
+    left: 0;
+    right: 0;
     bottom: 0;
-    padding: 16px 20px;
-    background: linear-gradient(to top, rgba(0,0,0,0.75), rgba(0,0,0,0.0));
+    margin: 0 auto;
+    width: 100%;
+    max-width: 640px;
+    box-sizing: border-box;
+    padding: 20px 22px calc(18px + env(safe-area-inset-bottom, 0px));
+    background: linear-gradient(to top, rgba(0,0,0,0.92), rgba(0,0,0,0.6) 60%, rgba(0,0,0,0));
     color: #eaeaea;
     font-size: 0.95rem;
-    line-height: 1.4;
-    max-height: 30vh;
+    line-height: 1.5;
+    text-align: left;
+    max-height: 45vh;
     overflow-y: auto;
-    max-width: 90vw; /* safety cap; actual width set via JS to image width */
+    -webkit-overflow-scrolling: touch;
 }
 
 #lightbox-caption .caption-title {
@@ -1224,17 +1229,19 @@ html.theme-dark .theme-switch { background: #111218; }
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    width: 40px;
-    height: 60px;
+    width: 48px;
+    height: 72px;
     border: none;
     background: rgba(0, 0, 0, 0.35);
     color: rgba(255, 255, 255, 0.85);
     font-size: 34px;
-    line-height: 60px;
+    line-height: 72px;
     text-align: center;
     cursor: pointer;
     z-index: 10001;
-    transition: color 0.15s ease-in-out, transform 0.06s ease-in-out;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+    transition: color 0.12s ease, background 0.12s ease, transform 0.06s ease;
 }
 
 .lightbox-prev { left: 10px; }
