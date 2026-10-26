@@ -1,0 +1,327 @@
+/* ==========================================================================
+   Van section — reuses theme variables from styles.css (monochrome, serif body,
+   Montserrat headings). Mobile-first.
+   ========================================================================== */
+
+.van {
+    max-width: 820px;
+    margin: 0 auto;
+}
+
+/* ---- Headers ---- */
+.van-header { margin-bottom: 2.5rem; }
+.van-eyebrow {
+    font-family: var(--font-headings);
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin: 0 0 0.75rem;
+}
+.van-eyebrow a { color: var(--text-dim); text-decoration: none; }
+.van-eyebrow a:hover { color: var(--accent); }
+.van-header h1 {
+    font-family: var(--font-headings);
+    font-weight: 700;
+    font-size: clamp(1.9rem, 6vw, 2.6rem);
+    line-height: 1.1;
+    margin: 0 0 0.6rem;
+    letter-spacing: -0.01em;
+}
+.van-intro {
+    color: var(--text-dim);
+    font-size: 1.02rem;
+    line-height: 1.65;
+    max-width: 62ch;
+}
+.van-intro p { margin: 0 0 0.9rem; }
+.van-lede { font-size: 1.1rem; color: var(--text); }
+
+.van-landing-header { margin-bottom: 3rem; }
+
+/* ---- Before / after ---- */
+.van-beforeafter {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin: 2rem 0 0;
+}
+.van-beforeafter figure { margin: 0; }
+.van-beforeafter img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    border: 1px solid var(--border);
+    display: block;
+}
+.van-beforeafter figcaption {
+    font-family: var(--font-headings);
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin-top: 0.5rem;
+}
+
+/* ---- Video (lazy, interaction-gated) ---- */
+.van-video { margin: 1.75rem 0 0; }
+.van-video > summary {
+    cursor: pointer;
+    font-family: var(--font-headings);
+    font-size: 0.85rem;
+    color: var(--text-dim);
+    list-style: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0;
+}
+.van-video > summary::-webkit-details-marker { display: none; }
+.van-video > summary::before { content: "\25B6"; font-size: 0.7rem; }
+.van-video[open] > summary::before { content: "\25BC"; }
+.van-video > summary:hover { color: var(--accent); }
+.van-video-frame {
+    position: relative;
+    aspect-ratio: 16 / 9;
+    margin-top: 0.75rem;
+    border: 1px solid var(--border);
+}
+.van-video-frame iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+
+/* ---- Card grids ---- */
+.van-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 1.5rem;
+}
+.van-sections { grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); }
+
+.van-card {
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    color: inherit;
+    border: 1px solid var(--border);
+    background: transparent;
+    overflow: hidden;
+    transition: border-color 0.2s ease, transform 0.2s ease;
+}
+.van-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+.van-card-media {
+    aspect-ratio: 3 / 2;
+    overflow: hidden;
+    background: var(--border);
+}
+.van-card-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s ease;
+}
+.van-card:hover .van-card-img { transform: scale(1.03); }
+.van-card-body { padding: 1rem 1.1rem 1.15rem; flex: 1; display: flex; flex-direction: column; }
+.van-card-title {
+    font-family: var(--font-headings);
+    font-weight: 600;
+    font-size: 1.02rem;
+    margin: 0 0 0.35rem;
+    line-height: 1.25;
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.5rem;
+}
+.van-card-desc {
+    color: var(--text-dim);
+    font-size: 0.92rem;
+    line-height: 1.5;
+    margin: 0 0 0.75rem;
+    flex: 1;
+}
+
+/* Journal layout: wider rows, metadata-forward */
+.van-grid-journal { grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); }
+
+/* ---- Chips / tags / status ---- */
+.van-chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: auto; }
+.van-chip, .van-tag {
+    font-family: var(--font-headings);
+    font-size: 0.68rem;
+    letter-spacing: 0.03em;
+    padding: 0.2rem 0.5rem;
+    border: 1px solid var(--border);
+    color: var(--text-dim);
+    white-space: nowrap;
+}
+.van-tag { text-transform: lowercase; }
+.van-tag::before { content: "#"; opacity: 0.6; }
+.van-chip { text-transform: uppercase; }
+.van-status { font-weight: 600; }
+.van-status-done { color: var(--text); border-color: var(--text-dim); }
+.van-status-wip, .van-status-in-progress { font-style: italic; }
+
+/* ---- Rating ---- */
+.van-rating { color: var(--text); font-size: 0.82rem; letter-spacing: 0.08em; white-space: nowrap; }
+.van-rating-lg { font-size: 1.1rem; margin-top: 0.5rem; }
+
+/* ---- Detail page ---- */
+.van-detail { max-width: 720px; margin: 0 auto; }
+.van-cover { margin: 1.5rem 0 2rem; }
+.van-cover img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border: 1px solid var(--border);
+}
+.van-source { color: var(--text-dim); font-size: 0.85rem; margin-top: 2rem; }
+.van-back { margin-top: 2.5rem; padding-top: 1.5rem; border-top: 1px solid var(--border); }
+.van-back a { font-family: var(--font-headings); font-size: 0.85rem; color: var(--text-dim); text-decoration: none; }
+.van-back a:hover { color: var(--accent); }
+
+/* ---- Prose (markdown body) ---- */
+.van-prose { font-family: var(--font-body); font-size: 1.05rem; line-height: 1.7; color: var(--text); }
+.van-prose > *:first-child { margin-top: 0; }
+.van-prose h2 {
+    font-family: var(--font-headings);
+    font-weight: 700;
+    font-size: 1.3rem;
+    margin: 2.2rem 0 0.8rem;
+}
+.van-prose h3 {
+    font-family: var(--font-headings);
+    font-weight: 600;
+    font-size: 1.08rem;
+    margin: 1.8rem 0 0.6rem;
+}
+.van-prose p { margin: 0 0 1.1rem; }
+.van-prose a { color: var(--text); text-decoration: underline; text-decoration-color: var(--border); text-underline-offset: 2px; }
+.van-prose a:hover { text-decoration-color: var(--text); }
+.van-prose ul, .van-prose ol { margin: 0 0 1.1rem; padding-left: 1.3rem; }
+.van-prose li { margin: 0.3rem 0; }
+.van-prose img { max-width: 100%; height: auto; margin: 1.5rem 0; border: 1px solid var(--border); display: block; }
+.van-prose blockquote {
+    margin: 1.5rem 0;
+    padding: 0.2rem 0 0.2rem 1.1rem;
+    border-left: 2px solid var(--border);
+    color: var(--text-dim);
+    font-style: italic;
+}
+.van-prose hr { border: 0; border-top: 1px solid var(--border); margin: 2.5rem 0; }
+
+/* Tables */
+.van-prose table, .van-cost-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+    font-size: 0.95rem;
+}
+.van-prose th, .van-prose td, .van-cost-table th, .van-cost-table td {
+    text-align: left;
+    padding: 0.55rem 0.7rem;
+    border-bottom: 1px solid var(--border);
+}
+.van-prose th { font-family: var(--font-headings); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.04em; color: var(--text-dim); }
+
+/* Task lists (checklists) */
+.van-prose .task-list-item { list-style: none; margin-left: -1.3rem; padding-left: 0; }
+.van-prose .task-list-item-checkbox, .van-prose input[type="checkbox"] { margin-right: 0.55rem; }
+.van-prose .task-list-control { margin-right: 0.4rem; }
+
+/* Admonition callouts */
+.van-prose .admonition {
+    margin: 1.5rem 0;
+    padding: 0.9rem 1.1rem;
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--text-dim);
+    background: color-mix(in srgb, var(--text) 4%, transparent);
+    font-size: 0.97rem;
+}
+.van-prose .admonition-title {
+    font-family: var(--font-headings);
+    font-weight: 600;
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin: 0 0 0.4rem;
+    color: var(--text-dim);
+}
+.van-prose .admonition > :last-child { margin-bottom: 0; }
+
+/* Collapsible toggles (pymdownx.details) */
+.van-prose details {
+    margin: 1.5rem 0;
+    border: 1px solid var(--border);
+    padding: 0 1.1rem;
+}
+.van-prose details > summary {
+    cursor: pointer;
+    font-family: var(--font-headings);
+    font-size: 0.9rem;
+    padding: 0.8rem 0;
+    color: var(--text);
+}
+.van-prose details[open] > summary { border-bottom: 1px solid var(--border); margin-bottom: 0.9rem; }
+.van-prose details > :last-child { margin-bottom: 0.9rem; }
+
+/* Code */
+.van-prose code {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 0.86em;
+    background: color-mix(in srgb, var(--text) 8%, transparent);
+    padding: 0.1em 0.35em;
+    border-radius: 3px;
+}
+.van-prose pre {
+    margin: 1.5rem 0;
+    padding: 1rem 1.1rem;
+    overflow-x: auto;
+    border: 1px solid var(--border);
+    background: color-mix(in srgb, var(--text) 5%, transparent);
+    line-height: 1.5;
+}
+.van-prose pre code { background: none; padding: 0; font-size: 0.85rem; }
+.van-prose .highlight { margin: 1.5rem 0; }
+.van-prose .highlight pre { margin: 0; }
+
+/* ---- Cost table ---- */
+.van-costs { overflow-x: auto; }
+.van-num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.van-cost-table .van-cost-cat th {
+    font-family: var(--font-headings);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-dim);
+    padding-top: 1.3rem;
+    border-bottom: 1px solid var(--text-dim);
+}
+.van-cost-table .van-cost-cat td { border-bottom: 1px solid var(--text-dim); font-weight: 600; }
+.van-cost-table thead th { font-family: var(--font-headings); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.04em; color: var(--text-dim); }
+.van-cost-note { color: var(--text-dim); font-size: 0.86rem; }
+.van-cost-total th, .van-cost-total td {
+    font-family: var(--font-headings);
+    font-weight: 700;
+    font-size: 1.02rem;
+    border-top: 2px solid var(--text);
+    border-bottom: none;
+    padding-top: 0.9rem;
+}
+
+.van-empty { color: var(--text-dim); font-style: italic; }
+
+/* ---- Responsive ---- */
+@media (max-width: 600px) {
+    .van-grid, .van-sections, .van-grid-journal { grid-template-columns: 1fr; gap: 1.1rem; }
+    .van-beforeafter { grid-template-columns: 1fr 1fr; gap: 0.6rem; }
+    .van-intro { font-size: 0.98rem; }
+    .van-prose { font-size: 1.0rem; }
+    .van-prose pre { font-size: 0.8rem; }
+}

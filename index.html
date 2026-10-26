@@ -70,6 +70,7 @@
                     <li><a href="/about" class="nav-link active">About</a></li>
                     <li><a href="/album" class="nav-link">Album</a></li>
                     <li><a href="/road" class="nav-link">Road</a></li>
+                    <li><a href="/van" class="nav-link">Van</a></li>
                     <li><a href="/utilities" class="nav-link">Utilities</a></li>
                     <li><a href="/articles" class="nav-link">Articles</a></li>
                 </ul>
@@ -150,7 +151,7 @@
 
                         <p>I grew up in Maryland in a Jewish family. My grandfather survived the Holocaust but never really talked about it. That shaped a lot of how I see the world. I write about some of that under <a href="/articles">Articles</a>.</p>
 
-                        <p>When I'm not behind a computer, I'm usually wandering around NYC or somewhere on the road in a <a href="https://vanlifecoder.com" target="_blank">Ford Transit I converted myself</a>, with a paddleboard on the roof and my Australian Shepherd, <a href="https://www.instagram.com/danywigglebutt/" target="_blank">Dany</a>, riding shotgun.</p>
+                        <p>When I'm not behind a computer, I'm usually wandering around NYC or somewhere on the road in a <a href="/van">Ford Transit I converted myself</a>, with a paddleboard on the roof and my Australian Shepherd, <a href="https://www.instagram.com/danywigglebutt/" target="_blank">Dany</a>, riding shotgun.</p>
                     </div>
                 </div>
             </div>
@@ -776,10 +777,13 @@ triggers:
         const pages = document.querySelectorAll('.page');
 
         // Handle navigation clicks (History API)
+        const SPA_SEGMENTS = new Set(['about', 'album', 'road', 'utilities', 'articles']);
         navLinks.forEach(link => {
             link.addEventListener('click', (e) => {
-                e.preventDefault();
                 const rawPath = new URL(link.getAttribute('href'), window.location.origin).pathname;
+                const seg = rawPath.replace(/^\/+/, '').split('/')[0] || 'about';
+                if (!SPA_SEGMENTS.has(seg)) return; // real navigation for static sections like /van
+                e.preventDefault();
                 const path = (basePath ? basePath : '') + rawPath;
                 navigateToPath(path);
             });
