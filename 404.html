@@ -5,14 +5,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ethan - about</title>
-    <meta name="description" content="Ethan Steininger makes videos searchable at Mixpeek and juggles AI agents with Amux. Split between NYC and van life.">
+    <meta name="description" content="Ethan Steininger is a founder building Mixpeek, infrastructure that makes unstructured media searchable for people and AI agents. Maryland-raised, based in NYC with a self-converted van.">
     <meta property="og:title" content="ethan - about">
-    <meta property="og:description" content="Ethan Steininger makes videos searchable at Mixpeek and juggles AI agents with Amux. Split between NYC and van life.">
+    <meta property="og:description" content="Ethan Steininger is a founder building Mixpeek, infrastructure that makes unstructured media searchable for people and AI agents. Maryland-raised, based in NYC with a self-converted van.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://ethan.dev/about">
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="ethan - about">
-    <meta name="twitter:description" content="Ethan Steininger makes videos searchable at Mixpeek and juggles AI agents with Amux. Split between NYC and van life.">
+    <meta name="twitter:description" content="Ethan Steininger is a founder building Mixpeek, infrastructure that makes unstructured media searchable for people and AI agents. Maryland-raised, based in NYC with a self-converted van.">
     <link rel="canonical" href="https://ethan.dev/about">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -57,7 +57,7 @@
             "url": "https://mixpeek.com"
         },
         "knowsAbout": ["Software Engineering", "AI", "Multimodal Search", "Van Life"],
-        "description": "Makes videos searchable at Mixpeek and juggles AI agents with Amux. Split between NYC and van life."
+        "description": "Founder building Mixpeek, infrastructure that makes unstructured media searchable for people and AI agents. Maryland-raised, based in NYC with a self-converted van."
     }
     </script>
 </head>
@@ -139,9 +139,11 @@
                 <!-- Right Column -->
                 <div class="bio-content">
                     <div class="bio-section">
-                        <p>I make videos searchable at <a href="https://mixpeek.com" target="_blank">Mixpeek</a> and juggle too many AI agents with <a href="https://amux.io" target="_blank">Amux</a>.</p>
+                        <p>Working on <a href="https://mixpeek.com" target="_blank">Mixpeek</a>, infrastructure that makes media searchable by people and agents. Before this I spent years at MongoDB on search. I also build <a href="https://amux.io" target="_blank">amux</a>, an orchestrator that runs fleets of AI agents.</p>
 
-                        <p>The rest of my time is split between NYC and a <a target="_blank" href="https://vanlifecoder.com">van</a> I converted myself, usually with a paddle board on the roof and an Australian Shepherd named <a href="https://www.instagram.com/danywigglebutt/" target="_blank">Dany</a>, who has better Instagram engagement than me.</p>
+                        <p>I grew up in a Jewish family in Maryland. My grandfather survived the Holocaust and never talked about it. A lot of what I think about comes from there. I write some of it down under <a href="/articles">Articles</a>.</p>
+
+                        <p>The rest of the time I'm split between NYC and a <a target="_blank" href="https://vanlifecoder.com">Ford Transit I converted myself</a>, usually with a paddleboard on the roof and an Australian Shepherd named <a href="https://www.instagram.com/danywigglebutt/" target="_blank">Dany</a>.</p>
                     </div>
                 </div>
             </div>
@@ -596,7 +598,7 @@ triggers:
             // default/about
             return {
                 title: 'ethan - about',
-                description: 'Ethan Steininger makes videos searchable at Mixpeek and juggles AI agents with Amux. Split between NYC and van life.',
+                description: 'Ethan Steininger is a founder building Mixpeek, infrastructure that makes unstructured media searchable for people and AI agents. Maryland-raised, based in NYC with a self-converted van.',
                 canonical: 'https://ethan.dev/about',
                 ogType: 'website',
                 twitterCard: 'summary'
@@ -1463,25 +1465,44 @@ triggers:
 
             blogList.innerHTML = '';
 
+            // Group essays by category so the list reads as themed bodies of work
+            const groupOrder = ['history & geopolitics', 'american politics', 'life'];
+            const groups = {};
             blogPosts.forEach(post => {
-                const listItem = document.createElement('div');
-                listItem.className = 'blog-list-item';
-                listItem.onclick = (e) => {
-                    // Navigate to standalone article page
-                    window.location.href = '/' + post.id;
-                };
+                const cat = (post.metadata && post.metadata.category) ? post.metadata.category : 'other';
+                (groups[cat] = groups[cat] || []).push(post);
+            });
 
-                listItem.innerHTML = `
-                    <h2>${post.title}</h2>
-                    <div class="date">${new Date(post.date).toLocaleDateString('en-US', {
-                    year: 'numeric',
-                    month: 'long',
-                    day: 'numeric'
-                })}</div>
-                    <div class="description">${post.description}</div>
-                `;
+            Object.keys(groups).sort((a, b) => {
+                const ia = groupOrder.indexOf(a), ib = groupOrder.indexOf(b);
+                return (ia === -1 ? 99 : ia) - (ib === -1 ? 99 : ib);
+            }).forEach(cat => {
+                const header = document.createElement('div');
+                header.className = 'blog-group-header';
+                header.textContent = cat;
+                header.style.cssText = 'font-family: var(--font-headings); font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-dim); margin: 2.2rem 0 0.75rem;';
+                blogList.appendChild(header);
 
-                blogList.appendChild(listItem);
+                groups[cat].forEach(post => {
+                    const listItem = document.createElement('div');
+                    listItem.className = 'blog-list-item';
+                    listItem.onclick = (e) => {
+                        // Navigate to standalone article page
+                        window.location.href = '/' + post.id;
+                    };
+
+                    listItem.innerHTML = `
+                        <h2>${post.title}</h2>
+                        <div class="date">${new Date(post.date).toLocaleDateString('en-US', {
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric'
+                    })}</div>
+                        <div class="description">${post.description}</div>
+                    `;
+
+                    blogList.appendChild(listItem);
+                });
             });
         }
 
