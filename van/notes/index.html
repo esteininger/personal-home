@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Notes — Van</title>
+    <title>Musings — Van</title>
     <meta name="description" content="Longer writing from the road.">
     <link rel="canonical" href="https://ethan.dev/van/notes">
     <meta property="og:type" content="website">
-    <meta property="og:title" content="Notes — Van">
+    <meta property="og:title" content="Musings — Van">
     <meta property="og:description" content="Longer writing from the road.">
     <meta property="og:url" content="https://ethan.dev/van/notes">
     <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="Notes — Van">
+    <meta name="twitter:title" content="Musings — Van">
     <meta name="twitter:description" content="Longer writing from the road.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -35,7 +35,7 @@
 {
   "@context": "https://schema.org",
   "@type": "CollectionPage",
-  "name": "Notes",
+  "name": "Musings",
   "description": "Longer writing from the road.",
   "url": "https://ethan.dev/van/notes"
 }
@@ -63,36 +63,22 @@
             </div>
         </nav>
         <main class="van">
+            <nav class="van-crumbs" aria-label="Breadcrumb"><a href="/van">Van</a> <span class="van-crumb-sep">/</span> <span aria-current="page">Musings</span></nav>
             <header class="van-header">
-                <p class="van-eyebrow"><a href="/van">Van</a></p>
-                <h1>Notes</h1>
+                <h1>🧠 Musings</h1>
                 <div class="van-intro"><p>Longer writing from the road.</p></div>
+                <div class="van-viewtag">List view</div>
             </header>
-            <section class="van-grid">
-<a class="van-card" href="/van/notes/how-to-prevent-ww3-a-neutral-analysis-of-current-geopolitics">
-    
-    <div class="van-card-body">
-        <h3 class="van-card-title">How to Prevent WW3: A Neutral Analysis of Current Geopolitics </h3>
-        <p class="van-card-desc">I’ll be providing a neutral analysis of the events leading up to the October 7th attack and the implications for an increased likelihood of WW3. My goal is to present the facts without assigning blame</p>
-        <div class="van-chips"><span class="van-chip">November 2023</span></div>
-    </div>
-</a>
-<a class="van-card" href="/van/notes/let-your-role-models-guide-you-and-your-curiosity-drive-you">
-    
-    <div class="van-card-body">
-        <h3 class="van-card-title">Let your role models guide you and your curiosity drive you. </h3>
-        <p class="van-card-desc">In the middle of the convergence between two edges of life (Mojave &amp; Colorado deserts), sits an incredibly diverse landscape which supports the most bizarre life forms. This massive variety of shapes </p>
-        <div class="van-chips"><span class="van-chip">October 2021</span></div>
-    </div>
-</a>
-            </section>
+<section class="van-list">
+<a class="van-listrow" href="/van/notes/how-to-prevent-ww3-a-neutral-analysis-of-current-geopolitics"><span class="van-listrow-title">How to Prevent WW3: A Neutral Analysis of Current Geopolitics</span><span class="van-listrow-desc">I’ll be providing a neutral analysis of the events leading up to the October 7th attack and the implications for an increased likelihood of WW3. My goal is to present the facts without assigning blame</span></a>
+<a class="van-listrow" href="/van/notes/let-your-role-models-guide-you-and-your-curiosity-drive-you"><span class="van-listrow-title">Let your role models guide you and your curiosity drive you.</span><span class="van-listrow-desc">In the middle of the convergence between two edges of life (Mojave &amp; Colorado deserts), sits an incredibly diverse landscape which supports the most bizarre life forms. This massive variety of shapes </span></a>
+</section>
         </main>
         <div class="footer">me (at) ethan (dot) dev</div>
     </div>
     <script>
         (function() {
             const root = document.documentElement;
-            const prefersLight = window.matchMedia('(prefers-color-scheme: light)');
             function currentExplicitTheme() { try { return localStorage.getItem('theme'); } catch (_) { return null; } }
             function applyTheme(theme) {
                 root.classList.remove('theme-light', 'theme-dark');

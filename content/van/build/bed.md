@@ -1,14 +1,15 @@
 ---
-title: "Bed"
-slug: "bed"
-collection: "build"
-date: "2021-04-03"
-status: "doing"
+title: Bed
+slug: bed
+collection: build
+date: '2021-04-03'
+status: Doing
 order: 3
-tags: ["home"]
-cover: "https://diyjmz7hrjx3w.cloudfront.net/van/build/bed/1.webp"
+tags:
+- home
+cover: https://diyjmz7hrjx3w.cloudfront.net/van/build/bed/1.webp
+category: Home
 ---
-
 ![](https://diyjmz7hrjx3w.cloudfront.net/van/build/bed/1.webp)
 
 Materials:

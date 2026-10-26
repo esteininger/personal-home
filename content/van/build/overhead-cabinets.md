@@ -1,12 +1,11 @@
 ---
-title: "Overhead cabinets"
-slug: "overhead-cabinets"
-collection: "build"
-date: "2021-06-10"
-status: "todo"
+title: Overhead cabinets
+slug: overhead-cabinets
+collection: build
+date: '2021-06-10'
+status: To-Do
 order: 21
 ---
-
 Untitled
 
 

@@ -1,13 +1,12 @@
 ---
-title: "Water"
-slug: "water"
-collection: "build"
-date: "2021-04-03"
-status: "done"
+title: Water
+slug: water
+collection: build
+date: '2021-04-03'
+status: Done
 order: 34
-cover: "https://diyjmz7hrjx3w.cloudfront.net/van/build/water/1.webp"
+cover: https://diyjmz7hrjx3w.cloudfront.net/van/build/water/1.webp
 ---
-
 ![](https://diyjmz7hrjx3w.cloudfront.net/van/build/water/1.webp)
 
 - [x]  Order water wheel well (33 gallon?) must measure ...

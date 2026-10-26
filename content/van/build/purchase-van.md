@@ -1,15 +1,17 @@
 ---
-title: "Purchase Van"
-slug: "purchase-van"
-collection: "build"
-date: "2021-03-23"
-status: "done"
+title: Purchase Van
+slug: purchase-van
+collection: build
+date: '2021-03-23'
+status: Done
 order: 24
-tags: ["home"]
-cover: "https://diyjmz7hrjx3w.cloudfront.net/van/build/purchase-van/1.webp"
-description: "I decided to purchase a 2020 Ford Transit 350 High Roof. There were cheaper alternatives but I wanted RWD because at a steep positive incline (as most mountainous roads are) all the weight lies on the"
+tags:
+- home
+cover: https://diyjmz7hrjx3w.cloudfront.net/van/build/purchase-van/1.webp
+description: I decided to purchase a 2020 Ford Transit 350 High Roof. There were cheaper alternatives but I wanted RWD because at a steep positive incline (as most mountainous roads are) all the weight lies on the
+duration: 7 days
+category: Home
 ---
-
 I decided to purchase a 2020 Ford Transit 350 High Roof. There were cheaper alternatives but I wanted RWD because at a steep positive incline (as most mountainous roads are) all the weight lies on the rear wheels.
 
 I've never purchased a used car, and know absolutely nothing about cars so i felt it safest to purchase a new one, especially considering I'll be taking it to remote locations and I'd hate to worry about breakdowns. Plus Ford tends to have the most mechanics throughout the country, so that provides a bit of peace of mind. 

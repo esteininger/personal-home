@@ -2,20 +2,20 @@
 """
 Build the /van section of ethan.dev from Markdown.
 
-Content lives in content/van/**/*.md with YAML frontmatter. Each collection
-has a `_index.md` (config + intro); each entry is one Markdown file. Listing
-pages are generated from entry metadata, so adding a Markdown file publishes an
-entry after a build. No hardcoded card markup.
+The information architecture mirrors the original Notion site (vanlifecoder.com):
+a landing page with a hero, before/after, a video tour, a two-column
+"Follow Along" / "Documentation" index, and the Build Journal gallery inline.
+Sub-pages are reached the same way they were on Notion, with breadcrumbs.
 
 Routes generated (real static HTML, so deep links / refresh / no-JS all work):
-  content/van/index.md               -> /van/index.html            (landing)
-  content/van/<coll>/_index.md       -> /van/<coll>/index.html     (collection)
+  content/van/index.md               -> /van/index.html              (landing)
+  content/van/<coll>/_index.md       -> /van/<coll>/index.html       (collection)
   content/van/<coll>/<slug>.md       -> /van/<coll>/<slug>/index.html (detail)
-  content/van/costs/_index.md + expenses.csv -> /van/costs/index.html (table)
-
-Markdown: Python-Markdown + PyMdown Extensions (tables, nested/sane lists,
-task lists, <details> toggles, admonition callouts, footnotes, attr_list,
-md_in_html) with Pygments highlighting at build time.
+  content/van/routes.md (+ routes/)  -> /van/routes/index.html       (past routes)
+  content/van/costs/_index.md + csv  -> /van/costs/index.html        (cost breakdown)
+  content/van/prep.md                -> /van/prep/index.html         (single page)
+  content/van/misc.md                -> /van/misc/index.html         (single page)
+  content/van/lanscapes.md           -> /van/lanscapes/index.html    (single page)
 """
 
 import csv
@@ -31,7 +31,7 @@ import yaml
 SITE = "https://ethan.dev"
 
 # ---------------------------------------------------------------------------
-# Shared chrome (nav / head / theme) — kept in sync with index.html
+# Global ethan.dev chrome (nav / head / theme) — kept in sync with index.html
 # ---------------------------------------------------------------------------
 
 NAV_ITEMS = [
@@ -80,7 +80,6 @@ THEME_PRELOAD = '''<script>
 THEME_TOGGLE = '''<script>
         (function() {
             const root = document.documentElement;
-            const prefersLight = window.matchMedia('(prefers-color-scheme: light)');
             function currentExplicitTheme() { try { return localStorage.getItem('theme'); } catch (_) { return null; } }
             function applyTheme(theme) {
                 root.classList.remove('theme-light', 'theme-dark');
@@ -129,8 +128,7 @@ def md_parser():
 
 
 def render_markdown(text):
-    md = md_parser()
-    return md.convert(text or "")
+    return md_parser().convert(text or "")
 
 
 # ---------------------------------------------------------------------------
@@ -165,13 +163,32 @@ def esc(s):
     return html.escape(str(s or ""), quote=True)
 
 
+DOC_SVG = ('<svg class="van-card-ico" width="13" height="13" viewBox="0 0 24 24" '
+           'fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">'
+           '<path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/>'
+           '<path d="M14 3v5h5"/></svg>')
+
+
+def slugify(s):
+    return re.sub(r"[^a-z0-9]+", "-", str(s or "").lower()).strip("-")
+
+
+def first_text(body, n=150):
+    """A short text preview of a Markdown body, markdown stripped."""
+    t = re.sub(r"!\[[^\]]*\]\([^)]*\)", "", body or "")       # images
+    t = re.sub(r"\[([^\]]*)\]\([^)]*\)", r"\1", t)            # links -> text
+    t = re.sub(r"[#>*_`~\-]", "", t)                          # markers
+    t = re.sub(r"\s+", " ", t).strip()
+    return (t[: n - 1] + "…") if len(t) > n else t
+
+
 # ---------------------------------------------------------------------------
 # Page shell
 # ---------------------------------------------------------------------------
 
-def page_shell(*, title, description, canonical, active_href, body,
-               og_type="website", image=None, jsonld=None, extra_css=True):
-    img_tag = f'\n    <meta property="og:image" content="{esc(image)}">' if image else ""
+def page_shell(*, title, description, canonical, body,
+               og_type="website", image=None, jsonld=None):
+    img_tag_ = f'\n    <meta property="og:image" content="{esc(image)}">' if image else ""
     tw_card = "summary_large_image" if image else "summary"
     tw_img = f'\n    <meta name="twitter:image" content="{esc(image)}">' if image else ""
     jsonld_tag = ""
@@ -179,11 +196,6 @@ def page_shell(*, title, description, canonical, active_href, body,
         jsonld_tag = ('\n    <script type="application/ld+json">\n'
                       + json.dumps(jsonld, ensure_ascii=True, indent=2)
                       + "\n    </script>")
-    css_links = (
-        '<link rel="stylesheet" href="/styles.css">\n'
-        '    <link rel="stylesheet" href="/articles.css">\n'
-        '    <link rel="stylesheet" href="/van.css">'
-    )
     return f'''<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -195,7 +207,7 @@ def page_shell(*, title, description, canonical, active_href, body,
     <meta property="og:type" content="{esc(og_type)}">
     <meta property="og:title" content="{esc(title)}">
     <meta property="og:description" content="{esc(description)}">
-    <meta property="og:url" content="{esc(canonical)}">{img_tag}
+    <meta property="og:url" content="{esc(canonical)}">{img_tag_}
     <meta name="twitter:card" content="{tw_card}">
     <meta name="twitter:title" content="{esc(title)}">
     <meta name="twitter:description" content="{esc(description)}">{tw_img}
@@ -203,13 +215,15 @@ def page_shell(*, title, description, canonical, active_href, body,
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://diyjmz7hrjx3w.cloudfront.net">
     <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
-    {css_links}
+    <link rel="stylesheet" href="/styles.css">
+    <link rel="stylesheet" href="/articles.css">
+    <link rel="stylesheet" href="/van.css">
     <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
     {THEME_PRELOAD}{jsonld_tag}
 </head>
 <body>
     <div class="container">
-        {nav_html(active_href)}
+        {nav_html("/van")}
         <main class="van">
 {body}
         </main>
@@ -221,11 +235,7 @@ def page_shell(*, title, description, canonical, active_href, body,
 '''
 
 
-# ---------------------------------------------------------------------------
-# Image helpers (responsive <img> with dimensions to avoid CLS)
-# ---------------------------------------------------------------------------
-
-def img_tag(src, alt="", *, width=None, height=None, cls=None, lazy=True, sizes=None):
+def img_tag(src, alt="", *, width=None, height=None, cls=None, lazy=True):
     if not src:
         return ""
     attrs = [f'src="{esc(src)}"', f'alt="{esc(alt)}"']
@@ -236,9 +246,24 @@ def img_tag(src, alt="", *, width=None, height=None, cls=None, lazy=True, sizes=
     if cls:
         attrs.append(f'class="{esc(cls)}"')
     attrs.append('loading="lazy" decoding="async"' if lazy else 'decoding="async"')
-    if sizes:
-        attrs.append(f'sizes="{esc(sizes)}"')
     return f'<img {" ".join(attrs)}>'
+
+
+# ---------------------------------------------------------------------------
+# Breadcrumbs (mirrors Notion: {vanLifeCoder} / Collection / Entry)
+# ---------------------------------------------------------------------------
+
+def crumbs(trail):
+    """trail: list of (label, href_or_None). Last item renders as current."""
+    parts = []
+    for i, (label, href) in enumerate(trail):
+        last = i == len(trail) - 1
+        if href and not last:
+            parts.append(f'<a href="{esc(href)}">{esc(label)}</a>')
+        else:
+            parts.append(f'<span aria-current="page">{esc(label)}</span>')
+    sep = ' <span class="van-crumb-sep">/</span> '
+    return f'<nav class="van-crumbs" aria-label="Breadcrumb">{sep.join(parts)}</nav>'
 
 
 # ---------------------------------------------------------------------------
@@ -246,7 +271,6 @@ def img_tag(src, alt="", *, width=None, height=None, cls=None, lazy=True, sizes=
 # ---------------------------------------------------------------------------
 
 def load_collection(coll_dir: Path):
-    """Return (config_meta, intro_html, [entries]) for a collection directory."""
     cfg_path = coll_dir / "_index.md"
     cfg, intro_md = ({}, "")
     if cfg_path.exists():
@@ -260,7 +284,6 @@ def load_collection(coll_dir: Path):
         meta["_body"] = body
         meta["_path"] = p
         entries.append(meta)
-    # sort
     sort_key = (cfg.get("sort") or "order")
     reverse = sort_key.startswith("-")
     key = sort_key.lstrip("-")
@@ -275,60 +298,103 @@ def load_collection(coll_dir: Path):
 
 
 # ---------------------------------------------------------------------------
-# Renderers per layout
+# Cards / chips
 # ---------------------------------------------------------------------------
 
-def chips(entry):
+def stars(rating):
+    try:
+        n = int(rating)
+    except (TypeError, ValueError):
+        return ""
+    return ('<span class="van-rating" aria-label="' + esc(f"{n} out of 5") + '">'
+            + "★" * n + "☆" * (5 - n) + "</span>")
+
+
+def status_badge(status):
+    if not status:
+        return ""
+    return (f'<span class="van-badge van-status-{slugify(status)}">{esc(status)}</span>')
+
+
+def card_meta(entry):
+    """The small metadata line under a gallery card (parity with Notion props)."""
     out = []
-    status = entry.get("status")
-    if status:
-        out.append(f'<span class="van-chip van-status van-status-{esc(status)}">{esc(status)}</span>')
-    if entry.get("duration_hours") is not None:
-        out.append(f'<span class="van-chip">{esc(entry["duration_hours"])} h</span>')
-    if entry.get("date"):
-        out.append(f'<span class="van-chip">{esc(fmt_date(entry["date"]))}</span>')
-    for t in (entry.get("tags") or []):
+    st = entry.get("status")
+    if st:
+        out.append(status_badge(st))
+    for t in (entry.get("tags") or ([entry["location"]] if entry.get("location") else [])):
         out.append(f'<span class="van-tag">{esc(t)}</span>')
-    return f'<div class="van-chips">{"".join(out)}</div>' if out else ""
+    dur = entry.get("duration")
+    if dur:
+        out.append(f'<span class="van-chip">{esc(dur)}</span>')
+    if entry.get("date") and entry.get("show_date", True) and not entry.get("status"):
+        out.append(f'<span class="van-chip van-chip-date">{esc(fmt_date(entry["date"]))}</span>')
+    return f'<div class="van-card-chips">{"".join(out)}</div>' if out else ""
 
 
 def card(entry, coll):
     href = f'/van/{coll}/{entry["slug"]}'
     cover = entry.get("cover")
-    cover_html = ""
     if cover:
-        cover_html = f'<div class="van-card-media">{img_tag(cover, entry.get("title", ""), cls="van-card-img")}</div>'
-    rating = entry.get("rating")
-    rating_html = f'<span class="van-rating" aria-label="{esc(rating)} out of 5">{"★" * int(rating)}{"☆" * (5 - int(rating))}</span>' if rating else ""
+        media = f'<div class="van-card-media">{img_tag(cover, entry.get("title", ""), cls="van-card-img")}</div>'
+    else:
+        preview = esc(entry.get("description") or first_text(entry.get("_body", "")))
+        media = f'<div class="van-card-media van-card-textcover"><span>{preview}</span></div>' if preview else '<div class="van-card-media van-card-blank"></div>'
+    rating_html = f'<div class="van-card-rating">{stars(entry["rating"])}</div>' if entry.get("rating") else ""
     desc = entry.get("description", "")
-    meta_line = chips(entry)
+    show_desc = desc and not cover is None and coll in ("towns",)  # keep towns blurb; others rely on cover/preview
+    title = esc(entry.get("title", entry["slug"]))
     return f'''<a class="van-card" href="{esc(href)}">
-    {cover_html}
+    {media}
     <div class="van-card-body">
-        <h3 class="van-card-title">{esc(entry.get("title", entry["slug"]))} {rating_html}</h3>
-        {f'<p class="van-card-desc">{esc(desc)}</p>' if desc else ''}
-        {meta_line}
+        <h3 class="van-card-title">{DOC_SVG}{title}</h3>
+        {card_meta(entry)}
+        {rating_html}
     </div>
 </a>'''
 
 
+def gallery(entries, coll):
+    cards = "\n".join(card(e, coll) for e in entries)
+    if not cards:
+        return '<p class="van-empty">Nothing here yet.</p>'
+    return f'<section class="van-grid">\n{cards}\n</section>'
+
+
+# ---------------------------------------------------------------------------
+# Collection & list pages
+# ---------------------------------------------------------------------------
+
 def render_collection_page(coll, cfg, intro_html, entries, out_root: Path):
     layout = cfg.get("layout", "gallery")
     title = cfg.get("title", coll.title())
+    emoji = cfg.get("emoji", "")
     description = cfg.get("description", f"{title} — Van, ethan.dev")
     canonical = f"{SITE}/van/{coll}"
-    grid_cls = "van-grid van-grid-journal" if layout == "journal" else "van-grid"
-    cards = "\n".join(card(e, coll) for e in entries)
-    if not cards:
-        cards = '<p class="van-empty">Nothing here yet.</p>'
-    body = f'''            <header class="van-header">
-                <p class="van-eyebrow"><a href="/van">Van</a></p>
-                <h1>{esc(title)}</h1>
+    view = "List" if layout == "list" else "Gallery"
+
+    if layout == "list":
+        rows = []
+        for e in entries:
+            href = f'/van/{coll}/{e["slug"]}'
+            d = esc(e.get("description") or first_text(e.get("_body", ""), 200))
+            desc_span = f'<span class="van-listrow-desc">{d}</span>' if d else ""
+            rows.append(
+                f'<a class="van-listrow" href="{esc(href)}">'
+                f'<span class="van-listrow-title">{esc(e.get("title", e["slug"]))}</span>'
+                f'{desc_span}</a>')
+        listing = (f'<section class="van-list">\n{chr(10).join(rows)}\n</section>'
+                   if rows else '<p class="van-empty">Nothing here yet.</p>')
+    else:
+        listing = gallery(entries, coll)
+
+    body = f'''            {crumbs([("Van", "/van"), (title, None)])}
+            <header class="van-header">
+                <h1>{(esc(emoji) + " ") if emoji else ""}{esc(title)}</h1>
                 <div class="van-intro">{intro_html}</div>
+                <div class="van-viewtag">{view} view</div>
             </header>
-            <section class="{grid_cls}">
-{cards}
-            </section>'''
+{listing}'''
     jsonld = {
         "@context": "https://schema.org", "@type": "CollectionPage",
         "name": title, "description": description, "url": canonical,
@@ -336,32 +402,51 @@ def render_collection_page(coll, cfg, intro_html, entries, out_root: Path):
     out = out_root / "van" / coll / "index.html"
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(page_shell(title=f"{title} — Van", description=description,
-                              canonical=canonical, active_href="/van", body=body,
-                              image=entries[0].get("cover") if entries else None,
+                              canonical=canonical, body=body,
+                              image=next((e.get("cover") for e in entries if e.get("cover")), None),
                               jsonld=jsonld), encoding="utf-8")
     return out
 
 
+def prop_rows(entry):
+    """Notion-style property block on a detail page."""
+    rows = []
+
+    def row(label, value):
+        if value:
+            rows.append(f'<div class="van-prop"><span class="van-prop-k">{esc(label)}</span>'
+                        f'<span class="van-prop-v">{value}</span></div>')
+    if entry.get("status"):
+        row("Status", status_badge(entry["status"]))
+    if entry.get("category"):
+        row("Category", f'<span class="van-tag">{esc(entry["category"])}</span>')
+    if entry.get("location"):
+        row("Location", f'<span class="van-tag">{esc(entry["location"])}</span>')
+    if entry.get("rating"):
+        row("Rating", stars(entry["rating"]))
+    if entry.get("duration"):
+        row("Time", esc(entry["duration"]))
+    if entry.get("date"):
+        row("Date", esc(fmt_date(entry["date"])))
+    return f'<div class="van-props">{"".join(rows)}</div>' if rows else ""
+
+
 def render_detail_page(coll, cfg, entry, out_root: Path):
     title = entry.get("title", entry["slug"])
-    description = entry.get("description", "")
+    description = entry.get("description") or first_text(entry.get("_body", ""), 150)
     canonical = f"{SITE}/van/{coll}/{entry['slug']}"
-    cover = entry.get("cover")
-    cover_html = ""
-    if cover:
-        cover_html = f'<figure class="van-cover">{img_tag(cover, title, lazy=False)}</figure>'
-    rating = entry.get("rating")
-    rating_html = f'<div class="van-rating van-rating-lg" aria-label="{esc(rating)} out of 5">{"★" * int(rating)}{"☆" * (5 - int(rating))}</div>' if rating else ""
-    source = entry.get("source_url")
-    source_html = f'<p class="van-source">Originally published at <a href="{esc(source)}" target="_blank" rel="noopener">{esc(source)}</a></p>' if source else ""
-    body_html = render_markdown(entry["_body"])
     coll_title = cfg.get("title", coll.title())
+    cover = entry.get("cover")
+    cover_html = f'<figure class="van-cover">{img_tag(cover, title, lazy=False)}</figure>' if cover else ""
+    source = entry.get("source_url")
+    source_html = (f'<p class="van-source">Originally at <a href="{esc(source)}" target="_blank" rel="noopener">{esc(source)}</a></p>'
+                   if source else "")
+    body_html = render_markdown(entry["_body"])
     body = f'''            <article class="van-detail">
-                <header class="van-header">
-                    <p class="van-eyebrow"><a href="/van">Van</a> / <a href="/van/{coll}">{esc(coll_title)}</a></p>
+                {crumbs([("Van", "/van"), (coll_title, f"/van/{coll}"), (title, None)])}
+                <header class="van-detail-header">
                     <h1>{esc(title)}</h1>
-                    {chips(entry)}
-                    {rating_html}
+                    {prop_rows(entry)}
                 </header>
                 {cover_html}
                 <div class="van-prose">
@@ -380,116 +465,264 @@ def render_detail_page(coll, cfg, entry, out_root: Path):
     out = out_root / "van" / coll / entry["slug"] / "index.html"
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(page_shell(title=f"{title} — Van", description=description,
-                              canonical=canonical, active_href="/van", body=body,
+                              canonical=canonical, body=body,
                               og_type="article", image=cover, jsonld=jsonld),
                    encoding="utf-8")
     return out
 
+
+# ---------------------------------------------------------------------------
+# Single markdown pages (Prep, Misc, Lanscapes)
+# ---------------------------------------------------------------------------
+
+def render_single_page(name, md_path: Path, out_root: Path):
+    cfg, body_md = parse_doc(md_path)
+    title = cfg.get("title", name.title())
+    emoji = cfg.get("emoji", "")
+    description = cfg.get("description", f"{title} — Van, ethan.dev")
+    canonical = f"{SITE}/van/{name}"
+    body_html = render_markdown(body_md)
+    if not body_html.strip():
+        body_html = '<p class="van-empty">Nothing here yet.</p>'
+    body = f'''            <article class="van-detail">
+                {crumbs([("Van", "/van"), (title, None)])}
+                <header class="van-detail-header">
+                    <h1>{(esc(emoji) + " ") if emoji else ""}{esc(title)}</h1>
+                    {f'<p class="van-intro">{esc(cfg["intro"])}</p>' if cfg.get("intro") else ""}
+                </header>
+                <div class="van-prose">
+                    {body_html}
+                </div>
+                <p class="van-back"><a href="/van">← Back to Van</a></p>
+            </article>'''
+    out = out_root / "van" / name / "index.html"
+    out.parent.mkdir(parents=True, exist_ok=True)
+    out.write_text(page_shell(title=f"{title} — Van", description=description,
+                              canonical=canonical, body=body), encoding="utf-8")
+    return out
+
+
+# ---------------------------------------------------------------------------
+# Past Routes (maps by year)
+# ---------------------------------------------------------------------------
+
+def render_routes_page(content_root: Path, out_root: Path):
+    md_path = content_root / "routes.md"
+    if not md_path.exists():
+        return None
+    cfg, _ = parse_doc(md_path)
+    title = cfg.get("title", "Past Routes")
+    emoji = cfg.get("emoji", "\U0001F5FA️")
+    description = cfg.get("description", "Where the van has been, by year.")
+    canonical = f"{SITE}/van/routes"
+    build_link = cfg.get("build_your_own")
+    years = cfg.get("years", [])
+    blocks = []
+    for y in years:
+        img = img_tag(y.get("map"), f'{y.get("year")} route map', cls="van-route-map") if y.get("map") else ""
+        states = ", ".join(y.get("states", []))
+        note = f'<p class="van-route-note">{esc(y["note"])}</p>' if y.get("note") else ""
+        blocks.append(f'''<article class="van-route">
+    <div class="van-route-head"><h2>{esc(y.get("year"))}</h2>
+    <p class="van-route-states">{esc(states)}</p></div>
+    {f'<figure class="van-route-fig">{img}</figure>' if img else ''}
+    {note}
+</article>''')
+    intro = ""
+    if build_link:
+        intro = (f'<p class="van-intro">Build your own: '
+                 f'<a href="{esc(build_link)}" target="_blank" rel="noopener">{esc(build_link)}</a></p>')
+    body = f'''            {crumbs([("Van", "/van"), (title, None)])}
+            <header class="van-header">
+                <h1>{esc(emoji)} {esc(title)}</h1>
+                {intro}
+            </header>
+            <section class="van-routes">
+{"".join(blocks)}
+            </section>
+            <p class="van-back"><a href="/van">← Back to Van</a></p>'''
+    out = out_root / "van" / "routes" / "index.html"
+    out.parent.mkdir(parents=True, exist_ok=True)
+    out.write_text(page_shell(title=f"{title} — Van", description=description,
+                              canonical=canonical, body=body,
+                              image=years[0].get("map") if years else None),
+                   encoding="utf-8")
+    return out
+
+
+# ---------------------------------------------------------------------------
+# Cost Breakdown (from the real Google Sheet export)
+# ---------------------------------------------------------------------------
 
 def render_costs_page(coll_dir: Path, out_root: Path):
     cfg, intro_html, _ = load_collection(coll_dir)
     csv_path = coll_dir / "expenses.csv"
     rows = []
     if csv_path.exists():
-        with csv_path.open(encoding="utf-8") as f:
+        with csv_path.open(encoding="utf-8-sig") as f:
             for r in csv.DictReader(f):
-                rows.append(r)
-    # compute subtotals by category + grand total
+                rows.append({(k or "").strip(): (v or "").strip() for k, v in r.items()})
+
     def price(r):
         try:
-            return float(str(r.get("price", "")).replace("$", "").replace(",", "") or 0)
+            return float(str(r.get("Price", r.get("price", ""))).replace("$", "").replace(",", "") or 0)
         except ValueError:
             return 0.0
-    cats = {}
-    grand = 0.0
-    for r in rows:
-        c = r.get("category", "Other") or "Other"
-        cats.setdefault(c, 0.0)
-        cats[c] += price(r)
-        grand += price(r)
 
     def money(v):
         return "${:,.0f}".format(v)
 
+    cats = {}
+    items_total = 0.0
+    for r in rows:
+        c = r.get("Category") or r.get("category") or "Other"
+        cats.setdefault(c, [])
+        cats[c].append(r)
+        items_total += price(r)
+
+    # Headline figures are authoritative from the sheet summary.
+    conv = cfg.get("conversion_cost")
+    van = cfg.get("van_cost")
+    total = cfg.get("total_cost")
+    summary = ""
+    if conv or van or total:
+        cells = []
+        if conv:
+            cells.append(f'<div class="van-cost-fig"><span class="van-cost-fig-k">Conversion</span><span class="van-cost-fig-v">{esc(conv)}</span></div>')
+        if van:
+            cells.append(f'<div class="van-cost-fig"><span class="van-cost-fig-k">Van</span><span class="van-cost-fig-v">{esc(van)}</span></div>')
+        if total:
+            cells.append(f'<div class="van-cost-fig van-cost-fig-total"><span class="van-cost-fig-k">Total</span><span class="van-cost-fig-v">{esc(total)}</span></div>')
+        summary = f'<div class="van-cost-summary">{"".join(cells)}</div>'
+
     body_rows = []
-    for c in sorted(cats):
-        body_rows.append(f'<tr class="van-cost-cat"><th colspan="3">{esc(c)}</th><td class="van-num">{money(cats[c])}</td></tr>')
-        for r in [x for x in rows if (x.get("category") or "Other") == c]:
-            name = esc(r.get("item", ""))
-            link = r.get("link") or r.get("source") or ""
-            if link:
-                name = f'<a href="{esc(link)}" target="_blank" rel="noopener">{name}</a>'
+    # Biggest systems first; the uncategorized "Other" bucket always sits last.
+    cat_order = sorted(cats, key=lambda c: (c.lower() == "other", -sum(price(r) for r in cats[c])))
+    for c in cat_order:
+        sub = sum(price(r) for r in cats[c])
+        body_rows.append(f'<tr class="van-cost-cat"><th colspan="2">{esc(c)}</th><td class="van-num">{money(sub)}</td></tr>')
+        for r in sorted(cats[c], key=price, reverse=True):
+            name = esc(r.get("Item") or r.get("item", ""))
+            note = esc(r.get("Notes") or r.get("note", ""))
             body_rows.append(
-                f'<tr><td>{name}</td><td class="van-cost-note">{esc(r.get("note",""))}</td>'
-                f'<td></td><td class="van-num">{money(price(r))}</td></tr>')
-    table = f'''<table class="van-cost-table">
-    <thead><tr><th>Item</th><th>Notes</th><th></th><th class="van-num">Price</th></tr></thead>
+                f'<tr><td>{name}</td><td class="van-cost-note">{note}</td>'
+                f'<td class="van-num">{money(price(r))}</td></tr>')
+    table = (f'''<table class="van-cost-table">
+    <thead><tr><th>Item</th><th>Notes</th><th class="van-num">Price</th></tr></thead>
     <tbody>
     {"".join(body_rows)}
     </tbody>
-    <tfoot><tr class="van-cost-total"><th colspan="3">Total</th><td class="van-num">{money(grand)}</td></tr></tfoot>
-    </table>''' if rows else '<p class="van-empty">Cost data coming soon.</p>'
-    title = cfg.get("title", "Costs")
+    <tfoot><tr class="van-cost-total"><th colspan="2">Itemized total</th><td class="van-num">{money(items_total)}</td></tr></tfoot>
+    </table>''' if rows else '<p class="van-empty">Cost data coming soon.</p>')
+
+    title = cfg.get("title", "Cost Breakdown")
+    emoji = cfg.get("emoji", "")
     description = cfg.get("description", "What the van build cost, itemized.")
     canonical = f"{SITE}/van/costs"
-    body = f'''            <header class="van-header">
-                <p class="van-eyebrow"><a href="/van">Van</a></p>
-                <h1>{esc(title)}</h1>
+    body = f'''            {crumbs([("Van", "/van"), (title, None)])}
+            <header class="van-header">
+                <h1>{(esc(emoji) + " ") if emoji else ""}{esc(title)}</h1>
                 <div class="van-intro">{intro_html}</div>
             </header>
+            {summary}
             <section class="van-costs">
                 {table}
-            </section>'''
+            </section>
+            <p class="van-back"><a href="/van">← Back to Van</a></p>'''
     out = out_root / "van" / "costs" / "index.html"
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(page_shell(title=f"{title} — Van", description=description,
-                              canonical=canonical, active_href="/van", body=body),
-                   encoding="utf-8")
-    return out, grand
+                              canonical=canonical, body=body), encoding="utf-8")
+    return out, total or money(items_total)
 
 
-def render_landing(content_root: Path, out_root: Path, collections):
+# ---------------------------------------------------------------------------
+# Landing (mirrors the Notion home: hero, before/after, video, index, journal)
+# ---------------------------------------------------------------------------
+
+FOLLOW_ALONG = [
+    ("\U0001FAB4", "Nature Reviews", "/van/nature"),
+    ("\U0001F3D8️", "Town Rankings", "/van/towns"),
+    ("\U0001F5FA️", "Past Routes", "/van/routes"),
+    ("\U0001F4F7", "Instagram", "https://instagram.com/vanlifecoder"),
+    ("\U0001F4FD️", "YouTube", "https://youtube.com/@vanlifecoder"),
+    ("\U0001F4C4", "Lanscapes", "/van/lanscapes"),
+]
+DOCUMENTATION = [
+    ("\U0001F4C9", "Cost Breakdown", "/van/costs"),
+    ("\U0001F4A1", "Vanspiration", "/van/resources"),
+    ("\U0001F9F9", "VanLifeCoder Prep", "/van/prep"),
+    ("\U0001F9E0", "Musings", "/van/notes"),
+    ("\U0001F4DD", "Misc", "/van/misc"),
+]
+
+
+def link_list(items):
+    rows = []
+    for emoji, label, href in items:
+        ext = href.startswith("http")
+        attr = ' target="_blank" rel="noopener"' if ext else ""
+        rows.append(f'<a class="van-link" href="{esc(href)}"{attr}>'
+                    f'<span class="van-link-emoji">{esc(emoji)}</span>'
+                    f'<span class="van-link-label">{esc(label)}</span></a>')
+    return "\n".join(rows)
+
+
+def render_landing(content_root: Path, out_root: Path, build_entries):
     cfg, body_md = parse_doc(content_root / "index.md")
     intro_html = render_markdown(body_md)
-    title = cfg.get("title", "Van")
-    description = cfg.get("description", "A self-converted Ford Transit, and traveling while working remotely.")
+    title = cfg.get("title", "Software Developer in a Van")
+    description = cfg.get("description", "A self-converted Ford Transit, and working from the road.")
     canonical = f"{SITE}/van"
+    cover = cfg.get("cover")
     before = cfg.get("before_image")
     after = cfg.get("after_image")
+
+    cover_html = ""
+    if cover:
+        cover_html = f'<div class="van-hero-cover">{img_tag(cover, "Illustration of the van", lazy=False)}</div>'
+
     ba = ""
     if before and after:
         ba = f'''<div class="van-beforeafter">
-                    <figure>{img_tag(before, "Before the conversion", lazy=False)}<figcaption>Before</figcaption></figure>
-                    <figure>{img_tag(after, "After the conversion", lazy=False)}<figcaption>After</figcaption></figure>
+                    <figure><figcaption>Before</figcaption>{img_tag(before, "Before the conversion", lazy=False)}</figure>
+                    <figure><figcaption>After</figcaption>{img_tag(after, "After the conversion", lazy=False)}</figure>
                 </div>'''
-    video = cfg.get("video_url")
+
+    video = cfg.get("video_embed")
     video_html = ""
     if video:
         video_html = f'''<details class="van-video">
-                    <summary>Watch the tour</summary>
-                    <div class="van-video-frame"><iframe src="{esc(video)}" title="Van tour" loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade"></iframe></div>
+                    <summary>Video Tour</summary>
+                    <div class="van-video-frame van-video-short"><iframe src="{esc(video)}" title="Van tour" loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade"></iframe></div>
                 </details>'''
-    # section cards from collections config
-    sec_cards = []
-    for coll, meta in collections:
-        href = f"/van/{coll}"
-        cov = meta.get("cover")
-        cov_html = f'<div class="van-card-media">{img_tag(cov, meta.get("title",""), cls="van-card-img")}</div>' if cov else ""
-        sec_cards.append(f'''<a class="van-card van-section-card" href="{esc(href)}">
-    {cov_html}
-    <div class="van-card-body">
-        <h3 class="van-card-title">{esc(meta.get("title", coll.title()))}</h3>
-        {f'<p class="van-card-desc">{esc(meta.get("blurb") or meta.get("description",""))}</p>' if (meta.get("blurb") or meta.get("description")) else ''}
-    </div>
-</a>''')
-    body = f'''            <header class="van-header van-landing-header">
+
+    journal = gallery(build_entries, "build")
+
+    body = f'''            {cover_html}
+            <header class="van-header van-landing-header">
                 <h1>{esc(title)}</h1>
                 <div class="van-intro van-lede">{intro_html}</div>
                 {ba}
                 {video_html}
             </header>
-            <section class="van-grid van-sections">
-{"".join(sec_cards)}
+            <section class="van-index">
+                <div class="van-col">
+                    <h2 class="van-section-title">Follow Along</h2>
+                    <div class="van-linklist">
+                        {link_list(FOLLOW_ALONG)}
+                    </div>
+                </div>
+                <div class="van-col">
+                    <h2 class="van-section-title">Documentation</h2>
+                    <div class="van-linklist">
+                        {link_list(DOCUMENTATION)}
+                    </div>
+                </div>
+            </section>
+            <section class="van-journal">
+                <h2 class="van-section-title">Build Journal</h2>
+                {journal}
             </section>'''
     jsonld = {
         "@context": "https://schema.org", "@type": "CollectionPage",
@@ -498,9 +731,8 @@ def render_landing(content_root: Path, out_root: Path, collections):
     out = out_root / "van" / "index.html"
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(page_shell(title="Van — Ethan Steininger", description=description,
-                              canonical=canonical, active_href="/van", body=body,
-                              image=after or cfg.get("cover"), jsonld=jsonld),
-                   encoding="utf-8")
+                              canonical=canonical, body=body,
+                              image=cover or after, jsonld=jsonld), encoding="utf-8")
     return out
 
 
@@ -508,7 +740,9 @@ def render_landing(content_root: Path, out_root: Path, collections):
 # Main
 # ---------------------------------------------------------------------------
 
-COLLECTION_ORDER = ["build", "nature", "towns", "resources", "notes"]
+# coll -> is a gallery/list collection with entries + detail pages
+GALLERY_COLLECTIONS = ["build", "nature", "towns", "resources", "notes"]
+SINGLE_PAGES = ["prep", "misc", "lanscapes"]
 
 
 def main():
@@ -521,47 +755,46 @@ def main():
         print(f"no content at {content_root}")
         return
 
-    # rebuild the /van output tree from scratch so renamed/removed entries don't linger
     import shutil
     shutil.rmtree(out_root / "van", ignore_errors=True)
 
     built = []
-    collections_meta = []
+    build_entries = []
 
-    # Collections with entries
-    for coll in COLLECTION_ORDER:
+    for coll in GALLERY_COLLECTIONS:
         cdir = content_root / coll
         if not cdir.exists():
             continue
         cfg, intro_html, entries = load_collection(cdir)
-        if not cfg.get("cover"):
-            nxt = next((e.get("cover") for e in entries if e.get("cover")), None)
-            if nxt:
-                cfg["cover"] = nxt
-        collections_meta.append((coll, cfg))
+        if coll == "build":
+            build_entries = entries
         built.append(render_collection_page(coll, cfg, intro_html, entries, out_root))
         for e in entries:
             built.append(render_detail_page(coll, cfg, e, out_root))
 
-    # Costs (table) — placed after build in the section list
+    # Past Routes
+    r = render_routes_page(content_root, out_root)
+    if r:
+        built.append(r)
+
+    # Cost Breakdown
     costs_dir = content_root / "costs"
-    grand = None
     if costs_dir.exists():
-        cfg_costs, _, _ = load_collection(costs_dir)
-        out, grand = render_costs_page(costs_dir, out_root)
+        out, total = render_costs_page(costs_dir, out_root)
         built.append(out)
-        # insert costs into section list right after build
-        idx = next((i for i, (c, _) in enumerate(collections_meta) if c == "build"), -1)
-        collections_meta.insert(idx + 1, ("costs", cfg_costs))
+
+    # Single pages
+    for name in SINGLE_PAGES:
+        p = content_root / f"{name}.md"
+        if p.exists():
+            built.append(render_single_page(name, p, out_root))
 
     # Landing
-    built.append(render_landing(content_root, out_root, collections_meta))
+    built.append(render_landing(content_root, out_root, build_entries))
 
     print(f"Van build: {len(built)} pages")
     for b in built:
         print("  ✓", b.relative_to(out_root))
-    if grand is not None:
-        print(f"  costs total: ${grand:,.0f}")
 
 
 if __name__ == "__main__":

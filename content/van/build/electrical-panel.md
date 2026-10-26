@@ -1,15 +1,17 @@
 ---
-title: "Electrical Panel"
-slug: "electrical-panel"
-collection: "build"
-date: "2021-04-03"
-status: "done"
+title: Electrical Panel
+slug: electrical-panel
+collection: build
+date: '2021-04-03'
+status: Done
 duration_hours: 14
 order: 9
-tags: ["electricity"]
-cover: "https://diyjmz7hrjx3w.cloudfront.net/van/build/electrical-panel/1.webp"
+tags:
+- electricity
+cover: https://diyjmz7hrjx3w.cloudfront.net/van/build/electrical-panel/1.webp
+duration: 14 hours
+category: Electricity
 ---
-
 ![](https://diyjmz7hrjx3w.cloudfront.net/van/build/electrical-panel/1.webp)
 
 ![Untitled](https://diyjmz7hrjx3w.cloudfront.net/van/build/electrical-panel/2.webp)

@@ -1,16 +1,18 @@
 ---
-title: "Sound Deadening"
-slug: "sound-deadening"
-collection: "build"
-date: "2021-04-03"
-status: "done"
+title: Sound Deadening
+slug: sound-deadening
+collection: build
+date: '2021-04-03'
+status: Done
 duration_hours: 4
 order: 31
-tags: ["insulation"]
-cover: "https://diyjmz7hrjx3w.cloudfront.net/van/build/sound-deadening/1.webp"
-description: "Sound deadening is important to reduce the vibrations that are created by both the outside world and mechanisms of the car."
+tags:
+- insulation
+cover: https://diyjmz7hrjx3w.cloudfront.net/van/build/sound-deadening/1.webp
+description: Sound deadening is important to reduce the vibrations that are created by both the outside world and mechanisms of the car.
+duration: 4 hours
+category: Insulation
 ---
-
 Sound deadening is important to reduce the vibrations that are created by both the outside world and mechanisms of the car. 
 
 I stuck sound deadening on every “open” area where it seemed more susceptible for vibrations ie sheet metal. 

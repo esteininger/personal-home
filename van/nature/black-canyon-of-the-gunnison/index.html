@@ -72,11 +72,10 @@
         </nav>
         <main class="van">
             <article class="van-detail">
-                <header class="van-header">
-                    <p class="van-eyebrow"><a href="/van">Van</a> / <a href="/van/nature">Nature Reviews</a></p>
+                <nav class="van-crumbs" aria-label="Breadcrumb"><a href="/van">Van</a> <span class="van-crumb-sep">/</span> <a href="/van/nature">Nature Reviews</a> <span class="van-crumb-sep">/</span> <span aria-current="page">Black Canyon of the Gunnison</span></nav>
+                <header class="van-detail-header">
                     <h1>Black Canyon of the Gunnison</h1>
-                    <div class="van-chips"><span class="van-chip">July 2021</span><span class="van-tag">colorado</span></div>
-                    
+                    <div class="van-props"><div class="van-prop"><span class="van-prop-k">Location</span><span class="van-prop-v"><span class="van-tag">Colorado</span></span></div><div class="van-prop"><span class="van-prop-k">Date</span><span class="van-prop-v">July 2021</span></div></div>
                 </header>
                 <figure class="van-cover"><img src="https://diyjmz7hrjx3w.cloudfront.net/van/nature/black-canyon-of-the-gunnison/1.webp" alt="Black Canyon of the Gunnison" decoding="async"></figure>
                 <div class="van-prose">
@@ -91,7 +90,6 @@
     <script>
         (function() {
             const root = document.documentElement;
-            const prefersLight = window.matchMedia('(prefers-color-scheme: light)');
             function currentExplicitTheme() { try { return localStorage.getItem('theme'); } catch (_) { return null; } }
             function applyTheme(theme) {
                 root.classList.remove('theme-light', 'theme-dark');

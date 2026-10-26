@@ -1,12 +1,11 @@
 ---
-title: "Composting toilet"
-slug: "composting-toilet"
-collection: "build"
-date: "2021-11-03"
-status: "backlog"
+title: Composting toilet
+slug: composting-toilet
+collection: build
+date: '2021-11-03'
+status: Backlog
 order: 8
 ---
-
 [https://www.youtube.com/watch?v=3ttEzKtlX7o&ab_channel=Vanessa%26Adam](https://www.youtube.com/watch?v=3ttEzKtlX7o&ab_channel=Vanessa%26Adam)
 
 [https://www.etsy.com/shop/JohnnyCompostToilets](https://www.etsy.com/shop/JohnnyCompostToilets)

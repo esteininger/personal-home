@@ -1,14 +1,13 @@
 ---
-title: "Kitchen"
-slug: "kitchen"
-collection: "build"
-date: "2021-03-28"
-status: "done"
+title: Kitchen
+slug: kitchen
+collection: build
+date: '2021-03-28'
+status: Done
 order: 17
-cover: "https://diyjmz7hrjx3w.cloudfront.net/van/build/kitchen/1.webp"
-description: "Shelf pins for cabinet = 1/4”"
+cover: https://diyjmz7hrjx3w.cloudfront.net/van/build/kitchen/1.webp
+description: Shelf pins for cabinet = 1/4”
 ---
-
 ![](https://diyjmz7hrjx3w.cloudfront.net/van/build/kitchen/1.webp)
 
 ![Untitled](https://diyjmz7hrjx3w.cloudfront.net/van/build/kitchen/2.webp)

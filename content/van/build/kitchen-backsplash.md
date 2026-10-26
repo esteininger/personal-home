@@ -1,16 +1,14 @@
 ---
-title: "Kitchen backsplash"
-slug: "kitchen-backsplash"
-collection: "build"
-date: "2021-08-13"
-status: "todo"
+title: Kitchen backsplash
+slug: kitchen-backsplash
+collection: build
+date: '2021-08-13'
+status: To-Do
 order: 18
-tags: ["kitchen"]
+tags:
+- kitchen
+category: Kitchen
 ---
-
-
-
-
 ## Recent photos
 
 ![backsplash wall](https://diyjmz7hrjx3w.cloudfront.net/van/build/kitchen-backsplash/photo-1.webp)

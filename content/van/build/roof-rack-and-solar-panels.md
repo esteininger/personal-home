@@ -1,16 +1,18 @@
 ---
-title: "Roof Rack & Solar Panels"
-slug: "roof-rack-and-solar-panels"
-collection: "build"
-date: "2021-03-31"
-status: "done"
+title: Roof Rack & Solar Panels
+slug: roof-rack-and-solar-panels
+collection: build
+date: '2021-03-31'
+status: Done
 duration_hours: 14
 order: 27
-tags: ["power"]
-cover: "https://diyjmz7hrjx3w.cloudfront.net/van/build/roof-rack-and-solar-panels/1.webp"
-description: "The Ford transit is among the only cargo vans with a curved roof, which icy as beneficial because it maximizes the height of the interior. The drawback however is that mounting things on the roof and "
+tags:
+- power
+cover: https://diyjmz7hrjx3w.cloudfront.net/van/build/roof-rack-and-solar-panels/1.webp
+description: 'The Ford transit is among the only cargo vans with a curved roof, which icy as beneficial because it maximizes the height of the interior. The drawback however is that mounting things on the roof and '
+duration: 14 hours
+category: Power
 ---
-
 The Ford transit is among the only cargo vans with a curved roof, which icy as beneficial because it maximizes the height of the interior. The drawback however is that mounting things on the roof and ceiling are difficult because of the curvature. Because of this I had to fabricate a custom roof rack that is at an angle in order to clear the curvature of the exterior roof.
 
 I’d decided to build a rack pad out of UV resistant HDPE. This is cut at an angle with a miter saw with L brackets and 8020 mounting rods attached. 

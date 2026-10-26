@@ -1,16 +1,18 @@
 ---
-title: "Flooring"
-slug: "flooring"
-collection: "build"
-date: "2021-04-02"
-status: "done"
+title: Flooring
+slug: flooring
+collection: build
+date: '2021-04-02'
+status: Done
 duration_hours: 20
 order: 12
-tags: ["insulation"]
-cover: "https://diyjmz7hrjx3w.cloudfront.net/van/build/flooring/1.webp"
-description: "1. .40” Minicell which acts as a sound deadening and insulation to fill the corrugations 2. .25” Minicell similar as above but flat 3. 1/2” Baltic birch to server as a subfloor 4. Vinyl sheet for mois"
+tags:
+- insulation
+cover: https://diyjmz7hrjx3w.cloudfront.net/van/build/flooring/1.webp
+description: 1. .40” Minicell which acts as a sound deadening and insulation to fill the corrugations 2. .25” Minicell similar as above but flat 3. 1/2” Baltic birch to server as a subfloor 4. Vinyl sheet for mois
+duration: 20 hours
+category: Insulation
 ---
-
 I used 4 layers of flooring as follows: 
 
 1. .40” Minicell which acts as a sound deadening and insulation to fill the corrugations 

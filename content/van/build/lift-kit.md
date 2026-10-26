@@ -1,13 +1,12 @@
 ---
-title: "Lift Kit"
-slug: "lift-kit"
-collection: "build"
-date: "2021-08-29"
-status: "todo"
+title: Lift Kit
+slug: lift-kit
+collection: build
+date: '2021-08-29'
+status: To-Do
 order: 19
-description: "Aluminess nerf bars"
+description: Aluminess nerf bars
 ---
-
 [https://vancompass.com/products/van-compass-ford-transit-topo-2-0-lift-kit-2013-present?variant=34849822474394](https://vancompass.com/products/van-compass-ford-transit-topo-2-0-lift-kit-2013-present?variant=34849822474394)
 
 [https://vancompass.com/pages/van-compass-dealers](https://vancompass.com/pages/van-compass-dealers)

@@ -1,15 +1,15 @@
 ---
-title: "Electricals"
-slug: "electricals"
-collection: "build"
-date: "2021-04-03"
-status: "done"
+title: Electricals
+slug: electricals
+collection: build
+date: '2021-04-03'
+status: Done
 duration_hours: 10
 order: 10
-cover: "https://diyjmz7hrjx3w.cloudfront.net/van/build/electricals/1.webp"
-description: "All combinations need to be in parallel (same voltage, varying current)."
+cover: https://diyjmz7hrjx3w.cloudfront.net/van/build/electricals/1.webp
+description: All combinations need to be in parallel (same voltage, varying current).
+duration: 10 hours
 ---
-
 ![](https://diyjmz7hrjx3w.cloudfront.net/van/build/electricals/1.webp)
 
 ![](https://diyjmz7hrjx3w.cloudfront.net/van/build/electricals/2.webp)

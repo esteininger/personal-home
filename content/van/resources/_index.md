@@ -1,10 +1,9 @@
 ---
-title: "Resources"
-collection: "resources"
+title: "Vanspiration"
+emoji: "💡"
 layout: "gallery"
 sort: "order"
-description: "The parts, builds, and references I leaned on while converting the van."
-blurb: "Parts and builds I leaned on."
+description: "The references, parts, and builds I pulled ideas from while planning the conversion, one per system."
 ---
 
-The builds, parts, and references I collected while planning and converting the van.
+Before I built anything I collected references for every system: the look I was after, the parts I leaned toward, and other builds worth copying.

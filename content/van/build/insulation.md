@@ -1,16 +1,18 @@
 ---
-title: "Insulation"
-slug: "insulation"
-collection: "build"
-date: "2021-04-03"
-status: "done"
+title: Insulation
+slug: insulation
+collection: build
+date: '2021-04-03'
+status: Done
 duration_hours: 12
 order: 15
-tags: ["insulation"]
-cover: "https://diyjmz7hrjx3w.cloudfront.net/van/build/insulation/1.webp"
-description: "Insulation is one of the most contentious topics of DIY van conversions. I decided to go with one of the more expensive albeit easiest to work with and highest ratio of insulation R-value per square i"
+tags:
+- insulation
+cover: https://diyjmz7hrjx3w.cloudfront.net/van/build/insulation/1.webp
+description: Insulation is one of the most contentious topics of DIY van conversions. I decided to go with one of the more expensive albeit easiest to work with and highest ratio of insulation R-value per square i
+duration: 12 hours
+category: Insulation
 ---
-
 Insulation is one of the most contentious topics of DIY van conversions. I decided to go with one of the more expensive albeit easiest to work with and highest ratio of insulation R-value per square inch: 3M Thinsulate. This material is also hydrophobic, fire retardant and non toxic. Acting as a vapor barrier is also HUGE. 
 
 Also made by 3M, I used an adhesive that works well with metal: 90 adhesive (see total spend spreadsheet) to stick it to the walls and ceilings.

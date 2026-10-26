@@ -1,16 +1,18 @@
 ---
-title: "Ventilation"
-slug: "ventilation"
-collection: "build"
-date: "2021-03-28"
-status: "done"
+title: Ventilation
+slug: ventilation
+collection: build
+date: '2021-03-28'
+status: Done
 duration_hours: 12
 order: 33
-tags: ["ventilation"]
-cover: "https://diyjmz7hrjx3w.cloudfront.net/van/build/ventilation/1.webp"
-description: "One of the biggest concerns of living in a van is moisture accumulation. If moisture accumulates then mold is inevitable, so ventilation is critical."
+tags:
+- ventilation
+cover: https://diyjmz7hrjx3w.cloudfront.net/van/build/ventilation/1.webp
+description: One of the biggest concerns of living in a van is moisture accumulation. If moisture accumulates then mold is inevitable, so ventilation is critical.
+duration: 12 hours
+category: Ventilation
 ---
-
 One of the biggest concerns of living in a van is moisture accumulation. If moisture accumulates then mold is inevitable, so ventilation is critical. 
 
 I purchased a rain guard for the front cabin side windows so I can crack them without rain getting in, and installed a vent fan on the top rear. This arrangement gives me end to end cross ventilation.

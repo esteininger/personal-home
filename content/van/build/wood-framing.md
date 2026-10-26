@@ -1,14 +1,15 @@
 ---
-title: "Wood Framing"
-slug: "wood-framing"
-collection: "build"
-date: "2021-05-21"
-status: "done"
+title: Wood Framing
+slug: wood-framing
+collection: build
+date: '2021-05-21'
+status: Done
 order: 35
-tags: ["van"]
-cover: "https://diyjmz7hrjx3w.cloudfront.net/van/build/wood-framing/1.webp"
+tags:
+- van
+cover: https://diyjmz7hrjx3w.cloudfront.net/van/build/wood-framing/1.webp
+category: Van
 ---
-
 ![](https://diyjmz7hrjx3w.cloudfront.net/van/build/wood-framing/1.webp)
 
 
