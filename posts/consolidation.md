@@ -1,6 +1,7 @@
 ---
 title: consolidation
 date: "2025-09-15"
+category: american politics
 description: the democratic party has drifted left on healthcare, climate, and social issues while becoming more ideologically uniform than at any point in recent history.
 ---
 

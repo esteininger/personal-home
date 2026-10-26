@@ -1,9 +1,8 @@
 ---
-
 title: guardrails
 date: "2025-11-17"
+category: history & geopolitics
 description: why real liberalism requires protecting vulnerable minorities, not pretending demographic shifts are morally neutral.
-
 ---
 
 israel's critics frame the question as abstract: should a country give one group special political protection? but you can answer that question by looking at what happens when a vulnerable minority loses the ability to protect itself. for jews, that story has played out the same way for two thousand years. it has ended the same way every time.

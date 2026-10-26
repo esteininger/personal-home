@@ -1,6 +1,7 @@
 ---
 title: capture
 date: "2026-06-26"
+category: american politics
 description: how disciplined ideological minorities capture broader coalitions from the inside, and why the dsa's strategy inside the democratic party follows a familiar pattern.
 ---
 

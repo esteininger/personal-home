@@ -1,6 +1,7 @@
 ---
 title: colonialism
 date: "2025-10-29"
+category: history & geopolitics
 description: a short reflection on why calling israel a colonial project misses the point, and why the comparison collapses under the weight of the actual history.
 ---
 

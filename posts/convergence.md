@@ -1,7 +1,8 @@
 ---
 title: convergence
 date: "2025-10-01"
-description: Why Christianity and Islam produced such different political outcomes, despite both being rooted in rigid scripture.
+category: history & geopolitics
+description: why christianity and islam produced such different political outcomes, despite both being rooted in rigid scripture.
 ---
 
 christianity and islam both claim divine revelation, fixed texts, and absolute truth. christianity produced secular liberal democracy. islam produced theocratic states that fuse religion and politics. the split comes down to how each text shaped the cultures built around it.
