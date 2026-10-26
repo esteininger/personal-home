@@ -99,8 +99,15 @@
         <div id="about" class="page active">
             <div class="bio-layout">
                 <!-- Left Column -->
-                <div class="profile-section">
-                    <img src="images/ethan.jpeg" alt="Profile" class="profile-img" width="200" height="200">
+                <div class="profile-section" data-avatar="real">
+                    <div class="profile-media">
+                        <img src="images/ethan.jpeg" alt="Profile" class="profile-img profile-real" width="200" height="200">
+                        <img src="images/ethan-illustrated.webp" alt="Illustrated portrait of Ethan Steininger" class="profile-img profile-illus" width="200" height="200" loading="lazy" decoding="async">
+                    </div>
+                    <div class="avatar-toggle" role="group" aria-label="Profile picture style">
+                        <button type="button" class="avatar-opt is-active" data-mode="real" aria-pressed="true">Real</button>
+                        <button type="button" class="avatar-opt" data-mode="illustrated" aria-pressed="false">Illustrated</button>
+                    </div>
                     <h3>Ethan Steininger</h3>
 
                     <div class="social-links">
@@ -2771,6 +2778,30 @@ triggers:
             observeRevealItems('.road-card');
         });
 
+    </script>
+    <script>
+        // Profile avatar toggle: Real | Illustrated (persisted, crossfade)
+        (function() {
+            var sec = document.querySelector('.profile-section');
+            if (!sec) return;
+            var opts = sec.querySelectorAll('.avatar-opt');
+            function setMode(mode, save) {
+                if (mode !== 'illustrated') mode = 'real';
+                sec.setAttribute('data-avatar', mode);
+                opts.forEach(function(b) {
+                    var on = b.dataset.mode === mode;
+                    b.classList.toggle('is-active', on);
+                    b.setAttribute('aria-pressed', String(on));
+                });
+                if (save) { try { localStorage.setItem('avatarMode', mode); } catch (e) {} }
+            }
+            var saved = null;
+            try { saved = localStorage.getItem('avatarMode'); } catch (e) {}
+            setMode(saved || 'real', false);
+            opts.forEach(function(b) {
+                b.addEventListener('click', function() { setMode(b.dataset.mode, true); });
+            });
+        })();
     </script>
 </body>
 
