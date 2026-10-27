@@ -110,6 +110,47 @@ THEME_TOGGLE = '''<script>
     </script>'''
 
 
+VAN_LIGHTBOX = '''<script>
+        (function() {
+            var sel = '.van-prose img, .van-cover img, .van-beforeafter img, .van-hero-cover img, img.van-route-map';
+            var imgs = Array.prototype.slice.call(document.querySelectorAll(sel));
+            if (!imgs.length) return;
+            var lb = document.getElementById('van-lb');
+            var lbImg = lb.querySelector('.van-lb-img');
+            var cur = 0;
+            imgs.forEach(function(im, i) {
+                im.style.cursor = 'zoom-in';
+                im.addEventListener('click', function(e) { e.preventDefault(); open(i); });
+            });
+            function show(i) {
+                cur = (i + imgs.length) % imgs.length;
+                var src = imgs[cur].currentSrc || imgs[cur].src;
+                lbImg.src = src; lbImg.alt = imgs[cur].alt || '';
+            }
+            function open(i) { lb.classList.add('is-open'); lb.setAttribute('aria-hidden', 'false'); document.body.style.overflow = 'hidden'; show(i); }
+            function close() { lb.classList.remove('is-open'); lb.setAttribute('aria-hidden', 'true'); document.body.style.overflow = ''; lbImg.removeAttribute('src'); }
+            lb.querySelector('.van-lb-close').addEventListener('click', close);
+            lb.querySelector('.van-lb-next').addEventListener('click', function(e) { e.stopPropagation(); show(cur + 1); });
+            lb.querySelector('.van-lb-prev').addEventListener('click', function(e) { e.stopPropagation(); show(cur - 1); });
+            lb.addEventListener('click', function(e) { if (e.target === lb || e.target === lbImg) close(); });
+            document.addEventListener('keydown', function(e) {
+                if (!lb.classList.contains('is-open')) return;
+                if (e.key === 'Escape') close();
+                else if (e.key === 'ArrowRight') show(cur + 1);
+                else if (e.key === 'ArrowLeft') show(cur - 1);
+            });
+            if (imgs.length < 2) { lb.querySelector('.van-lb-next').style.display = 'none'; lb.querySelector('.van-lb-prev').style.display = 'none'; }
+        })();
+    </script>'''
+
+LIGHTBOX_MARKUP = '''<div class="van-lb" id="van-lb" aria-hidden="true" role="dialog" aria-label="Image viewer">
+        <button class="van-lb-close" type="button" aria-label="Close">✕</button>
+        <button class="van-lb-nav van-lb-prev" type="button" aria-label="Previous">‹</button>
+        <img class="van-lb-img" alt="">
+        <button class="van-lb-nav van-lb-next" type="button" aria-label="Next">›</button>
+    </div>'''
+
+
 def md_parser():
     return markdown.Markdown(
         extensions=[
@@ -229,7 +270,9 @@ def page_shell(*, title, description, canonical, body,
         </main>
         <div class="footer">me (at) ethan (dot) dev</div>
     </div>
+    {LIGHTBOX_MARKUP}
     {THEME_TOGGLE}
+    {VAN_LIGHTBOX}
 </body>
 </html>
 '''
@@ -668,6 +711,114 @@ def link_list(items):
     return "\n".join(rows)
 
 
+def stories_component(cfg):
+    """An Instagram-stories-style carousel: tappable poster bubbles that open a
+    viewer which autoplays each clip with progress bars and tap-to-advance."""
+    stories = cfg.get("stories") or []
+    if not stories:
+        return "", ""
+    title = cfg.get("stories_title", "Stories")
+    bubbles = []
+    for i, s in enumerate(stories):
+        poster = s.get("poster")
+        label = s.get("label", f"Clip {i+1}")
+        bubbles.append(
+            f'<button class="van-story-bubble" type="button" data-i="{i}" aria-label="Play {esc(label)}">'
+            f'<span class="van-story-ring"><span class="van-story-thumb">{img_tag(poster, esc(label), cls="")}</span></span>'
+            f'<span class="van-story-cap">{esc(label)}</span></button>')
+    section = f'''<section class="van-stories" aria-label="{esc(title)}">
+                <h2 class="van-section-title">{esc(title)}</h2>
+                <div class="van-stories-row">
+                    {"".join(bubbles)}
+                </div>
+            </section>'''
+    data_js = json.dumps([{"src": s.get("src"), "poster": s.get("poster"), "label": s.get("label", f"Clip {i+1}")}
+                          for i, s in enumerate(stories)])
+    viewer = f'''<div class="van-viewer" id="van-viewer" aria-hidden="true" role="dialog" aria-label="Stories">
+            <div class="van-viewer-backdrop" data-close></div>
+            <div class="van-viewer-stage">
+                <div class="van-viewer-bars" id="van-viewer-bars"></div>
+                <div class="van-viewer-top">
+                    <span class="van-viewer-title">vanlifecoder</span>
+                    <div class="van-viewer-actions">
+                        <button class="van-viewer-btn" id="van-viewer-mute" type="button" aria-label="Toggle sound">\U0001F507</button>
+                        <button class="van-viewer-btn" data-close type="button" aria-label="Close">✕</button>
+                    </div>
+                </div>
+                <video class="van-viewer-video" id="van-viewer-video" playsinline muted preload="auto"></video>
+                <button class="van-viewer-zone van-viewer-prev" id="van-viewer-prev" type="button" aria-label="Previous"></button>
+                <button class="van-viewer-zone van-viewer-next" id="van-viewer-next" type="button" aria-label="Next"></button>
+            </div>
+        </div>
+        <script>
+        (function() {{
+            var STORIES = {data_js};
+            if (!STORIES.length) return;
+            var viewer = document.getElementById('van-viewer');
+            var video = document.getElementById('van-viewer-video');
+            var barsEl = document.getElementById('van-viewer-bars');
+            var muteBtn = document.getElementById('van-viewer-mute');
+            var idx = 0, playing = false;
+            STORIES.forEach(function() {{
+                var b = document.createElement('span'); b.className = 'van-bar';
+                b.innerHTML = '<i></i>'; barsEl.appendChild(b);
+            }});
+            var bars = barsEl.querySelectorAll('.van-bar i');
+            function setBars() {{
+                bars.forEach(function(el, i) {{ el.style.width = i < idx ? '100%' : '0%'; }});
+            }}
+            function preload(i) {{
+                if (i >= 0 && i < STORIES.length) {{ var im = new Image(); im.src = STORIES[i].poster; }}
+            }}
+            function load(i) {{
+                idx = i; setBars();
+                video.poster = STORIES[i].poster;
+                video.src = STORIES[i].src;
+                video.currentTime = 0;
+                var p = video.play(); if (p && p.catch) p.catch(function() {{}});
+                preload(i + 1);
+            }}
+            function open(i) {{
+                viewer.classList.add('is-open'); viewer.setAttribute('aria-hidden', 'false');
+                document.body.style.overflow = 'hidden'; playing = true; load(i);
+            }}
+            function close() {{
+                viewer.classList.remove('is-open'); viewer.setAttribute('aria-hidden', 'true');
+                document.body.style.overflow = ''; playing = false; video.pause(); video.removeAttribute('src'); video.load();
+            }}
+            function next() {{ if (idx < STORIES.length - 1) load(idx + 1); else close(); }}
+            function prev() {{ if (idx > 0) load(idx - 1); else load(0); }}
+            video.addEventListener('timeupdate', function() {{
+                if (video.duration) bars[idx].style.width = (100 * video.currentTime / video.duration) + '%';
+            }});
+            video.addEventListener('ended', next);
+            document.getElementById('van-viewer-next').addEventListener('click', next);
+            document.getElementById('van-viewer-prev').addEventListener('click', prev);
+            muteBtn.addEventListener('click', function() {{
+                video.muted = !video.muted;
+                muteBtn.textContent = video.muted ? '\U0001F507' : '\U0001F50A';
+            }});
+            Array.prototype.forEach.call(document.querySelectorAll('[data-close]'), function(el) {{
+                el.addEventListener('click', close);
+            }});
+            document.addEventListener('keydown', function(e) {{
+                if (!viewer.classList.contains('is-open')) return;
+                if (e.key === 'Escape') close();
+                else if (e.key === 'ArrowRight') next();
+                else if (e.key === 'ArrowLeft') prev();
+            }});
+            // pause on hold (pointer down on the stage, not the nav zones)
+            video.addEventListener('pointerdown', function() {{ video.pause(); }});
+            video.addEventListener('pointerup', function() {{ if (playing) video.play().catch(function(){{}}); }});
+            Array.prototype.forEach.call(document.querySelectorAll('.van-story-bubble'), function(b) {{
+                b.addEventListener('click', function() {{ open(parseInt(b.getAttribute('data-i'), 10) || 0); }});
+                var im = new Image(); im.src = STORIES[parseInt(b.getAttribute('data-i'), 10) || 0].poster;
+            }});
+        }})();
+        </script>'''
+    return section, viewer
+
+
 def render_landing(content_root: Path, out_root: Path, build_entries):
     cfg, body_md = parse_doc(content_root / "index.md")
     intro_html = render_markdown(body_md)
@@ -698,6 +849,7 @@ def render_landing(content_root: Path, out_root: Path, build_entries):
                 </details>'''
 
     journal = gallery(build_entries, "build")
+    stories_section, stories_viewer = stories_component(cfg)
 
     body = f'''            {cover_html}
             <header class="van-header van-landing-header">
@@ -706,6 +858,7 @@ def render_landing(content_root: Path, out_root: Path, build_entries):
                 {ba}
                 {video_html}
             </header>
+            {stories_section}
             <section class="van-index">
                 <div class="van-col">
                     <h2 class="van-section-title">Follow Along</h2>
@@ -723,7 +876,8 @@ def render_landing(content_root: Path, out_root: Path, build_entries):
             <section class="van-journal">
                 <h2 class="van-section-title">Build Journal</h2>
                 {journal}
-            </section>'''
+            </section>
+            {stories_viewer}'''
     jsonld = {
         "@context": "https://schema.org", "@type": "CollectionPage",
         "name": "Van", "description": description, "url": canonical,
