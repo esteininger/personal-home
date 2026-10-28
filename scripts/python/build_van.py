@@ -686,16 +686,14 @@ def render_costs_page(coll_dir: Path, out_root: Path):
 FOLLOW_ALONG = [
     ("\U0001FAB4", "Nature Reviews", "/van/nature"),
     ("\U0001F3D8️", "Town Rankings", "/van/towns"),
-    ("\U0001F5FA️", "Past Routes", "/van/routes"),
+    ("\U0001F5FA️", "Past Routes", "/road"),
     ("\U0001F4F7", "Instagram", "https://instagram.com/vanlifecoder"),
     ("\U0001F4FD️", "YouTube", "https://youtube.com/@vanlifecoder"),
-    ("\U0001F4C4", "Lanscapes", "/van/lanscapes"),
 ]
 DOCUMENTATION = [
     ("\U0001F4C9", "Cost Breakdown", "/van/costs"),
     ("\U0001F4A1", "Vanspiration", "/van/resources"),
     ("\U0001F9F9", "VanLifeCoder Prep", "/van/prep"),
-    ("\U0001F9E0", "Musings", "/van/notes"),
     ("\U0001F4DD", "Misc", "/van/misc"),
 ]
 
@@ -819,6 +817,51 @@ def stories_component(cfg):
     return section, viewer
 
 
+def routes_strip(out_root: Path) -> str:
+    """Compact preview of the real road trips (routes.json), each linking to /road."""
+    import json as _json
+    from datetime import datetime
+    rj = out_root / "routes.json"
+    if not rj.exists():
+        return ""
+    try:
+        routes = _json.loads(rj.read_text(encoding="utf-8"))
+    except Exception:
+        return ""
+    if not isinstance(routes, list) or not routes:
+        return ""
+
+    def _key(r):
+        try:
+            return datetime.strptime(r.get("date") or "", "%Y-%m-%d")
+        except Exception:
+            return datetime.min
+    routes = sorted(routes, key=_key, reverse=True)
+
+    cards = []
+    for r in routes:
+        name = esc(str(r.get("name") or r.get("id") or "Route"))
+        img = r.get("image")
+        states = r.get("tags") if isinstance(r.get("tags"), list) else []
+        meta = ", ".join(states[:3]) + ("…" if len(states) > 3 else "")
+        thumb = (f'<img src="{esc(img)}" alt="{name}" loading="lazy" decoding="async">'
+                 if img else '<span class="van-route-noimg"></span>')
+        states_html = f'<span class="van-route-states">{esc(meta)}</span>' if meta else ''
+        cards.append(
+            f'<a class="van-route-card" href="/road" aria-label="Past routes: {name}">'
+            f'{thumb}<span class="van-route-name">{name}</span>{states_html}</a>'
+        )
+    return f'''<section class="van-routes-strip">
+                <div class="van-routes-strip-head">
+                    <h2 class="van-section-title">Past Routes</h2>
+                    <a class="van-routes-all" href="/road">See the maps →</a>
+                </div>
+                <div class="van-route-scroller">
+                    {''.join(cards)}
+                </div>
+            </section>'''
+
+
 def render_landing(content_root: Path, out_root: Path, build_entries):
     cfg, body_md = parse_doc(content_root / "index.md")
     intro_html = render_markdown(body_md)
@@ -849,6 +892,7 @@ def render_landing(content_root: Path, out_root: Path, build_entries):
                 </details>'''
 
     journal = gallery(build_entries, "build")
+    routes_html = routes_strip(out_root)
     stories_section, stories_viewer = stories_component(cfg)
 
     body = f'''            {cover_html}
@@ -873,6 +917,7 @@ def render_landing(content_root: Path, out_root: Path, build_entries):
                     </div>
                 </div>
             </section>
+            {routes_html}
             <section class="van-journal">
                 <h2 class="van-section-title">Build Journal</h2>
                 {journal}
@@ -895,8 +940,8 @@ def render_landing(content_root: Path, out_root: Path, build_entries):
 # ---------------------------------------------------------------------------
 
 # coll -> is a gallery/list collection with entries + detail pages
-GALLERY_COLLECTIONS = ["build", "nature", "towns", "resources", "notes"]
-SINGLE_PAGES = ["prep", "misc", "lanscapes"]
+GALLERY_COLLECTIONS = ["build", "nature", "towns", "resources"]
+SINGLE_PAGES = ["prep", "misc"]
 
 
 def main():
@@ -926,10 +971,8 @@ def main():
         for e in entries:
             built.append(render_detail_page(coll, cfg, e, out_root))
 
-    # Past Routes
-    r = render_routes_page(content_root, out_root)
-    if r:
-        built.append(r)
+    # Past Routes now reuses the real /road page (routes.json). The landing
+    # shows a preview strip linking there; no separate /van/routes page.
 
     # Cost Breakdown
     costs_dir = content_root / "costs"
