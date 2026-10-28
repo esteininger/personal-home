@@ -686,7 +686,6 @@ def render_costs_page(coll_dir: Path, out_root: Path):
 FOLLOW_ALONG = [
     ("\U0001FAB4", "Nature Reviews", "/van/nature"),
     ("\U0001F3D8️", "Town Rankings", "/van/towns"),
-    ("\U0001F5FA️", "Past Routes", "/road"),
     ("\U0001F4F7", "Instagram", "https://instagram.com/vanlifecoder"),
     ("\U0001F4FD️", "YouTube", "https://youtube.com/@vanlifecoder"),
 ]
@@ -817,19 +816,20 @@ def stories_component(cfg):
     return section, viewer
 
 
-def routes_strip(out_root: Path) -> str:
-    """Compact preview of the real road trips (routes.json), each linking to /road."""
+def load_routes(out_root: Path):
+    """Real road trips from routes.json, sorted newest first, with optional
+    per-route notes markdown (content/van/routes/<id>.md) merged in as _notes."""
     import json as _json
     from datetime import datetime
     rj = out_root / "routes.json"
     if not rj.exists():
-        return ""
+        return [], {}
     try:
         routes = _json.loads(rj.read_text(encoding="utf-8"))
     except Exception:
-        return ""
-    if not isinstance(routes, list) or not routes:
-        return ""
+        return [], {}
+    if not isinstance(routes, list):
+        return [], {}
 
     def _key(r):
         try:
@@ -838,28 +838,152 @@ def routes_strip(out_root: Path) -> str:
             return datetime.min
     routes = sorted(routes, key=_key, reverse=True)
 
+    notes_dir = out_root / "content" / "van" / "routes"
+    cfg = {}
+    if (notes_dir / "_index.md").exists():
+        cfg, _ = parse_doc(notes_dir / "_index.md")
+    for r in routes:
+        nf = notes_dir / f"{r.get('id', '')}.md"
+        if nf.exists():
+            _ncfg, nbody = parse_doc(nf)
+            r["_notes"] = nbody
+        else:
+            r["_notes"] = r.get("description", "")
+    return routes, cfg
+
+
+def _route_states(r):
+    return r.get("tags") if isinstance(r.get("tags"), list) else []
+
+
+def routes_strip(out_root: Path) -> str:
+    """Compact Past Routes preview on the landing; each card opens its route page."""
+    routes, _ = load_routes(out_root)
+    if not routes:
+        return ""
     cards = []
     for r in routes:
         name = esc(str(r.get("name") or r.get("id") or "Route"))
         img = r.get("image")
-        states = r.get("tags") if isinstance(r.get("tags"), list) else []
+        states = _route_states(r)
         meta = ", ".join(states[:3]) + ("…" if len(states) > 3 else "")
+        href = f"/van/routes/{esc(str(r.get('id', '')))}"
         thumb = (f'<img src="{esc(img)}" alt="{name}" loading="lazy" decoding="async">'
                  if img else '<span class="van-route-noimg"></span>')
         states_html = f'<span class="van-route-states">{esc(meta)}</span>' if meta else ''
         cards.append(
-            f'<a class="van-route-card" href="/road" aria-label="Past routes: {name}">'
+            f'<a class="van-route-card" href="{href}" aria-label="{name} route">'
             f'{thumb}<span class="van-route-name">{name}</span>{states_html}</a>'
         )
     return f'''<section class="van-routes-strip">
                 <div class="van-routes-strip-head">
                     <h2 class="van-section-title">Past Routes</h2>
-                    <a class="van-routes-all" href="/road">See the maps →</a>
+                    <a class="van-routes-all" href="/van/routes">See all →</a>
                 </div>
                 <div class="van-route-scroller">
                     {''.join(cards)}
                 </div>
             </section>'''
+
+
+def _route_props(r):
+    """Notion-style property block for a route detail page: States, Date."""
+    rows = []
+    states = _route_states(r)
+    if states:
+        tags = "".join(f'<span class="van-tag">{esc(s)}</span>' for s in states)
+        rows.append('<div class="van-prop"><span class="van-prop-k">States</span>'
+                    f'<span class="van-prop-v van-prop-tags">{tags}</span></div>')
+    if r.get("date"):
+        rows.append('<div class="van-prop"><span class="van-prop-k">Date</span>'
+                    f'<span class="van-prop-v">{esc(fmt_date(r["date"]))}</span></div>')
+    return f'<div class="van-props">{"".join(rows)}</div>' if rows else ""
+
+
+def render_route_detail(r, cfg, out_root: Path):
+    rid = str(r.get("id", ""))
+    name = r.get("name") or rid
+    coll_title = cfg.get("title", "Past Routes")
+    description = r.get("description") or f"The {name} route."
+    canonical = f"{SITE}/van/routes/{rid}"
+    cover = r.get("image")
+    cover_html = f'<figure class="van-cover">{img_tag(cover, name, lazy=False)}</figure>' if cover else ""
+    notes_html = render_markdown(r.get("_notes") or r.get("description", ""))
+    if not notes_html.strip():
+        notes_html = '<p class="van-empty">Notes coming soon.</p>'
+    body = f'''            <article class="van-detail">
+                {crumbs([("Van", "/van"), (coll_title, "/van/routes"), (name, None)])}
+                <header class="van-detail-header">
+                    <h1>{esc(name)}</h1>
+                    {_route_props(r)}
+                </header>
+                {cover_html}
+                <div class="van-prose">
+                    {notes_html}
+                </div>
+                <p class="van-back"><a href="/van/routes">← All {esc(coll_title)}</a></p>
+            </article>'''
+    jsonld = {"@context": "https://schema.org", "@type": "Article",
+              "headline": name, "description": description, "url": canonical,
+              "author": {"@type": "Person", "name": "Ethan Steininger", "url": SITE}}
+    if r.get("date"):
+        jsonld["datePublished"] = str(r["date"])
+    out = out_root / "van" / "routes" / rid / "index.html"
+    out.parent.mkdir(parents=True, exist_ok=True)
+    out.write_text(page_shell(title=f"{name} — Past Routes — Van", description=description,
+                              canonical=canonical, body=body, og_type="article",
+                              image=cover, jsonld=jsonld), encoding="utf-8")
+    return out
+
+
+def render_routes_collection(out_root: Path):
+    """Past Routes as a van-format collection: a gallery page + a detail page per
+    trip (map cover, States/Date props, and editable notes prose)."""
+    routes, cfg = load_routes(out_root)
+    if not routes:
+        return []
+    title = cfg.get("title", "Past Routes")
+    emoji = cfg.get("emoji", "")
+    description = cfg.get("description", "Where the van has been, year by year.")
+    intro_html = render_markdown(cfg.get("intro", "")) if cfg.get("intro") else ""
+    canonical = f"{SITE}/van/routes"
+
+    entries = []
+    for r in routes:
+        states = _route_states(r)
+        entries.append({
+            "slug": str(r.get("id", "")),
+            "title": r.get("name") or r.get("id"),
+            "cover": r.get("image"),
+            "tags": states[:3],
+            "date": r.get("date"),
+            "show_date": False,
+            "description": r.get("description"),
+            "_body": r.get("_notes", ""),
+        })
+    listing = gallery(entries, "routes")
+
+    intro_block = f'<div class="van-intro">{intro_html}</div>' if intro_html else ""
+    body = f'''            {crumbs([("Van", "/van"), (title, None)])}
+            <header class="van-header">
+                <h1>{(esc(emoji) + " ") if emoji else ""}{esc(title)}</h1>
+                {intro_block}
+                <div class="van-viewtag">Gallery view</div>
+            </header>
+{listing}'''
+    jsonld = {"@context": "https://schema.org", "@type": "CollectionPage",
+              "name": title, "description": description, "url": canonical}
+    built = []
+    out = out_root / "van" / "routes" / "index.html"
+    out.parent.mkdir(parents=True, exist_ok=True)
+    out.write_text(page_shell(title=f"{title} — Van", description=description,
+                              canonical=canonical, body=body,
+                              image=next((r.get("image") for r in routes if r.get("image")), None),
+                              jsonld=jsonld), encoding="utf-8")
+    built.append(out)
+    for r in routes:
+        built.append(render_route_detail(r, cfg, out_root))
+    return built
 
 
 def render_landing(content_root: Path, out_root: Path, build_entries):
@@ -971,8 +1095,9 @@ def main():
         for e in entries:
             built.append(render_detail_page(coll, cfg, e, out_root))
 
-    # Past Routes now reuses the real /road page (routes.json). The landing
-    # shows a preview strip linking there; no separate /van/routes page.
+    # Past Routes: a van-format collection built from routes.json (map covers,
+    # States/Date props, editable notes), plus the landing preview strip.
+    built.extend(render_routes_collection(out_root))
 
     # Cost Breakdown
     costs_dir = content_root / "costs"

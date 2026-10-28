@@ -111,25 +111,27 @@ nav a.active::after {
     background: var(--accent);
 }
 
-/* Nav rows: theme toggle on its own row (top right), links full-width below */
+/* Nav: links on the left, theme toggle inline on the right, one row. */
 .nav-row {
     display: flex;
-    flex-direction: column;
-    align-items: stretch;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
     border-bottom: 1px solid var(--border);
     padding-bottom: 0.5rem;
-    gap: 0.6rem;
-}
-
-.nav-row .theme-toggle {
-    order: -1;
-    align-self: flex-end;
-    margin: 0;
+    gap: 1.25rem;
 }
 
 .nav-row ul {
-    width: 100%;
-    justify-content: space-between;
+    flex: 1 1 auto;
+    min-width: 0;
+    justify-content: flex-start;
+    padding-bottom: 0;
+}
+
+.nav-row .theme-toggle {
+    flex: 0 0 auto;
+    margin: 0;
 }
 
 /* Page sections */
@@ -1635,10 +1637,15 @@ body.lightbox-open .leaflet-tooltip-pane {
         display: none;
     }
 
-    /* Spread the visible tabs across the row instead of bunching left */
-    nav ul {
-        flex: 1;
-        justify-content: space-between;
+    /* Tabs scroll in the remaining space; the theme toggle stays pinned right. */
+    .nav-row {
+        gap: 0.6rem;
+    }
+
+    .nav-row ul {
+        flex: 1 1 0%;
+        min-width: 0;
+        justify-content: flex-start;
         gap: 0.75rem;
     }
 
@@ -1646,8 +1653,9 @@ body.lightbox-open .leaflet-tooltip-pane {
         font-size: 0.95rem;
     }
 
-    .theme-toggle {
-        margin-left: 1.25rem;
+    .nav-row .theme-toggle {
+        flex: 0 0 auto;
+        margin: 0;
     }
 
     /* Album on mobile: no Gallery/Clusters tabs, no search, no sort row.
