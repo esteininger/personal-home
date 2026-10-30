@@ -267,9 +267,14 @@
                     // Navigate to standalone article page
                     window.location.href = '/' + post.id;
                 };
+                const dateStr = new Date(post.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' });
+                const category = (post.metadata && post.metadata.category) ? post.metadata.category : '';
                 el.innerHTML = `
                     <h2>${post.title}</h2>
-                    <div class="date">${new Date(post.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</div>
+                    <div class="blog-meta">
+                        <span class="date">${dateStr}</span>
+                        ${category ? `<span class="category-tag">${category}</span>` : ''}
+                    </div>
                     <div class="description">${post.description}</div>
                 `;
                 blogList.appendChild(el);

@@ -366,6 +366,28 @@ html.theme-dark .theme-switch { background: #111218; }
     line-height: 1.6;
 }
 
+.blog-list-item .blog-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+    margin-bottom: 0.5rem;
+}
+
+.blog-list-item .blog-meta .date {
+    margin-bottom: 0;
+}
+
+.blog-list-item .category-tag {
+    padding: 0.15rem 0.6rem;
+    background: rgba(128, 128, 128, 0.1);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    font-size: 0.72rem;
+    color: var(--text-dim);
+    white-space: nowrap;
+}
+
 .blog-post {
     animation: fadeIn 0.3s;
 }
