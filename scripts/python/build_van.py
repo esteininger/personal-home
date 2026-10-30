@@ -95,7 +95,9 @@ THEME_TOGGLE = '''<script>
             function toggleTheme() {
                 const explicit = currentExplicitTheme();
                 const currentIsLight = explicit ? explicit === 'light' : true;
-                applyTheme(currentIsLight ? 'dark' : 'light');
+                const next = currentIsLight ? 'dark' : 'light';
+                try { localStorage.setItem('theme', next); } catch (_) {}
+                applyTheme(next);
             }
             window.addEventListener('DOMContentLoaded', () => {
                 const btn = document.getElementById('theme-toggle');

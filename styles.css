@@ -4,7 +4,22 @@
     box-sizing: border-box;
 }
 
+/* Light is the default theme regardless of system preference.
+   Dark applies only when <html> carries the .theme-dark class. */
 :root {
+    --bg: #fafafa;
+    --text: #151515;
+    --text-dim: #555555;
+    --accent: #000000;
+    --border: #e2e2e2;
+    --font-body: 'Lora', Georgia, 'Times New Roman', Times, serif;
+    --font-headings: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+/* Explicit overrides via class on <html>. Scoped to html (specificity 0,1,1)
+   so an explicit choice always beats any :root fallback, including the one in
+   articles.css, no matter which stylesheet loads last. */
+html.theme-dark {
     --bg: #0a0a0f;
     --text: #e0e0e0;
     --text-dim: #888;
@@ -14,31 +29,7 @@
     --font-headings: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
 }
 
-/* Respect system preference by default */
-@media (prefers-color-scheme: light) {
-    :root {
-        --bg: #fafafa;
-        --text: #151515;
-        --text-dim: #555555;
-        --accent: #000000;
-        --border: #e2e2e2;
-        --font-body: 'Lora', Georgia, 'Times New Roman', Times, serif;
-        --font-headings: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-    }
-}
-
-/* Explicit overrides via class on <html> */
-.theme-dark {
-    --bg: #0a0a0f;
-    --text: #e0e0e0;
-    --text-dim: #888;
-    --accent: #fff;
-    --border: #333;
-    --font-body: 'Lora', Georgia, 'Times New Roman', Times, serif;
-    --font-headings: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-}
-
-.theme-light {
+html.theme-light {
     --bg: #fafafa;
     --text: #151515;
     --text-dim: #555555;
@@ -206,7 +197,7 @@ nav a.active::after {
     width: 60px;
     height: 32px;
     border-radius: 999px;
-    background: #111218;
+    background: #e9e9e9;
     border: 1px solid var(--border);
     box-shadow: none;
     cursor: pointer;
@@ -245,22 +236,14 @@ nav a.active::after {
     transition: transform 0.18s ease-in-out, background 0.2s ease;
 }
 
-/* Thumb position logic using theme class on <html> */
+/* Thumb position logic using theme class on <html>. Default (no class) is
+   the light position; dark slides the thumb right. */
 html.theme-light .switch-thumb { transform: translateX(0); }
 html.theme-dark .switch-thumb { transform: translateX(28px); }
 
-/* When no explicit class, follow system preference */
-@media (prefers-color-scheme: dark) {
-    html:not(.theme-light):not(.theme-dark) .switch-thumb { transform: translateX(28px); }
-}
-
-/* Track colors per mode */
+/* Track colors per mode. Base .theme-switch is the light track. */
 html.theme-light .theme-switch { background: #e9e9e9; }
 html.theme-dark .theme-switch { background: #111218; }
-
-@media (prefers-color-scheme: light) {
-    html:not(.theme-light):not(.theme-dark) .theme-switch { background: #e9e9e9; }
-}
 
 .site-code {
     margin-top: 2rem;
@@ -1673,10 +1656,6 @@ body.lightbox-open .leaflet-tooltip-pane {
     #album .map-section {
         margin-bottom: 1rem;
     }
-}
-
-@media (max-width: 768px) and (prefers-color-scheme: dark) {
-    html:not(.theme-light):not(.theme-dark) .switch-thumb { transform: translateX(20px); }
 }
 
 @media (max-width: 768px) {
