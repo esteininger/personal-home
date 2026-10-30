@@ -13,6 +13,6 @@ liberalism has always been about preventing the majority from stripping the mino
 
 people who say israel should be "identity-blind," even if a future majority could vote away jewish self-determination, are describing majoritarianism. a system that allows a vulnerable minority to be democratically erased is naive about how power works.
 
-some groups, because of their history and the threats they face, require structural guarantees to avoid catastrophe. every serious democracy acknowledges this principle. ignoring it in israel's case does not make the argument more principled. it makes the argument less honest.
+some groups, because of their history and the threats they face, require structural guarantees to avoid catastrophe. every serious democracy acknowledges this principle. ignoring it in israel's case does not make the argument more principled, only less honest.
 
 you can't protect a minority by pretending history doesn't exist. liberalism demands the opposite: guardrails strong enough that the people most at risk don't get crushed the second the numbers shift. protecting people is the point, and procedures are one tool for doing it.

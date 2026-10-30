@@ -34,6 +34,4 @@ contrast that with 2021, when hochul declined to endorse india walton in buffalo
 
 ## where this leaves the party
 
-the democratic party has moved left on healthcare, climate, social issues, and immigration. congressional voting records and voter surveys show less internal diversity. endorsements like hochul backing mamdani confirm the trend in practice.
-
-the party is more progressive and more uniform than at any point in recent history.
+the three lines of evidence point the same way: policy positions, voting and survey records, and endorsements like hochul backing mamdani. the party is more progressive and more uniform than at any point in recent history.

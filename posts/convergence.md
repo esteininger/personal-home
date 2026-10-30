@@ -9,7 +9,7 @@ christianity and islam both claim divine revelation, fixed texts, and absolute t
 
 ## the texts
 
-the bible is two books. the old testament lays out mosaic law and theocratic rule. the new testament pivots. jesus says "render unto caesar what is caesar's," driving a wedge between sacred and secular authority. paul writes letters, not laws.
+the bible is two books. the old testament lays out mosaic law and theocratic rule. the new testament pivots. jesus says "render unto caesar what is caesar's," driving a wedge between sacred and secular authority. paul writes letters rather than laws.
 
 the gospels were written decades after jesus died, compiled and debated by councils. the source languages, hebrew, aramaic, greek, are dead or scholarly, so every generation translates, interprets, debates. canonization embedded interpretation as a cultural habit.
 

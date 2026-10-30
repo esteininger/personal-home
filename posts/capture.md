@@ -5,7 +5,7 @@ category: american politics
 description: how disciplined ideological minorities capture broader coalitions from the inside, and why the dsa's strategy inside the democratic party follows a familiar pattern.
 ---
 
-dsa is not going to install a politburo. the useful comparison to soviet russia and revolutionary iran is about *process*, not outcome: how a small, disciplined faction takes over a coalition that was never organized around the same goals.
+dsa is not going to install a politburo. the useful comparison to soviet russia and revolutionary iran is about *process* rather than outcome: how a small, disciplined faction takes over a coalition that was never organized around the same goals.
 
 ## the pattern
 

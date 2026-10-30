@@ -9,7 +9,7 @@ some fields move fast and most of the world crawls. math, computer science, and 
 
 ## verifiable fields
 
-math is verifiable by nature. you write a proof and a proof assistant like [lean](https://lean-lang.org) either accepts it or it does not. no committee, no decade-long wait for consensus. the proof holds or it fails, and you get a binding result the moment you hit enter.
+math is verifiable by nature. you write a proof and a proof assistant like [lean](https://lean-lang.org) either accepts it or it does not, the moment you hit enter. the proof holds or it fails, and no committee or years of debate change the answer.
 
 computer science has the same shape. you write code and you run the tests, functional and unit and regression and ui. each test is a statement with a yes or no answer. the build comes back green or red.
 
@@ -19,17 +19,17 @@ the common thread is a rule you can measure a statement against. issue a claim, 
 
 ## short loops
 
-verification is half of it. speed is the other half.
+verification gets you a clear signal. speed decides how fast you can use it.
 
-the scientific method is one move repeated. you introduce a variable and you measure it against a baseline. an a/b test is the same move in a business suit. the faster you run that loop, the more experiments you fit into a day, and the more of the space you cover.
+the scientific method is one move repeated. you introduce a variable and measure it against a baseline. an a/b test is the same thing. the faster you run that loop, the more experiments you fit into a day, and the more of the space you cover.
 
-a field with slow feedback crawls even when its answers are checkable. a field with fast feedback compounds. put verifiability and short loops together and you get the flywheel that math and software have ridden for decades.
+a field with slow feedback crawls even when its answers are checkable. speed is what turns a checkable field into a fast-moving one. put the two together and you get the flywheel that math and software have ridden for decades.
 
 so the job for every other field is to build that same pair: a way to check a statement, and a loop short enough to run thousands of times.
 
 ## the rest of the world
 
-this is the fun part. take biology, physics, and sales, and ask what their verifiable framework looks like.
+now take biology, physics, and sales, and ask what their verifiable framework looks like.
 
 biology already has one in places. a wet-lab assay gives a readout. the loop is slow and expensive, so the work is shortening it, with simulation, better instruments, and models that predict the assay before you run the real one.
 
@@ -37,11 +37,11 @@ sales feels fuzzy until you treat a message as a hypothesis. send it, measure th
 
 physics has theory you can test and simulation you can run against it. the lever is compute, so you run more of the experiment in silico before you touch the real world.
 
-the move is the same every time. find the rule, build the check, shorten the loop.
+the move repeats: find the rule you can check against, then shorten the loop around it.
 
 ## the upper bound
 
-so what is the ceiling on all this? it is knowledge, and there is no ceiling. people keep reaching for the next secret of the universe, and there is always another one waiting. that is the beauty of being here. there is always something new to learn, and i think there always will be.
+so what is the ceiling on all this? it is knowledge, and there is no ceiling. people keep reaching for the next secret of the universe, and there is always another one waiting. there is always something new to learn, and i think there always will be.
 
 capitalism is the part that makes it move. it rewards the people who reach the edge of what is known and turn what they find into something other people can use. no cap on knowledge, and a prize for whoever pushes the frontier and brings something back.
 
@@ -49,7 +49,7 @@ capitalism is the part that makes it move. it rewards the people who reach the e
 
 if knowledge is the goal and verifiable fields are the vehicle, then underneath everything there are only two levers: compute and energy.
 
-running the models, running the experiments, running the verifications, that is compute. and compute runs on energy. everything else is detail stacked on top of those two.
+compute runs the models, the experiments, and the checks. and compute runs on energy. everything else is detail stacked on top of those two.
 
 so the real question is efficiency. more verification per unit of compute, more compute per unit of energy. squeeze either one and every verifiable field speeds up at once.
 

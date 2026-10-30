@@ -5,7 +5,7 @@ category: history & geopolitics
 description: a short reflection on why calling israel a colonial project misses the point, and why the comparison collapses under the weight of the actual history.
 ---
 
-people call israel a colonial project because the story is easy to tell. europeans show up, take land, build power. the pattern feels familiar. but jews who came to mandate palestine were refugees, not agents of an empire. empires had crushed them. they came from exile trying to rebuild the only home that ever defined them.
+people call israel a colonial project because the story is easy to tell. europeans show up, take land, build power. the pattern feels familiar. but jews who came to mandate palestine were refugees. empires had crushed them. they came from exile trying to rebuild the only home that ever defined them.
 
 the "but it was 4,000 years" objection misses what makes a people indigenous. indigeneity runs on unbroken connection, not continuous physical presence alone. jews never stopped facing jerusalem in prayer, never stopped marking time by the jewish calendar, never stopped speaking about return in every ritual. hebrew lived in liturgy, waiting to be revived. compare that to a generic ancestral link to africa or some ancient migration. jewish ties to the land were specific, maintained, and central to identity in a way that has no parallel.
 
@@ -33,7 +33,7 @@ jews had been purchasing land legally under ottoman rule since the 1880s, long b
 
 - **born of necessity.** colonialism requires alternatives. america could have stayed in britain. french colonists had france. jews were stateless refugees with nowhere else to go.
 
-when people say "colonial," they flatten all of this into a clean villain-and-victim frame. the reality is two peoples with legitimate ties to the same land, trying to survive after centuries of foreign domination.
+when people say "colonial," they flatten all of this into a clean villain-and-victim frame. it was two peoples with legitimate ties to the same land, trying to survive after centuries of foreign domination.
 
 while the british mandate was still in place, arab politics were fractured too. the grand mufti of jerusalem courted the axis powers, betting that a german victory would end british control and block jewish return. others fought for the british against the nazis. the region was a battlefield of desperate alignments in a collapsing world.
 
