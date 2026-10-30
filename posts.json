@@ -1,5 +1,6 @@
 {
   "posts": [
+    "posts/verification.md",
     "posts/capture.md",
     "posts/guardrails.md",
     "posts/freedom.md",

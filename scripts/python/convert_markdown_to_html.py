@@ -200,10 +200,9 @@ def create_article_html(post_id, metadata, html_content):
         <div class="footer">me (at) ethan (dot) dev</div>
     </div>
     <script>
-        // Theme handling
+        // Theme handling (light default regardless of system; dark via class)
         (function() {{
             const root = document.documentElement;
-            const prefersLight = window.matchMedia('(prefers-color-scheme: light)');
 
             function currentExplicitTheme() {{
                 try {{ return localStorage.getItem('theme'); }} catch (_) {{ return null; }}
@@ -220,18 +219,14 @@ def create_article_html(post_id, metadata, html_content):
             function updateThemeToggleState() {{
                 const sw = document.getElementById('theme-toggle');
                 if (!sw) return;
-                const isLight = root.classList.contains('theme-light') || (!root.classList.contains('theme-dark') && prefersLight.matches);
+                const isLight = !root.classList.contains('theme-dark');
                 sw.setAttribute('aria-pressed', String(isLight));
             }}
 
             function toggleTheme() {{
                 const explicit = currentExplicitTheme();
-                let next;
-                if (explicit) {{
-                    next = explicit === 'light' ? 'dark' : 'light';
-                }} else {{
-                    next = prefersLight.matches ? 'dark' : 'light';
-                }}
+                const currentIsLight = explicit ? explicit === 'light' : true;
+                const next = currentIsLight ? 'dark' : 'light';
                 try {{ localStorage.setItem('theme', next); }} catch (_) {{}}
                 applyTheme(next);
             }}
@@ -250,14 +245,6 @@ def create_article_html(post_id, metadata, html_content):
                     updateThemeToggleState();
                 }}
             }});
-
-            try {{
-                prefersLight.addEventListener('change', () => {{
-                    if (!currentExplicitTheme()) {{
-                        applyTheme(null);
-                    }}
-                }});
-            }} catch (_) {{}}
         }})();
     </script>
 </body>
@@ -427,7 +414,6 @@ def build_utilities_page(project_root: Path):
         <script>
             (function() {{
                 const root = document.documentElement;
-                const prefersLight = window.matchMedia('(prefers-color-scheme: light)');
 
                 function currentExplicitTheme() {{
                     try {{ return localStorage.getItem('theme'); }} catch (_) {{ return null; }}
@@ -444,18 +430,14 @@ def build_utilities_page(project_root: Path):
                 function updateThemeToggleState() {{
                     const sw = document.getElementById('theme-toggle');
                     if (!sw) return;
-                    const isLight = root.classList.contains('theme-light') || (!root.classList.contains('theme-dark') && prefersLight.matches);
+                    const isLight = !root.classList.contains('theme-dark');
                     sw.setAttribute('aria-pressed', String(isLight));
                 }}
 
                 function toggleTheme() {{
                     const explicit = currentExplicitTheme();
-                    let next;
-                    if (explicit) {{
-                        next = explicit === 'light' ? 'dark' : 'light';
-                    }} else {{
-                        next = prefersLight.matches ? 'dark' : 'light';
-                    }}
+                    const currentIsLight = explicit ? explicit === 'light' : true;
+                    const next = currentIsLight ? 'dark' : 'light';
                     try {{ localStorage.setItem('theme', next); }} catch (_) {{}}
                     applyTheme(next);
                 }}
@@ -474,14 +456,6 @@ def build_utilities_page(project_root: Path):
                         updateThemeToggleState();
                     }}
                 }});
-
-                try {{
-                    prefersLight.addEventListener('change', () => {{
-                        if (!currentExplicitTheme()) {{
-                            applyTheme(null);
-                        }}
-                    }});
-                }} catch (_) {{}}
             }})();
         </script>
     </body>
