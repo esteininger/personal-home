@@ -37,7 +37,7 @@ sales feels fuzzy until you treat a message as a hypothesis. send it, measure th
 
 physics has theory you can test and simulation you can run against it. the lever is compute, so you run more of the experiment in silico before you touch the real world.
 
-the move repeats: find the rule you can check against, then shorten the loop around it.
+in each case you do the same thing: find the rule you can check against, then shorten the loop around it.
 
 ## the upper bound
 
@@ -51,7 +51,7 @@ if knowledge is the goal and verifiable fields are the vehicle, then underneath 
 
 compute runs the models, the experiments, and the checks. and compute runs on energy. everything else is detail stacked on top of those two.
 
-so the real question is efficiency. more verification per unit of compute, more compute per unit of energy. squeeze either one and every verifiable field speeds up at once.
+so the work is making them efficient. more verification per unit of compute, more compute per unit of energy. squeeze either one and every verifiable field speeds up at once.
 
 ## why retrieval
 
@@ -59,6 +59,6 @@ this is where i get excited about retrieval, and why i am building [mixpeek](htt
 
 an index is front-loaded compute. you pay the cost once, at the start, then spend the rest of the workflow collecting on it. say you have a million data points and a rough idea of the questions you will ask. you build the indexes up front, prepare the data once, and every downstream experiment runs cheap against work you already did.
 
-the good version leaves room to move. you change the downstream questions without rebuilding the world each time. that flexibility is the whole point, and it is where clustering, fine-tuning, reinforcement learning, and online and offline learning come in. each one reuses the expensive work you already paid for and bends it toward a new use case.
+the good version leaves room to move. you change the downstream questions without rebuilding the world each time, and that is where clustering, fine-tuning, reinforcement learning, and online and offline learning come in. each one reuses the expensive work you already paid for and bends it toward a new use case.
 
-that is the bet. pay for verification up front so it comes back cheap, keep the loop short, and let more of the world ride the flywheel that math and software already do.
+so pay for the verification up front, keep the loop short, and more fields can move the way math and software already do.
