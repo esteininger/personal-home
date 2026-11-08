@@ -2018,7 +2018,7 @@ triggers:
 
         function renderClusterMap(container, data) {
             const SCALE = 10000, MIN_K = 1, MAX_K = 8, HIT = 12;
-            const { clusters, dust, photos, total } = data;
+            const { clusters, photos, total } = data;
 
             container.innerHTML = '<div class="cmap"><canvas></canvas>'
                 + '<div class="cmap-head"></div>'
@@ -2108,14 +2108,7 @@ triggers:
                 ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
                 ctx.clearRect(0, 0, W, H);
                 ctx.globalCompositeOperation = 'lighter';
-                const size = 8 + Math.min(k, 3);
-                for (let i = 0; i < dust.length; i += 3) {
-                    const x = sx(dust[i]), y = sy(dust[i + 1]);
-                    if (x < -size || y < -size || x > W + size || y > H + size) continue;
-                    ctx.globalAlpha = focus < 0 || focus === dust[i + 2] ? 0.8 : 0.14;
-                    ctx.drawImage(sprites[dust[i + 2]], x - size / 2, y - size / 2, size, size);
-                }
-                const big = size * 2.1;
+                const big = (8 + Math.min(k, 3)) * 2.1;
                 for (const p of photos) {
                     ctx.globalAlpha = focus < 0 || focus === p[2] ? 1 : 0.2;
                     ctx.drawImage(sprites[p[2]], sx(p[0]) - big / 2, sy(p[1]) - big / 2, big, big);
@@ -2133,8 +2126,6 @@ triggers:
                     const ey = Math.max(py - h / 2, Math.min(ay, py + h / 2));
                     ctx.strokeStyle = focus < 0 || focus === i ? 'rgba(255,255,255,0.75)' : 'rgba(255,255,255,0.15)';
                     ctx.beginPath(); ctx.moveTo(ax, ay); ctx.lineTo(ex, ey); ctx.stroke();
-                    ctx.fillStyle = '#fff';
-                    ctx.beginPath(); ctx.arc(ax, ay, 2.5, 0, Math.PI * 2); ctx.fill();
                 });
 
                 if (hovered >= 0) {

@@ -6,8 +6,8 @@ Usage:
     python scripts/python/build_cluster_map.py
 
 The tab used to call Mixpeek live on every visit. This pulls the latest usable
-cluster run once and writes only what the page draws: a cloud of dots, one point
-per album photo, and a named card per cluster. Rerun it after a new cluster run.
+cluster run once and writes only what the page draws: one point per album photo
+and a named card per cluster. Rerun it after a new cluster run.
 """
 
 import collections
@@ -29,12 +29,10 @@ COLLECTION_ID = "col_961b58b0a5"
 API_KEY = re.search(r"MIXPEEK_KEY = '([^']+)'", (ROOT / "index.html").read_text()).group(1)
 HEADERS = {"Authorization": f"Bearer {API_KEY}", "X-Namespace": NAMESPACE}
 
-MAX_DUST = 7000
 SCALE = 10000
 PAD = 0.07
 PLOT_ASPECT = 10 / 16  # height / width of the plot, keeps the clouds round
 RING_X, RING_Y = 0.37, 0.33
-MIN_DOTS, MAX_DOTS = 320, 2600
 
 COLORS = {
     "large": "#4f9cf9",
@@ -183,22 +181,13 @@ def main():
             "thumb": gallery[best].get("thumb_url") or best,
         })
 
-    dust = []
-    total_members = sum(len(v) for v in members_of.values())
-    for cid in ordered:
-        pts = members_of[cid]
-        wanted = max(MIN_DOTS, min(MAX_DOTS, round(MAX_DUST * len(pts) / total_members)))
-        for x, y in random.choices(pts, k=wanted):
-            dust += [*place(x, y, cid, 0.45), index[cid]]
-
     OUT.write_text(json.dumps({
         "run": run_id,
         "total": len(photo_points),
         "clusters": clusters,
-        "dust": dust,
         "photos": [list(p) for p in photo_points],
     }, separators=(",", ":"), ensure_ascii=False))
-    print(f"{OUT.name}: {OUT.stat().st_size // 1024} KB, {len(dust) // 3} dots, {len(photo_points)} photos, run {run_id}")
+    print(f"{OUT.name}: {OUT.stat().st_size // 1024} KB, {len(photo_points)} photos, run {run_id}")
     for c in clusters:
         print(f"  {c['count']:>4}  {c['name']}")
 
