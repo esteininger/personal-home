@@ -182,7 +182,7 @@
         <div id="album" class="page">
             <div class="album-tabs">
                 <button class="album-tab active" data-tab="gallery" onclick="switchAlbumTab('gallery')">Gallery</button>
-                <button class="album-tab" data-tab="clusters" onclick="switchAlbumTab('clusters')">Clusters</button>
+                <button class="album-tab" data-tab="clusters" onpointerenter="prefetchClusters()" onclick="switchAlbumTab('clusters')">Clusters</button>
             </div>
 
             <div id="album-gallery-tab" class="album-tab-content active">
@@ -1984,68 +1984,30 @@ triggers:
             }
         }
 
-        // Clustering
+        // Clustering: a pre-built map (scripts/python/build_cluster_map.py), so the
+        // tab costs one small static file and no live API calls.
         let clustersLoaded = false;
+        let clustersRequest = null;
+        function prefetchClusters() {
+            if (!clustersRequest) {
+                clustersRequest = fetch('/images/clusters.json').then(r => {
+                    if (!r.ok) throw new Error('HTTP ' + r.status);
+                    return r.json();
+                }).catch(err => { clustersRequest = null; throw err; });
+                clustersRequest.then(d => d.clusters.forEach(c => { new Image().src = c.thumb; })).catch(() => {});
+            }
+            return clustersRequest;
+        }
+
         async function loadClusters() {
             if (clustersLoaded) return;
             const container = document.getElementById('clusters-container');
             const loading = document.getElementById('clusters-loading');
             if (!container) return;
-
             try {
-                if (loading) loading.style.display = 'block';
-                const resp = await fetch(MIXPEEK_API + '/clusters?collection_id=' + MIXPEEK_COLLECTION, {
-                    headers: mixpeekHeaders()
-                });
-                const data = await resp.json();
-                const clusters = (Array.isArray(data) ? data : data.results || [])
-                    .filter(c => c.status === 'COMPLETED')
-                    .filter(c => (c.input_collections || []).includes(MIXPEEK_COLLECTION));
-
-                if (!resp.ok) throw new Error(data.error?.message || ('HTTP ' + resp.status));
-
-                if (!clusters.length) {
-                    if (loading) loading.textContent = 'No clusters yet. Check back soon.';
-                    return;
-                }
-
-                clusters.sort((a, b) =>
-                    new Date(b.completed_at || b.created_at) - new Date(a.completed_at || a.created_at)
-                );
-
-                // A usable run has one centroid per cluster and members that point back
-                // at the photo collection. Runs that wrote back into the photo collection
-                // mix centroids from every run, so they fail the first check.
-                let picked = null, pickedViz = null, fallback = null, fallbackViz = null;
-                for (const c of clusters) {
-                    try {
-                        const vr = await fetch(MIXPEEK_API + '/clusters/' + c.cluster_id + '/visualization', { headers: mixpeekHeaders() });
-                        if (!vr.ok) continue;
-                        const vd = await vr.json();
-                        const pts = vd.points || [];
-                        const cents = pts.filter(p => p.is_centroid);
-                        const cIds = cents.map(p => p.cluster_id);
-                        const members = pts.filter(p => !p.is_centroid);
-                        const fromPhotos = members.filter(p => p.source_collection_id === MIXPEEK_COLLECTION).length;
-                        const clean = cIds.length >= 2 && new Set(cIds).size === cIds.length
-                            && members.length && fromPhotos / members.length > 0.9;
-                        if (!clean) continue;
-                        const labeled = cents.some(p => p.cluster_label && !/^Cluster \d+$/.test(p.cluster_label));
-                        if (labeled) { picked = c; pickedViz = vd; break; }
-                        if (!fallback) { fallback = c; fallbackViz = vd; }
-                    } catch (_) { /* skip broken */ }
-                }
-                if (!picked && fallback) { picked = fallback; pickedViz = fallbackViz; }
-
-                if (!picked) {
-                    if (loading) {
-                        loading.style.display = 'block';
-                        loading.textContent = 'Clusters are being rebuilt right now. Check back soon.';
-                    }
-                    return;
-                }
-
-                await renderClusterView(picked, pickedViz);
+                if (loading) { loading.style.display = 'block'; loading.textContent = 'Loading clusters...'; }
+                const data = await prefetchClusters();
+                renderClusterMap(container, data);
                 clustersLoaded = true;
                 if (loading) loading.style.display = 'none';
             } catch (err) {
@@ -2054,170 +2016,131 @@ triggers:
             }
         }
 
+        function renderClusterMap(container, data) {
+            const SCALE = 10000, MIN_K = 1, MAX_K = 8, HIT = 12;
+            const { clusters, dust, photos, total } = data;
 
-        async function renderClusterView(cluster, viz) {
-            const container = document.getElementById('clusters-container');
-            if (!container) return;
-
-            const docsResp = await fetch(MIXPEEK_API + '/collections/' + MIXPEEK_COLLECTION + '/documents?page_size=500', {
-                headers: mixpeekHeaders()
-            });
-            const docsData = await docsResp.json();
-            const points = viz.points || [];
-            const allDocs = docsData.documents || docsData.results || [];
-
-            const docById = {};
-            for (const doc of allDocs) docById[doc.document_id] = doc;
-
-            if (!points.length) {
-                container.innerHTML = '<p class="clusters-empty">Cluster data not yet available.</p>';
-                return;
-            }
-
-            await renderScatterPlot(container, points, docById);
-        }
-
-        async function renderScatterPlot(container, points, docById) {
-            const colors = ['#3b82f6','#ef4444','#22c55e','#f59e0b','#8b5cf6','#ec4899','#06b6d4','#f97316','#14b8a6','#a855f7',
-                            '#64748b','#dc2626','#16a34a','#ca8a04','#7c3aed','#db2777','#0891b2','#ea580c','#0d9488','#9333ea'];
-            const centroids = points.filter(p => p.is_centroid);
-            const members = points.filter(p => !p.is_centroid);
-
-            const clusterColors = {};
-            centroids.forEach((c, i) => { clusterColors[c.cluster_id] = colors[i % colors.length]; });
-
-            const xs = points.map(p => p.x), ys = points.map(p => p.y);
-            const xMin = Math.min(...xs), xMax = Math.max(...xs);
-            const yMin = Math.min(...ys), yMax = Math.max(...ys);
-            const PAD = 0.06;
-            const xRange = xMax - xMin || 1, yRange = yMax - yMin || 1;
-
-            const pointData = [];
-            const seen = new Set();
-            for (const pt of members) {
-                const doc = docById[pt.source_document_id] || docById[pt.document_id];
-                if (!doc) continue;
-                const meta = doc.metadata || {};
-                const name = (meta.name || '').replace(/\s+/g, '_');
-                let match = null;
-                for (const img of galleryAll) {
-                    if (seen.has(img.url)) continue;
-                    const fname = (img.url || '').split('/').pop().replace(/\.[^.]+$/, '');
-                    if (name && fname.toLowerCase() === name.toLowerCase()) { match = img; break; }
-                }
-                if (!match && typeof meta.lat === 'number' && typeof meta.lng === 'number') {
-                    let bestDist = 0.001;
-                    for (const img of galleryAll) {
-                        if (seen.has(img.url)) continue;
-                        if (typeof img.lat === 'number' && typeof img.lng === 'number') {
-                            const d = Math.abs(img.lat - meta.lat) + Math.abs(img.lng - meta.lng);
-                            if (d < bestDist) { bestDist = d; match = img; }
-                        }
-                    }
-                }
-                if (match) {
-                    seen.add(match.url);
-                    pointData.push({
-                        nx: PAD + (1 - 2 * PAD) * (pt.x - xMin) / xRange,
-                        ny: PAD + (1 - 2 * PAD) * (1 - (pt.y - yMin) / yRange),
-                        color: clusterColors[pt.cluster_id],
-                        url: match.url, name: match.name || '',
-                        thumb: null, scale: 0
-                    });
-                }
-            }
-
-            const mobile = window.innerWidth < 768;
-            const THUMB = mobile ? 20 : 32;
-            const BW = mobile ? 2 : 3;
-            const FULL = THUMB + BW * 2;
-            const RAD = mobile ? 3 : 5;
-            const dpr = Math.min(window.devicePixelRatio || 1, 2);
-            const thumbPx = Math.ceil(THUMB * dpr);
-
-            let legendHtml = '<div class="cluster-legend">';
-            for (const c of centroids) {
-                const color = clusterColors[c.cluster_id];
-                legendHtml += '<span class="cluster-chip active" style="--chip-color:' + color + '">'
-                    + '<span class="cluster-dot" style="background:' + color + '"></span>'
-                    + c.cluster_label + ' (' + (c.num_members || '') + ')</span>';
-            }
-            legendHtml += '</div>';
-
-            container.innerHTML = legendHtml
-                + '<div class="tsne-plot"><canvas id="tsne-canvas"></canvas></div>'
+            container.innerHTML = '<div class="cmap"><canvas></canvas>'
+                + '<div class="cmap-head"></div>'
+                + '<div class="cmap-zoom"><button type="button" aria-label="Zoom in">+</button>'
+                + '<button type="button" aria-label="Zoom out">&minus;</button></div></div>'
                 + '<div class="tsne-tooltip" id="tsne-tooltip"><img id="tsne-tooltip-img" src="" alt=""><span id="tsne-tooltip-name"></span></div>';
 
-            const plotEl = container.querySelector('.tsne-plot');
-            const canvas = document.getElementById('tsne-canvas');
+            const root = container.querySelector('.cmap');
+            const canvas = root.querySelector('canvas');
             const ctx = canvas.getContext('2d');
+            const tooltip = document.getElementById('tsne-tooltip');
+            const tooltipImg = document.getElementById('tsne-tooltip-img');
+            const tooltipName = document.getElementById('tsne-tooltip-name');
+            root.querySelector('.cmap-head').textContent = total + ' photos · clustered by visual similarity';
+            const dpr = Math.min(window.devicePixelRatio || 1, 2);
 
-            function sizeCanvas() {
-                const w = plotEl.clientWidth, h = plotEl.clientHeight;
-                canvas.width = Math.round(w * dpr);
-                canvas.height = Math.round(h * dpr);
-                ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-            }
+            // A soft glowing dot per cluster color; stamping these is far cheaper
+            // than drawing thousands of gradients every frame.
+            const sprites = clusters.map(c => {
+                const size = Math.ceil(14 * dpr);
+                const s = document.createElement('canvas');
+                s.width = s.height = size;
+                const t = s.getContext('2d');
+                const g = t.createRadialGradient(size / 2, size / 2, 0, size / 2, size / 2, size / 2);
+                g.addColorStop(0, '#ffffff');
+                g.addColorStop(0.14, c.color);
+                g.addColorStop(0.32, c.color + '66');
+                g.addColorStop(1, c.color + '00');
+                t.fillStyle = g;
+                t.fillRect(0, 0, size, size);
+                return s;
+            });
 
-            function rrect(x, y, w, h, r) {
-                ctx.beginPath();
-                ctx.moveTo(x + r, y);
-                ctx.arcTo(x + w, y, x + w, y + h, r);
-                ctx.arcTo(x + w, y + h, x, y + h, r);
-                ctx.arcTo(x, y + h, x, y, r);
-                ctx.arcTo(x, y, x + w, y, r);
-                ctx.closePath();
-            }
+            const cards = clusters.map((c, i) => {
+                const el = document.createElement('button');
+                el.type = 'button';
+                el.className = 'cmap-card';
+                el.innerHTML = '<img alt="" decoding="async"><span class="cmap-card-text"><strong></strong><em></em></span>';
+                el.querySelector('img').src = c.thumb;
+                el.querySelector('strong').textContent = c.name;
+                el.querySelector('em').textContent = '(' + c.count.toLocaleString() + ')';
+                el.addEventListener('pointerenter', () => { focus = i; queueDraw(); });
+                el.addEventListener('pointerleave', () => { focus = -1; queueDraw(); });
+                el.addEventListener('click', () => zoomToCluster(i));
+                root.appendChild(el);
+                return { el, c, dx: 0, dy: 0, w: 0, h: 0 };
+            });
 
-            function makeThumbnail(img) {
-                const c = document.createElement('canvas');
-                c.width = c.height = thumbPx;
-                const tx = c.getContext('2d');
-                const s = Math.min(img.naturalWidth, img.naturalHeight);
-                tx.drawImage(img, (img.naturalWidth - s) / 2, (img.naturalHeight - s) / 2, s, s, 0, 0, thumbPx, thumbPx);
-                return c;
+            let W = 0, H = 0, k = 1, tx = 0, ty = 0, focus = -1, hovered = -1, focusedZoom = -1;
+            const sx = x => x / SCALE * W * k + tx;
+            const sy = y => y / SCALE * H * k + ty;
+
+            // Cards sit outside their cluster: pushed away from the map's center,
+            // then nudged apart until none overlap.
+            function layoutCards() {
+                const M = 10, cx = W / 2, cy = H / 2;
+                cards.forEach(card => {
+                    card.w = card.el.offsetWidth; card.h = card.el.offsetHeight;
+                    const ax = card.c.x / SCALE * W, ay = card.c.y / SCALE * H;
+                    let vx = ax - cx, vy = ay - cy;
+                    const len = Math.hypot(vx, vy);
+                    if (len < W * 0.08) { vx = 1; vy = -0.25; } else { vx /= len; vy /= len; }
+                    card.px = ax + vx * (70 + card.w / 2);
+                    card.py = ay + vy * (42 + card.h / 2);
+                });
+                for (let pass = 0; pass < 200; pass++) {
+                    for (let i = 0; i < cards.length; i++) {
+                        for (let j = i + 1; j < cards.length; j++) {
+                            const a = cards[i], b = cards[j];
+                            const ox = (a.w + b.w) / 2 + 12 - Math.abs(a.px - b.px);
+                            const oy = (a.h + b.h) / 2 + 12 - Math.abs(a.py - b.py);
+                            if (ox > 0 && oy > 0) {
+                                if (oy < ox) { const s = (a.py <= b.py ? -1 : 1) * oy / 2; a.py += s; b.py -= s; }
+                                else { const s = (a.px <= b.px ? -1 : 1) * ox / 2; a.px += s; b.px -= s; }
+                            }
+                        }
+                    }
+                    cards.forEach(c => {
+                        c.px = Math.min(W - M - c.w / 2, Math.max(M + c.w / 2, c.px));
+                        c.py = Math.min(H - M - c.h / 2, Math.max(44 + c.h / 2, c.py));
+                    });
+                }
+                cards.forEach(c => { c.dx = c.px - c.c.x / SCALE * W; c.dy = c.py - c.c.y / SCALE * H; });
             }
 
             function draw() {
-                const w = plotEl.clientWidth, h = plotEl.clientHeight;
-                ctx.clearRect(0, 0, w, h);
-
-                for (const p of pointData) {
-                    if (p.scale <= 0) continue;
-                    const cx = p.nx * w, cy = p.ny * h, s = p.scale;
-                    const fS = FULL * s, tS = THUMB * s;
-                    const hF = fS / 2, hT = tS / 2, r = RAD * s;
-
-                    ctx.fillStyle = p.color;
-                    rrect(cx - hF, cy - hF, fS, fS, r + BW * s);
-                    ctx.fill();
-
-                    if (p.thumb) {
-                        ctx.save();
-                        rrect(cx - hT, cy - hT, tS, tS, r);
-                        ctx.clip();
-                        ctx.drawImage(p.thumb, cx - hT, cy - hT, tS, tS);
-                        ctx.restore();
-                    } else {
-                        ctx.fillStyle = p.color + '33';
-                        rrect(cx - hT, cy - hT, tS, tS, r);
-                        ctx.fill();
-                    }
+                ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+                ctx.clearRect(0, 0, W, H);
+                ctx.globalCompositeOperation = 'lighter';
+                const size = 8 + Math.min(k, 3);
+                for (let i = 0; i < dust.length; i += 3) {
+                    const x = sx(dust[i]), y = sy(dust[i + 1]);
+                    if (x < -size || y < -size || x > W + size || y > H + size) continue;
+                    ctx.globalAlpha = focus < 0 || focus === dust[i + 2] ? 0.8 : 0.14;
+                    ctx.drawImage(sprites[dust[i + 2]], x - size / 2, y - size / 2, size, size);
                 }
+                const big = size * 2.1;
+                for (const p of photos) {
+                    ctx.globalAlpha = focus < 0 || focus === p[2] ? 1 : 0.2;
+                    ctx.drawImage(sprites[p[2]], sx(p[0]) - big / 2, sy(p[1]) - big / 2, big, big);
+                }
+                ctx.globalCompositeOperation = 'source-over';
+                ctx.globalAlpha = 1;
 
-                const bgColor = getComputedStyle(document.documentElement).getPropertyValue('--bg').trim() || '#111';
-                ctx.textAlign = 'center';
-                ctx.textBaseline = 'bottom';
-                ctx.font = 'bold ' + (mobile ? 10 : 11) + 'px system-ui, -apple-system, sans-serif';
-                for (const c of centroids) {
-                    const lx = (PAD + (1 - 2 * PAD) * (c.x - xMin) / xRange) * plotEl.clientWidth;
-                    const ly = (PAD + (1 - 2 * PAD) * (1 - (c.y - yMin) / yRange)) * plotEl.clientHeight - FULL / 2 - 4;
-                    ctx.strokeStyle = bgColor;
-                    ctx.lineWidth = 3;
-                    ctx.lineJoin = 'round';
-                    ctx.strokeText(c.cluster_label, lx, ly);
-                    ctx.fillStyle = clusterColors[c.cluster_id];
-                    ctx.fillText(c.cluster_label, lx, ly);
+                ctx.lineWidth = 1;
+                cards.forEach(({ el, c, dx, dy, w, h }, i) => {
+                    const ax = sx(c.x), ay = sy(c.y);
+                    const px = ax + dx, py = ay + dy;
+                    el.style.transform = 'translate(' + (px - w / 2) + 'px,' + (py - h / 2) + 'px)';
+                    el.classList.toggle('dim', focus >= 0 && focus !== i);
+                    const ex = Math.max(px - w / 2, Math.min(ax, px + w / 2));
+                    const ey = Math.max(py - h / 2, Math.min(ay, py + h / 2));
+                    ctx.strokeStyle = focus < 0 || focus === i ? 'rgba(255,255,255,0.75)' : 'rgba(255,255,255,0.15)';
+                    ctx.beginPath(); ctx.moveTo(ax, ay); ctx.lineTo(ex, ey); ctx.stroke();
+                    ctx.fillStyle = '#fff';
+                    ctx.beginPath(); ctx.arc(ax, ay, 2.5, 0, Math.PI * 2); ctx.fill();
+                });
+
+                if (hovered >= 0) {
+                    const p = photos[hovered];
+                    ctx.strokeStyle = '#fff'; ctx.lineWidth = 1.5;
+                    ctx.beginPath(); ctx.arc(sx(p[0]), sy(p[1]), 7, 0, Math.PI * 2); ctx.stroke();
                 }
             }
 
@@ -2226,74 +2149,93 @@ triggers:
                 if (!drawQueued) { drawQueued = true; requestAnimationFrame(() => { drawQueued = false; draw(); }); }
             }
 
-            sizeCanvas();
+            function clampView() {
+                k = Math.min(MAX_K, Math.max(MIN_K, k));
+                tx = Math.min(0, Math.max(W - W * k, tx));
+                ty = Math.min(0, Math.max(H - H * k, ty));
+            }
 
-            const t0 = performance.now();
-            const STAGGER = mobile ? 5 : 7;
-            const DUR = 300;
-            (function animReveal(now) {
-                const elapsed = now - t0;
-                let done = true;
-                for (let i = 0; i < pointData.length; i++) {
-                    const t = Math.min(1, Math.max(0, (elapsed - i * STAGGER) / DUR));
-                    pointData[i].scale = t < 1 ? t * (2 - t) : 1;
-                    if (t < 1) done = false;
-                }
+            let anim = null;
+            function animateTo(nk, ntx, nty) {
+                if (anim) cancelAnimationFrame(anim);
+                const k0 = k, x0 = tx, y0 = ty, t0 = performance.now(), DUR = 320;
+                (function step(now) {
+                    const t = Math.min(1, (now - t0) / DUR), e = 1 - Math.pow(1 - t, 3);
+                    k = k0 + (nk - k0) * e; tx = x0 + (ntx - x0) * e; ty = y0 + (nty - y0) * e;
+                    draw();
+                    anim = t < 1 ? requestAnimationFrame(step) : null;
+                })(t0);
+            }
+
+            function zoomAround(factor, px, py) {
+                const nk = Math.min(MAX_K, Math.max(MIN_K, k * factor));
+                const ntx = Math.min(0, Math.max(W - W * nk, px - (px - tx) * (nk / k)));
+                const nty = Math.min(0, Math.max(H - H * nk, py - (py - ty) * (nk / k)));
+                return [nk, ntx, nty];
+            }
+
+            function zoomToCluster(i) {
+                if (focusedZoom === i) { focusedZoom = -1; animateTo(1, 0, 0); return; }
+                focusedZoom = i;
+                const c = clusters[i], nk = 2.8;
+                animateTo(nk,
+                    Math.min(0, Math.max(W - W * nk, W / 2 - c.x / SCALE * W * nk)),
+                    Math.min(0, Math.max(H - H * nk, H / 2 - c.y / SCALE * H * nk)));
+            }
+
+            const [zoomIn, zoomOut] = root.querySelectorAll('.cmap-zoom button');
+            zoomIn.addEventListener('click', () => { focusedZoom = -1; animateTo(...zoomAround(1.6, W / 2, H / 2)); });
+            zoomOut.addEventListener('click', () => { focusedZoom = -1; animateTo(...zoomAround(1 / 1.6, W / 2, H / 2)); });
+
+            function resize() {
+                W = root.clientWidth; H = root.clientHeight;
+                canvas.width = Math.round(W * dpr); canvas.height = Math.round(H * dpr);
+                k = 1; tx = 0; ty = 0; focusedZoom = -1;
+                layoutCards();
                 draw();
-                if (!done) requestAnimationFrame(animReveal);
-            })(t0);
+            }
 
-            let resizeTimer;
-            window.addEventListener('resize', () => {
-                clearTimeout(resizeTimer);
-                resizeTimer = setTimeout(() => { sizeCanvas(); draw(); }, 100);
+            function hitTest(mx, my) {
+                let best = -1, bestD = HIT;
+                photos.forEach((p, i) => {
+                    const d = Math.hypot(sx(p[0]) - mx, sy(p[1]) - my);
+                    if (d < bestD) { bestD = d; best = i; }
+                });
+                return best;
+            }
+
+            const photoByUrl = new Map();
+            function photoInfo(url) {
+                if (!photoByUrl.size) galleryAll.forEach(g => photoByUrl.set(g.url, g));
+                return photoByUrl.get(url) || { url };
+            }
+
+            let drag = null;
+            canvas.addEventListener('pointerdown', e => {
+                drag = { x: e.clientX, y: e.clientY, tx, ty, moved: false };
+                canvas.setPointerCapture(e.pointerId);
             });
-
-            const skipImages = navigator.connection && navigator.connection.saveData;
-            if (!skipImages) {
-                const CONC = mobile ? 3 : 6;
-                let li = 0;
-                function loadNext() {
-                    if (li >= pointData.length) return;
-                    const p = pointData[li++];
-                    const img = new Image();
-                    img.decoding = 'async';
-                    img.onload = () => { p.thumb = makeThumbnail(img); queueDraw(); loadNext(); };
-                    img.onerror = () => loadNext();
-                    img.src = p.url;
-                }
-                for (let i = 0; i < CONC; i++) loadNext();
-            }
-
-            const tooltip = document.getElementById('tsne-tooltip');
-            const tooltipImg = document.getElementById('tsne-tooltip-img');
-            const tooltipName = document.getElementById('tsne-tooltip-name');
-            let hovered = -1;
-
-            function hitTest(cx, cy) {
-                const rect = canvas.getBoundingClientRect();
-                const mx = cx - rect.left, my = cy - rect.top;
-                const w = rect.width, h = rect.height, half = FULL / 2;
-                for (let i = 0; i < pointData.length; i++) {
-                    const p = pointData[i];
-                    if (p.scale <= 0) continue;
-                    if (Math.abs(mx - p.nx * w) <= half && Math.abs(my - p.ny * h) <= half) return i;
-                }
-                return -1;
-            }
-
             canvas.addEventListener('pointermove', e => {
-                const idx = hitTest(e.clientX, e.clientY);
+                if (drag) {
+                    const dx = e.clientX - drag.x, dy = e.clientY - drag.y;
+                    if (Math.hypot(dx, dy) > 4) drag.moved = true;
+                    if (drag.moved && k > 1) { tx = drag.tx + dx; ty = drag.ty + dy; clampView(); queueDraw(); }
+                    if (drag.moved) return;
+                }
+                const r = canvas.getBoundingClientRect();
+                const idx = hitTest(e.clientX - r.left, e.clientY - r.top);
                 if (idx !== hovered) {
                     hovered = idx;
+                    queueDraw();
                     if (idx >= 0) {
-                        tooltipImg.src = pointData[idx].url;
-                        tooltipName.textContent = pointData[idx].name;
+                        const img = photoInfo(photos[idx][3]);
+                        tooltipImg.src = img.thumb_url || img.url;
+                        tooltipName.textContent = img.name || '';
                         tooltip.style.display = 'block';
                         canvas.style.cursor = 'pointer';
                     } else {
                         tooltip.style.display = 'none';
-                        canvas.style.cursor = '';
+                        canvas.style.cursor = k > 1 ? 'grab' : '';
                     }
                 }
                 if (hovered >= 0) {
@@ -2301,14 +2243,37 @@ triggers:
                     tooltip.style.top = (e.clientY - 12) + 'px';
                 }
             });
-            canvas.addEventListener('pointerleave', () => { tooltip.style.display = 'none'; hovered = -1; canvas.style.cursor = ''; });
-            canvas.addEventListener('click', e => {
-                const idx = hitTest(e.clientX, e.clientY);
-                if (idx >= 0) openLightbox(pointData[idx].url);
+            canvas.addEventListener('pointerup', e => {
+                const wasDrag = drag && drag.moved;
+                drag = null;
+                if (wasDrag) return;
+                const r = canvas.getBoundingClientRect();
+                const idx = hitTest(e.clientX - r.left, e.clientY - r.top);
+                if (idx >= 0) openLightbox(photos[idx][3]);
             });
+            canvas.addEventListener('pointerleave', () => {
+                tooltip.style.display = 'none'; hovered = -1; queueDraw();
+            });
+            // Pinch only (trackpads report it as ctrl+wheel), so the page still scrolls.
+            root.addEventListener('wheel', e => {
+                if (!e.ctrlKey) return;
+                e.preventDefault();
+                const r = root.getBoundingClientRect();
+                [k, tx, ty] = zoomAround(Math.exp(-e.deltaY * 0.01), e.clientX - r.left, e.clientY - r.top);
+                focusedZoom = -1;
+                queueDraw();
+            }, { passive: false });
+
+            let resizeTimer;
+            window.addEventListener('resize', () => {
+                clearTimeout(resizeTimer);
+                resizeTimer = setTimeout(() => { if (root.isConnected && root.clientWidth) resize(); }, 100);
+            });
+
+            resize();
         }
 
-        // Initialize search on page load
+                // Initialize search on page load
         window.addEventListener('DOMContentLoaded', initAlbumSearch);
 
         // Motion.js animations & IntersectionObserver reveal system
