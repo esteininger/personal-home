@@ -13,7 +13,7 @@ Routes generated (real static HTML, so deep links / refresh / no-JS all work):
   content/van/<coll>/<slug>.md       -> /van/<coll>/<slug>/index.html (detail)
   content/van/routes.md (+ routes/)  -> /van/routes/index.html       (past routes)
   content/van/costs/_index.md + csv  -> /van/costs/index.html        (cost breakdown)
-  content/van/musings.md             -> /van/musings/index.html      (single page)
+  content/van/musings/*.md           -> /van/musings/<slug>/index.html (short articles)
   content/van/lanscapes.md           -> /van/lanscapes/index.html    (single page)
 """
 
@@ -1139,10 +1139,10 @@ def render_landing(content_root: Path, out_root: Path, build_entries):
 # ---------------------------------------------------------------------------
 
 # coll -> is a gallery/list collection with entries + detail pages
-GALLERY_COLLECTIONS = ["build", "nature", "towns", "resources"]
-SINGLE_PAGES = ["musings"]
+GALLERY_COLLECTIONS = ["build", "nature", "towns", "resources", "musings"]
+SINGLE_PAGES = []
 # old URLs -> where that content lives now
-REDIRECTS = {"prep": "/van/musings", "misc": "/van/musings"}
+REDIRECTS = {"prep": "/van/musings/storage", "misc": "/van/musings/packing"}
 
 
 def render_redirect(old, target, out_root: Path):

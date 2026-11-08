@@ -1,70 +1,10 @@
 ---
-title: "Musings"
-emoji: "\U0001F4AD"
-intro: "The odds and ends: what I pack, the gear that comes along, and my checklist for putting the van into storage."
-description: "Odds and ends from van life: the full packing list by room, the gear that travels with me, route plans, and the checklist I run before the van goes into storage."
+title: "Putting the Van in Storage"
+slug: "storage"
+collection: "musings"
+order: 3
+description: "The checklist I run before the van sits: electrical, engine, plumbing, the cassette toilet, moisture, pests, tires, and a final pass."
 ---
-
-## Packing
-
-My full packing list, by room.
-
-### Kitchen
-
-- [ ] Trashcan
-- [ ] Cutting board
-- [ ] Utensils
-- [ ] Spices
-- [ ] Plastic bags
-
-### Bedroom
-
-- [ ] Comforter set
-- [ ] Light sheets
-- [ ] Bed slippers
-
-### Bathroom
-
-- [ ] Toilet paper
-- [ ] Chemical treatment
-- [ ] Bug spray
-- [ ] Anti-itch stuff
-
-### Work Area
-
-- [ ] MacBook charger
-- [ ] HDMI
-- [ ] Dongle
-
-### Repair & Maintenance
-
-- [ ] Fuses
-- [ ] Allen wrenches
-- [ ] Ladder
-- [ ] Recovery board
-- [ ] Wash material
-- [ ] Screwdriver set
-- [ ] Tape measure
-
-### Other
-
-- [ ] Bear spray
-- [ ] Six-pack of Treehouse scent things
-
-## Gear
-
-What travels with me, depending on the trip.
-
-- Backpacking
-- Climbing
-- Wet suit
-- SUP
-
-## Plans
-
-- [2022 Route Plan](https://www.google.com/maps/d/u/0/edit?mid=1iIrbjUKR7sBPiuO-nwzcb5r7jM79otM&usp=sharing)
-
-## Putting the Van in Storage
 
 My own checklist for putting the van into storage: what to buy, how to winterize every system, and the final walk-around before it sits.
 
