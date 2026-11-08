@@ -13,8 +13,7 @@ Routes generated (real static HTML, so deep links / refresh / no-JS all work):
   content/van/<coll>/<slug>.md       -> /van/<coll>/<slug>/index.html (detail)
   content/van/routes.md (+ routes/)  -> /van/routes/index.html       (past routes)
   content/van/costs/_index.md + csv  -> /van/costs/index.html        (cost breakdown)
-  content/van/prep.md                -> /van/prep/index.html         (single page)
-  content/van/misc.md                -> /van/misc/index.html         (single page)
+  content/van/musings.md             -> /van/musings/index.html      (single page)
   content/van/lanscapes.md           -> /van/lanscapes/index.html    (single page)
 """
 
@@ -687,14 +686,24 @@ def render_costs_page(coll_dir: Path, out_root: Path):
 FOLLOW_ALONG = [
     ("\U0001FAB4", "Nature Reviews", "/van/nature"),
     ("\U0001F3D8️", "Town Rankings", "/van/towns"),
-    ("\U0001F4F7", "Instagram", "https://instagram.com/vanlifecoder"),
-    ("\U0001F4FD️", "YouTube", "https://youtube.com/@vanlifecoder"),
+    ("\U0001F5FA️", "Past Routes", "/van/routes"),
 ]
 DOCUMENTATION = [
     ("\U0001F4C9", "Cost Breakdown", "/van/costs"),
     ("\U0001F4A1", "Vanspiration", "/van/resources"),
-    ("\U0001F9F9", "VanLifeCoder Prep", "/van/prep"),
-    ("\U0001F4DD", "Misc", "/van/misc"),
+    ("\U0001F4AD", "Musings", "/van/musings"),
+]
+
+INSTAGRAM_ICON = ('<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">'
+                  '<rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/>'
+                  '<circle cx="17.2" cy="6.8" r="1" fill="currentColor" stroke="none"/></svg>')
+YOUTUBE_ICON = ('<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" '
+                'd="M21.6 7.2a2.6 2.6 0 0 0-1.8-1.9C18.2 4.9 12 4.9 12 4.9s-6.2 0-7.8.4a2.6 2.6 0 0 0-1.8 1.9'
+                'C2 8.8 2 12 2 12s0 3.2.4 4.8a2.6 2.6 0 0 0 1.8 1.9c1.6.4 7.8.4 7.8.4s6.2 0 7.8-.4'
+                'a2.6 2.6 0 0 0 1.8-1.9c.4-1.6.4-4.8.4-4.8s0-3.2-.4-4.8zM10 15.2V8.8l5.4 3.2z"/></svg>')
+SOCIAL_LINKS = [
+    ("Instagram", "https://instagram.com/vanlifecoder", INSTAGRAM_ICON),
+    ("YouTube", "https://youtube.com/@vanlifecoder", YOUTUBE_ICON),
 ]
 
 
@@ -709,85 +718,147 @@ def link_list(items):
     return "\n".join(rows)
 
 
-def stories_component(cfg):
-    """An Instagram-stories-style carousel: tappable poster bubbles that open a
-    viewer which autoplays each clip with progress bars and tap-to-advance."""
-    stories = cfg.get("stories") or []
-    if not stories:
-        return "", ""
-    title = cfg.get("stories_title", "Stories")
+def social_links():
+    links = "".join(f'<a href="{esc(href)}" target="_blank" rel="noopener" aria-label="{esc(label)}" title="{esc(label)}">{icon}</a>'
+                    for label, href, icon in SOCIAL_LINKS)
+    return f'<div class="van-social">{links}</div>'
+
+
+def story_strip(key, title, items):
+    """A horizontal row of tappable poster bubbles that open the shared viewer."""
+    if not items:
+        return ""
     bubbles = []
-    for i, s in enumerate(stories):
+    for i, s in enumerate(items):
         poster = s.get("poster")
         label = s.get("label", f"Clip {i+1}")
         bubbles.append(
-            f'<button class="van-story-bubble" type="button" data-i="{i}" aria-label="Play {esc(label)}">'
+            f'<button class="van-story-bubble" type="button" data-strip="{esc(key)}" data-i="{i}" aria-label="Play {esc(label)}">'
             f'<span class="van-story-ring"><span class="van-story-thumb">{img_tag(poster, esc(label), cls="")}</span></span>'
             f'<span class="van-story-cap">{esc(label)}</span></button>')
-    section = f'''<section class="van-stories" aria-label="{esc(title)}">
+    return f'''<section class="van-stories" aria-label="{esc(title)}">
                 <h2 class="van-section-title">{esc(title)}</h2>
                 <div class="van-stories-row">
                     {"".join(bubbles)}
                 </div>
             </section>'''
-    data_js = json.dumps([{"src": s.get("src"), "poster": s.get("poster"), "label": s.get("label", f"Clip {i+1}")}
-                          for i, s in enumerate(stories)])
+
+
+def story_items(items):
+    out = []
+    for i, s in enumerate(items):
+        src = s.get("src") or ""
+        kind = "video" if src.lower().endswith((".mp4", ".mov", ".webm")) else "image"
+        out.append({"src": src, "poster": s.get("poster"), "label": s.get("label", f"Clip {i+1}"), "type": kind})
+    return out
+
+
+def stories_component(cfg):
+    """Instagram-stories-style carousels: tappable poster bubbles that open one
+    shared viewer with progress bars and tap-to-advance. Clips autoplay; photos
+    hold for a few seconds. Returns the build strip, the adventures strip, and
+    the viewer."""
+    build = cfg.get("stories") or []
+    adventures = cfg.get("adventures") or []
+    if not build and not adventures:
+        return "", "", ""
+    build_section = story_strip("build", cfg.get("stories_title", "Stories"), build)
+    adventures_section = story_strip("adventures", cfg.get("adventures_title", "Adventures"), adventures)
+    data_js = json.dumps({"build": story_items(build), "adventures": story_items(adventures)})
     viewer = f'''<div class="van-viewer" id="van-viewer" aria-hidden="true" role="dialog" aria-label="Stories">
             <div class="van-viewer-backdrop" data-close></div>
             <div class="van-viewer-stage">
                 <div class="van-viewer-bars" id="van-viewer-bars"></div>
                 <div class="van-viewer-top">
-                    <span class="van-viewer-title">vanlifecoder</span>
+                    <span class="van-viewer-title" id="van-viewer-title">vanlifecoder</span>
                     <div class="van-viewer-actions">
                         <button class="van-viewer-btn" id="van-viewer-mute" type="button" aria-label="Toggle sound">\U0001F507</button>
                         <button class="van-viewer-btn" data-close type="button" aria-label="Close">✕</button>
                     </div>
                 </div>
                 <video class="van-viewer-video" id="van-viewer-video" playsinline muted preload="auto"></video>
+                <img class="van-viewer-photo" id="van-viewer-photo" alt="">
                 <button class="van-viewer-zone van-viewer-prev" id="van-viewer-prev" type="button" aria-label="Previous"></button>
                 <button class="van-viewer-zone van-viewer-next" id="van-viewer-next" type="button" aria-label="Next"></button>
             </div>
         </div>
         <script>
         (function() {{
-            var STORIES = {data_js};
-            if (!STORIES.length) return;
+            var STRIPS = {data_js};
+            var PHOTO_MS = 5000;
+            var STORIES = [];
             var viewer = document.getElementById('van-viewer');
             var video = document.getElementById('van-viewer-video');
+            var photo = document.getElementById('van-viewer-photo');
+            var titleEl = document.getElementById('van-viewer-title');
             var barsEl = document.getElementById('van-viewer-bars');
             var muteBtn = document.getElementById('van-viewer-mute');
-            var idx = 0, playing = false;
-            STORIES.forEach(function() {{
-                var b = document.createElement('span'); b.className = 'van-bar';
-                b.innerHTML = '<i></i>'; barsEl.appendChild(b);
-            }});
-            var bars = barsEl.querySelectorAll('.van-bar i');
+            var idx = 0, playing = false, bars = [], raf = null;
+            function buildBars() {{
+                barsEl.innerHTML = '';
+                STORIES.forEach(function() {{
+                    var b = document.createElement('span'); b.className = 'van-bar';
+                    b.innerHTML = '<i></i>'; barsEl.appendChild(b);
+                }});
+                bars = barsEl.querySelectorAll('.van-bar i');
+            }}
             function setBars() {{
                 bars.forEach(function(el, i) {{ el.style.width = i < idx ? '100%' : '0%'; }});
             }}
             function preload(i) {{
-                if (i >= 0 && i < STORIES.length) {{ var im = new Image(); im.src = STORIES[i].poster; }}
+                if (i >= 0 && i < STORIES.length) {{
+                    var s = STORIES[i], im = new Image();
+                    im.src = s.type === 'image' ? s.src : s.poster;
+                }}
+            }}
+            function stopTimer() {{ if (raf) cancelAnimationFrame(raf); raf = null; }}
+            function stopVideo() {{ video.pause(); video.removeAttribute('src'); video.load(); }}
+            function holdPhoto() {{
+                var start = null;
+                function tick(t) {{
+                    if (start === null) start = t;
+                    var p = (t - start) / PHOTO_MS;
+                    bars[idx].style.width = Math.min(100, p * 100) + '%';
+                    if (p >= 1) {{ raf = null; next(); return; }}
+                    raf = requestAnimationFrame(tick);
+                }}
+                raf = requestAnimationFrame(tick);
             }}
             function load(i) {{
+                stopTimer();
                 idx = i; setBars();
-                video.poster = STORIES[i].poster;
-                video.src = STORIES[i].src;
-                video.currentTime = 0;
-                var p = video.play(); if (p && p.catch) p.catch(function() {{}});
+                var s = STORIES[i], isPhoto = s.type === 'image';
+                viewer.classList.toggle('is-photo', isPhoto);
+                titleEl.textContent = isPhoto ? s.label : 'vanlifecoder';
+                if (isPhoto) {{
+                    stopVideo();
+                    photo.alt = s.label; photo.src = s.src;
+                    holdPhoto();
+                }} else {{
+                    photo.removeAttribute('src');
+                    video.poster = s.poster;
+                    video.src = s.src;
+                    video.currentTime = 0;
+                    var p = video.play(); if (p && p.catch) p.catch(function() {{}});
+                }}
                 preload(i + 1);
             }}
-            function open(i) {{
+            function open(strip, i) {{
+                STORIES = STRIPS[strip] || [];
+                if (!STORIES.length) return;
+                buildBars();
                 viewer.classList.add('is-open'); viewer.setAttribute('aria-hidden', 'false');
                 document.body.style.overflow = 'hidden'; playing = true; load(i);
             }}
             function close() {{
-                viewer.classList.remove('is-open'); viewer.setAttribute('aria-hidden', 'true');
-                document.body.style.overflow = ''; playing = false; video.pause(); video.removeAttribute('src'); video.load();
+                stopTimer();
+                viewer.classList.remove('is-open', 'is-photo'); viewer.setAttribute('aria-hidden', 'true');
+                document.body.style.overflow = ''; playing = false; stopVideo(); photo.removeAttribute('src');
             }}
             function next() {{ if (idx < STORIES.length - 1) load(idx + 1); else close(); }}
             function prev() {{ if (idx > 0) load(idx - 1); else load(0); }}
             video.addEventListener('timeupdate', function() {{
-                if (video.duration) bars[idx].style.width = (100 * video.currentTime / video.duration) + '%';
+                if (video.duration && bars[idx]) bars[idx].style.width = (100 * video.currentTime / video.duration) + '%';
             }});
             video.addEventListener('ended', next);
             document.getElementById('van-viewer-next').addEventListener('click', next);
@@ -809,12 +880,13 @@ def stories_component(cfg):
             video.addEventListener('pointerdown', function() {{ video.pause(); }});
             video.addEventListener('pointerup', function() {{ if (playing) video.play().catch(function(){{}}); }});
             Array.prototype.forEach.call(document.querySelectorAll('.van-story-bubble'), function(b) {{
-                b.addEventListener('click', function() {{ open(parseInt(b.getAttribute('data-i'), 10) || 0); }});
-                var im = new Image(); im.src = STORIES[parseInt(b.getAttribute('data-i'), 10) || 0].poster;
+                b.addEventListener('click', function() {{
+                    open(b.getAttribute('data-strip'), parseInt(b.getAttribute('data-i'), 10) || 0);
+                }});
             }});
         }})();
         </script>'''
-    return section, viewer
+    return build_section, adventures_section, viewer
 
 
 def load_routes(out_root: Path):
@@ -1018,16 +1090,18 @@ def render_landing(content_root: Path, out_root: Path, build_entries):
 
     journal = gallery(build_entries, "build")
     routes_html = routes_strip(out_root)
-    stories_section, stories_viewer = stories_component(cfg)
+    stories_section, adventures_section, stories_viewer = stories_component(cfg)
 
     body = f'''            {cover_html}
             <header class="van-header van-landing-header">
                 <h1>{esc(title)}</h1>
                 <div class="van-intro van-lede">{intro_html}</div>
+                {social_links()}
                 {ba}
                 {video_html}
             </header>
             {stories_section}
+            {adventures_section}
             <section class="van-index">
                 <div class="van-col">
                     <h2 class="van-section-title">Follow Along</h2>
@@ -1066,7 +1140,30 @@ def render_landing(content_root: Path, out_root: Path, build_entries):
 
 # coll -> is a gallery/list collection with entries + detail pages
 GALLERY_COLLECTIONS = ["build", "nature", "towns", "resources"]
-SINGLE_PAGES = ["prep", "misc"]
+SINGLE_PAGES = ["musings"]
+# old URLs -> where that content lives now
+REDIRECTS = {"prep": "/van/musings", "misc": "/van/musings"}
+
+
+def render_redirect(old, target, out_root: Path):
+    out = out_root / "van" / old / "index.html"
+    out.parent.mkdir(parents=True, exist_ok=True)
+    out.write_text(f'''<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Moved</title>
+    <link rel="canonical" href="{SITE}{target}">
+    <meta name="robots" content="noindex">
+    <meta http-equiv="refresh" content="0; url={target}">
+    <script>location.replace('{target}');</script>
+</head>
+<body>
+    <p>This page moved to <a href="{target}">{target}</a>.</p>
+</body>
+</html>
+''', encoding="utf-8")
+    return out
 
 
 def main():
@@ -1111,6 +1208,9 @@ def main():
         p = content_root / f"{name}.md"
         if p.exists():
             built.append(render_single_page(name, p, out_root))
+
+    for old, target in REDIRECTS.items():
+        built.append(render_redirect(old, target, out_root))
 
     # Landing
     built.append(render_landing(content_root, out_root, build_entries))
