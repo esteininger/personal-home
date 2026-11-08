@@ -37,7 +37,6 @@ SITE = "https://ethan.dev"
 NAV_ITEMS = [
     ("/about", "About"),
     ("/album", "Album"),
-    ("/road", "Road"),
     ("/van", "Van"),
     ("/utilities", "Utilities"),
     ("/articles", "Articles"),
